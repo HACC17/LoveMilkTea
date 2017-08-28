@@ -1,0 +1,163 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const chalk = require("chalk");
+const cli_utils_1 = require("@ionic/cli-utils");
+const command_1 = require("@ionic/cli-utils/lib/command");
+const validators_1 = require("@ionic/cli-utils/lib/validators");
+let PackageBuildCommand = class PackageBuildCommand extends command_1.Command {
+    preRun(inputs, options) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            const { PackageClient } = yield Promise.resolve().then(function () { return require('@ionic/cli-utils/lib/package'); });
+            const { SecurityClient } = yield Promise.resolve().then(function () { return require('@ionic/cli-utils/lib/security'); });
+            const token = yield this.env.session.getAppUserToken();
+            const pkg = new PackageClient(token, this.env.client);
+            const sec = new SecurityClient(token, this.env.client);
+            if (!inputs[0]) {
+                const platform = yield this.env.prompt({
+                    type: 'list',
+                    name: 'platform',
+                    message: 'What platform would you like to target:',
+                    choices: ['ios', 'android'],
+                });
+                inputs[0] = platform;
+            }
+            if (!options['profile'] && (inputs[0] === 'ios' || (inputs[0] === 'android' && options['release']))) {
+                this.env.tasks.next(`Build requires security profile, but ${chalk.green('--profile')} was not provided. Looking up your profiles`);
+                const allProfiles = yield sec.getProfiles({});
+                this.env.tasks.end();
+                const desiredProfileType = options['release'] ? 'production' : 'development';
+                const profiles = allProfiles.filter(p => p.type === desiredProfileType);
+                if (profiles.length === 0) {
+                    this.env.log.error(`Sorry--a valid ${chalk.bold(desiredProfileType)} security profile is required for ${pkg.formatPlatform(inputs[0])} ${options['release'] ? 'release' : 'debug'} builds.`);
+                    return 1;
+                }
+                if (profiles.length === 1) {
+                    this.env.log.warn(`Attempting to use ${chalk.bold(profiles[0].tag)} (${chalk.bold(profiles[0].name)}), as it is your only ${chalk.bold(desiredProfileType)} security profile.`);
+                    options['profile'] = profiles[0].tag;
+                }
+                else {
+                    const profile = yield this.env.prompt({
+                        type: 'list',
+                        name: 'profile',
+                        message: 'Please choose a security profile to use with this build',
+                        choices: profiles.map(p => ({
+                            name: p.name,
+                            short: p.name,
+                            value: p.tag,
+                        })),
+                    });
+                    options['profile'] = profile;
+                }
+            }
+        });
+    }
+    run(inputs, options) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            const { upload } = yield Promise.resolve().then(function () { return require('@ionic/cli-utils/lib/upload'); });
+            const { DeployClient } = yield Promise.resolve().then(function () { return require('@ionic/cli-utils/lib/deploy'); });
+            const { PackageClient } = yield Promise.resolve().then(function () { return require('@ionic/cli-utils/lib/package'); });
+            const { SecurityClient } = yield Promise.resolve().then(function () { return require('@ionic/cli-utils/lib/security'); });
+            const { filterOptionsByIntent } = yield Promise.resolve().then(function () { return require('@ionic/cli-utils/lib/utils/command'); });
+            const { createArchive } = yield Promise.resolve().then(function () { return require('@ionic/cli-utils/lib/utils/archive'); });
+            let [platform] = inputs;
+            let { prod, release, profile, note } = options;
+            if (typeof note !== 'string') {
+                note = 'Ionic Package Upload';
+            }
+            const project = yield this.env.project.load();
+            const token = yield this.env.session.getAppUserToken();
+            const deploy = new DeployClient(token, this.env.client);
+            const sec = new SecurityClient(token, this.env.client);
+            const pkg = new PackageClient(token, this.env.client);
+            if (typeof profile === 'string') {
+                this.env.tasks.next(`Retrieving security profile ${chalk.bold(profile)}`);
+                const p = yield sec.getProfile(profile.toLowerCase()); // TODO: gracefully handle 404
+                this.env.tasks.end();
+                if (!p.credentials[platform]) {
+                    this.env.log.error(`Profile ${chalk.bold(p.tag)} (${chalk.bold(p.name)}) was found, but didn't have credentials for ${pkg.formatPlatform(platform)}.`); // TODO: link to docs
+                    return 1;
+                }
+                if (release && p.type !== 'production') {
+                    this.env.log.error(`Profile ${chalk.bold(p.tag)} (${chalk.bold(p.name)}) is a ${chalk.bold(p.type)} profile, which won't work for release builds.\n` +
+                        `Please use a production security profile.`); // TODO: link to docs
+                    return 1;
+                }
+            }
+            if (project.type === 'ionic-angular' && release && !prod) {
+                this.env.log.warn(`We recommend using ${chalk.green('--prod')} for production builds when using ${chalk.green('--release')}.`);
+            }
+            this.env.tasks.end();
+            const { build } = yield Promise.resolve().then(function () { return require('@ionic/cli-utils/commands/build'); });
+            yield build(this.env, inputs, filterOptionsByIntent(this.metadata, options, 'app-scripts'));
+            const snapshotRequest = yield upload(this.env, { note });
+            this.env.tasks.next('Requesting project upload');
+            const uploadTask = this.env.tasks.next('Uploading project');
+            const proj = yield pkg.requestProjectUpload();
+            const zip = createArchive('zip');
+            zip.file('package.json', {});
+            zip.file('config.xml', {});
+            zip.directory('resources', {});
+            zip.finalize();
+            yield pkg.uploadProject(proj, zip, { progress: (loaded, total) => {
+                    uploadTask.progress(loaded, total);
+                } });
+            this.env.tasks.next('Queuing build');
+            const snapshot = yield deploy.getSnapshot(snapshotRequest.uuid, {});
+            const packageBuild = yield pkg.queueBuild({
+                platform,
+                mode: release ? 'release' : 'debug',
+                zipUrl: snapshot.url,
+                projectId: proj.id,
+                profileTag: typeof profile === 'string' ? profile : undefined,
+            });
+            this.env.tasks.end();
+            this.env.log.ok(`Build ${packageBuild.id} has been submitted!`);
+        });
+    }
+};
+PackageBuildCommand = tslib_1.__decorate([
+    command_1.CommandMetadata({
+        name: 'build',
+        type: 'project',
+        backends: [cli_utils_1.BACKEND_LEGACY],
+        description: 'Start a package build',
+        longDescription: `
+Ionic Package makes it easy to build a native binary of your app in the cloud.
+
+Full documentation can be found here: ${chalk.bold('https://docs.ionic.io/services/package/')}
+  `,
+        exampleCommands: ['android', 'ios --profile=dev', 'android --profile=prod --release --prod'],
+        inputs: [
+            {
+                name: 'platform',
+                description: `The platform to target: ${chalk.green('ios')}, ${chalk.green('android')}`,
+                validators: [validators_1.contains(['ios', 'android'], {})],
+            },
+        ],
+        options: [
+            {
+                name: 'prod',
+                description: 'Mark as a production build',
+                type: Boolean,
+                intent: 'app-scripts',
+            },
+            {
+                name: 'release',
+                description: 'Mark as a release build',
+                type: Boolean,
+            },
+            {
+                name: 'profile',
+                description: 'The security profile to use with this build',
+                type: String,
+                aliases: ['p'],
+            },
+            {
+                name: 'note',
+                description: 'Give the package snapshot a note',
+            },
+        ],
+    })
+], PackageBuildCommand);
+exports.PackageBuildCommand = PackageBuildCommand;
