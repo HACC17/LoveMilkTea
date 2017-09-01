@@ -23,7 +23,7 @@ export class HomePage {
     this.afAuth.authState.subscribe(data => {
         if(data && data.email && data.uid){
             this.toast.create({
-                message: `We hope you like milktea, ${data.email}`,
+                message: `We hope you like milktea ;)`,
                 duration: 3000
             }).present();
         }
