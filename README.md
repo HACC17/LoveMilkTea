@@ -4,7 +4,7 @@
 $ sudo npm install -g ionic cordova
 ```
 
-Then, to run it, cd into `hookele` and run:
+After cloning the repo, cd into the project directory and run:
 
 ```bash
 $ ionic serve --lab
