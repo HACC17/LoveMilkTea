@@ -36,4 +36,9 @@ export class HomePage {
     });
   }
 
+  logout() {
+      this.afAuth.auth.signOut();
+      this.navCtrl.push('LoginPage');
+  }
+
 }

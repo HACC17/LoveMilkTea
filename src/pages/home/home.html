@@ -1,10 +1,12 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Home</ion-title>
-    <ion-icon class="logout" float-right name="log-out" (click)="logout()"></ion-icon>
+    <button class="logout-btn" ion-button clear icon-only float-right (click)="logout()">
+      <ion-icon class="logout-icon" name="log-out"></ion-icon>
+    </button>
   </ion-navbar>
 </ion-header>
 
