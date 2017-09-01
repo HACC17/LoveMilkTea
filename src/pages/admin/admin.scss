@@ -1,4 +1,4 @@
-page-home {
+page-admin {
   ion-title {
     position: absolute;
     top: 0;
@@ -8,4 +8,14 @@ page-home {
     height: 100%;
     text-align: center;
   }
+
+  .logout-icon {
+    font-size: 25px;
+    color: #FFFFFF;
+    padding-right: 0.5em;
+  }
+
+  .logout-btn {
+    height: 25px;
+   }
 }

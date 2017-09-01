@@ -31,7 +31,12 @@ export class RegisterPage {
           const result = await this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password);
           if(result){
               this.navCtrl.setRoot('HomePage');
+              this.toast.create({
+                  message: `We hope you like milktea ;)`,
+                  duration: 3000
+              }).present();
               console.log(result);
+              console.log(user);
           }
       }
       catch(e){

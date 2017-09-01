@@ -30,7 +30,7 @@ export class LoginPage {
     try {
         const result = await this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);
         if(result){
-            this.navCtrl.setRoot('HomePage');
+            this.navCtrl.push('AdminPage');
             console.log(result);
         }
     }
@@ -40,10 +40,6 @@ export class LoginPage {
             duration: 3000
         }).present();
     }
-  }
-
-  register() {
-      this.navCtrl.push('RegisterPage');
   }
 
 }

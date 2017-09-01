@@ -7,7 +7,10 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>Login</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Admin Login</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -26,6 +29,5 @@
   </ion-item>
 
   <button ion-button class="login-btn" full color="primary" (click)="login(user)">Login</button>
-  <button ion-button class="register-btn" block clear (click)="register()">Create New Account</button>
 
 </ion-content>
