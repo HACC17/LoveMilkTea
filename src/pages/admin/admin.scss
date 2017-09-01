@@ -1,0 +1,21 @@
+page-admin {
+  ion-title {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0 90px 1px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+  }
+
+  .logout-icon {
+    font-size: 25px;
+    color: #FFFFFF;
+    padding-right: 0.5em;
+  }
+
+  .logout-btn {
+    height: 25px;
+   }
+}
