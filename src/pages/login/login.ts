@@ -30,8 +30,12 @@ export class LoginPage {
     try {
         const result = await this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);
         if(result){
-            this.navCtrl.push('AdminPage');
-            console.log(result);
+            this.navCtrl.setRoot('AdminPage');
+            this.toast.create({
+                message: `Admin Access Granted`,
+                duration: 3000
+            }).present();
+            console.log(this.afAuth.auth.currentUser);
         }
     }
     catch(e){
