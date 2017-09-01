@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
-import { User } from "../../models/user";
-import { AngularFireAuth } from "angularfire2/auth"
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
+import {User} from "../../models/user";
+import {AngularFireAuth} from "angularfire2/auth"
 
 /**
  * Generated class for the LoginPage page.
@@ -12,38 +12,38 @@ import { AngularFireAuth } from "angularfire2/auth"
 
 @IonicPage()
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html',
+    selector: 'page-login',
+    templateUrl: 'login.html',
 })
 export class LoginPage {
 
-  user = {} as User;
+    user = {} as User;
 
-  constructor(private afAuth: AngularFireAuth, private toast: ToastController, public navCtrl: NavController, public navParams: NavParams) {
-  }
+    constructor(private afAuth: AngularFireAuth, private toast: ToastController, public navCtrl: NavController, public navParams: NavParams) {
+    }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
-  }
+    ionViewDidLoad() {
+        console.log('ionViewDidLoad LoginPage');
+    }
 
-  async login(user: User) {
-    try {
-        const result = await this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);
-        if(result){
-            this.navCtrl.setRoot('AdminPage');
+    async login(user: User) {
+        try {
+            const result = await this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);
+            if (result) {
+                this.navCtrl.setRoot('AdminPage');
+                this.toast.create({
+                    message: `Admin Access Granted`,
+                    duration: 3000
+                }).present();
+                console.log(this.afAuth.auth.currentUser);
+            }
+        }
+        catch (e) {
             this.toast.create({
-                message: `Admin Access Granted`,
+                message: e,
                 duration: 3000
             }).present();
-            console.log(this.afAuth.auth.currentUser);
         }
     }
-    catch(e){
-        this.toast.create({
-            message: e,
-            duration: 3000
-        }).present();
-    }
-  }
 
 }

@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
-import { AngularFireAuth } from "angularfire2/auth";
+import {Component} from '@angular/core';
+import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
+import {AngularFireAuth} from "angularfire2/auth";
 
 /**
  * Generated class for the AdminPage page.
@@ -11,21 +11,21 @@ import { AngularFireAuth } from "angularfire2/auth";
 
 @IonicPage()
 @Component({
-  selector: 'page-admin',
-  templateUrl: 'admin.html',
+    selector: 'page-admin',
+    templateUrl: 'admin.html',
 })
 export class AdminPage {
 
-  constructor(private afAuth: AngularFireAuth, private toast: ToastController, public navCtrl: NavController, public navParams: NavParams) {
-  }
+    constructor(private afAuth: AngularFireAuth, private toast: ToastController, public navCtrl: NavController, public navParams: NavParams) {
+    }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AdminPage');
-  }
+    ionViewDidLoad() {
+        console.log('ionViewDidLoad AdminPage');
+    }
 
-  async logout() {
-      const result = await this.afAuth.auth.signOut();
-      this.navCtrl.setRoot('HomePage');
+    async logout() {
+        const result = await this.afAuth.auth.signOut();
+        this.navCtrl.setRoot('HomePage');
     }
 
 }
