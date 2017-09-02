@@ -575,7 +575,7 @@ var SubmitDataPage = (function () {
         this.navCtrl = navCtrl;
         this.app = __WEBPACK_IMPORTED_MODULE_3_firebase__["initializeApp"](__WEBPACK_IMPORTED_MODULE_2__app_firebase_config__["a" /* FIREBASE_CONFIG */]);
         this.db = this.app.database();
-        this.ref = this.db.ref("data_points");
+        this.ref = this.db.ref("dataPoints");
     }
     SubmitDataPage.prototype.ionViewDidLoad = function () {
     };

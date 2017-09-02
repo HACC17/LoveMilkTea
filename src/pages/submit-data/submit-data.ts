@@ -16,7 +16,7 @@ export class SubmitDataPage {
     constructor(public navCtrl: NavController) {
         this.app = firebase.initializeApp(FIREBASE_CONFIG);
         this.db = this.app.database();
-        this.ref = this.db.ref("data_points");
+        this.ref = this.db.ref("dataPoints");
     }
 
     ionViewDidLoad() {
