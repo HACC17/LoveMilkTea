@@ -1,6 +1,7 @@
 import {Component, ViewChild, ElementRef} from '@angular/core';
 import {NavController} from 'ionic-angular';
-
+import {FIREBASE_CONFIG} from "./../../app.firebase.config";
+import * as firebase from 'firebase';
 
 @Component({
     selector: 'submit-page',
@@ -8,9 +9,14 @@ import {NavController} from 'ionic-angular';
 })
 
 export class SubmitDataPage {
+    ref: any;
+    app: any;
+    db: any;
 
     constructor(public navCtrl: NavController) {
-
+        this.app = firebase.initializeApp(FIREBASE_CONFIG);
+        this.db = this.app.database();
+        this.ref = this.db.ref("data_points");
     }
 
     ionViewDidLoad() {
@@ -19,7 +25,7 @@ export class SubmitDataPage {
 
     onSubmit(formData) {
         console.log(formData);
+        this.ref.set(formData);
     }
 
 }
-
