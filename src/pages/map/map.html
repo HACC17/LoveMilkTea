@@ -7,6 +7,14 @@
     </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+
+<ion-content >
+    <div id="float-button">
+        <button ion-button (click)="toggleStreetView()">
+            <ion-icon name="eye"></ion-icon>
+            StreetView
+        </button>
+    </div>
+
     <div #map id="map"></div>
 </ion-content>

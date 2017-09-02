@@ -1,4 +1,10 @@
 page-map {
+  #float-button {
+    position: absolute;
+    right: 0;
+    z-index :5;
+  }
+
   #map {
     height: 100%;
   }

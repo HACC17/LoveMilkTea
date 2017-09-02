@@ -12,6 +12,7 @@ export class MapPage {
 
     @ViewChild('map') mapElement: ElementRef;
     map: any;
+    panorama: any;
 
     constructor(public navCtrl: NavController) {
 
@@ -24,13 +25,28 @@ export class MapPage {
     loadMap() {
         this.map = new google.maps.Map(this.mapElement.nativeElement, {
             zoom: 18,
-            center: {lat: 21.298393, lng: -157.818918}
+            center: {lat: 21.298393, lng: -157.818918},
+            //streetViewControl: false
         });
 
+        this.panorama = this.map.getStreetView();
+        this.panorama.setPosition({lat: 21.298393, lng: -157.818918});
 
+        var marker = new google.maps.Marker({
+            position: {lat: 21.298393, lng: -157.818918},
+            map: this.map,
+        });
     }
 
-
+    //Could be useful if needed.
+    toggleStreetView() {
+        let toggle = this.panorama.getVisible();
+        if (toggle == false) {
+            this.panorama.setVisible(true);
+        } else {
+            this.panorama.setVisible(false);
+        }
+    }
 
 
 }
