@@ -571,11 +571,14 @@ var SubmitDataPage = (function () {
     }
     SubmitDataPage.prototype.ionViewDidLoad = function () {
     };
+    SubmitDataPage.prototype.onSubmit = function (formData) {
+        console.log(formData);
+    };
     return SubmitDataPage;
 }());
 SubmitDataPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'submit-page',template:/*ion-inline-start:"/Users/chasepugh/Documents/LoveMilkTea/src/pages/submit-data/submit-data.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Submit Data</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n\n  <ion-item>\n    <ion-label floating>First Name</ion-label>\n    <ion-input type="text" [(ngModel)]="firstName"></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label floating>Last Name</ion-label>\n    <ion-input type="text" [(ngModel)]="lastName"></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label floating>Contact Email</ion-label>\n    <ion-input type="text" [(ngModel)]="email"></ion-input>\n  </ion-item>\n\n\n  <button ion-button class="login-btn" full color="primary" (click)="login()">Submit</button>\n\n</ion-content>'/*ion-inline-end:"/Users/chasepugh/Documents/LoveMilkTea/src/pages/submit-data/submit-data.html"*/
+        selector: 'submit-page',template:/*ion-inline-start:"/Users/chasepugh/Documents/LoveMilkTea/src/pages/submit-data/submit-data.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Submit Data</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n<ion-list inset>\n  <form #formData=\'ngForm\' (ngSubmit)="onSubmit(formData)">\n  <ion-item>\n    <ion-label floating>First Name</ion-label>\n    <ion-input type="text" ngControl="firstName"></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label floating>Last Name</ion-label>\n    <ion-input type="text" ngControl="lastName"></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label floating>Contact Email</ion-label>\n    <ion-input type="text" ngControl="email"></ion-input>\n  </ion-item>\n  </form>\n</ion-list>\n\n  <button ion-button class="login-btn" full color="primary" (click)="login()">Submit</button>\n\n</ion-content>'/*ion-inline-end:"/Users/chasepugh/Documents/LoveMilkTea/src/pages/submit-data/submit-data.html"*/
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _a || Object])
 ], SubmitDataPage);

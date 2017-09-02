@@ -17,5 +17,9 @@ export class SubmitDataPage {
 
     }
 
+    onSubmit(formData) {
+        console.log(formData);
+    }
+
 }
 
