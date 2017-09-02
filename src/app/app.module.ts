@@ -7,6 +7,7 @@ import {HomePage} from '../pages/home/home';
 import {ListPage} from '../pages/list/list';
 import {MapPage} from '../pages/map/map';
 import {LoginPage} from "../pages/login/login";
+import {SubmitDataPage} from "../pages/submit-data/submit-data";
 
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
@@ -20,7 +21,8 @@ import {FIREBASE_CONFIG} from "./app.firebase.config";
         MyApp,
         ListPage,
         MapPage,
-        LoginPage
+        LoginPage,
+        SubmitDataPage,
 
     ],
     imports: [
@@ -34,8 +36,8 @@ import {FIREBASE_CONFIG} from "./app.firebase.config";
         MyApp,
         ListPage,
         MapPage,
-        LoginPage
-
+        LoginPage,
+        SubmitDataPage,
     ],
     providers: [
         StatusBar,
