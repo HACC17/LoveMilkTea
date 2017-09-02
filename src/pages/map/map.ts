@@ -1,9 +1,9 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import {Component, ViewChild, ElementRef} from '@angular/core';
+import {NavController} from 'ionic-angular';
 
 declare var google;
 
-@Component ({
+@Component({
     selector: 'page-map',
     templateUrl: 'map.html'
 })
@@ -19,7 +19,7 @@ export class MapPage {
 
     }
 
-    ionViewDidLoad(){
+    ionViewDidLoad() {
         this.loadMap();
     }
 
@@ -30,9 +30,6 @@ export class MapPage {
                     "featureType": "administrative.country",
                     "elementType": "geometry.stroke",
                     "stylers": [
-                        {
-                            "lightness": "40"
-                        },
                         {
                             "visibility": "on"
                         }
@@ -159,6 +156,24 @@ export class MapPage {
                     ]
                 },
                 {
+                    "featureType": "road.highway.controlled_access",
+                    "elementType": "geometry.fill",
+                    "stylers": [
+                        {
+                            "visibility": "on"
+                        },
+                        {
+                            "color": "#24a95a"
+                        },
+                        {
+                            "lightness": "29"
+                        },
+                        {
+                            "saturation": "-58"
+                        }
+                    ]
+                },
+                {
                     "featureType": "road.arterial",
                     "elementType": "all",
                     "stylers": [
@@ -177,6 +192,15 @@ export class MapPage {
                     ]
                 },
                 {
+                    "featureType": "road.arterial",
+                    "elementType": "geometry.fill",
+                    "stylers": [
+                        {
+                            "visibility": "on"
+                        }
+                    ]
+                },
+                {
                     "featureType": "road.local",
                     "elementType": "all",
                     "stylers": [
@@ -191,6 +215,36 @@ export class MapPage {
                         },
                         {
                             "gamma": 1
+                        }
+                    ]
+                },
+                {
+                    "featureType": "transit.station",
+                    "elementType": "geometry.fill",
+                    "stylers": [
+                        {
+                            "visibility": "on"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "transit.station.bus",
+                    "elementType": "geometry.fill",
+                    "stylers": [
+                        {
+                            "visibility": "on"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "transit.station.bus",
+                    "elementType": "labels.icon",
+                    "stylers": [
+                        {
+                            "visibility": "on"
+                        },
+                        {
+                            "hue": "#00b1ff"
                         }
                     ]
                 },
