@@ -13,6 +13,7 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import {AngularFireModule} from "angularfire2";
 import {AngularFireAuthModule} from "angularfire2/auth";
 import {FIREBASE_CONFIG} from "./app.firebase.config";
+import {ExplorePage} from "../pages/explore/explore";
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import {FIREBASE_CONFIG} from "./app.firebase.config";
         MyApp,
         ListPage,
         MapPage,
-        LoginPage
+        LoginPage,
+        ExplorePage
 
     ],
     imports: [
@@ -34,7 +36,8 @@ import {FIREBASE_CONFIG} from "./app.firebase.config";
         MyApp,
         ListPage,
         MapPage,
-        LoginPage
+        LoginPage,
+        ExplorePage
 
     ],
     providers: [
