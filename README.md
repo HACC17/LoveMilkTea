@@ -38,4 +38,4 @@ ionic serve
 
 [![Download on the App Store](https://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg)](https://itunes.apple.com/app/apple-store/id933117605?pt=107449857&ct=github&mt=8)
 
-© Made with :heart: Milk Tea ☕
+© Made with :heart: & Milk Tea ☕
