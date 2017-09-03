@@ -31,3 +31,6 @@ src/themes/version.scss
 scripts/e2e/webpackEntryPoints.json
 scripts/build/e2e-generated-tsconfig.json
 *.css.ts
+
+
+package-lock.json

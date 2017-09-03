@@ -4,7 +4,6 @@ import {IonicApp, IonicErrorHandler, IonicModule} from 'ionic-angular';
 
 import {MyApp} from './app.component';
 import {HomePage} from '../pages/home/home';
-import {ListPage} from '../pages/list/list';
 import {MapPage} from '../pages/map/map';
 import {LoginPage} from "../pages/login/login";
 import {SubmitDataPage} from "../pages/submit-data/submit-data";
@@ -19,7 +18,6 @@ import {FIREBASE_CONFIG} from "./../app.firebase.config";
 @NgModule({
     declarations: [
         MyApp,
-        ListPage,
         MapPage,
         LoginPage,
         SubmitDataPage,
@@ -34,7 +32,6 @@ import {FIREBASE_CONFIG} from "./../app.firebase.config";
     bootstrap: [IonicApp],
     entryComponents: [
         MyApp,
-        ListPage,
         MapPage,
         LoginPage,
         SubmitDataPage,
