@@ -33,5 +33,4 @@ export class SubmitDataPage {
         this.childRef = this.ref.push();
         this.childRef.set(formData.value);
     }
-
 }
