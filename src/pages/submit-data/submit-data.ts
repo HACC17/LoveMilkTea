@@ -10,12 +10,13 @@ import * as firebase from 'firebase';
 
 export class SubmitDataPage {
     ref: any;
-    app: any;
+    childRef: any;
+    App: any;
     db: any;
 
     constructor(public navCtrl: NavController) {
-        this.app = firebase.initializeApp(FIREBASE_CONFIG);
-        this.db = this.app.database();
+        this.App = firebase.initializeApp(FIREBASE_CONFIG);
+        this.db = this.App.database();
         this.ref = this.db.ref("dataPoints");
     }
 
@@ -25,7 +26,7 @@ export class SubmitDataPage {
 
     onSubmit(formData) {
         console.log(formData);
-        this.ref.set(formData);
+        this.childRef = this.ref.child("temp");
+        this.childRef.setValue(formData);
     }
-
 }

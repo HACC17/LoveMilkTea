@@ -573,15 +573,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var SubmitDataPage = (function () {
     function SubmitDataPage(navCtrl) {
         this.navCtrl = navCtrl;
-        this.app = __WEBPACK_IMPORTED_MODULE_3_firebase__["initializeApp"](__WEBPACK_IMPORTED_MODULE_2__app_firebase_config__["a" /* FIREBASE_CONFIG */]);
-        this.db = this.app.database();
+        this.App = __WEBPACK_IMPORTED_MODULE_3_firebase__["initializeApp"](__WEBPACK_IMPORTED_MODULE_2__app_firebase_config__["a" /* FIREBASE_CONFIG */]);
+        this.db = this.App.database();
         this.ref = this.db.ref("dataPoints");
     }
     SubmitDataPage.prototype.ionViewDidLoad = function () {
     };
     SubmitDataPage.prototype.onSubmit = function (formData) {
         console.log(formData);
-        this.ref.set(formData);
+        this.childRef = this.ref.child("temp");
+        this.childRef.setValue(formData);
     };
     return SubmitDataPage;
 }());
