@@ -30,9 +30,8 @@ export class SubmitDataPage {
     }
 
     onSubmit(formData: NgForm) {
-        console.log(formData.value);
-        this.childRef = this.ref.child("temp");
-        this.childRef.setValue(formData.value);
+        this.childRef = this.ref.push();
+        this.childRef.set(formData.value);
     }
 
 }
