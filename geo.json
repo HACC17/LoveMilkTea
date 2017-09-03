@@ -1,1 +1,154 @@
-{"columns":{"building":["Campus Center","Campus Center","Campus Center","Campus Center","Campus Center","Campus Center","Campus Center","Campus Center","Campus Center","Campus Center","Campus Center","Campus Center","Campus Center","Campus Center"],"floor":["First","First","First","First","First","Second","Second","First","Second","Third","Second","First","First","First"],"object":["Payphone","Vending Machine - Drinks","Vending Machine - Drinks","ATM","ATM","Starbucks","Subway","Pizza Hut","Jamba Juice","Campus Center Ballroom","Campus Center Cafeteria","Campus Store","Warrior Recreational Center","iLab"],"latitude":[21,21,21,21,21,21,21,21,21,21,21,21,21,21],"longitude":[-157,-157,-157,-157,-157,-157,-157,-157,-157,-157,-157,-157,-157,-157],"comments":["Hawaiian Telcom","DASANI","Coca Cola","Bank of Hawaii","First Hawaiian Bank","Starbucks","Subway","Pizza Hut","Jamba Juice","Campus Center Ballroom","Campus Center Cafeteria","Campus Store","Warrior Recreational Center","iLab"],"internalcomments":[null,"$1.75 a drink",null,null,null,null,null,null,null,null,null,null,null,null],"insideoutside":["Outside","Outside","Outside","Outside","Outside","Inside","Inside","Inside","Inside","Inside","Inside","Inside","Inside","Inside"]},"rows":[{"building":"Campus Center","floor":"First","object":"Payphone","latitude":21,"longitude":-157,"comments":"Hawaiian Telcom","internalcomments":null,"insideoutside":"Outside"},{"building":"Campus Center","floor":"First","object":"Vending Machine - Drinks","latitude":21,"longitude":-157,"comments":"DASANI","internalcomments":"$1.75 a drink","insideoutside":"Outside"},{"building":"Campus Center","floor":"First","object":"Vending Machine - Drinks","latitude":21,"longitude":-157,"comments":"Coca Cola","internalcomments":null,"insideoutside":"Outside"},{"building":"Campus Center","floor":"First","object":"ATM","latitude":21,"longitude":-157,"comments":"Bank of Hawaii","internalcomments":null,"insideoutside":"Outside"},{"building":"Campus Center","floor":"First","object":"ATM","latitude":21,"longitude":-157,"comments":"First Hawaiian Bank","internalcomments":null,"insideoutside":"Outside"},{"building":"Campus Center","floor":"Second","object":"Starbucks","latitude":21,"longitude":-157,"comments":"Starbucks","internalcomments":null,"insideoutside":"Inside"},{"building":"Campus Center","floor":"Second","object":"Subway","latitude":21,"longitude":-157,"comments":"Subway","internalcomments":null,"insideoutside":"Inside"},{"building":"Campus Center","floor":"First","object":"Pizza Hut","latitude":21,"longitude":-157,"comments":"Pizza Hut","internalcomments":null,"insideoutside":"Inside"},{"building":"Campus Center","floor":"Second","object":"Jamba Juice","latitude":21,"longitude":-157,"comments":"Jamba Juice","internalcomments":null,"insideoutside":"Inside"},{"building":"Campus Center","floor":"Third","object":"Campus Center Ballroom","latitude":21,"longitude":-157,"comments":"Campus Center Ballroom","internalcomments":null,"insideoutside":"Inside"},{"building":"Campus Center","floor":"Second","object":"Campus Center Cafeteria","latitude":21,"longitude":-157,"comments":"Campus Center Cafeteria","internalcomments":null,"insideoutside":"Inside"},{"building":"Campus Center","floor":"First","object":"Campus Store","latitude":21,"longitude":-157,"comments":"Campus Store","internalcomments":null,"insideoutside":"Inside"},{"building":"Campus Center","floor":"First","object":"Warrior Recreational Center","latitude":21,"longitude":-157,"comments":"Warrior Recreational Center","internalcomments":null,"insideoutside":"Inside"},{"building":"Campus Center","floor":"First","object":"iLab","latitude":21,"longitude":-157,"comments":"iLab","internalcomments":null,"insideoutside":"Inside"}]}
+{
+    "columns":
+    {
+        "building": ["Campus Center", "Campus Center", "Campus Center", "Campus Center", "Campus Center", "Campus Center", "Campus Center", "Campus Center", "Campus Center", "Campus Center", "Campus Center", "Campus Center", "Campus Center", "Campus Center"],
+        "floor": ["First", "First", "First", "First", "First", "Second", "Second", "First", "Second", "Third", "Second", "First", "First", "First"],
+        "object": ["Payphone", "Vending Machine - Drinks", "Vending Machine - Drinks", "ATM", "ATM", "Starbucks", "Subway", "Pizza Hut", "Jamba Juice", "Campus Center Ballroom", "Campus Center Cafeteria", "Campus Store", "Warrior Recreational Center", "iLab"],
+        "latitude": [21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21],
+        "longitude": [-157, -157, -157, -157, -157, -157, -157, -157, -157, -157, -157, -157, -157, -157],
+        "comments": ["Hawaiian Telcom", "DASANI", "Coca Cola", "Bank of Hawaii", "First Hawaiian Bank", "Starbucks", "Subway", "Pizza Hut", "Jamba Juice", "Campus Center Ballroom", "Campus Center Cafeteria", "Campus Store", "Warrior Recreational Center", "iLab"],
+        "internalcomments": [null, "$1.75 a drink", null, null, null, null, null, null, null, null, null, null, null, null],
+        "insideoutside": ["Outside", "Outside", "Outside", "Outside", "Outside", "Inside", "Inside", "Inside", "Inside", "Inside", "Inside", "Inside", "Inside", "Inside"]
+    },
+    "rows": [
+    {
+        "building": "Campus Center",
+        "floor": "First",
+        "object": "Payphone",
+        "latitude": 21,
+        "longitude": -157,
+        "comments": "Hawaiian Telcom",
+        "internalcomments": null,
+        "insideoutside": "Outside"
+    },
+    {
+        "building": "Campus Center",
+        "floor": "First",
+        "object": "Vending Machine - Drinks",
+        "latitude": 21,
+        "longitude": -157,
+        "comments": "DASANI",
+        "internalcomments": "$1.75 a drink",
+        "insideoutside": "Outside"
+    },
+    {
+        "building": "Campus Center",
+        "floor": "First",
+        "object": "Vending Machine - Drinks",
+        "latitude": 21,
+        "longitude": -157,
+        "comments": "Coca Cola",
+        "internalcomments": null,
+        "insideoutside": "Outside"
+    },
+    {
+        "building": "Campus Center",
+        "floor": "First",
+        "object": "ATM",
+        "latitude": 21,
+        "longitude": -157,
+        "comments": "Bank of Hawaii",
+        "internalcomments": null,
+        "insideoutside": "Outside"
+    },
+    {
+        "building": "Campus Center",
+        "floor": "First",
+        "object": "ATM",
+        "latitude": 21,
+        "longitude": -157,
+        "comments": "First Hawaiian Bank",
+        "internalcomments": null,
+        "insideoutside": "Outside"
+    },
+    {
+        "building": "Campus Center",
+        "floor": "Second",
+        "object": "Starbucks",
+        "latitude": 21,
+        "longitude": -157,
+        "comments": "Starbucks",
+        "internalcomments": null,
+        "insideoutside": "Inside"
+    },
+    {
+        "building": "Campus Center",
+        "floor": "Second",
+        "object": "Subway",
+        "latitude": 21,
+        "longitude": -157,
+        "comments": "Subway",
+        "internalcomments": null,
+        "insideoutside": "Inside"
+    },
+    {
+        "building": "Campus Center",
+        "floor": "First",
+        "object": "Pizza Hut",
+        "latitude": 21,
+        "longitude": -157,
+        "comments": "Pizza Hut",
+        "internalcomments": null,
+        "insideoutside": "Inside"
+    },
+    {
+        "building": "Campus Center",
+        "floor": "Second",
+        "object": "Jamba Juice",
+        "latitude": 21,
+        "longitude": -157,
+        "comments": "Jamba Juice",
+        "internalcomments": null,
+        "insideoutside": "Inside"
+    },
+    {
+        "building": "Campus Center",
+        "floor": "Third",
+        "object": "Campus Center Ballroom",
+        "latitude": 21,
+        "longitude": -157,
+        "comments": "Campus Center Ballroom",
+        "internalcomments": null,
+        "insideoutside": "Inside"
+    },
+    {
+        "building": "Campus Center",
+        "floor": "Second",
+        "object": "Campus Center Cafeteria",
+        "latitude": 21,
+        "longitude": -157,
+        "comments": "Campus Center Cafeteria",
+        "internalcomments": null,
+        "insideoutside": "Inside"
+    },
+    {
+        "building": "Campus Center",
+        "floor": "First",
+        "object": "Campus Store",
+        "latitude": 21,
+        "longitude": -157,
+        "comments": "Campus Store",
+        "internalcomments": null,
+        "insideoutside": "Inside"
+    },
+    {
+        "building": "Campus Center",
+        "floor": "First",
+        "object": "Warrior Recreational Center",
+        "latitude": 21,
+        "longitude": -157,
+        "comments": "Warrior Recreational Center",
+        "internalcomments": null,
+        "insideoutside": "Inside"
+    },
+    {
+        "building": "Campus Center",
+        "floor": "First",
+        "object": "iLab",
+        "latitude": 21,
+        "longitude": -157,
+        "comments": "iLab",
+        "internalcomments": null,
+        "insideoutside": "Inside"
+    }]
+}
