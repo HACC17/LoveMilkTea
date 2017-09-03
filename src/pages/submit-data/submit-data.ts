@@ -15,7 +15,11 @@ export class SubmitDataPage {
     db: any;
 
     constructor(public navCtrl: NavController) {
-        this.App = firebase.initializeApp(FIREBASE_CONFIG);
+        if (!firebase.apps.length) {
+            this.App = firebase.initializeApp(FIREBASE_CONFIG);
+        } else {
+            console.log(firebase);
+        }
         this.db = this.App.database();
         this.ref = this.db.ref("dataPoints");
     }
