@@ -14,6 +14,7 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import {AngularFireModule} from "angularfire2";
 import {AngularFireAuthModule} from "angularfire2/auth";
 import {FIREBASE_CONFIG} from "./app.firebase.config";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -29,7 +30,9 @@ import {FIREBASE_CONFIG} from "./app.firebase.config";
         BrowserModule,
         IonicModule.forRoot(MyApp),
         AngularFireModule.initializeApp(FIREBASE_CONFIG),
-        AngularFireAuthModule
+        AngularFireAuthModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
     bootstrap: [IonicApp],
     entryComponents: [

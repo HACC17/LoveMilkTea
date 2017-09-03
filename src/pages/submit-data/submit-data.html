@@ -11,24 +11,24 @@
 
 <ion-content padding>
 <ion-list inset>
-  <form #formData='ngForm' (ngSubmit)="onSubmit(formData)">
-  <ion-item>
-    <ion-label floating>First Name</ion-label>
-    <ion-input type="text" ngControl="firstName"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label floating>Last Name</ion-label>
-    <ion-input type="text" ngControl="lastName"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label floating>Contact Email</ion-label>
-    <ion-input type="text" ngControl="email"></ion-input>
-  </ion-item>
+  <form #formData='ngForm'(ngSubmit)="onSubmit(formData)">
+    <ion-item>
+      <ion-label>First Name</ion-label>
+      <ion-input type="text" [(ngModel)]="firstName" name="firstName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Last Name</ion-label>
+      <ion-input type="text" [(ngModel)]="lastName" name="lastName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Contact Email</ion-label>
+      <ion-input type="text" [(ngModel)]="email" name="email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Note to Admin</ion-label>
+      <ion-input type="text" [(ngModel)]="note" name="note"></ion-input>
+    </ion-item>
+    <button ion-button type="submit" block>Submit</button>
   </form>
 </ion-list>
-
-  <button ion-button class="login-btn" full color="primary" (click)="login()">Submit</button>
-
 </ion-content>

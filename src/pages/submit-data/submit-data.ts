@@ -1,5 +1,7 @@
 import {Component, ViewChild, ElementRef} from '@angular/core';
 import {NavController} from 'ionic-angular';
+import {NgForm} from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -17,9 +19,9 @@ export class SubmitDataPage {
 
     }
 
-    onSubmit(formData) {
-        console.log(formData);
+    onSubmit(f: NgForm) {
+        console.log(f.value);
+
     }
 
 }
-
