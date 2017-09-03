@@ -1,10 +1,12 @@
-# Ho'okele
+# LoveMilkTea
 _I got lost in thoughts. It was unfamiliar territory_
 
 [![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 
 ## Description
-This project gives a better and enchanced view to your navigation experience. It brings your map to life with dazzling waypoints and overlaying pathways.
+This project gives a better and enchanced view to your navigation experience. With dazzling waypoints and overlaying pathways, it brings your map to life.
 
 ## Overview
 We used [Ionic](https://ionicframework.com/) and [Cordova](https://cordova.apache.org/) to create the app.
@@ -21,7 +23,7 @@ We used [Ionic](https://ionicframework.com/) and [Cordova](https://cordova.apach
 #  Install the required global packages
 sudo npm install -g ionic cordova
 # Clone the repository
-git clone https://github.com/HACC17/LoveMilkTea.git
+git clone https://github.com/HACC17/LoveMilkTea.git && cd LoveMilkTea
 # Install packages
 npm install
 # Run the local/dev server
