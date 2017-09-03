@@ -4,6 +4,10 @@ page-explore {
       text-align: center;
     }
 
+    span {
+      font-size: 14px;
+    }
+
     .description {
       text-align: left;
       font-size: 12px;
@@ -38,5 +42,4 @@ page-explore {
       background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../../assets/images/stan-sheriff.jpg');
       color: white;
     }
-
 }
