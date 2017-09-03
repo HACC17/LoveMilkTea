@@ -37,3 +37,5 @@ ionic serve
 [![Get it on Google Play](https://developer.android.com/images/brand/en_generic_rgb_wo_45.png)](https://play.google.com/store/apps/details)
 
 [![Download on the App Store](https://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg)](https://itunes.apple.com/app/apple-store/id933117605?pt=107449857&ct=github&mt=8)
+
+© Made with :heart: Milk Tea ☕
