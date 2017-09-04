@@ -12,21 +12,31 @@
 <ion-content padding>
 <ion-list inset>
   <form #formData='ngForm'(ngSubmit)="onSubmit(formData)">
+    <ion-label>Contact Information</ion-label>
     <ion-item>
-      <ion-label>First Name</ion-label>
-      <ion-input type="text" [(ngModel)]="firstName" name="firstName"></ion-input>
+      <ion-label color="primary" >First Name</ion-label>
+      <ion-input type="text" placeholder="Enter name" [(ngModel)]="firstName" name="firstName"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Last Name</ion-label>
-      <ion-input type="text" [(ngModel)]="lastName" name="lastName"></ion-input>
+      <ion-label color="primary" >Last Name</ion-label>
+      <ion-input type="text" placeholder="Enter name" [(ngModel)]="lastName" name="lastName"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Contact Email</ion-label>
-      <ion-input type="text" [(ngModel)]="email" name="email"></ion-input>
+      <ion-label color="primary" >Contact Email</ion-label>
+      <ion-input type="text" placeholder="Enter email" [(ngModel)]="email" name="email"></ion-input>
+    </ion-item>
+    <ion-label>Point of Interest</ion-label>
+    <ion-item>
+      <ion-label color="primary" >Latitude</ion-label>
+      <ion-input type="text" placeholder="Enter latitude" [(ngModel)]="latitude" name="latitude"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Note to Admin</ion-label>
-      <ion-input type="text" [(ngModel)]="note" name="note"></ion-input>
+      <ion-label color="primary" >Longitude</ion-label>
+      <ion-input type="text" placeholder="Enter longitude"[(ngModel)]="longitude" name="longitude"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" stacked >Note to Admin</ion-label>
+      <ion-input type="text" placeholder="Enter a note to the Admin" [(ngModel)]="note" name="note"></ion-input>
     </ion-item>
     <button ion-button type="submit" block>Submit</button>
   </form>
