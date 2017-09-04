@@ -14,6 +14,7 @@ export class MapPage {
     map: any;
     styledMapType: any;
     panorama: any;
+    marker: any;
 
     constructor(public navCtrl: NavController) {
 
@@ -284,7 +285,7 @@ export class MapPage {
         this.map = new google.maps.Map(this.mapElement.nativeElement, {
 
             zoom: 17,
-            center: {lat: 21.298393, lng: -157.818918},
+            center: { lat: 21.2969, lng: -157.8171 },
             //streetControlView: false;
             mapTypeControlOptions: {
                 mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain', 'styled_map']
@@ -297,8 +298,40 @@ export class MapPage {
         this.map.mapTypes.set('styled_map', this.styledMapType);
         this.map.setMapTypeId('styled_map');
 
-        var marker = new google.maps.Marker({
-            position: {lat: 21.298393, lng: -157.818918},
+        this.marker = new google.maps.Marker({
+            position: { lat: 21.2969, lng: -157.8171 },
+            title: 'University of Hawaii at Manoa',
+            map: this.map,
+        });
+    }
+
+    addMarker() {
+        let geoData = [{
+            "1": {
+                "name": "Ka Leo Office",
+                "address": "2445 Campus Road, Honolulu, HI, 96822",
+                "lat": 21.2985860,
+                "lng": -157.8195610,
+                "description": "Ka Leo O Hawai'i has been the student newspaper for the Manoa campus since 1922. Papers publish biweekly during the school year and monthly in the summer, but do not run on holidays, breaks or exam periods.",
+                "number": "(808) 956-7043",
+                "website": "N/A"
+            },
+            "2": {
+                "name": "Holmes Hall",
+                "address": "2540 Dole Street, Honolulu, HI, 96822",
+                "lat": 21.2968470,
+                "lng": -157.8161010,
+                "description": "Holmes Hall is home to the Mechanical Engineering, Civil Engineering, Computer Engineering, Electrical Engineering, Renewable Energy and Island Sustainability programs.",
+                "number": "N/A",
+                "website": "N/A"
+            }
+        }];
+
+        let location = {lat: this.getData(i), lng: this.getData(i)}
+
+        this.marker = new google.maps.Marker({
+            position: { lat: 21.2969, lng: -157.8171 },
+            title: 'University of Hawaii at Manoa',
             map: this.map,
         });
     }
