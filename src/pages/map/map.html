@@ -28,13 +28,13 @@
     </button>
   </div>
   <div #map id="map"></div>
-  <div class="geoLoc">
+  <ion-list>
     <ion-item>
-      <ion-label>Choose A Location</ion-label>
-      <ion-select [(ngModel)]="location">
-        <ion-option value="1">Ka Leo</ion-option>
-        <ion-option value="2">Campus Center</ion-option>
+      <ion-label>Select Hive</ion-label>
+      <ion-select #newSelect [(ngModel)]="location" (ionChange)="addMarker(location)">
+        <ion-option value="1" checked="true">Ka Leo</ion-option>
+        <ion-option value="2" >Holmes Hall</ion-option>
       </ion-select>
     </ion-item>
-  </div>
+  </ion-list>
 </ion-content>

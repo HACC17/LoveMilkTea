@@ -305,7 +305,11 @@ export class MapPage {
         });
     }
 
-    addMarker() {
+    addMarker(locationIndex){
+        console.log(locationIndex);
+        if(this.marker) {
+            this.clearMarker();
+        }
         let geoData = [{
             "1": {
                 "name": "Ka Leo Office",
@@ -326,14 +330,15 @@ export class MapPage {
                 "website": "N/A"
             }
         }];
-
-        let location = {lat: this.getData(i), lng: this.getData(i)}
-
         this.marker = new google.maps.Marker({
-            position: { lat: 21.2969, lng: -157.8171 },
+            position: { lat: geoData[0][locationIndex].lat, lng: geoData[0][locationIndex].lng},
             title: 'University of Hawaii at Manoa',
             map: this.map,
         });
+    }
+
+    clearMarker() {
+        this.marker.setMap(null);
     }
 
     //Could be useful if needed.
@@ -345,6 +350,5 @@ export class MapPage {
             this.panorama.setVisible(false);
         }
     }
-
 }
 
