@@ -3,6 +3,7 @@ import {NavController} from 'ionic-angular';
 import {NgForm} from '@angular/forms';
 import {FIREBASE_CONFIG} from "./../../app.firebase.config";
 import * as firebase from 'firebase';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
     selector: 'submit-page',
@@ -14,6 +15,7 @@ export class SubmitDataPage {
     childRef: any;
     App: any;
     db: any;
+    myForm: NgForm;
 
     constructor(public navCtrl: NavController) {
         if (!firebase.apps.length) {
@@ -32,5 +34,11 @@ export class SubmitDataPage {
     onSubmit(formData: NgForm) {
         this.childRef = this.ref.push();
         this.childRef.set(formData.value);
+        console.log(formData.value);
+        this.myForm = formData;
+    }
+
+    get formData(){
+        return this.formData;
     }
 }
