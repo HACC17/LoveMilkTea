@@ -15,6 +15,7 @@ export class MapPage {
     styledMapType: any;
     panorama: any;
     marker: any;
+    infoWindow: any;
 
     constructor(public navCtrl: NavController) {
 
@@ -284,7 +285,7 @@ export class MapPage {
 
         this.map = new google.maps.Map(this.mapElement.nativeElement, {
 
-            zoom: 17,
+            zoom: 16,
             center: { lat: 21.2969, lng: -157.8171 },
             //streetControlView: false;
             mapTypeControlOptions: {
@@ -330,11 +331,20 @@ export class MapPage {
                 "website": "N/A"
             }
         }];
+        let imgSrc = "http://manoanow.org/app/map/images/" + locationIndex + ".png";
+        let infoContent = '<div class="ui grid"><img class="ui fluid image info" src="' + imgSrc + '">' + '<div id="windowHead">' + geoData[0][locationIndex].name + '</div>' + '<div id="description">' + geoData[0][locationIndex].description + '</div>' + '<div id="addressTitle">Address: ' + geoData[0][locationIndex].address + '</div>' + '<div id="phoneTitle">Phone: ' + geoData[0][locationIndex].number + '</div>' + '</div>';
+
         this.marker = new google.maps.Marker({
             position: { lat: geoData[0][locationIndex].lat, lng: geoData[0][locationIndex].lng},
             title: 'University of Hawaii at Manoa',
             map: this.map,
         });
+        
+        this.infoWindow = new google.maps.InfoWindow({
+            content: infoContent,
+        });
+
+        this.infoWindow.open(this.map, this.marker);
     }
 
     clearMarker() {

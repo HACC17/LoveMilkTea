@@ -14,4 +14,23 @@ page-map {
   #geoLoc {
     width: 60%;
   }
+
+  #windowHead {
+    color: black;
+    font-weight: bold;
+    font-size: 130%;
+  }
+
+  #addressTitle {
+    font-weight: bold;
+  }
+
+  #phoneTitle {
+    font-weight: bold;
+  }
+
+  .ui.fluid.image.info {
+    width: 100%;
+    height: 50%;
+  }
 }
