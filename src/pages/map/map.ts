@@ -19,6 +19,9 @@ export class MapPage {
     App: any;
     db: any;
     ref: any;
+    marker: any;
+    infoWindow: any;
+
 
     constructor(public navCtrl: NavController) {
         if (!firebase.apps.length) {
@@ -296,8 +299,8 @@ export class MapPage {
 
         this.map = new google.maps.Map(this.mapElement.nativeElement, {
 
-            zoom: 17,
-            center: {lat: 21.298393, lng: -157.818918},
+            zoom: 16,
+            center: { lat: 21.2969, lng: -157.8171 },
             //streetControlView: false;
             mapTypeControlOptions: {
                 mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain', 'styled_map']
@@ -310,10 +313,57 @@ export class MapPage {
         this.map.mapTypes.set('styled_map', this.styledMapType);
         this.map.setMapTypeId('styled_map');
 
-        var defaultMark = new google.maps.Marker({
-            position: {lat: 21.298393, lng: -157.818918},
+
+        this.marker = new google.maps.Marker({
+            position: { lat: 21.2969, lng: -157.8171 },
+            title: 'University of Hawaii at Manoa',
             map: this.map,
         });
+    }
+
+    addMarker(locationIndex){
+        console.log(locationIndex);
+        if(this.marker) {
+            this.clearMarker();
+        }
+        let geoData = [{
+            "1": {
+                "name": "Ka Leo Office",
+                "address": "2445 Campus Road, Honolulu, HI, 96822",
+                "lat": 21.2985860,
+                "lng": -157.8195610,
+                "description": "Ka Leo O Hawai'i has been the student newspaper for the Manoa campus since 1922. Papers publish biweekly during the school year and monthly in the summer, but do not run on holidays, breaks or exam periods.",
+                "number": "(808) 956-7043",
+                "website": "N/A"
+            },
+            "2": {
+                "name": "Holmes Hall",
+                "address": "2540 Dole Street, Honolulu, HI, 96822",
+                "lat": 21.2968470,
+                "lng": -157.8161010,
+                "description": "Holmes Hall is home to the Mechanical Engineering, Civil Engineering, Computer Engineering, Electrical Engineering, Renewable Energy and Island Sustainability programs.",
+                "number": "N/A",
+                "website": "N/A"
+            }
+        }];
+        let imgSrc = "http://manoanow.org/app/map/images/" + locationIndex + ".png";
+        let infoContent = '<div class="ui grid"><img class="ui fluid image info" src="' + imgSrc + '">' + '<div id="windowHead">' + geoData[0][locationIndex].name + '</div>' + '<div id="description">' + geoData[0][locationIndex].description + '</div>' + '<div id="addressTitle">Address: ' + geoData[0][locationIndex].address + '</div>' + '<div id="phoneTitle">Phone: ' + geoData[0][locationIndex].number + '</div>' + '</div>';
+
+        this.marker = new google.maps.Marker({
+            position: { lat: geoData[0][locationIndex].lat, lng: geoData[0][locationIndex].lng},
+            title: 'University of Hawaii at Manoa',
+            map: this.map,
+        });
+        
+        this.infoWindow = new google.maps.InfoWindow({
+            content: infoContent,
+        });
+
+        this.infoWindow.open(this.map, this.marker);
+    }
+
+    clearMarker() {
+        this.marker.setMap(null);
     }
 
     //Could be useful if needed.
@@ -325,6 +375,5 @@ export class MapPage {
             this.panorama.setVisible(false);
         }
     }
-
 }
 
