@@ -1,4 +1,6 @@
 import {Component, ViewChild, ElementRef} from '@angular/core';
+import {FIREBASE_CONFIG} from "./../../app.firebase.config";
+import * as firebase from 'firebase';
 import {NavController} from 'ionic-angular';
 
 declare var google;
@@ -14,9 +16,20 @@ export class MapPage {
     map: any;
     styledMapType: any;
     panorama: any;
+    App: any;
+    db: any;
+    ref: any;
 
     constructor(public navCtrl: NavController) {
+        if (!firebase.apps.length) {
+            this.App = firebase.initializeApp(FIREBASE_CONFIG);
+        } else {
+            console.log(firebase);
+        }
 
+        this.db = this.App.database();
+        this.ref = this.db.ref("testPoints");
+        console.log("reference to database:" + this.ref);
     }
 
     ionViewDidLoad() {
@@ -297,7 +310,7 @@ export class MapPage {
         this.map.mapTypes.set('styled_map', this.styledMapType);
         this.map.setMapTypeId('styled_map');
 
-        var marker = new google.maps.Marker({
+        var defaultMark = new google.maps.Marker({
             position: {lat: 21.298393, lng: -157.818918},
             map: this.map,
         });
