@@ -1,13 +1,8 @@
 import {Component} from '@angular/core';
 import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {AngularFireAuth} from "angularfire2/auth";
-
-/**
- * Generated class for the AdminPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+import {FIREBASE_CONFIG} from "./../../app.firebase.config";
+import * as firebase from 'firebase';
 
 @IonicPage()
 @Component({
@@ -15,12 +10,35 @@ import {AngularFireAuth} from "angularfire2/auth";
     templateUrl: 'admin.html',
 })
 export class AdminPage {
+    ref: any;
+    childRef: any;
+    App: any;
+    db: any;
+    items: string[];
+
 
     constructor(private afAuth: AngularFireAuth, private toast: ToastController, public navCtrl: NavController, public navParams: NavParams) {
+        if (!firebase.apps.length) {
+            this.App = firebase.initializeApp(FIREBASE_CONFIG);
+        } else {
+            this.App = firebase;
+        }
+        this.db = this.App.database();
+        this.ref = this.db.ref('/dataPoints/');
     }
 
     ionViewDidLoad() {
         console.log('ionViewDidLoad AdminPage');
+    }
+
+    displayData() {
+        var items = [];
+        this.ref.once('value').then(function(datakey) {
+            datakey.forEach(function (data) {
+                items.push(data.val());
+            });
+        });
+        this.items = items;
     }
 
     async logout() {
