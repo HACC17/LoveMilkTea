@@ -38,7 +38,4 @@ export class SubmitDataPage {
         this.myForm = formData;
     }
 
-    get formData(){
-        return this.formData;
-    }
 }
