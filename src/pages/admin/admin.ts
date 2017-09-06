@@ -40,6 +40,13 @@ export class AdminPage {
         });
         this.items = items;
     }
+    approve() {
+
+    }
+
+    deleteItem(){
+        
+    }
 
     async logout() {
         const result = await this.afAuth.auth.signOut();

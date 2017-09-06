@@ -24,13 +24,31 @@
   </ion-list>
   <ion-card *ngFor="let item of items">
     <ion-card-header>
-      {{item.firstName}} {{item.lastName}}
+      {{item.pointName}}
     </ion-card-header>
     <ion-card-content>
-      <br/>
-      Contact Email: {{item.email}}
-      <br/>
+      <ion-item>
+        <h2>Submitter Information</h2>
+        <p>Name: {{item.firstName}} {{item.lastName}}</p>
+        <p>Email: {{item.email}}</p>
+        <br/>
+        <h2>Point of Interest Information</h2>
+        <p>Point Name: {{item.pointName}}</p>
+        <p>Latitude: {{item.latitude}}</p>
+        <p>Longitude: {{item.longitude}}</p>
+        <p>Point Website: {{item.website}}</p>
+        <p>Point Phone: {{item.phone}}</p>
+        <p>Point Address: {{item.address}}</p>
+        <p>Description: {{item.description}}</p>
+        <br/>
+        <h2>Note to Admin</h2>
+        <p>Note: {{item.note}}</p>
+      </ion-item>
     </ion-card-content>
+    <button ion-button color="green" (click)="approve()">Approve</button>
+    <button ion-button color="danger"(click)="deny()">Deny</button>
+    <button ion-button color="blue">Edit</button>
+    <button ion-button color="blue"(click)="deleteItem()">Remove</button>
   </ion-card>
 
 </ion-content>
