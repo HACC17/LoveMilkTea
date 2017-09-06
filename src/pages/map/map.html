@@ -1,10 +1,10 @@
 <ion-header>
-    <ion-navbar>
-        <button ion-button menuToggle>
-            <ion-icon name="menu"></ion-icon>
-        </button>
-        <ion-title>UH Map</ion-title>
-    </ion-navbar>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>UH Map</ion-title>
+  </ion-navbar>
 </ion-header>
 
 <ion-content>
@@ -27,6 +27,14 @@
       Toggle View
     </button>
   </div>
-<div #map id="map">
-</div>
+  <div #map id="map"></div>
+  <ion-list>
+    <ion-item>
+      <ion-label>Select Location</ion-label>
+      <ion-select #newSelect [(ngModel)]="location" (ionChange)="addMarker(location)">
+        <ion-option value="1" checked="true">Ka Leo</ion-option>
+        <ion-option value="2" >Holmes Hall</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
 </ion-content>
