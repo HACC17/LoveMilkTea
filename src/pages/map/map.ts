@@ -310,8 +310,6 @@ export class MapPage {
             }
         });
 
-
-
         this.panorama = this.map.getStreetView();
         this.panorama.setPosition({lat: 21.298393, lng: -157.818918});
 
@@ -324,12 +322,13 @@ export class MapPage {
             title: 'University of Hawaii at Manoa',
             map: this.map,
         });
+
     }
 
     loadTags() {
         //load the tag data into the markers variable
         var markersTemp = [];
-        this.ref.once('value', (function (dataPoints) {
+        this.ref.once('value').then(function (dataPoints) {
 
                 dataPoints.forEach(function (dataPoint) {
                     markersTemp.push({
@@ -342,11 +341,22 @@ export class MapPage {
                         website: dataPoint.val().website
                     });
                 });
-            })
-        )
-        //console.log(markersTemp);
-        this.markers = markersTemp;
-        console.log(this.markers);
+            });
+
+            //console.log(markersTemp);
+            this.markers = markersTemp;
+            console.log(markersTemp);
+
+            for (var i = 0, length = this.markers.length; i < length; i++) {
+                var data = this.markers[i],
+                    latLng = new google.maps.LatLng(data.lat, data.lng);
+
+                // Creating a marker and putting it on the map
+                var marker = new google.maps.Marker({
+                    position: latLng,
+                    map: this.map,
+                });
+            }
     }
 
     addMarker(locationIndex){
