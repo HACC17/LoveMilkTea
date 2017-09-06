@@ -27,12 +27,28 @@
     </ion-item>
     <ion-label>Point of Interest</ion-label>
     <ion-item>
+      <ion-label color="primary" >Point of interest name</ion-label>
+      <ion-input type="text" placeholder="Enter name for point of interest" [(ngModel)]="pointName" name="pointName"></ion-input>
+    </ion-item>
+    <ion-item>
       <ion-label color="primary" >Latitude</ion-label>
       <ion-input type="text" placeholder="Enter latitude" [(ngModel)]="latitude" name="latitude"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label color="primary" >Longitude</ion-label>
       <ion-input type="text" placeholder="Enter longitude"[(ngModel)]="longitude" name="longitude"></ion-input>
+    </ion-item>
+    <ion-item>
+    <ion-label color="primary" >Address</ion-label>
+    <ion-input type="text" placeholder="Enter address"[(ngModel)]="address" name="address"></ion-input>
+  </ion-item>
+    <ion-item>
+      <ion-label color="primary" >Phone</ion-label>
+      <ion-input type="text" placeholder="Enter phone for point of interest"[(ngModel)]="phone" name="phone"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" >Website</ion-label>
+      <ion-input type="text" placeholder="Enter a website point of interest"[(ngModel)]="website" name="website"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label color="primary" stacked >Note to Admin</ion-label>
