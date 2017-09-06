@@ -2,6 +2,7 @@ import {Component, ViewChild, ElementRef} from '@angular/core';
 import {FIREBASE_CONFIG} from "./../../app.firebase.config";
 import * as firebase from 'firebase';
 import {NavController} from 'ionic-angular';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
 declare var google;
 
@@ -20,6 +21,7 @@ export class MapPage {
     db: any;
     ref: any;
     marker: any;
+    markers: any[]; // gonna hold all marker data in here for now.
     infoWindow: any;
 
 
@@ -29,14 +31,15 @@ export class MapPage {
         } else {
             console.log(firebase);
         }
-
         this.db = this.App.database();
         this.ref = this.db.ref("testPoints");
-        console.log("reference to database:" + this.ref);
+
+
     }
 
     ionViewDidLoad() {
         this.loadMap();
+        this.loadTags();
     }
 
     loadMap() {
@@ -307,6 +310,8 @@ export class MapPage {
             }
         });
 
+
+
         this.panorama = this.map.getStreetView();
         this.panorama.setPosition({lat: 21.298393, lng: -157.818918});
 
@@ -319,6 +324,27 @@ export class MapPage {
             title: 'University of Hawaii at Manoa',
             map: this.map,
         });
+    }
+
+    loadTags() {
+        //load the tag data into the markers variable
+        var markersTemp = [];
+        this.ref.once('value', (function (dataPoints) {
+
+                dataPoints.forEach(function (dataPoint) {
+                    markersTemp.push({
+                        address: dataPoint.val().address,
+                        description: dataPoint.val().description,
+                        lat: dataPoint.val().lat,
+                        lng: dataPoint.val().lng,
+                        name: dataPoint.val().name
+                    });
+                });
+            })
+        )
+        console.log(markersTemp);
+        this.markers = markersTemp;
+        console.log(this.markers);
     }
 
     addMarker(locationIndex){
