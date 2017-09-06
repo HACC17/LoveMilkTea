@@ -17,5 +17,20 @@
 
 
 <ion-content padding>
-  This is the admin page.
+  <ion-list no-lines>
+    <button ion-item (click)="displayData()">
+     Hello
+    </button>
+  </ion-list>
+  <ion-card *ngFor="let item of items">
+    <ion-card-header>
+      {{item.firstName}} {{item.lastName}}
+    </ion-card-header>
+    <ion-card-content>
+      <br/>
+      Contact Email: {{item.email}}
+      <br/>
+    </ion-card-content>
+  </ion-card>
+
 </ion-content>
