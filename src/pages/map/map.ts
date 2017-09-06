@@ -343,9 +343,9 @@ export class MapPage {
             this.markers = markersTemp;
             console.log(this.markers);
         })
-             .then(() => {
+            .then(() => {
 
-                 console.log(this.markers);
+                console.log(this.markers);
 
                 for (var i = 0, length = this.markers.length; i < length; i++) {
                     var data = this.markers[i],
