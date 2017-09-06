@@ -5,10 +5,10 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 
 
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { MapPage }  from '../pages/map/map';
 import {LoginPage} from '../pages/login/login';
 import {ExplorePage} from "../pages/explore/explore";
+import { SubmitDataPage } from '../pages/submit-data/submit-data';
 
 
 @Component({
@@ -28,12 +28,11 @@ export class MyApp {
         // used for an example of ngFor and navigation
         this.pages = [
             {title: 'Home', component: HomePage},
-            {title: 'List', component: ListPage},
             {title: 'Admin', component: LoginPage},
             { title: 'Map', component: MapPage },
-            { title: 'Explore', component: ExplorePage }
+            { title: 'Explore', component: ExplorePage },
+            {title: 'SubmitData', component: SubmitDataPage}
         ];
-
     }
 
     initializeApp() {
