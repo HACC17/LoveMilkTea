@@ -2,7 +2,6 @@ import {Component, ViewChild, ElementRef} from '@angular/core';
 import {FIREBASE_CONFIG} from "./../../app.firebase.config";
 import * as firebase from 'firebase';
 import {NavController} from 'ionic-angular';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
 declare var google;
 
@@ -15,7 +14,6 @@ export class MapPage {
 
     @ViewChild('map') mapElement: ElementRef;
     map: any;
-    styledMapType: any;
     panorama: any;
     App: any;
     db: any;
@@ -44,8 +42,16 @@ export class MapPage {
     }
 
     loadMap() {
-        this.styledMapType = new google.maps.StyledMapType(
-            [
+
+        this.map = new google.maps.Map(this.mapElement.nativeElement, {
+
+            zoom: 18,
+            center: { lat: 21.2969, lng: -157.8171 },
+            //streetControlView: false;
+            mapTypeControlOptions: {
+                mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain', 'styled_map']
+            },
+            styles: [
                 {
                     "featureType": "administrative.country",
                     "elementType": "geometry.stroke",
@@ -298,26 +304,13 @@ export class MapPage {
                         }
                     ]
                 }
-            ],
-            {name: 'Styled Map'});
-
-        this.map = new google.maps.Map(this.mapElement.nativeElement, {
-
-            zoom: 16,
-            center: { lat: 21.2969, lng: -157.8171 },
-            //streetControlView: false;
-            mapTypeControlOptions: {
-                mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain', 'styled_map']
-            }
+            ]
         });
 
         this.panorama = this.map.getStreetView();
         this.panorama.setPosition({lat: 21.298393, lng: -157.818918});
 
-        this.map.mapTypes.set('styled_map', this.styledMapType);
-        this.map.setMapTypeId('styled_map');
-
-
+        //set up a default marker.
         this.marker = new google.maps.Marker({
             position: { lat: 21.2969, lng: -157.8171 },
             title: 'University of Hawaii at Manoa',
