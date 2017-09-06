@@ -337,12 +337,14 @@ export class MapPage {
                         description: dataPoint.val().description,
                         lat: dataPoint.val().lat,
                         lng: dataPoint.val().lng,
-                        name: dataPoint.val().name
+                        name: dataPoint.val().name,
+                        number: dataPoint.val().number,
+                        website: dataPoint.val().website
                     });
                 });
             })
         )
-        console.log(markersTemp);
+        //console.log(markersTemp);
         this.markers = markersTemp;
         console.log(this.markers);
     }
