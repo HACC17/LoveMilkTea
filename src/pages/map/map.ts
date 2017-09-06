@@ -373,16 +373,8 @@ export class MapPage {
                     let info = "Address: " + data.address + " Name: " + data.name;
 
                     google.maps.event.addListener(marker,'click', (() =>{
-
-                            /* close the previous info-window */
-                            //this.closeInfo();
-
                            this.infoWindow.setContent(info);
                            this.infoWindow.open(this.map,marker);
-
-                            /* keep the handle, in order to close it on next click event */
-                            //this.currWindow = this.infoWindow;
-
                     }))
                 }
             })
@@ -390,13 +382,6 @@ export class MapPage {
 
     }
 
-    closeInfo() {
-        if(this.currWindow !== null) {
-            this.currWindow.set("marker", null);
-            this.currWindow.close();
-        }
-
-    }
 
     // populateTags() {
     //     console.log(this.markers);
