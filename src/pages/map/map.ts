@@ -21,6 +21,7 @@ export class MapPage {
     marker: any;
     public markers: any[]; // gonna hold all marker data in here for now.
     infoWindow: any;
+    currWindow: any; //holds reference to the current open infoWindow
 
 
     constructor(public navCtrl: NavController) {
@@ -31,7 +32,6 @@ export class MapPage {
         }
         this.db = this.App.database();
         this.ref = this.db.ref("testPoints");
-        this.markers = [];
 
 
     }
@@ -39,6 +39,7 @@ export class MapPage {
     ionViewDidLoad() {
         this.loadMap();
         this.loadTags();
+        this.currWindow = null;
     }
 
     loadMap() {
@@ -315,16 +316,26 @@ export class MapPage {
             position: { lat: 21.2969, lng: -157.8171 },
             title: 'University of Hawaii at Manoa',
             map: this.map,
+            icon: {
+                path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW,
+                scale: 4
+            }
+
         });
+
+
+
+        this.marker.setAnimation(google.maps.Animation.BOUNCE);
 
     }
 
     //retrieves the tags from our firebase, populates them on map.
     loadTags() {
         //load the tag data into the markers variable
-        var markersTemp = [];
+        let markersTemp = [];
         this.markers = [];
-        this.ref.once("value").then((dataPoints) => { //ARROW NOTATION IMPORTANT
+        this.ref.once("value")
+            .then((dataPoints) => { //ARROW NOTATION IMPORTANT
                 console.log(dataPoints.val())
                 dataPoints.forEach(function (dataPoint) {
                     markersTemp.push({
@@ -339,26 +350,51 @@ export class MapPage {
                 });
                 //console.log(this.markers);
             })
+
             .then(() => {
-            this.markers = markersTemp;
-            console.log(this.markers);
-        })
+                this.markers = markersTemp;
+                console.log(this.markers);
+            })
             .then(() => {
 
                 console.log(this.markers);
+                this.infoWindow = new google.maps.InfoWindow();
 
-                for (var i = 0, length = this.markers.length; i < length; i++) {
-                    var data = this.markers[i],
+                for (let i = 0, length = this.markers.length; i < length; i++) {
+                    let data = this.markers[i],
                         latLng = new google.maps.LatLng(data.lat, data.lng);
 
                     // Creating a marker and putting it on the map
-                    var marker = new google.maps.Marker({
+                    let marker = new google.maps.Marker({
                         position: latLng,
                         map: this.map,
                     });
+
+                    let info = "Address: " + data.address + " Name: " + data.name;
+
+                    google.maps.event.addListener(marker,'click', (() =>{
+
+                            /* close the previous info-window */
+                            //this.closeInfo();
+
+                           this.infoWindow.setContent(info);
+                           this.infoWindow.open(this.map,marker);
+
+                            /* keep the handle, in order to close it on next click event */
+                            //this.currWindow = this.infoWindow;
+
+                    }))
                 }
             })
-       // console.log(this.markers);
+        // console.log(this.markers);
+
+    }
+
+    closeInfo() {
+        if(this.currWindow !== null) {
+            this.currWindow.set("marker", null);
+            this.currWindow.close();
+        }
 
     }
 
