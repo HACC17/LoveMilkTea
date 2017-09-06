@@ -21,7 +21,7 @@ export class MapPage {
     db: any;
     ref: any;
     marker: any;
-    markers: any[]; // gonna hold all marker data in here for now.
+    public markers: any[]; // gonna hold all marker data in here for now.
     infoWindow: any;
 
 
@@ -33,6 +33,7 @@ export class MapPage {
         }
         this.db = this.App.database();
         this.ref = this.db.ref("testPoints");
+        this.markers = [];
 
 
     }
@@ -325,11 +326,13 @@ export class MapPage {
 
     }
 
+    //retrieves the tags from our firebase, populates them on map.
     loadTags() {
         //load the tag data into the markers variable
         var markersTemp = [];
-        this.ref.once('value').then(function (dataPoints) {
-
+        this.markers = [];
+        this.ref.once("value").then((dataPoints) => { //ARROW NOTATION IMPORTANT
+                console.log(dataPoints.val())
                 dataPoints.forEach(function (dataPoint) {
                     markersTemp.push({
                         address: dataPoint.val().address,
@@ -341,23 +344,47 @@ export class MapPage {
                         website: dataPoint.val().website
                     });
                 });
-            });
-
-            //console.log(markersTemp);
+                //console.log(this.markers);
+            })
+            .then(() => {
             this.markers = markersTemp;
-            console.log(markersTemp);
+            console.log(this.markers);
+        })
+             .then(() => {
 
-            for (var i = 0, length = this.markers.length; i < length; i++) {
-                var data = this.markers[i],
-                    latLng = new google.maps.LatLng(data.lat, data.lng);
+                 console.log(this.markers);
 
-                // Creating a marker and putting it on the map
-                var marker = new google.maps.Marker({
-                    position: latLng,
-                    map: this.map,
-                });
-            }
+                for (var i = 0, length = this.markers.length; i < length; i++) {
+                    var data = this.markers[i],
+                        latLng = new google.maps.LatLng(data.lat, data.lng);
+
+                    // Creating a marker and putting it on the map
+                    var marker = new google.maps.Marker({
+                        position: latLng,
+                        map: this.map,
+                    });
+                }
+            })
+       // console.log(this.markers);
+
     }
+
+    // populateTags() {
+    //     console.log(this.markers);
+    //
+    //     for (var i = 0, length = this.markers.length; i < length; i++) {
+    //         var data = this.markers[i],
+    //             latLng = new google.maps.LatLng(data.lat, data.lng);
+    //
+    //         // Creating a marker and putting it on the map
+    //         var marker = new google.maps.Marker({
+    //             position: latLng,
+    //             map: this.map,
+    //         });
+    //     }
+    // }
+
+
 
     addMarker(locationIndex){
         console.log(locationIndex);
