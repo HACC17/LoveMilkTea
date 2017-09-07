@@ -35,17 +35,21 @@ export class AdminPage {
         var items = [];
         this.ref.once('value').then(function(datakey) {
             datakey.forEach(function (data) {
-                items.push(data.val());
+                var temp = data.val();
+                Object.assign(temp, {'key': data.key});
+                items.push(temp);
             });
         });
         this.items = items;
+        console.log(this.items);
     }
     approve() {
 
     }
 
-    deleteItem(){
-        
+    deleteItem(key){
+        console.log(key.key);
+        this.ref.child(key.key).remove();
     }
 
     async logout() {
