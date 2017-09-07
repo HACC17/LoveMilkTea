@@ -30,7 +30,6 @@ export class MapPage {
             console.log(firebase);
             this.App = firebase.app();
         }
-        //this.App = firebase.initializeApp(FIREBASE_CONFIG);
         this.db = this.App.database();
         this.ref = this.db.ref("testPoints");
 
@@ -332,13 +331,12 @@ export class MapPage {
     //retrieves the tags from our firebase, populates them on map.
     loadTags() {
         //load the tag data into the markers variable
-        let markersTemp = [];
         this.markers = [];
         this.ref.once("value")
             .then((dataPoints) => { //ARROW NOTATION IMPORTANT
-                console.log(dataPoints.val())
-                dataPoints.forEach(function (dataPoint) {
-                    markersTemp.push({
+                //console.log(dataPoints.val())
+                dataPoints.forEach((dataPoint) => {
+                    this.markers.push({
                         address: dataPoint.val().address,
                         description: dataPoint.val().description,
                         lat: dataPoint.val().lat,
@@ -351,10 +349,6 @@ export class MapPage {
                 //console.log(this.markers);
             })
 
-            .then(() => {
-                this.markers = markersTemp;
-                console.log(this.markers);
-            })
             .then(() => {
 
                 console.log(this.markers);
@@ -382,21 +376,6 @@ export class MapPage {
 
     }
 
-
-    // populateTags() {
-    //     console.log(this.markers);
-    //
-    //     for (var i = 0, length = this.markers.length; i < length; i++) {
-    //         var data = this.markers[i],
-    //             latLng = new google.maps.LatLng(data.lat, data.lng);
-    //
-    //         // Creating a marker and putting it on the map
-    //         var marker = new google.maps.Marker({
-    //             position: latLng,
-    //             map: this.map,
-    //         });
-    //     }
-    // }
 
 
 
