@@ -15,6 +15,7 @@ export class AdminPage {
     App: any;
     db: any;
     items: string[];
+    status: string;
 
 
     constructor(private afAuth: AngularFireAuth, private toast: ToastController, public navCtrl: NavController, public navParams: NavParams) {
@@ -25,6 +26,15 @@ export class AdminPage {
         }
         this.db = this.App.database();
         this.ref = this.db.ref('/dataPoints/');
+        var items = [];
+        this.ref.once('value').then(function(datakey) {
+            datakey.forEach(function (data) {
+                var temp = data.val();
+                Object.assign(temp, {'key': data.key});
+                items.push(temp);
+            });
+        });
+        this.items = items;
     }
 
     ionViewDidLoad() {
@@ -41,15 +51,14 @@ export class AdminPage {
             });
         });
         this.items = items;
-        console.log(this.items);
     }
     approve() {
 
     }
 
-    deleteItem(key){
-        console.log(key.key);
-        this.ref.child(key.key).remove();
+    deleteItem(value){
+        this.ref.child(value.key).remove();
+        this.navCtrl.setRoot(this.navCtrl.getActive().component);
     }
 
     async logout() {
