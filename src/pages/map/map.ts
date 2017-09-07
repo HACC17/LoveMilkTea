@@ -1,4 +1,6 @@
 import {Component, ViewChild, ElementRef} from '@angular/core';
+import {FIREBASE_CONFIG} from "./../../app.firebase.config";
+import * as firebase from 'firebase';
 import {NavController} from 'ionic-angular';
 
 declare var google;
@@ -12,22 +14,44 @@ export class MapPage {
 
     @ViewChild('map') mapElement: ElementRef;
     map: any;
-    styledMapType: any;
     panorama: any;
+    App: any;
+    db: any;
+    ref: any;
     marker: any;
+    public markers: any[]; // gonna hold all marker data in here for now.
     infoWindow: any;
 
+
     constructor(public navCtrl: NavController) {
+        if (!firebase.apps.length) {
+            this.App = firebase.initializeApp(FIREBASE_CONFIG);
+        } else {
+            console.log(firebase);
+            this.App = firebase.app();
+        }
+        this.db = this.App.database();
+        this.ref = this.db.ref("testPoints");
+
 
     }
 
     ionViewDidLoad() {
         this.loadMap();
+        this.loadTags();
     }
 
     loadMap() {
-        this.styledMapType = new google.maps.StyledMapType(
-            [
+
+        this.map = new google.maps.Map(this.mapElement.nativeElement, {
+
+            zoom: 18,
+            center: { lat: 21.2969, lng: -157.8171 },
+            //streetControlView: false;
+            mapTypeControlOptions: {
+                mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain', 'styled_map']
+            },
+            styles: [
                 {
                     "featureType": "administrative.country",
                     "elementType": "geometry.stroke",
@@ -280,31 +304,80 @@ export class MapPage {
                         }
                     ]
                 }
-            ],
-            {name: 'Styled Map'});
-
-        this.map = new google.maps.Map(this.mapElement.nativeElement, {
-
-            zoom: 16,
-            center: { lat: 21.2969, lng: -157.8171 },
-            //streetControlView: false;
-            mapTypeControlOptions: {
-                mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain', 'styled_map']
-            }
+            ]
         });
 
         this.panorama = this.map.getStreetView();
         this.panorama.setPosition({lat: 21.298393, lng: -157.818918});
 
-        this.map.mapTypes.set('styled_map', this.styledMapType);
-        this.map.setMapTypeId('styled_map');
-
+        //set up a default marker.
         this.marker = new google.maps.Marker({
             position: { lat: 21.2969, lng: -157.8171 },
             title: 'University of Hawaii at Manoa',
             map: this.map,
+            icon: {
+                path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW,
+                scale: 4
+            }
+
         });
+
+
+
+        this.marker.setAnimation(google.maps.Animation.BOUNCE);
+
     }
+
+    //retrieves the tags from our firebase, populates them on map.
+    loadTags() {
+        //load the tag data into the markers variable
+        this.markers = [];
+        this.ref.once("value")
+            .then((dataPoints) => { //ARROW NOTATION IMPORTANT
+                //console.log(dataPoints.val())
+                dataPoints.forEach((dataPoint) => {
+                    this.markers.push({
+                        address: dataPoint.val().address,
+                        description: dataPoint.val().description,
+                        lat: dataPoint.val().lat,
+                        lng: dataPoint.val().lng,
+                        name: dataPoint.val().name,
+                        number: dataPoint.val().number,
+                        website: dataPoint.val().website
+                    });
+                });
+                //console.log(this.markers);
+            })
+
+            .then(() => {
+
+                console.log(this.markers);
+                this.infoWindow = new google.maps.InfoWindow();
+
+                for (let i = 0, length = this.markers.length; i < length; i++) {
+                    let data = this.markers[i],
+                        latLng = new google.maps.LatLng(data.lat, data.lng);
+
+                    // Creating a marker and putting it on the map
+                    let marker = new google.maps.Marker({
+                        position: latLng,
+                        map: this.map,
+                    });
+
+                    let info = "Address: " + data.address + " Name: " + data.name;
+
+                    google.maps.event.addListener(marker,'click', (() =>{
+                           this.infoWindow.setContent(info);
+                           this.infoWindow.open(this.map,marker);
+                    }))
+                }
+            })
+        // console.log(this.markers);
+
+    }
+
+
+
 
     addMarker(locationIndex){
         console.log(locationIndex);
