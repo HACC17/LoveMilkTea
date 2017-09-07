@@ -1,5 +1,8 @@
-import {Component, ViewChild, ElementRef} from '@angular/core';
+import {Component, ViewChild, ElementRef, Injectable} from '@angular/core';
 import {IonicPage, NavController} from 'ionic-angular';
+import {Http} from '@angular/http';
+import 'rxjs/add/operator/map';
+
 
 declare var google;
 
@@ -9,6 +12,7 @@ declare var google;
     templateUrl: 'map.html'
 })
 
+@Injectable()
 export class MapPage {
 
     @ViewChild('map') mapElement: ElementRef;
@@ -17,13 +21,15 @@ export class MapPage {
     panorama: any;
     marker: any;
     infoWindow: any;
+    geoData: any;
 
-    constructor(public navCtrl: NavController) {
+    constructor(public navCtrl: NavController, public http: Http) {
 
     }
 
     ionViewDidLoad() {
         this.loadMap();
+        this.getGeoData();
     }
 
     loadMap() {
@@ -312,31 +318,11 @@ export class MapPage {
         if(this.marker) {
             this.clearMarker();
         }
-        let geoData = [{
-            "1": {
-                "name": "Ka Leo Office",
-                "address": "2445 Campus Road, Honolulu, HI, 96822",
-                "lat": 21.2985860,
-                "lng": -157.8195610,
-                "description": "Ka Leo O Hawai'i has been the student newspaper for the Manoa campus since 1922. Papers publish biweekly during the school year and monthly in the summer, but do not run on holidays, breaks or exam periods.",
-                "number": "(808) 956-7043",
-                "website": "N/A"
-            },
-            "2": {
-                "name": "Holmes Hall",
-                "address": "2540 Dole Street, Honolulu, HI, 96822",
-                "lat": 21.2968470,
-                "lng": -157.8161010,
-                "description": "Holmes Hall is home to the Mechanical Engineering, Civil Engineering, Computer Engineering, Electrical Engineering, Renewable Energy and Island Sustainability programs.",
-                "number": "N/A",
-                "website": "N/A"
-            }
-        }];
         let imgSrc = "http://manoanow.org/app/map/images/" + locationIndex + ".png";
-        let infoContent = '<div class="ui grid"><img class="ui fluid image info" src="' + imgSrc + '">' + '<div id="windowHead">' + geoData[0][locationIndex].name + '</div>' + '<div id="description">' + geoData[0][locationIndex].description + '</div>' + '<div id="addressTitle">Address: ' + geoData[0][locationIndex].address + '</div>' + '<div id="phoneTitle">Phone: ' + geoData[0][locationIndex].number + '</div>' + '</div>';
+        let infoContent = '<div class="ui grid"><img class="ui fluid image info" src="' + imgSrc + '">' + '<div id="windowHead">' + this.geoData[locationIndex].name + '</div>' + '<div id="description">' + this.geoData[locationIndex].description + '</div>' + '<div id="addressTitle">Address: ' + this.geoData[locationIndex].address + '</div>' + '<div id="phoneTitle">Phone: ' + this.geoData[locationIndex].number + '</div>' + '</div>';
 
         this.marker = new google.maps.Marker({
-            position: { lat: geoData[0][locationIndex].lat, lng: geoData[0][locationIndex].lng},
+            position: { lat: this.geoData[locationIndex].lat, lng: this.geoData[locationIndex].lng},
             title: 'University of Hawaii at Manoa',
             map: this.map,
         });
@@ -360,6 +346,14 @@ export class MapPage {
         } else {
             this.panorama.setVisible(false);
         }
+    }
+
+    getGeoData(){
+        this.http.get('assets/data/locations.json')
+            .map((res) => res.json())
+            .subscribe(data => {
+                this.geoData = data;
+            }, (rej) => {console.error("Could not load local data",rej)});
     }
 }
 
