@@ -8,12 +8,12 @@
 
 </ion-header>
 
-
 <ion-content padding>
-  <ion-item>
-    <h2>{{status}}</h2>
-  </ion-item>
   <ion-card *ngFor="let item of items">
+    <ion-item item-right>
+      <ion-icon name="aperture"></ion-icon>
+      {{status}}
+    </ion-item>
     <ion-card-header>
       {{item.pointName}}
     </ion-card-header>
@@ -33,10 +33,10 @@
         <p>Description: {{item.description}}</p>
         <br/>
         <h2>Note to Admin</h2>
-        <p>Note: {{item.note}}</p>
+        <p>{{item.note}}</p>
       </ion-item>
     </ion-card-content>
-    <button ion-button color="green" (click)="approve()">Approve</button>
+    <button ion-button color="green" (click)="approve(item)">Approve</button>
     <button ion-button color="danger"(click)="deny()">Deny</button>
     <button ion-button color="blue">Edit</button>
     <button ion-button color="blue"(click)="deleteItem(item)">Remove</button>
