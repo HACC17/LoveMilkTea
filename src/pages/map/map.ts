@@ -21,7 +21,6 @@ export class MapPage {
     marker: any;
     public markers: any[]; // gonna hold all marker data in here for now.
     infoWindow: any;
-    currWindow: any; //holds reference to the current open infoWindow
 
 
     constructor(public navCtrl: NavController) {
@@ -41,7 +40,6 @@ export class MapPage {
     ionViewDidLoad() {
         this.loadMap();
         this.loadTags();
-        this.currWindow = null;
     }
 
     loadMap() {
