@@ -22,6 +22,7 @@ export class SubmitDataPage {
             this.App = firebase.initializeApp(FIREBASE_CONFIG);
         } else {
             console.log(firebase);
+            this.App = firebase.app();
         }
         this.db = this.App.database();
         this.ref = this.db.ref("dataPoints");
