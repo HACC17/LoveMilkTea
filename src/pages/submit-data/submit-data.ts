@@ -21,7 +21,6 @@ export class SubmitDataPage {
         if (!firebase.apps.length) {
             this.App = firebase.initializeApp(FIREBASE_CONFIG);
         } else {
-            console.log(firebase);
             this.App = firebase.app();
         }
         this.db = this.App.database();
