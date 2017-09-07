@@ -32,9 +32,13 @@ export class SubmitDataPage {
     }
 
     onSubmit(formData: NgForm) {
+        for (var element in formData.value) {
+            if(formData.value[element] === undefined){
+                formData.value[element] = "n/a";
+            }
+        }
         this.childRef = this.ref.push();
         this.childRef.set(formData.value);
-        console.log(formData.value);
         this.myForm = formData;
     }
 
