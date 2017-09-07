@@ -15,7 +15,6 @@ export class SubmitDataPage {
     childRef: any;
     App: any;
     db: any;
-    myForm: NgForm;
 
     constructor(public navCtrl: NavController) {
         if (!firebase.apps.length) {
@@ -30,12 +29,15 @@ export class SubmitDataPage {
     ionViewDidLoad() {
 
     }
-
     onSubmit(formData: NgForm) {
+        for (var element in formData.value) {
+            if(formData.value[element] === undefined){
+                formData.value[element] = "n/a";
+            }
+        }
+        Object.assign(formData.value, {'status': 'pending'});
         this.childRef = this.ref.push();
         this.childRef.set(formData.value);
-        console.log(formData.value);
-        this.myForm = formData;
     }
 
 }
