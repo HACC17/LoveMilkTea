@@ -41,6 +41,7 @@ export class MapPage {
     ionViewDidLoad() {
         this.loadMap();
         this.loadTags();
+
     }
 
     loadMap() {
@@ -342,7 +343,8 @@ export class MapPage {
                         lng: dataPoint.val().lng,
                         name: dataPoint.val().name,
                         number: dataPoint.val().number,
-                        website: dataPoint.val().website
+                        website: dataPoint.val().website,
+                        type: dataPoint.val().type
                     });
                 });
                 //console.log(this.geoMarkers);
@@ -356,25 +358,27 @@ export class MapPage {
                     this.locationsList.push({ value: i, text: this.geoMarkers[i].name});
                 }
 
-                //this.infoWindow = new google.maps.InfoWindow();
+                this.infoWindow = new google.maps.InfoWindow();
 
-                /*for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
+                for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
                     let data = this.geoMarkers[i],
                         latLng = new google.maps.LatLng(data.lat, data.lng);
+                    //if (data.type === 'classroom') {
+                    console.log ("THISSSS:   " + data.type)
+                        // Creating a marker and putting it on the map
+                        let marker = new google.maps.Marker({
+                            position: latLng,
+                            map: this.map,
+                        });
 
-                    // Creating a marker and putting it on the map
-                    let marker = new google.maps.Marker({
-                        position: latLng,
-                        map: this.map,
-                    });
+                        let info = "Address: " + data.address + " Name: " + data.name;
 
-                    let info = "Address: " + data.address + " Name: " + data.name;
-
-                    google.maps.event.addListener(marker,'click', (() =>{
-                           this.infoWindow.setContent(info);
-                           this.infoWindow.open(this.map,marker);
-                    }))
-                }*/
+                        google.maps.event.addListener(marker, 'click', (() => {
+                            this.infoWindow.setContent(info);
+                            this.infoWindow.open(this.map, marker);
+                        }))
+                    }
+               // }
             })
         // console.log(this.geoMarkers);
 
@@ -416,6 +420,60 @@ export class MapPage {
         } else {
             this.panorama.setVisible(false);
         }
+    }
+
+    filterMarker(category){
+        //load the tag data into the geoMarkers variable
+        this.geoMarkers = [];
+        this.ref.once("value")
+            .then((dataPoints) => { //ARROW NOTATION IMPORTANT
+                //console.log(dataPoints.val())
+                dataPoints.forEach((dataPoint) => {
+                    this.geoMarkers.push({
+                        address: dataPoint.val().address,
+                        description: dataPoint.val().description,
+                        lat: dataPoint.val().lat,
+                        lng: dataPoint.val().lng,
+                        name: dataPoint.val().name,
+                        number: dataPoint.val().number,
+                        website: dataPoint.val().website,
+                        type: dataPoint.val().type
+                    });
+                });
+                //console.log(this.geoMarkers);
+            })
+
+            .then(() => {
+
+                //console.log(this.geoMarkers);
+
+                for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
+                    this.locationsList.push({ value: i, text: this.geoMarkers[i].name});
+                }
+
+                this.infoWindow = new google.maps.InfoWindow();
+
+                for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
+                    let data = this.geoMarkers[i],
+                        latLng = new google.maps.LatLng(data.lat, data.lng);
+                    if (data.geoMarkers[i].type === category) {
+                        // Creating a marker and putting it on the map
+                        let marker = new google.maps.Marker({
+                            position: latLng,
+                            map: this.map,
+                        });
+
+                        let info = "Address: " + data.address + " Name: " + data.name;
+
+                        google.maps.event.addListener(marker, 'click', (() => {
+                            this.infoWindow.setContent(info);
+                            this.infoWindow.open(this.map, marker);
+                        }))
+                    }
+                }
+            })
+        // console.log(this.geoMarkers);
+
     }
 }
 
