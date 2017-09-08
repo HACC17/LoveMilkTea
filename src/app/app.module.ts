@@ -8,12 +8,13 @@ import {HomePage} from '../pages/home/home';
 import {MapPage} from '../pages/map/map';
 import {LoginPage} from "../pages/login/login";
 import {SubmitDataPage} from "../pages/submit-data/submit-data";
+import {ExplorePage} from "../pages/explore/explore";
+
 
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {AngularFireModule} from "angularfire2";
 import {AngularFireAuthModule} from "angularfire2/auth";
-import {ExplorePage} from "../pages/explore/explore";
 
 import {FIREBASE_CONFIG} from "../app.firebase.config";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -24,6 +25,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
         MyApp,
         MapPage,
         LoginPage,
+
         ExplorePage,
         SubmitDataPage
     ],
