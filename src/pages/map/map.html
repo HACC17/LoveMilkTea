@@ -22,19 +22,18 @@
     </ion-select>
   </ion-item>
 
+
+
   <div id="float-button">
     <button ion-button full small (click)="toggleStreetView()">
       Toggle View
     </button>
   </div>
   <div #map id="map"></div>
-  <ion-list>
-    <ion-item>
-      <ion-label>Select Location</ion-label>
-      <ion-select #newSelect [(ngModel)]="location" (ionChange)="addMarker(location)">
-        <ion-option value="1" checked="true">Ka Leo</ion-option>
-        <ion-option value="2" >Holmes Hall</ion-option>
-      </ion-select>
-    </ion-item>
-  </ion-list>
+  <ion-item>
+    <ion-label>Select A Location</ion-label>
+    <ion-select [(ngModel)]="selectedvalue" #newSelect [(ngModel)]="location" (ionChange)="addMarker(location)">
+      <ion-option *ngFor="let item of locationsList" value="{{item.value}}">{{item.text}}</ion-option>
+    </ion-select>
+  </ion-item> 
 </ion-content>
