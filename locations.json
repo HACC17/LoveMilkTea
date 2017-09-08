@@ -16,7 +16,8 @@
 		"lng": -157.8161010,
 		"description": "Holmes Hall is home to the Mechanical Engineering, Civil Engineering, Computer Engineering, Electrical Engineering, Renewable Energy and Island Sustainability programs.",
 		"number": "N/A",
-		"website": "N/A"
+		"website": "N/A",
+		"type: classroom"
 	},
 	"3": {
 		"name": "Campus Center",
@@ -25,7 +26,8 @@
 		"lng": -157.8188780,
 		"description": "N/A",
 		"number": "N/A",
-		"website": "N/A"
+		"website": "N/A",
+		"type: service"
 	},
 	"4": {
 		"name": "Hamilton Library",
@@ -34,7 +36,8 @@
 		"lng": -157.8161520,
 		"description": "Hamilton Library is home to the Library and Information Science (M.L.I.Sc) program. Room 002",
 		"number": "(808) 956-7321",
-		"website": "http://www.hawaii.edu/lis/"
+		"website": "http://www.hawaii.edu/lis/",
+		"type: library"
 	},
 	"5": {
 		"name": "Sinclair Library",
@@ -43,7 +46,8 @@
 		"lng": -157.8201670,
 		"description": "The Gregg M. Sinclair Library is open 24 hours a day Monday-Thursday, and has limited hours on Friday (12 a.m.-6 p.m.), Saturday (12 p.m.- 6 p.m.) and Sunday (12 p.m.- 12 a.m.). It is home to the Wong Audiovisual Center, which has separate hours of operation. See this page for Fall 2016 hours: ",
 		"number": "(808) 956-8308",
-		"website": "guides.library.manoa.hawaii.edu/sinclairlibrary"
+		"website": "guides.library.manoa.hawaii.edu/sinclairlibrary",
+		"type: library"
 	},
 	"6": {
 		"name": "Pacific Ocean Science and Technology (POST)",
@@ -52,7 +56,8 @@
 		"lng": -157.8164670,
 		"description": "The Pacific Ocean Science and Technology (POST) building is home to the Information and Computer  Sciences, Geology and Geophysics and Ocean Resources Engineering programs.",
 		"number": "N/A",
-		"website": "N/A"
+		"website": "N/A",
+		"type: classroom"
 	},
 	"7": {
 		"name": "Marine Sciences Building",
@@ -61,7 +66,8 @@
 		"lng": -157.8158330,
 		"description": "The Marine Sciences Building is home to the Global Environmental Science (B.S.) and Oceanography (M.S., Ph.D.) programs. Room 205.",
 		"number": "(808) 956-7633",
-		"website": "www.soest.hawaii.edu/oceanography"
+		"website": "www.soest.hawaii.edu/oceanography",
+		"type: classroom"
 	},
 	"8": {
 		"name": "University Health Services",
@@ -70,7 +76,8 @@
 		"lng": -157.8152250,
 		"description": "University Health Services Clinic Hours:",
 		"number": "(808) 956-8965",
-		"website": "http://www.hawaii.edu/shs/"
+		"website": "http://www.hawaii.edu/shs/",
+		"type: service"
 	},
 	"9": {
 		"name": "Watanabe Hall",
@@ -79,7 +86,8 @@
 		"lng": -157.8159980,
 		"description": "This building is home to the Astronomy (B.A., Minor, M.S., Ph.D.) program, whose main office is in Room 416.  ",
 		"number": "(808) 956-7091",
-		"website": "N/A"
+		"website": "N/A",
+		"type: classroom"
 	},
 	"10": {
 		"name": "Hawaii Institute of Geophysics",
@@ -88,7 +96,8 @@
 		"lng": -157.8167090,
 		"description": "Hawaii Institute of Geophysics (B.S., M.S., Ph.D., Minor) is home to the Atmospheric Sciences program. Room 350.",
 		"number": "(808) 956-8775",
-		"website": "www.soest.hawaii.edu/MET"
+		"website": "www.soest.hawaii.edu/MET",
+		"type: classroom"
 	},
 	"11": {
 		"name": "Physical Science Building",
@@ -97,7 +106,8 @@
 		"lng": -157.8160150,
 		"description": "N/A",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"12": {
 		"name": "Keller Hall",
@@ -106,7 +116,8 @@
 		"lng": -157.8158610,
 		"description": "Keller Hall is home to Manoa's Math department, whose main office can be found in Room 401A. The building does not have air conditioning- classes here can get hot, plan accordingly.",
 		"number": "(808) 956-4679",
-		"website": "math.hawaii.edu/wordpress/"
+		"website": "math.hawaii.edu/wordpress/",
+		"type: classroom"
 	},
 	"13": {
 		"name": "Bilger Hall",
@@ -115,7 +126,8 @@
 		"lng": -157.8168750,
 		"description": "Bilger Hall houses the Chemistry department.",
 		"number": "(808) 956-7480",
-		"website": "http://manoa.hawaii.edu/chem/"
+		"website": "http://manoa.hawaii.edu/chem/",
+		"type: classroom"
 	},
 	"14": {
 		"name": "Bilger Addition",
@@ -124,7 +136,8 @@
 		"lng": -157.8161080,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"15": {
 		"name": "Information Technology Center",
@@ -133,7 +146,8 @@
 		"lng": -157.8164890,
 		"description": "N/A",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: service"
 	},
 	"16": {
 		"name": "Kennedy Theatre",
@@ -142,7 +156,8 @@
 		"lng": -157.8150410,
 		"description": "Kennedy Theatre puts on Main Stage, Primetime and Late Night shows that are open to the public. Individuals with a UH ID can get a discount. The phone number for the box office is (808) 956-7655. ",
 		"number": "(808) 956-7655",
-		"website": "manoa.hawaii.edu/liveonstage/"
+		"website": "manoa.hawaii.edu/liveonstage/",
+		"type: entertainment"
 	},
 	"17": {
 		"name": "Art Building",
@@ -151,7 +166,8 @@
 		"lng": -157.8177860,
 		"description": "Manoa's Art and Art History departments are housed here in Room 142 and their offices are open from 8 a.m.-4:30 p.m. on weekdays.",
 		"number": "(808) 956-8251",
-		"website": "http://www.hawaii.edu/art/"
+		"website": "http://www.hawaii.edu/art/",
+		"type: classroom"
 	},
 	"18": {
 		"name": "Sakamaki Hall",
@@ -160,7 +176,8 @@
 		"lng": -157.8172060,
 		"description": "Sakamaki Hall is home to the Psychology, History, Philosophy, and Religion programs.",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"19": {
 		"name": "Kuykendall Hall",
@@ -169,7 +186,8 @@
 		"lng": -157.8176410,
 		"description": "Kuykendall Hall is home to the English department, whose main office is located in Room 402. Plan on bringing a jacket- most of the building's rooms can get cold.",
 		"number": "(808) 956-7619",
-		"website": "english.hawaii.edu/"
+		"website": "english.hawaii.edu/",
+		"type: classroom"
 	},
 	"20": {
 		"name": "Building 37 ( i-Lab )",
@@ -178,7 +196,8 @@
 		"lng": -157.8178390,
 		"description": "N/A",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"21": {
 		"name": "Paradise Palms Cafe",
@@ -187,7 +206,8 @@
 		"lng": -157.8156720,
 		"description": "Paradise Palms is a food court that features six food vendors: The Curb, Domino's Pizza, Honolulu Gourmet, India Cafe Curry Express, L&L and Panda Express. Although the space is open from 8 a.m. to 4:30 p.m., the businesses may have different hours of operation. See the website for more information.",
 		"number": "",
-		"website": "manoa.hawaii.edu/food/paradisePalms.php"
+		"website": "manoa.hawaii.edu/food/paradisePalms.php",
+		"type: food"
 	},
 	"22": {
 		"name": "Moore Hall",
@@ -196,7 +216,8 @@
 		"lng": -157.8151620,
 		"description": "Moore Hall is home to the American Studies, Chinese Studies, East Asian Languages and Literatures, Languages and Literatures of Europe and the Americas (LLEA), Linguistics, Pacific and Asian Studies, Philippine Studies, and Second Language Studies departments.",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"23": {
 		"name": "Henke Hall",
@@ -205,7 +226,8 @@
 		"lng": -157.8150500,
 		"description": "N/A",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"24": {
 		"name": "Snyder Hall",
@@ -214,7 +236,8 @@
 		"lng": -157.8172440,
 		"description": "Snyder Hall is home to the Microbiology (B.A., B.S., Minor, M.S. and Ph.D.) and the Molecular Cell Biology (B.S.) programs whose main office is in Room 207.",
 		"number": "(808) 956-8553",
-		"website": "www.hawaii.edu/microbiology/"
+		"website": "www.hawaii.edu/microbiology/",
+		"type: classroom"
 	},
 	"25": {
 		"name": "Edmonson Hall",
@@ -223,7 +246,8 @@
 		"lng": -157.8167340,
 		"description": "Edmondson Hall is home to the Biology (B.A., B.S., Minor), Ethnobotany (B.S.), Marine Biology (B.S. M.S. Ph.D.), Marine Option Program (Certificate), and Zoology programs. The main office for these programs is in Room 216.",
 		"number": "(808) 956-8303",
-		"website": "http://manoa.hawaii.edu/biology/"
+		"website": "http://manoa.hawaii.edu/biology/",
+		"type: classroom"
 	},
 	"26": {
 		"name": "Webster Hall",
@@ -232,7 +256,8 @@
 		"lng": -157.8177640,
 		"description": "Webster Hall is home to the Nursing Department (B.S., M.S., Ph.D. and Grad. Cert.), whose main office is in Room 446.",
 		"number": "(808) 956-8522",
-		"website": "www.nursing.hawaii.edu"
+		"website": "www.nursing.hawaii.edu",
+		"type: classroom"
 	},
 	"27": {
 		"name": "Spalding Hall",
@@ -241,7 +266,8 @@
 		"lng": -157.8174640,
 		"description": "Spalding is home to the Hawaiian (Undergrad. Cert., Minor, B.A., M.A.), Filipino (B.A. and Cert.), Filipino Language and Culture (Minor), Hindi (B.A. and Undergrad. Cert.), Ilokano (B.A., Undergrad. Cert.), Ilokano Language and Culture (Minor), Indonesian (B.A., Undergrad. Cert.), Indo-Pacific Languages (Undergrad. Cert.), Khmer (Cambodian) (B.A., Undergrad. Cert.), Philippine Language and Literature (B.A.), Samoan (B.A., Undergrad. Cert.), Sanskrit (B.A., Undergrad. Cert.), Tahitian (Certificate), Thai (B.A., Undergrad. Cert.), and the Vietnamese (B.A., Undergrad. Cert.) programs",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"28": {
 		"name": "Administrative Services Building 1",
@@ -250,7 +276,8 @@
 		"lng": -157.8193040,
 		"description": "N/A",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: service"
 	},
 	"29": {
 		"name": "Administrative Services Building 1",
@@ -259,7 +286,8 @@
 		"lng": -157.8197810,
 		"description": "N/A",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: service"
 	},
 	"30": {
 		"name": "Agricultural Engineering Institute",
@@ -268,7 +296,8 @@
 		"lng": -157.8162400,
 		"description": "N/A",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"31": {
 		"name": "Agricultural Science",
@@ -277,7 +306,8 @@
 		"lng": -157.8139180,
 		"description": "The Agricultural Science building is home to two departments: Human Nutrition, Food and Animal Sciences and Molecular Biosciences and Bioengineering. ",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"32": {
 		"name": "Air Force ROTC Building",
@@ -286,7 +316,8 @@
 		"lng": -157.8170200,
 		"description": "N/A",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"33": {
 		"name": "Andrews Outdoor Theatre",
@@ -295,7 +326,8 @@
 		"lng": -157.8188120,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: entertainment"
 	},
 	"34": {
 		"name": "Architecture School",
@@ -304,7 +336,8 @@
 		"lng": -157.8207360,
 		"description": "The School of Architecture houses the Department of Architecture, whose main office is in Room 201. Both Environmental Design (B.Env.D.) majors and Architecture (D.Arch.) candidates can find help here.",
 		"number": "(808) 956-7225",
-		"website": "http://www.arch.hawaii.edu/"
+		"website": "http://www.arch.hawaii.edu/",
+		"type: classroom"
 	},
 	"35": {
 		"name": "Army ROTC Building",
@@ -313,7 +346,8 @@
 		"lng": -157.8164910,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"36": {
 		"name": "Institute for Astronomy",
@@ -322,7 +356,8 @@
 		"lng": -157.8117560,
 		"description": "",
 		"number": "(808) 956-8312",
-		"website": "http://www.ifa.hawaii.edu/"
+		"website": "http://www.ifa.hawaii.edu/",
+		"type: classroom"
 	},
 	"37": {
 		"name": "Auxiliary Services",
@@ -331,7 +366,8 @@
 		"lng": -157.8141000,
 		"description": "",
 		"number": "",
-		"website": "http://manoa.hawaii.edu/campusservices/"
+		"website": "http://manoa.hawaii.edu/campusservices/",
+		"type: service"
 	},
 	"38": {
 		"name": "Bachman Annex 6",
@@ -340,7 +376,8 @@
 		"lng": -157.8201140,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"39": {
 		"name": "Bachman Annexes 9-13",
@@ -349,7 +386,8 @@
 		"lng": -157.8192970,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"40": {
 		"name": "Bachman Hall",
@@ -358,7 +396,8 @@
 		"lng": -157.8199470,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"41": {
 		"name": "Bachman Annex 2",
@@ -367,7 +406,8 @@
 		"lng": -157.8192930,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"42": {
 		"name": "Biomedical Sciences",
@@ -376,7 +416,8 @@
 		"lng": -157.8146900,
 		"description": "The Biomedical Science building is home to the Medical Technology, Epidemiology, Public Health and Global Health Protection and Security programs.",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"43": {
 		"name": "Burns Hall",
@@ -385,7 +426,8 @@
 		"lng": -157.8145130,
 		"description": "Burns Hall is home to the International Cultural Studies (Grad. Cert.) program in Room 2045.",
 		"number": "(808) 944-7593",
-		"website": "http://manoa.hawaii.edu/internationalculture/"
+		"website": "http://manoa.hawaii.edu/internationalculture/",
+		"type: classroom"
 	},
 	"44": {
 		"name": "Business Administration (BUSAD- Shidler)",
@@ -394,7 +436,8 @@
 		"lng": -157.8203680,
 		"description": "The Business Administration building is home to the Business Administration, Entrepreneurship, Human Resource Management, International Business, Management, Finance, Accounting, Marketing and Management Information Systems programs.",
 		"number": "",
-		"website": "shidler.hawaii.edu/prospective"
+		"website": "shidler.hawaii.edu/prospective",
+		"type: classroom"
 	},
 	"45": {
 		"name": "Campus Security",
@@ -403,7 +446,8 @@
 		"lng": -157.8137380,
 		"description": "Safety Escort: (808) 956-SAFE (7233)",
 		"number": "(808) 956-6911",
-		"website": "http://www.manoa.hawaii.edu/dps/"
+		"website": "http://www.manoa.hawaii.edu/dps/",
+		"type: service"
 	},
 	"46": {
 		"name": "Castle Memorial",
@@ -412,7 +456,8 @@
 		"lng": -157.8228680,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: recreational"
 	},
 	"47": {
 		"name": "Castle Annex",
@@ -421,7 +466,8 @@
 		"lng": -157.8233400,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"48": {
 		"name": "Clarence T.C. Ching Field",
@@ -430,7 +476,8 @@
 		"lng": -157.8171070,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: entertainment"
 	},
 	"49": {
 		"name": "Clarence T.C. Ching Athletic Complex",
@@ -439,7 +486,8 @@
 		"lng": -157.8166030,
 		"description": "http://hawaiiathletics.com/sports/2008/5/14/cooke_field.aspx?tab=clarencetcchingcomplex",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: entertainment"
 	},
 	"50": {
 		"name": "Crawford Hall",
@@ -448,7 +496,8 @@
 		"lng": -157.8184590,
 		"description": "Crawford Hall is home to the Academy of Creative Media, Communications, Journalism, Telecommunications Information Resource Management programs.",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"51": {
 		"name": "Food Sciences & Technology",
@@ -457,7 +506,8 @@
 		"lng": -157.8157120,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"52": {
 		"name": "Dean Hall",
@@ -466,7 +516,8 @@
 		"lng": -157.8195100,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"53": {
 		"name": "Driving Safety Program",
@@ -475,7 +526,8 @@
 		"lng": -157.8144030,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: service"
 	},
 	"54": {
 		"name": "Dole Street Parking Structure (Zone 22)",
@@ -484,7 +536,8 @@
 		"lng": -157.8117750,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: parking"
 	},
 	"55": {
 		"name": "Dole Street Offices",
@@ -493,7 +546,8 @@
 		"lng": -157.8227180,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: service"
 	},
 	"56": {
 		"name": "Energy House",
@@ -502,7 +556,8 @@
 		"lng": -157.8145650,
 		"description": "The Energy House was originally built in 1976 and serves the School of Architecture. In 2010, the space was remodeled to better educate families on sustainable family living.",
 		"number": "",
-		"website": "https://sites.google.com/site/fetchhi/where-we-work/energy-house"
+		"website": "https://sites.google.com/site/fetchhi/where-we-work/energy-house",
+		"type: classroom"
 	},
 	"57": {
 		"name": "Environmental Protection Facility",
@@ -511,7 +566,8 @@
 		"lng": -157.8143780,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: service"
 	},
 	"58": {
 		"name": "Environmental Health and Safety Office",
@@ -520,7 +576,8 @@
 		"lng": -157.8140910,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: service"
 	},
 	"59": {
 		"name": "Everly Hall",
@@ -529,7 +586,8 @@
 		"lng": -157.8218190,
 		"description": "Everly Hall is home to the Disability and Diversity Studies, Early Childhood Education, Education, Professional Educational Practice, Curriculum and Instruction, Curriculum Studies, and Secondary Education programs.",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"60": {
 		"name": "Federal Credit Union",
@@ -538,7 +596,8 @@
 		"lng": -157.8148440,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: service"
 	},
 	"61": {
 		"name": "Financial Management Office",
@@ -547,7 +606,8 @@
 		"lng": -157.8191640,
 		"description": "",
 		"number": "(808) 956-7161",
-		"website": "http://www.fmo.hawaii.edu/"
+		"website": "http://www.fmo.hawaii.edu/",
+		"type: service"
 	},
 	"62": {
 		"name": "Frear Hall",
@@ -556,7 +616,8 @@
 		"lng": -157.8139660,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"63": {
 		"name": "Gateway House",
@@ -565,7 +626,8 @@
 		"lng": -157.8148510,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: housing"
 	},
 	"64": {
 		"name": "Gartley Hall",
@@ -574,7 +636,8 @@
 		"lng": -157.8204990,
 		"description": "Gartley Hall is home to the Social Welfare (Ph.D.) and Social Work (B.S.W., M.S.W.) programs.",
 		"number": "(808) 956-7182",
-		"website": "www.hawaii.edu/sswork"
+		"website": "www.hawaii.edu/sswork",
+		"type: classroom"
 	},
 	"65": {
 		"name": "Geroge Hall",
@@ -583,7 +646,8 @@
 		"lng": -157.8202850,
 		"description": "George Hall is home to the Ethnic Studies, Communicology, Sustainable Tourism, and Travel Industry Management programs.",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"66": {
 		"name": "Gilmore Hall",
@@ -592,7 +656,8 @@
 		"lng": -157.8167610,
 		"description": "Gilmore Hall is home to the Molecular Biosciences and Biotechnology, Entomology, Plant and Environmental Protection Sciences, and Tropical Plant Pathology programs.",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"67": {
 		"name": "Gym 1",
@@ -601,7 +666,8 @@
 		"lng": -157.8195400,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"68": {
 		"name": "Gym 2",
@@ -610,7 +676,8 @@
 		"lng": -157.8185040,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"69": {
 		"name": "Klum Gym",
@@ -619,7 +686,8 @@
 		"lng": -157.8190840,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"70": {
 		"name": "Hale Aloha Cafeteria",
@@ -628,7 +696,8 @@
 		"lng": -157.8129360,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: food"
 	},
 	"71": {
 		"name": "Hale Aloha Lokelani Tower",
@@ -637,7 +706,8 @@
 		"lng": -157.8132740,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: housing"
 	},
 	"72": {
 		"name": "Hale Aloha Mokihana Tower",
@@ -646,7 +716,8 @@
 		"lng": -157.8126720,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: housing"
 	},
 	"73": {
 		"name": "Hale Aloha Lehua Tower",
@@ -655,7 +726,8 @@
 		"lng": -157.8133500,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: housing"
 	},
 	"74": {
 		"name": "Hale Aloha Ilima Tower",
@@ -664,7 +736,8 @@
 		"lng": -157.8126790,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: housing"
 	},
 	"75": {
 		"name": "Hale Anuenue",
@@ -673,7 +746,8 @@
 		"lng": -157.8187780,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: housing"
 	},
 	"76": {
 		"name": "Hale Halawai",
@@ -682,7 +756,8 @@
 		"lng": -157.8141810,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: housing"
 	},
 	"77": {
 		"name": "Hale Manoa",
@@ -691,7 +766,8 @@
 		"lng": -157.8144430,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: housing"
 	},
 	"78": {
 		"name": "Hale Kuahine",
@@ -700,7 +776,8 @@
 		"lng": -157.8136710,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: housing"
 	},
 	"79": {
 		"name": "Hale Kahawai",
@@ -709,7 +786,8 @@
 		"lng": -157.8134420,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: housing"
 	},
 	"80": {
 		"name": "Hale Laulima",
@@ -718,7 +796,8 @@
 		"lng": -157.8132850,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: housing"
 	},
 	"81": {
 		"name": "Hale Noelani",
@@ -727,7 +806,8 @@
 		"lng": -157.8135960,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: housing"
 	},
 	"82": {
 		"name": "Hale Wainani",
@@ -736,7 +816,8 @@
 		"lng": -157.8143740,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: housing"
 	},
 	"83": {
 		"name": "Multipurpose Building",
@@ -745,7 +826,8 @@
 		"lng": -157.8163890,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"84": {
 		"name": "Hawaii Hall",
@@ -754,7 +836,8 @@
 		"lng": -157.8189750,
 		"description": "Hawai‘i Hall is home to the Interdisciplinary Studies and Ocean Policy programs.",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"85": {
 		"name": "Horticulture Headhouse",
@@ -772,7 +855,8 @@
 		"lng": -157.8097830,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: service"
 	},
 	"87": {
 		"name": "Jakuan Tea House",
@@ -781,7 +865,8 @@
 		"lng": -157.8135960,
 		"description": "The Jakuan Tea House is a part of the Center of Japanese Studies' Way of Tea Center, which coordinates activities and perpetuates the culture of tea.",
 		"number": "(808) 956-2665",
-		"website": "http://www.hawaii.edu/cjs/?page_id=22"
+		"website": "http://www.hawaii.edu/cjs/?page_id=22",
+		"type: recreational"
 	},
 	"88": {
 		"name": "Jefferson Hall",
@@ -790,7 +875,8 @@
 		"lng": -157.8142070,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"89": {
 		"name": "Johnson Hall-B",
@@ -799,7 +885,8 @@
 		"lng": -157.8157470,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"90": {
 		"name": "Johnson Hall-A",
@@ -808,7 +895,8 @@
 		"lng": -157.8164500,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"91": {
 		"name": "Duke Kahanamoku Aquatic Complex",
@@ -817,7 +905,8 @@
 		"lng": -157.8174520,
 		"description": "",
 		"number": "",
-		"website": "http://hawaiiathletics.com/sports/2008/5/14/duke_kahanamoku_aquatic_complex.aspx?tab=kahanamokuaquaticcomplex"
+		"website": "http://hawaiiathletics.com/sports/2008/5/14/duke_kahanamoku_aquatic_complex.aspx?tab=kahanamokuaquaticcomplex",
+		"type: recreational"
 	},
 	"92": {
 		"name": "Kamakakuokalani Bldg (Hawaiian Studies)",
@@ -826,7 +915,8 @@
 		"lng": -157.8120430,
 		"description": "The Kamakakuokalani Building is home to the Hawaiian Studies program. Room 209A. ",
 		"number": "(808) 973-0555",
-		"website": "manoa.hawaii.edu/hshk/kamakakuokalani/"
+		"website": "manoa.hawaii.edu/hshk/kamakakuokalani/",
+		"type: classroom"
 	},
 	"93": {
 		"name": "KHET TV / PBS Hawaii",
@@ -835,7 +925,8 @@
 		"lng": -157.8219480,
 		"description": "",
 		"number": "http://www.communications.hawaii.edu/mlab/home.html",
-		"website": "(808) 956-3355"
+		"website": "(808) 956-3355",
+		"type: service"
 	},
 	"94": {
 		"name": "Center for Korean Studies",
@@ -844,7 +935,8 @@
 		"lng": -157.8141620,
 		"description": "",
 		"number": "(808) 956-7041",
-		"website": "http://www.hawaii.edu/korea/index.html"
+		"website": "http://www.hawaii.edu/korea/index.html",
+		"type: classroom"
 	},
 	"95": {
 		"name": "Krauss Hall",
@@ -853,7 +945,8 @@
 		"lng": -157.8176770,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"96": {
 		"name": "Krauss Annex 7",
@@ -862,7 +955,8 @@
 		"lng": -157.8178380,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"97": {
 		"name": "Krauss Annex 19",
@@ -871,7 +965,8 @@
 		"lng": -157.8176450,
 		"description": "Kraus Annex 19 is home to the Environmental Studies (B.A., Cert.) program.",
 		"number": "(808) 956-7361",
-		"website": "www.hawaii.edu/envctr/"
+		"website": "www.hawaii.edu/envctr/",
+		"type: classroom"
 	},
 	"98": {
 		"name": "Kuykendall Annex",
@@ -880,7 +975,8 @@
 		"lng": -157.8176040,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"99": {
 		"name": "Lab School Lockers",
@@ -889,7 +985,8 @@
 		"lng": -157.8236270,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: service"
 	},
 	"100": {
 		"name": "Lab School Portables 1-4",
@@ -898,7 +995,8 @@
 		"lng": -157.8234360,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"101": {
 		"name": "University of Hawaii - Landscape Services",
@@ -907,7 +1005,8 @@
 		"lng": -157.8134360,
 		"description": "",
 		"number": "(808) 956-7922",
-		"website": "http://manoa.hawaii.edu/landscaping/"
+		"website": "http://manoa.hawaii.edu/landscaping/",
+		"type: service"
 	},
 	"102": {
 		"name": "Law Library",
@@ -916,7 +1015,8 @@
 		"lng": -157.8173250,
 		"description": "",
 		"number": "",
-		"website": "https://www.law.hawaii.edu/library"
+		"website": "https://www.law.hawaii.edu/library",
+		"type: library"
 	},
 	"103": {
 		"name": "William S. Richardson School of Law",
@@ -925,7 +1025,8 @@
 		"lng": -157.8187600,
 		"description": "The William S. Richardson School of Law is home to the Law program at UH Manoa. ",
 		"number": "(808) 956-7966",
-		"website": "https://www.law.hawaii.edu"
+		"website": "https://www.law.hawaii.edu",
+		"type: classroom"
 	},
 	"104": {
 		"name": "Lincoln Hall",
@@ -934,7 +1035,8 @@
 		"lng": -157.8142500,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"105": {
 		"name": "Lower Campus Portables",
@@ -943,7 +1045,8 @@
 		"lng": -157.8172650,
 		"description": "The Lower Campus Portables are home to the Hawaii English Language Program.",
 		"number": "(808) 956-6636",
-		"website": "http://manoa.hawaii.edu/eslhelp/wordpress/"
+		"website": "http://manoa.hawaii.edu/eslhelp/wordpress/",
+		"type: classroom"
 	},
 	"106": {
 		"name": "Lunalilo Freeway Portables",
@@ -952,7 +1055,8 @@
 		"lng": -157.8202750,
 		"description": "The Lunalilo Freeway Portables hosts the Career and Technical Education Center and a studio for Dance Department.",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"107": {
 		"name": "Magoon Facility",
@@ -961,7 +1065,8 @@
 		"lng": -157.8102110,
 		"description": "",
 		"number": "(808) 956-7508",
-		"website": "http://www.ctahr.hawaii.edu/idolt/mauka.html"
+		"website": "http://www.ctahr.hawaii.edu/idolt/mauka.html",
+		"type: service"
 	},
 	"108": {
 		"name": "Maile Way Annexes",
@@ -970,7 +1075,8 @@
 		"lng": -157.8177260,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"109": {
 		"name": "Makai Campus Portables",
@@ -979,7 +1085,8 @@
 		"lng": -157.8169590,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"110": {
 		"name": "Miller Hall",
@@ -988,7 +1095,8 @@
 		"lng": -157.8181780,
 		"description": "Miller Hall is home to the Family Resources (B.S.), Fashion Design and Merchandising (B.S. and Minor) and, Merchandising (Minor) programs. Room 110.",
 		"number": "(808) 956-8105",
-		"website": "cms.ctahr.hawaii.edu/fcs/Home.aspx"
+		"website": "cms.ctahr.hawaii.edu/fcs/Home.aspx",
+		"type: classroom"
 	},
 	"111": {
 		"name": "Multipurpose Building",
@@ -997,7 +1105,8 @@
 		"lng": -157.8221150,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"112": {
 		"name": "Les Murakami Baseball Stadium",
@@ -1006,7 +1115,8 @@
 		"lng": -157.8159960,
 		"description": "http://hawaiiathletics.com/schedule.aspx?path=bb",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: entertainment"
 	},
 	"113": {
 		"name": "Music Building Complex",
@@ -1015,7 +1125,8 @@
 		"lng": -157.8208080,
 		"description": "The Music Building Complex is the home of the Music Department (B.A., B.M., B.Ed., Minor, Certificate, M.A., M.Mus., Ph.D.). The Music Department office is located in Music 3.",
 		"number": "(808) 956-7756",
-		"website": "http://manoa.hawaii.edu/music/"
+		"website": "http://manoa.hawaii.edu/music/",
+		"type: service"
 	},
 	"114": {
 		"name": "National Marine Fisheries Service",
@@ -1024,7 +1135,8 @@
 		"lng": -157.8139650,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: service"
 	},
 	"115": {
 		"name": "Newman Center (University Catholic Center",
@@ -1033,7 +1145,8 @@
 		"lng": -157.8136490,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: service"
 	},
 	"116": {
 		"name": "NREM Greenhouses",
@@ -1042,7 +1155,8 @@
 		"lng": -157.8103560,
 		"description": "",
 		"number": "(808) 956-7508",
-		"website": ""
+		"website": "",
+		"type: service"
 	},
 	"117": {
 		"name": "Pacific Biomedical Research Center",
@@ -1051,7 +1165,8 @@
 		"lng": -157.8132470,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"118": {
 		"name": "Mae Zenke Orvis Auditorium",
@@ -1060,7 +1175,8 @@
 		"lng": -157.8203780,
 		"description": "",
 		"number": "",
-		"website": "http://manoa.hawaii.edu/music/events/category/MUS-199/"
+		"website": "http://manoa.hawaii.edu/music/events/category/MUS-199/",
+		"type: classroom"
 	},
 	"119": {
 		"name": "Parking Structure",
@@ -1069,7 +1185,8 @@
 		"lng": -157.8189960,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: parking"
 	},
 	"120": {
 		"name": "Physical Education/Athletic Complex",
@@ -1078,7 +1195,8 @@
 		"lng": -157.8181290,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: recreational"
 	},
 	"121": {
 		"name": "Physical Plant Building",
@@ -1087,7 +1205,8 @@
 		"lng": -157.8133330,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"122": {
 		"name": "Pope Labratory",
@@ -1096,7 +1215,8 @@
 		"lng": -157.8151570,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"123": {
 		"name": "Cooke Field - Grass Practice Fields",
@@ -1105,7 +1225,8 @@
 		"lng": -157.8149800,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: recreational"
 	},
 	"124": {
 		"name": "Office of Procurement & Real Property Management",
@@ -1114,7 +1235,8 @@
 		"lng": -157.8186650,
 		"description": "",
 		"number": "(808) 956-8687",
-		"website": "https://www.hawaii.edu/oprpm/"
+		"website": "https://www.hawaii.edu/oprpm/",
+		"type: service"
 	},
 	"125": {
 		"name": "St. John Plant Science Lab",
@@ -1123,7 +1245,8 @@
 		"lng": -157.8154410,
 		"description": "St. John is home to the Botany (B.A., B.S., Minor, M.S. and Ph.D.), the Tropical Plant and Soil Sciences (B.S., Minor, Certificate, M.S. and Ph.D.), and the Plant Production and Management (Minor) programs.",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"126": {
 		"name": "Saunders Hall",
@@ -1132,7 +1255,8 @@
 		"lng": -157.8191320,
 		"description": "Saunders Hall is home of the Anthropology (B.A., Minor, M.A. and Ph.D.) program.",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"127": {
 		"name": "G. Donald Sherman Labratory",
@@ -1141,7 +1265,8 @@
 		"lng": -157.8151260,
 		"description": "The G. Donald Sherman Laboratory is home to the Natural Resources and Environmental Management (B.S., M.S., Ph.D.) program. Their main office is in room 101.",
 		"number": "(808) 956-7530",
-		"website": "http://www.ctahr.hawaii.edu/nrem/"
+		"website": "http://www.ctahr.hawaii.edu/nrem/",
+		"type: classroom"
 	},
 	"128": {
 		"name": "Shops",
@@ -1150,7 +1275,8 @@
 		"lng": -157.8131330,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"129": {
 		"name": "Sinclair Annexes",
@@ -1159,7 +1285,8 @@
 		"lng": -157.8201770,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"130": {
 		"name": "Rainbow Wahine Softball Stadium",
@@ -1168,7 +1295,8 @@
 		"lng": -157.8158600,
 		"description": "",
 		"number": "",
-		"website": "http://www.hawaiiathletics.com/index.aspx?tab=softball&path=softball"
+		"website": "http://www.hawaiiathletics.com/index.aspx?tab=softball&path=softball",
+		"type: entertainment"
 	},
 	"131": {
 		"name": "Stan Sheriff Center",
@@ -1177,7 +1305,8 @@
 		"lng": -157.8186020,
 		"description": "",
 		"number": "",
-		"website": "http://hawaiiathletics.com/sports/2008/5/14/stan_sheriff_center.aspx?tab=stansheriffcenter"
+		"website": "http://hawaiiathletics.com/sports/2008/5/14/stan_sheriff_center.aspx?tab=stansheriffcenter",
+		"type: entertainment"
 	},
 	"132": {
 		"name": "Center on Disability Studies",
@@ -1186,7 +1315,8 @@
 		"lng": -157.8182900,
 		"description": "",
 		"number": "",
-		"website": "http://www.cds.hawaii.edu/"
+		"website": "http://www.cds.hawaii.edu/",
+		"type: service"
 	},
 	"133": {
 		"name": "Tennis Courts",
@@ -1195,7 +1325,8 @@
 		"lng": -157.8166640,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: recreational"
 	},
 	"134": {
 		"name": "Temporary Portables",
@@ -1204,7 +1335,8 @@
 		"lng": -157.8136400,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"135": {
 		"name": "Thrift Shop",
@@ -1213,7 +1345,8 @@
 		"lng": -157.8145880,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: service"
 	},
 	"136": {
 		"name": "Transportation Services",
@@ -1222,7 +1355,8 @@
 		"lng": -157.8137840,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: service"
 	},
 	"137": {
 		"name": "Warehouse",
@@ -1231,7 +1365,8 @@
 		"lng": -157.8127430,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: service"
 	},
 	"138": {
 		"name": "Waahila Faculty Housing",
@@ -1240,7 +1375,8 @@
 		"lng": -157.8122140,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: housing"
 	},
 	"139": {
 		"name": "Trailers L-P",
@@ -1249,7 +1385,8 @@
 		"lng": -157.8196330,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"140": {
 		"name": "USDA Fruit Fly Labratory",
@@ -1258,7 +1395,8 @@
 		"lng": -157.8094140,
 		"description": "",
 		"number": "(808) 956-7530",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"141": {
 		"name": "University of Hawaii Press",
@@ -1267,7 +1405,8 @@
 		"lng": -157.8125390,
 		"description": "",
 		"number": "(808) 956-8255",
-		"website": "http://www.uhpress.hawaii.edu/"
+		"website": "http://www.uhpress.hawaii.edu/",
+		"type: service"
 	},
 	"142": {
 		"name": "University High School 3",
@@ -1276,7 +1415,8 @@
 		"lng": -157.8216600,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"143": {
 		"name": "Wist Annex 1",
@@ -1285,7 +1425,8 @@
 		"lng": -157.8225280,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"144": {
 		"name": "University High School 2",
@@ -1294,7 +1435,8 @@
 		"lng": -157.8226890,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"145": {
 		"name": "University High School 1",
@@ -1303,7 +1445,8 @@
 		"lng": -157.8226550,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"146": {
 		"name": "Multipurpose Building",
@@ -1312,7 +1455,8 @@
 		"lng": -157.8203180,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"147": {
 		"name": "Wist Hall",
@@ -1321,7 +1465,8 @@
 		"lng": -157.8219660,
 		"description": "Wist Hall is home to the Educational Foundations (M.Ed. and Ph.D.) and the Educational Policy Studies (Ph.D.), the Special Education (PBCSPED and M.Ed.), the Educational Psychology (M.Ed. and Ph.D.), the Educational Administration (M.Ed. and Ph.D.), and the Learning Design and Technology (Grad. Cert., M.Ed. and Ph.D.) programs.",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: classroom"
 	},
 	"148": {
 		"name": "Warrior Recreation Center",
@@ -1330,7 +1475,8 @@
 		"lng": -157.8185730,
 		"description": "",
 		"number": "(808) 956-5490",
-		"website": "http://manoa.hawaii.edu/studentrec/fitnesscenter/about.html"
+		"website": "http://manoa.hawaii.edu/studentrec/fitnesscenter/about.html",
+		"type: recreational"
 	},
 	"149": {
 		"name": "Sinclair Circle",
@@ -1339,7 +1485,8 @@
 		"lng": -157.8208430,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: recreational"
 	},
 	"150": {
 		"name": "Legacy Path",
@@ -1348,7 +1495,8 @@
 		"lng": -157.8182310,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: recreational"
 	},
 	"151": {
 		"name": "Varney Circle",
@@ -1357,7 +1505,8 @@
 		"lng": -157.8182110,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: recreational"
 	},
 	"152": {
 		"name": "Queen Lili'uokalani Center (QLC)",
@@ -1366,7 +1515,8 @@
 		"lng": -157.8183760,
 		"description": "",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: service"
 	},
 	"153": {
 		"name": "QLC GF",
@@ -1375,7 +1525,8 @@
 		"lng": -157.8185880,
 		"description": "On the ground floor of the QLC you can find the Office of Admissions, the Office of the Registrar, and the KOKUA Program (Disability Access Services).",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: service"
 	},
 	"154": {
 		"name": "QLC 1F",
@@ -1384,7 +1535,8 @@
 		"lng": -157.8185960,
 		"description": "On the first floor of the QLC you can find Financial Aid Services. Room 112, (808) 956-7251, finaid@hawaii.edu. http://www.hawaii.edu/fas/",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: service"
 	},
 	"155": {
 		"name": "QLC 2F",
@@ -1393,7 +1545,8 @@
 		"lng": -157.8182350,
 		"description": "On the second floor of QLC you can find the Office of Judicial Affairs, Bridge to Hope, Women's Center, Student Parents at Manoa (SPAM), LGBTI Student Services, Osher Reentry Scholarships, Manoa Career Center, and the Online Learning Academy.",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: service"
 	},
 	"156": {
 		"name": "QLC 3F",
@@ -1402,7 +1555,8 @@
 		"lng": -157.8182700,
 		"description": "On the third floor of QLC you can find the College Opportunities Program, the Office of Multicultural Student Services, GEAR UP Manoa, the Office of Veteran Support Services (OVSS), and the Counseling & Student Development Center.",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: service"
 	},
 	"157": {
 		"name": "QLC 4F",
@@ -1411,7 +1565,8 @@
 		"lng": -157.8183940,
 		"description": "On the 4th floor of QLC you can find Kua'ana - Native Hawaiian Student Development Services, Nā Pua No'eau - Center for Gifted and Talented Native Hawaiian Children, the Children's Center, SEED (Student Equity, Excellence, and Diversity), Graduate Professional Access, Health Careers Opportunity Program, Senior Citizen Visitor Program - Na Kapuna, and SEED Initiative for Diversity, Equity, Access and Success (IDEAS).",
 		"number": "",
-		"website": ""
+		"website": "",
+		"type: service"
 	},
 	"158": {
 		"name": "Japanese Garden",
@@ -1420,7 +1575,8 @@
 		"lng": -157.8137260,
 		"description": "",
 		"number": "(808) 944-7111",
-		"website": ""
+		"website": "",
+		"type: recreational"
 	},
 	"159": {
 		"name": "Thai Pavillion",
@@ -1429,7 +1585,8 @@
 		"lng": -157.8142090,
 		"description": "",
 		"number": "(808) 944-7111",
-		"website": ""
+		"website": "",
+		"type: recreational"
 	},
 	"160": {
 		"name": "Kanewai Cultural Garden",
@@ -1438,7 +1595,8 @@
 		"lng": -157.8126210,
 		"description": "",
 		"number": "(808) 956-8369",
-		"website": ""
+		"website": "",
+		"type: recreational"
 	},
 	"161": {
 		"name": "Hemenway Hall",
@@ -1447,6 +1605,7 @@
 		"lng": -157.8195920,
 		"description": "Hemenway Hall is home to the Dental Hygiene (B.S.) program. Room 200-B.",
 		"number": "(808) 956-8821",
-		"website": "www.nursing.hawaii.edu/dentalhygiene"
+		"website": "www.nursing.hawaii.edu/dentalhygiene",
+		"type: classroom"
 	}
 }]
