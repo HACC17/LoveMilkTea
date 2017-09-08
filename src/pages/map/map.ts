@@ -1,7 +1,9 @@
-import {Component, ViewChild, ElementRef} from '@angular/core';
+import {Component, ViewChild, ElementRef, Injectable} from '@angular/core';
 import {FIREBASE_CONFIG} from "./../../app.firebase.config";
 import * as firebase from 'firebase';
-import {NavController} from 'ionic-angular';
+import {IonicPage,NavController, NavParams} from 'ionic-angular';
+import {Http} from '@angular/http';
+import 'rxjs/add/operator/map';
 
 declare var google;
 
@@ -24,9 +26,15 @@ export class MapPage {
     selectedValue: number; //for poplating menu
     locationsList: Array<{ value: number, text: string}> = []; //array to populate menu with
 
+    jsonGeoData: any;
+    exploreIndex: string;
 
 
-    constructor(public navCtrl: NavController) {
+
+    constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http) {
+        this.exploreIndex = navParams.get('locationIndex');
+        console.log(this.exploreIndex);
+
         if (!firebase.apps.length) {
             this.App = firebase.initializeApp(FIREBASE_CONFIG);
         } else {
@@ -416,6 +424,17 @@ export class MapPage {
         } else {
             this.panorama.setVisible(false);
         }
+    }
+
+    //Gets data from locations.json file if needed
+    getGeoData() {
+        this.http.get('assets/data/locations.json')
+            .map((res) => res.json())
+            .subscribe(data => {
+                this.jsonGeoData = data;
+            }, (rej) => {
+                console.error("Could not load local data", rej)
+            });
     }
 }
 

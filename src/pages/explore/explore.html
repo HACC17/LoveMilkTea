@@ -1,0 +1,90 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Explore</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-card>
+    <div id="wrc">
+      <div class="card-title">Warrior Rec Center</div>
+    </div>
+
+    <ion-fab right top>
+      <button ion-fab>
+        <ion-icon name="basketball"></ion-icon>
+      </button>
+    </ion-fab>
+
+    <ion-card-content>
+      <p class="description">The Warrior Rec Center is approximately 66,000 sq ft and is considered to be one of the
+        best recreational facilities in the state.</p>
+    </ion-card-content>
+
+    <ion-item>
+      <span item-left>7 min walk</span>
+      <span item-left>(0.5 mi)</span>
+      <button ion-button icon-left clear item-end (click)="mapTo(148)">
+        <ion-icon name="navigate"></ion-icon>
+        Start
+      </button>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+    <div id="hamilton">
+      <div class="card-title">Hamilton Library</div>
+    </div>
+
+    <ion-fab right top>
+      <button ion-fab>
+        <ion-icon name="book"></ion-icon>
+      </button>
+    </ion-fab>
+
+    <ion-card-content>
+      <p class="description">The Hamilton Library at the University of Hawaiʻi at Mānoa is the largest research library in the state of Hawaii. The Library serves as a key resource for the flagship Manoa campus as well as the other University of Hawaii system campuses.</p>
+    </ion-card-content>
+
+    <ion-item>
+      <span item-left>4 min walk</span>
+      <span item-left>(0.2 mi)</span>
+      <button ion-button icon-left clear item-end>
+        <ion-icon name="navigate"></ion-icon>
+        Start
+      </button>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+    <div id="stan-sheriff">
+      <div class="card-title">Stan Sheriff</div>
+    </div>
+
+    <ion-fab right top>
+      <button ion-fab>
+        <ion-icon name="beer"></ion-icon>
+      </button>
+    </ion-fab>
+
+    <ion-card-content>
+      <p class="description">The Stan Sheriff Center opened in 1994 and is the jewel of the Athletics Department. The center has served as the home of the University of Hawai‘i men’s and women’s basketball and volleyball teams and has played host to a number of memorable events.</p>
+    </ion-card-content>
+
+    <ion-item>
+      <span item-left>12 min walk</span>
+      <span item-left>(0.8 mi)</span>
+      <button ion-button icon-left clear item-end>
+        <ion-icon name="navigate"></ion-icon>
+        Start
+      </button>
+    </ion-item>
+  </ion-card>
+
+</ion-content>
