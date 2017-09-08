@@ -6,7 +6,8 @@
 		"lng": -157.8195610,
 		"description": "Ka Leo O Hawai'i has been the student newspaper for the Manoa campus since 1922. Papers publish biweekly during the school year and monthly in the summer, but do not run on holidays, breaks or exam periods.",
 		"number": "(808) 956-7043",
-		"website": "N/A"
+		"website": "N/A",
+		"type: service"
 	},
 	"2": {
 		"name": "Holmes Hall",
