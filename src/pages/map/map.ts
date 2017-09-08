@@ -1,15 +1,14 @@
 import {Component, ViewChild, ElementRef, Injectable} from '@angular/core';
-import {IonicPage, NavController} from 'ionic-angular';
+import {IonicPage, NavController, NavParams} from 'ionic-angular';
 import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
-
 
 declare var google;
 
 @IonicPage()
 @Component({
     selector: 'page-map',
-    templateUrl: 'map.html'
+    templateUrl: 'map.html',
 })
 
 @Injectable()
@@ -22,9 +21,11 @@ export class MapPage {
     marker: any;
     infoWindow: any;
     geoData: any;
+    index: string;
 
-    constructor(public navCtrl: NavController, public http: Http) {
-
+    constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http) {
+        this.index = navParams.get('locationIndex');
+        console.log(this.index);
     }
 
     ionViewDidLoad() {
@@ -293,7 +294,7 @@ export class MapPage {
         this.map = new google.maps.Map(this.mapElement.nativeElement, {
 
             zoom: 16,
-            center: { lat: 21.2969, lng: -157.8171 },
+            center: {lat: 21.2969, lng: -157.8171},
             //streetControlView: false;
             mapTypeControlOptions: {
                 mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain', 'styled_map']
@@ -307,26 +308,26 @@ export class MapPage {
         this.map.setMapTypeId('styled_map');
 
         this.marker = new google.maps.Marker({
-            position: { lat: 21.2969, lng: -157.8171 },
+            position: {lat: 21.2969, lng: -157.8171},
             title: 'University of Hawaii at Manoa',
             map: this.map,
         });
     }
 
-    addMarker(locationIndex){
+    addMarker(locationIndex) {
         console.log(locationIndex);
-        if(this.marker) {
+        if (this.marker) {
             this.clearMarker();
         }
         let imgSrc = "http://manoanow.org/app/map/images/" + locationIndex + ".png";
         let infoContent = '<div class="ui grid"><img class="ui fluid image info" src="' + imgSrc + '">' + '<div id="windowHead">' + this.geoData[locationIndex].name + '</div>' + '<div id="description">' + this.geoData[locationIndex].description + '</div>' + '<div id="addressTitle">Address: ' + this.geoData[locationIndex].address + '</div>' + '<div id="phoneTitle">Phone: ' + this.geoData[locationIndex].number + '</div>' + '</div>';
 
         this.marker = new google.maps.Marker({
-            position: { lat: this.geoData[locationIndex].lat, lng: this.geoData[locationIndex].lng},
+            position: {lat: this.geoData[locationIndex].lat, lng: this.geoData[locationIndex].lng},
             title: 'University of Hawaii at Manoa',
             map: this.map,
         });
-        
+
         this.infoWindow = new google.maps.InfoWindow({
             content: infoContent,
         });
@@ -348,12 +349,14 @@ export class MapPage {
         }
     }
 
-    getGeoData(){
+    getGeoData() {
         this.http.get('assets/data/locations.json')
             .map((res) => res.json())
             .subscribe(data => {
                 this.geoData = data;
-            }, (rej) => {console.error("Could not load local data",rej)});
+            }, (rej) => {
+                console.error("Could not load local data", rej)
+            });
     }
 }
 
