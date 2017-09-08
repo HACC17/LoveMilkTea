@@ -15,6 +15,8 @@ export class SubmitDataPage {
     childRef: any;
     App: any;
     db: any;
+    latitude: any;
+    longitude: any;
 
     constructor(public navCtrl: NavController) {
         if (!firebase.apps.length) {
@@ -38,6 +40,16 @@ export class SubmitDataPage {
         Object.assign(formData.value, {'status': 'pending'});
         this.childRef = this.ref.push();
         this.childRef.set(formData.value);
+    }
+
+    // Uses HTML5 navigator to get lat/long
+    getCurrLocation () {
+        if(navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.latitude = position.coords.latitude;
+                this.longitude = position.coords.longitude;
+            })
+        }
     }
 
 }
