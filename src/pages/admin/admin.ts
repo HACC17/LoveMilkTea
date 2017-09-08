@@ -10,11 +10,12 @@ import * as firebase from 'firebase';
     templateUrl: 'admin.html',
 })
 export class AdminPage {
-    ref: any;
-    childRef: any;
+    userInputRef: any;
+    masterDataRef: any;
     App: any;
     db: any;
     items: string[];
+    status: string;
 
 
     constructor(private afAuth: AngularFireAuth, private toast: ToastController, public navCtrl: NavController, public navParams: NavParams) {
@@ -24,21 +25,39 @@ export class AdminPage {
             this.App = firebase;
         }
         this.db = this.App.database();
-        this.ref = this.db.ref('/dataPoints/');
+        this.userInputRef = this.db.ref('/dataPoints/');
+        this.masterDataRef = this.db.ref('/testPoints');
+        this.status = "pending";
     }
 
     ionViewDidLoad() {
-        console.log('ionViewDidLoad AdminPage');
-    }
-
-    displayData() {
+        //added this here instead of constructor, better coding practice to put here?
         var items = [];
-        this.ref.once('value').then(function(datakey) {
+        this.userInputRef.once('value').then(function(datakey) {
             datakey.forEach(function (data) {
-                items.push(data.val());
+                var temp = data.val();
+                Object.assign(temp, {'key': data.key});
+                items.push(temp);
             });
         });
         this.items = items;
+        console.log(this.items);
+    }
+
+    //value is the key for the entry
+    approve(value) {
+        this.status = "approved";
+        console.log(value);
+    }
+
+    deny() {
+        this.status = "denied";
+    }
+
+    //value is the key for the entry
+    deleteItem(value){
+        this.userInputRef.child(value.key).remove();
+        this.navCtrl.setRoot(this.navCtrl.getActive().component);
     }
 
     async logout() {
