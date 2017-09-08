@@ -363,8 +363,10 @@ export class MapPage {
                 for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
                     let data = this.geoMarkers[i],
                         latLng = new google.maps.LatLng(data.lat, data.lng);
+                    console.log(data);
+                    console.log("THISSS " + data.type);
                     //if (data.type === 'classroom') {
-                    console.log ("THISSSS:   " + data.type)
+
                         // Creating a marker and putting it on the map
                         let marker = new google.maps.Marker({
                             position: latLng,
