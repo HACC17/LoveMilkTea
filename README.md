@@ -18,7 +18,11 @@ We used [Ionic](https://ionicframework.com/) and [Cordova](https://cordova.apach
 After installing Node.js, you must install the required global npm packages.
 
 ```bash
-sudo npm install -g ionic cordova
+sudo npm install -g ionic
+```
+
+```bash
+sudo npm install -g cordova
 ```
 
 ### Quick Start
