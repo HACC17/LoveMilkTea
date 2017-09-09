@@ -24,6 +24,7 @@ export class EditSubmitDataPage {
     phone: string;
     type: string;
     website: string;
+    dataKey: string;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public loading: LoadingController, private toast: ToastController) {
         if (!firebase.apps.length) {
@@ -44,6 +45,7 @@ export class EditSubmitDataPage {
         this.type = this.navParams.get('type');
         this.email = this.navParams.get('email');
         this.website = this.navParams.get('website');
+        this.dataKey = this.navParams.get('key');
 
     }
 
@@ -51,23 +53,15 @@ export class EditSubmitDataPage {
     }
 
     onSubmit(formData: NgForm) {
-        // for (var element in formData.value) {
-        //     if(formData.value[element] === undefined){
-        //         formData.value[element] = "n/a";
-        //     }
-        // }
-
-        // Object.assign(formData.value, {'status': 'pending'});
-        // this.childRef = this.ref.push();
-        // this.childRef.set(formData.value);
-        // console.log(formData.value);
+        this.pointName = formData.value.pointName;
+         for (var element in formData.value) {
+             this.ref.child(this.dataKey).update({ [element] : [formData.value[element]]});
+             }
         this.toast.create({
-            message: `Edit complete`,
+            message: `Edit Complete`,
             duration: 3000
         }).present();
-        this.navCtrl.pop();
+        this.navCtrl.setRoot('AdminPage');
     }
-
-    // Uses HTML5 navigator to get lat/long
 
 }
