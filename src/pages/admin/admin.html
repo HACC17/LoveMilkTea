@@ -9,6 +9,17 @@
 </ion-header>
 
 <ion-content padding>
+
+  <ion-item>
+    <ion-label>Filter Items</ion-label>
+    <ion-select [(ngModel)]="filter" multiple="false" #item (ionChange)="filterItems(item.value)" cancelText="Cancel" okText="Filter!">
+      <ion-option value="approved">Approved</ion-option>
+      <ion-option value="pending">Pending</ion-option>
+      <ion-option value="denied">Denied</ion-option>
+      <ion-option value="showAll">Show All</ion-option>
+    </ion-select>
+  </ion-item>
+
   <ion-card *ngFor="let item of items">
     <ion-item item-right>
       <ion-icon name="aperture"></ion-icon>

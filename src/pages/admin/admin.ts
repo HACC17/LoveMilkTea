@@ -29,15 +29,15 @@ export class AdminPage {
 
     ionViewDidLoad() {
         //added this here instead of constructor, better coding practice to put here?
-        var items = [];
+        var item = [];
         this.userInputRef.once('value').then(function (datakey) {
             datakey.forEach(function (data) {
                 var temp = data.val();
                 Object.assign(temp, {'key': data.key});
-                items.push(temp);
+                item.push(temp);
             });
         });
-        this.items = items;
+        this.items = item;
     }
 
     //value is the key for the entry
@@ -72,6 +72,20 @@ export class AdminPage {
         this.userInputRef.child(value.key).remove();
         //refresh page
         this.navCtrl.setRoot(this.navCtrl.getActive().component);
+    }
+    filterItems(value){
+        var item = [];
+        this.userInputRef.once('value').then(function (datakey) {
+            datakey.forEach(function (data) {
+                var temp = data.val();
+                if (value === 'showAll'){
+                    item.push(temp);
+                } else if (temp.status === value){
+                    item.push(temp);
+                }
+            });
+        });
+        this.items = item;
     }
 
     async logout() {
