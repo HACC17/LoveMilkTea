@@ -44,7 +44,7 @@
 
     <ion-fab right top>
       <button ion-fab>
-        <ion-icon name="basketball"></ion-icon>
+        <ion-icon name="pizza"></ion-icon>
       </button>
     </ion-fab>
 
@@ -107,6 +107,31 @@
       <span item-left>12 min walk</span>
       <span item-left>(0.8 mi)</span>
       <button ion-button icon-left clear item-end (click)="mapTo(130)">
+        <ion-icon name="navigate"></ion-icon>
+        Start
+      </button>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+    <div id="kennedy-theatre">
+      <div class="card-title">Kennedy Theatre</div>
+    </div>
+
+    <ion-fab right top>
+      <button ion-fab>
+        <ion-icon name="people"></ion-icon>
+      </button>
+    </ion-fab>
+
+    <ion-card-content>
+      <p class="description">The Kennedy Theatre at the University of Hawai‘i at Manoa is the home base for the productions of the Department of Theatre + Dance.</p>
+    </ion-card-content>
+
+    <ion-item>
+      <span item-left>12 min walk</span>
+      <span item-left>(0.8 mi)</span>
+      <button ion-button icon-left clear item-end (click)="mapTo(15)">
         <ion-icon name="navigate"></ion-icon>
         Start
       </button>
