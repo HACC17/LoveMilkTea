@@ -1,4 +1,4 @@
-[{
+"testPoints": [{
 	"1": {
 		"name": "Ka Leo Office",
 		"address": "2445 Campus Road, Honolulu, HI, 96822",
@@ -1447,5 +1447,386 @@
 		"description": "Hemenway Hall is home to the Dental Hygiene (B.S.) program. Room 200-B.",
 		"number": "(808) 956-8821",
 		"website": "www.nursing.hawaii.edu/dentalhygiene"
+	},
+  	"162": {
+	    "Building": "Campus Center",
+	    "Floor": "First",
+	    "name": "Payphone",
+	    "lat": 21.298305,
+	    "lng": -157.818746,
+	    "description": "Hawaiian Telcom",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Outside"
+	  },
+	  "163": {
+	    "Building": "Campus Center",
+	    "Floor": "First",
+	    "name": "Vending Machine - Drinks",
+	    "lat": 21.298316,
+	    "lng": -157.818761,
+	    "description": "DASANI",
+	    "Internal Comments": "$1.75 a drink",
+	    "Inside/Outside": "Outside"
+	  },
+	  "164": {
+	    "Building": "Campus Center",
+	    "Floor": "First",
+	    "name": "Vending Machine - Drinks",
+	    "lat": 21.298316,
+	    "lng": -157.818761,
+	    "description": "Coca Cola",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Outside"
+	  },
+	  "165": {
+	    "Building": "Campus Center",
+	    "Floor": "First",
+	    "name": "ATM",
+	    "lat": 21.2984151,
+	    "lng": -157.8188461,
+	    "description": "Bank of Hawaii",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Outside"
+	  },
+	  "166": {
+	    "Building": "Campus Center",
+	    "Floor": "First",
+	    "name": "ATM",
+	    "lat": 21.2984151,
+	    "lng": -157.8188461,
+	    "description": "First Hawaiian Bank",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Outside"
+	  },
+	  "167": {
+	    "Building": "Campus Center",
+	    "Floor": "Second",
+	    "name": "Starbucks",
+	    "lat": 21.2983255,
+	    "lng": -157.8189656,
+	    "description": "Starbucks",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Inside"
+	  },
+	  "168": {
+	    "Building": "Campus Center",
+	    "Floor": "Second",
+	    "name": "Subway",
+	    "lat": 21.2983532,
+	    "lng": -157.8188361,
+	    "description": "Subway",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Inside"
+	  },
+	  "169": {
+	    "Building": "Campus Center",
+	    "Floor": "First",
+	    "name": "Pizza Hut",
+	    "lat": 21.2984642,
+	    "lng": -157.8191326,
+	    "description": "Pizza Hut",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Inside"
+	  },
+	  "170": {
+	    "Building": "Campus Center",
+	    "Floor": "Second",
+	    "name": "Jamba Juice",
+	    "lat": 21.2983033,
+	    "lng": -157.8190055,
+	    "description": "Jamba Juice",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Inside"
+	  },
+	  "171": {
+	    "Building": "Campus Center",
+	    "Floor": "Third",
+	    "name": "Campus Center Ballroom",
+	    "lat": 21.2980982,
+	    "lng": -157.8186605,
+	    "description": "Campus Center Ballroom",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Inside"
+	  },
+	  "172": {
+	    "Building": "Campus Center",
+	    "Floor": "Second",
+	    "name": "Campus Center Cafeteria",
+	    "lat": 21.2981571,
+	    "lng": -157.8185258,
+	    "description": "Campus Center Cafeteria",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Inside"
+	  },
+	  "173": {
+	    "Building": "Campus Center",
+	    "Floor": "First",
+	    "name": "Campus Store",
+	    "lat": 21.298681,
+	    "lng": -157.819207,
+	    "description": "Campus Store",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Inside"
+	  },
+	  "174": {
+	    "Building": "Campus Center",
+	    "Floor": "First",
+	    "name": "Warrior Recreational Center",
+	    "lat": 21.2987532,
+	    "lng": -157.818636,
+	    "description": "Warrior Recreational Center",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Inside"
+	  },
+	  "175": {
+	    "Building": "Campus Center",
+	    "Floor": "First",
+	    "name": "iLab",
+	    "lat": 21.2984515,
+	    "lng": -157.8181405,
+	    "description": "iLab",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Inside"
+	  },
+	  "176": {
+	    "Building": "Campus Center",
+	    "Floor": "First",
+	    "name": "Campus Center Graphics",
+	    "lat": 21.29869,
+	    "lng": -157.81861,
+	    "description": "",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Inside"
+	  },
+	  "177": {
+	    "Building": "Campus Center",
+	    "Floor": "First",
+	    "name": "Elevator",
+	    "lat": 21.29869,
+	    "lng": -157.81861,
+	    "description": "",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Inside"
+	  },
+	  "178": {
+	    "Building": "Campus Center",
+	    "Floor": "Second",
+	    "name": "Campus Center Food Court",
+	    "lat": 21.2987,
+	    "lng": -157.81872,
+	    "description": "",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Inside"
+	  },
+	  "179": {
+	    "Building": "Campus Center",
+	    "Floor": "Second.",
+	    "name": "University of Hawaii Federal Credit Union",
+	    "lat": 21.29862,
+	    "lng": -157.81875,
+	    "description": "",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Inside"
+	  },
+	  "180": {
+	    "Building": "Campus Center",
+	    "Floor": "Second",
+	    "name": "Elevator",
+	    "lat": 21.29831,
+	    "lng": -157.81923,
+	    "description": "",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Inside"
+	  },
+	  "181": {
+	    "Building": "Campus Center",
+	    "Floor": "Second",
+	    "name": "Payphone",
+	    "lat": 21.29847,
+	    "lng": -157.81914,
+	    "description": "",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Outside"
+	  },
+	  "182": {
+	    "Building": "Campus Center",
+	    "Floor": "Third",
+	    "name": "Campus Center Ballroom",
+	    "lat": 21.29882,
+	    "lng": -157.8193,
+	    "description": "",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Inside"
+	  },
+	  "183": {
+	    "Building": "Campus Center",
+	    "Floor": "Third",
+	    "name": "Elevator",
+	    "lat": 21.29844,
+	    "lng": -157.81919,
+	    "description": "",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Inside"
+	  },
+	  "184": {
+	    "Building": "Campus Center",
+	    "Floor": "Third",
+	    "name": "Bathroom",
+	    "lat": 21.29842,
+	    "lng": -157.81909,
+	    "description": "",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Inside"
+	  },
+	  "185": {
+	    "Building": "Campus Center",
+	    "Floor": "Second",
+	    "name": "Jamba Juice",
+	    "lat": 21.29854,
+	    "lng": -157.81923,
+	    "description": "",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Inside"
+	  },
+	  "186": {
+	    "Building": "Campus Center",
+	    "Floor": "Second",
+	    "name": "Simply togo",
+	    "lat": 21.29816,
+	    "lng": -157.81899,
+	    "description": "",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Inside"
+	  },
+	  "187": {
+	    "Building": "Campus Center",
+	    "Floor": "Second",
+	    "name": "Starbucks",
+	    "lat": 21.29873,
+	    "lng": -157.81868,
+	    "description": "",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Inside"
+	  },
+	  "188": {
+	    "Building": "Campus Center",
+	    "Floor": "First",
+	    "name": "Manoa Bookstore",
+	    "lat": 21.29861,
+	    "lng": -157.81864,
+	    "description": "",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Inside"
+	  },
+	  "189": {
+	    "Building": "Campus Center",
+	    "Floor": "First",
+	    "name": "Warrior Recreational Center",
+	    "lat": 21.29866,
+	    "lng": -157.81869,
+	    "description": "",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Inside"
+	  },
+	  "190": {
+	    "Building": "Hemingway Hall",
+	    "Floor": "First",
+	    "name": "Baile",
+	    "lat": 21.29906,
+	    "lng": -157.81964,
+	    "description": "",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Inside"
+	  },
+	  "191": {
+	    "Building": "Hemingway Hall",
+	    "Floor": "First",
+	    "name": "Restrooms",
+	    "lat": 21.2996,
+	    "lng": -157.81945,
+	    "description": "",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Inside"
+	  },
+	  "192": {
+	    "Building": "Hemingway Hall",
+	    "Floor": "Second",
+	    "name": "KTUH",
+	    "lat": 21.29905,
+	    "lng": -157.81986,
+	    "description": "",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Inside"
+	  },
+	  "193": {
+	    "Building": "Hemingway Hall",
+	    "Floor": "First",
+	    "name": "Manoa Garden",
+	    "lat": 21.29857,
+	    "lng": -157.82007,
+	    "description": "",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Inside"
+	  },
+	  "194": {
+	    "Building": "Hemingway Hall",
+	    "Floor": "First",
+	    "name": "American Savings Bank",
+	    "lat": 21.2987,
+	    "lng": -157.81884,
+	    "description": "Atm right next",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Inside"
+	  },
+	  "195": {
+	    "Building": "Hemingway Hall",
+	    "Floor": "First",
+	    "name": "5 drink 1 food vending machine",
+	    "lat": 21.29866,
+	    "lng": -157.81942,
+	    "description": "",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Outside"
+	  },
+	  "196": {
+	    "Building": "Hemingway Hall",
+	    "Floor": "Second",
+	    "name": "Offices of Chartered Student Organizations",
+	    "lat": 21.29867,
+	    "lng": -157.81948,
+	    "description": "",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Inside"
+	  },
+	  "197": {
+	    "Building": "Hemingway Hall",
+	    "Floor": "Second",
+	    "name": "Elevator",
+	    "lat": 21.29867,
+	    "lng": -157.81948,
+	    "description": "",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Inside"
+	  },
+	  "198": {
+	    "Building": "Hemingway Hall",
+	    "Floor": "First",
+	    "name": "Elevator",
+	    "lat": 21.29867,
+	    "lng": -157.81948,
+	    "description": "",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Inside"
+	  },
+	  "199": {
+	    "Building": "Hemingway Hall",
+	    "Floor": "First",
+	    "name": "Board of Publications",
+	    "lat": 21.2983,
+	    "lng": -157.81976,
+	    "description": "",
+	    "Internal Comments": "",
+	    "Inside/Outside": "Inside"
+	  }
 	}
-}]
+]
