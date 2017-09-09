@@ -34,3 +34,5 @@ scripts/build/e2e-generated-tsconfig.json
 
 
 package-lock.json
+
+*.icloud
