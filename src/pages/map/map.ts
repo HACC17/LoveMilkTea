@@ -25,15 +25,11 @@ export class MapPage {
     infoWindow: any;
     selectedValue: number; //for poplating menu
     locationsList: Array<{ value: number, text: string}> = []; //array to populate menu with
-
-    jsonGeoData: any;
-    exploreIndex: string;
-
-
+    exploreIndex: any;
+    jsonData: any;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http) {
         this.exploreIndex = navParams.get('locationIndex');
-        console.log(this.exploreIndex);
 
         if (!firebase.apps.length) {
             this.App = firebase.initializeApp(FIREBASE_CONFIG);
@@ -43,12 +39,11 @@ export class MapPage {
         }
         this.db = this.App.database();
         this.ref = this.db.ref("testPoints");
-
         }
 
     ionViewDidLoad() {
-        this.loadMap();
         this.loadTags();
+        this.loadMap();
     }
 
     loadMap() {
@@ -358,7 +353,9 @@ export class MapPage {
 
             .then(() => {
 
-                //console.log(this.geoMarkers);
+                if(this.exploreIndex){
+                    this.addMarker(this.exploreIndex);
+                }
 
                 for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
                     this.locationsList.push({ value: i, text: this.geoMarkers[i].name});
@@ -384,7 +381,7 @@ export class MapPage {
                     }))
                 }*/
             })
-        // console.log(this.geoMarkers);
+         //console.log(this.geoMarkers);
 
     }
 
@@ -431,7 +428,7 @@ export class MapPage {
         this.http.get('assets/data/locations.json')
             .map((res) => res.json())
             .subscribe(data => {
-                this.jsonGeoData = data;
+                this.jsonData = data;
             }, (rej) => {
                 console.error("Could not load local data", rej)
             });
