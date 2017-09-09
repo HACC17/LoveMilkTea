@@ -53,9 +53,8 @@ export class EditSubmitDataPage {
     }
 
     onSubmit(formData: NgForm) {
-        this.pointName = formData.value.pointName;
          for (var element in formData.value) {
-             this.ref.child(this.dataKey).update({ [element] : [formData.value[element]]});
+             this.ref.child(this.dataKey).update({ [element] : formData.value[element]});
              }
         this.toast.create({
             message: `Edit Complete`,
