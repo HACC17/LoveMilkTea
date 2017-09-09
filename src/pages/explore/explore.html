@@ -38,6 +38,32 @@
   </ion-card>
 
   <ion-card>
+    <div id="cc">
+      <div class="card-title">Campus Center</div>
+    </div>
+
+    <ion-fab right top>
+      <button ion-fab>
+        <ion-icon name="basketball"></ion-icon>
+      </button>
+    </ion-fab>
+
+    <ion-card-content>
+      <p class="description">The campus center offers the university community and the public a wide variety of meeting, dining and entertainment options to enrich campus life and the educational experience.
+      It is the primary venue for programs and events to create an environment where individuals can come and relax, study and be entertained or challenged.</p>
+    </ion-card-content>
+
+    <ion-item>
+      <span item-left>7 min walk</span>
+      <span item-left>(0.5 mi)</span>
+      <button ion-button icon-left clear item-end (click)="mapTo(2)">
+        <ion-icon name="navigate"></ion-icon>
+        Start
+      </button>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
     <div id="hamilton">
       <div class="card-title">Hamilton Library</div>
     </div>
