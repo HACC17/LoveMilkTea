@@ -5,14 +5,14 @@ import {IonicPage, NavController, NavParams, LoadingController} from 'ionic-angu
 import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 
-    declare var google;
+declare var google;
 
-    @Component({
+@Component({
     selector: 'page-map',
     templateUrl: 'map.html'
-    })
+})
 
-    export class MapPage {
+export class MapPage {
 
     @ViewChild('map') mapElement: ElementRef;
     map: any;
@@ -369,40 +369,19 @@ import 'rxjs/add/operator/map';
                     let data = this.geoMarkers[i],
                         latLng = new google.maps.LatLng(data.lat, data.lng);
 
-                        // Creating a marker and putting it on the map
-                 //       let marker = new google.maps.Marker({
-                   //         position: latLng,
-                     //       map: this.map,
-                      //  });
-
-                   //     let info = "Address: " + data.address + " Name: " + data.name;
-
-                  //      google.maps.event.addListener(marker, 'click', (() => {
-                    //        this.infoWindow.setContent(info);
-                      //      this.infoWindow.open(this.map, marker);
-                      //  }))
-                    }
-            })
-        // console.log(this.geoMarkers);
-
-                    console.log(data);
-                    console.log("THISSS " + data.type);
-                    //if (data.type === 'classroom') {
-
                     // Creating a marker and putting it on the map
-                    let marker = new google.maps.Marker({
-                        position: latLng,
-                        map: this.map,
-                    });
+                //    let marker = new google.maps.Marker({
+                //        position: latLng,
+                //        map: this.map,
+                //    });
 
                     let info = "Address: " + data.address + " Name: " + data.name;
 
-                    google.maps.event.addListener(marker, 'click', (() => {
-                        this.infoWindow.setContent(info);
-                        this.infoWindow.open(this.map, marker);
-                    }))
+               //     google.maps.event.addListener(marker, 'click', (() => {
+              //          this.infoWindow.setContent(info);
+               //         this.infoWindow.open(this.map, marker);
+              //      }))
                 }
-                // }
             })
         //console.log(this.geoMarkers);
 
@@ -482,7 +461,7 @@ import 'rxjs/add/operator/map';
 
                 //console.log(this.geoMarkers);
                 for (let i = 0; i < this.geoMarkers.length; i++){
-              //      this.geoMarkers[i] = null;
+                    //      this.geoMarkers[i] = null;
                 }
 
                 for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
@@ -495,9 +474,9 @@ import 'rxjs/add/operator/map';
                     let data = this.geoMarkers[i],
                         latLng = new google.maps.LatLng(data.lat, data.lng);
                     console.log(category);
-                  //  if (data.type === 'library') {
+                    //  if (data.type === 'library') {
 
-                        if (data.type === category) {
+                    if (data.type === category) {
 
                         // Creating a marker and putting it on the map
                         let marker = new google.maps.Marker({
@@ -518,30 +497,4 @@ import 'rxjs/add/operator/map';
 
     }
 
-    }
-
-
-    //Use HTML5 geolocation to get current lat/lng and place marker there
-    showCurrLocation() {
-        this.loader = this.loading.create({
-            content: "Getting Coordinates..."
-        })
-
-        if (navigator.geolocation) {
-            this.loader.present().then(() => {
-                navigator.geolocation.getCurrentPosition((position) => {
-                    var latLng = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    };
-
-                    this.marker.setPosition(latLng);
-                    this.map.setCenter(latLng);
-                    this.loader.dismiss();
-                })
-            })
-
-        }
-    }
 }
-
