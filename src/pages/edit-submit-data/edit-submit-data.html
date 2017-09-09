@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Submit Data</ion-title>
+    <ion-title>Edit Data</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -12,29 +12,11 @@
 <ion-content padding>
 <ion-list inset>
   <form #formData='ngForm'(ngSubmit)="onSubmit(formData)">
-    <ion-label>Contact Information</ion-label>
-    <ion-item>
-      <ion-label color="primary" >First Name</ion-label>
-      <ion-input type="text" placeholder="Enter name" [(ngModel)]="firstName" name="firstName"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label color="primary" >Last Name</ion-label>
-      <ion-input type="text" placeholder="Enter name" [(ngModel)]="lastName" name="lastName"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label color="primary" >Contact Email</ion-label>
-      <ion-input type="text" placeholder="Enter email" [(ngModel)]="email" name="email"></ion-input>
-    </ion-item>
     <br/>
     <ion-label>Point of Interest</ion-label>
     <ion-item>
       <ion-label color="primary" >Point of interest name</ion-label>
       <ion-input type="text" placeholder="Enter name for point of interest" [(ngModel)]="pointName" name="pointName"></ion-input>
-    </ion-item>
-    <ion-item>
-      <button ion-button full small (click)="getCurrLocation()">
-        Get Current Location
-      </button>
     </ion-item>
     <ion-item>
       <ion-label color="primary" >Latitude</ion-label>
@@ -79,11 +61,7 @@
       <ion-label color="primary" stacked >Description</ion-label>
       <ion-input type="text" placeholder="Enter point of interest description" [(ngModel)]="description" name="description"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-label color="primary" stacked >Note to Admin</ion-label>
-      <ion-input type="text" placeholder="Enter a note to the Admin" [(ngModel)]="note" name="note"></ion-input>
-    </ion-item>
-    <button ion-button type="submit" block>Submit</button>
+    <button ion-button type="submit" block>Edit</button>
   </form>
 </ion-list>
 </ion-content>

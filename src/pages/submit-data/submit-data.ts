@@ -44,6 +44,7 @@ export class SubmitDataPage {
         Object.assign(formData.value, {'status': 'pending'});
         this.childRef = this.ref.push();
         this.childRef.set(formData.value);
+        console.log(formData.value);
     }
 
     // Uses HTML5 navigator to get lat/long
