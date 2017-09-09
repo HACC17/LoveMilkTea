@@ -497,4 +497,24 @@ export class MapPage {
 
     }
 
+    //Use HTML5 geolocation to get current lat/lng and place marker there
+    showCurrLocation() {
+        this.loader = this.loading.create({
+            content: "Getting Coordinates..."
+        })
+        if (navigator.geolocation) {
+            this.loader.present().then(() => {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    var latLng = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    this.marker.setPosition(latLng);
+                    this.map.setCenter(latLng);
+                    this.loader.dismiss();
+                })
+            })
+        }
+    }
+
 }
