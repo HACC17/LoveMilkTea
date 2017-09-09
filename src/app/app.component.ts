@@ -9,7 +9,6 @@ import { MapPage }  from '../pages/map/map';
 import {LoginPage} from '../pages/login/login';
 import {ExplorePage} from "../pages/explore/explore";
 import { SubmitDataPage } from '../pages/submit-data/submit-data';
-import { EditSubmitDataPage } from '../pages/edit-submit-data/edit-submit-data';
 
 
 @Component({
@@ -32,8 +31,7 @@ export class MyApp {
             {title: 'Admin', component: LoginPage},
             {title: 'Map', component: MapPage },
             {title: 'Explore', component: ExplorePage },
-            {title: 'Submit Data', component: SubmitDataPage},
-            {title: 'Edit Submit Data', component: EditSubmitDataPage},
+            {title: 'SubmitData', component: SubmitDataPage},
         ];
 
     }

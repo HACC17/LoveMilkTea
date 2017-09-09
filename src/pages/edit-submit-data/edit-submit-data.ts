@@ -20,7 +20,7 @@ export class EditSubmitDataPage {
     longitude: any;
     loader: any;
 
-    constructor(public navCtrl: NavController, public loading: LoadingController) {
+    constructor(public navCtrl: NavController, public loading: LoadingController, private toast: ToastController) {
         if (!firebase.apps.length) {
             this.App = firebase.initializeApp(FIREBASE_CONFIG);
         } else {
@@ -45,6 +45,10 @@ export class EditSubmitDataPage {
         // this.childRef = this.ref.push();
         // this.childRef.set(formData.value);
         // console.log(formData.value);
+        this.toast.create({
+            message: `Edit complete`,
+            duration: 3000
+        }).present();
         this.navCtrl.setRoot('AdminPage');
     }
 

@@ -32,7 +32,7 @@
       <ion-input type="text" placeholder="Enter name for point of interest" [(ngModel)]="pointName" name="pointName"></ion-input>
     </ion-item>
     <ion-item>
-      <button ion-button full small (click)="getCurrLocation()">
+      <button ion-button type="button" full small (click)="getCurrLocation()">
         Get Current Location
       </button>
     </ion-item>
@@ -60,7 +60,7 @@
       <ion-list>
         <ion-label color="primary">Location Type</ion-label>
         <ion-item>
-          <ion-select placeholder="Choose one"[(ngModel)]="type" name="type" cancelText="Nah" okText="Okay!">
+          <ion-select placeholder="Choose One"[(ngModel)]="type" name="type" cancelText="Nah" okText="Okay!">
             <ion-option value="unknown" selected="true">Unknown</ion-option>
             <ion-option value="classroom">Classroom</ion-option>
             <ion-option value="service">Service</ion-option>
