@@ -5,14 +5,14 @@ import {IonicPage, NavController, NavParams, LoadingController} from 'ionic-angu
 import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 
-declare var google;
+    declare var google;
 
-@Component({
+    @Component({
     selector: 'page-map',
     templateUrl: 'map.html'
-})
+    })
 
-export class MapPage {
+    export class MapPage {
 
     @ViewChild('map') mapElement: ElementRef;
     map: any;
@@ -368,6 +368,23 @@ export class MapPage {
                 for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
                     let data = this.geoMarkers[i],
                         latLng = new google.maps.LatLng(data.lat, data.lng);
+
+                        // Creating a marker and putting it on the map
+                 //       let marker = new google.maps.Marker({
+                   //         position: latLng,
+                     //       map: this.map,
+                      //  });
+
+                   //     let info = "Address: " + data.address + " Name: " + data.name;
+
+                  //      google.maps.event.addListener(marker, 'click', (() => {
+                    //        this.infoWindow.setContent(info);
+                      //      this.infoWindow.open(this.map, marker);
+                      //  }))
+                    }
+            })
+        // console.log(this.geoMarkers);
+
                     console.log(data);
                     console.log("THISSS " + data.type);
                     //if (data.type === 'classroom') {
@@ -464,6 +481,9 @@ export class MapPage {
             .then(() => {
 
                 //console.log(this.geoMarkers);
+                for (let i = 0; i < this.geoMarkers.length; i++){
+              //      this.geoMarkers[i] = null;
+                }
 
                 for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
                     this.locationsList.push({value: i, text: this.geoMarkers[i].name});
@@ -474,7 +494,11 @@ export class MapPage {
                 for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
                     let data = this.geoMarkers[i],
                         latLng = new google.maps.LatLng(data.lat, data.lng);
-                    if (data.geoMarkers[i].type === category) {
+                    console.log(category);
+                  //  if (data.type === 'library') {
+
+                        if (data.type === category) {
+
                         // Creating a marker and putting it on the map
                         let marker = new google.maps.Marker({
                             position: latLng,
@@ -493,6 +517,9 @@ export class MapPage {
         // console.log(this.geoMarkers);
 
     }
+
+    }
+
 
     //Use HTML5 geolocation to get current lat/lng and place marker there
     showCurrLocation() {
