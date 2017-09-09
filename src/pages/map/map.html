@@ -11,8 +11,8 @@
 
   <ion-item>
     <ion-label>Filter</ion-label>
-    <ion-select [(ngModel)]="filter" multiple="false" cancelText="Cancel" okText="Filter!">
-      <ion-option value="classroom" (click)="filterMarker('classroom')">Classrooms</ion-option>
+    <ion-select [(ngModel)]="filter" multiple="false" #C (ionChange)="filterMarker(C.value)" cancelText="Cancel" okText="Filter!">
+      <ion-option value="classroom">Classrooms</ion-option>
       <ion-option value="service">Services</ion-option>
       <ion-option value="food">Food</ion-option>
       <ion-option value="drink">Drink</ion-option>

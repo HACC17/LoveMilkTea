@@ -1,16 +1,16 @@
-import {Component, ViewChild, ElementRef} from '@angular/core';
-import {FIREBASE_CONFIG} from "./../../app.firebase.config";
-import * as firebase from 'firebase';
-import {NavController} from 'ionic-angular';
+    import {Component, ViewChild, ElementRef} from '@angular/core';
+    import {FIREBASE_CONFIG} from "./../../app.firebase.config";
+    import * as firebase from 'firebase';
+    import {NavController} from 'ionic-angular';
 
-declare var google;
+    declare var google;
 
-@Component({
+    @Component({
     selector: 'page-map',
     templateUrl: 'map.html'
-})
+    })
 
-export class MapPage {
+    export class MapPage {
 
     @ViewChild('map') mapElement: ElementRef;
     map: any;
@@ -363,27 +363,21 @@ export class MapPage {
                 for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
                     let data = this.geoMarkers[i],
                         latLng = new google.maps.LatLng(data.lat, data.lng);
-                    console.log(data);
-                    console.log("THISSS " + data.type);
-                    //if (data.type === 'classroom') {
-
                         // Creating a marker and putting it on the map
-                        let marker = new google.maps.Marker({
-                            position: latLng,
-                            map: this.map,
-                        });
+                 //       let marker = new google.maps.Marker({
+                   //         position: latLng,
+                     //       map: this.map,
+                      //  });
 
-                        let info = "Address: " + data.address + " Name: " + data.name;
+                   //     let info = "Address: " + data.address + " Name: " + data.name;
 
-                        google.maps.event.addListener(marker, 'click', (() => {
-                            this.infoWindow.setContent(info);
-                            this.infoWindow.open(this.map, marker);
-                        }))
+                  //      google.maps.event.addListener(marker, 'click', (() => {
+                    //        this.infoWindow.setContent(info);
+                      //      this.infoWindow.open(this.map, marker);
+                      //  }))
                     }
-               // }
             })
         // console.log(this.geoMarkers);
-
     }
 
     addMarker(locationIndex){
@@ -402,7 +396,7 @@ export class MapPage {
             title: 'University of Hawaii at Manoa',
             map: this.map,
         });
-        
+
         this.infoWindow = new google.maps.InfoWindow({
             content: infoContent,
         });
@@ -448,6 +442,9 @@ export class MapPage {
             .then(() => {
 
                 //console.log(this.geoMarkers);
+                for (let i = 0; i < this.geoMarkers.length; i++){
+              //      this.geoMarkers[i] = null;
+                }
 
                 for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
                     this.locationsList.push({ value: i, text: this.geoMarkers[i].name});
@@ -458,7 +455,11 @@ export class MapPage {
                 for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
                     let data = this.geoMarkers[i],
                         latLng = new google.maps.LatLng(data.lat, data.lng);
-                    if (data.geoMarkers[i].type === category) {
+                    console.log(category);
+                  //  if (data.type === 'library') {
+
+                        if (data.type === category) {
+
                         // Creating a marker and putting it on the map
                         let marker = new google.maps.Marker({
                             position: latLng,
@@ -477,5 +478,5 @@ export class MapPage {
         // console.log(this.geoMarkers);
 
     }
-}
+    }
 
