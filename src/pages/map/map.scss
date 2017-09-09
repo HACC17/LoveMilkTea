@@ -1,9 +1,21 @@
 page-map {
+
+
   #float-button {
     margin-top: 7px;
     margin-right: 5px;
     position: absolute;
     right: 0;
+    z-index :5;
+  }
+
+  #float-button-location {
+    margin-top: 7px;
+    margin-right: 5px;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 80px;
     z-index :5;
   }
 

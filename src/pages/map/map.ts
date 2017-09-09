@@ -2,6 +2,7 @@ import {Component, ViewChild, ElementRef} from '@angular/core';
 import {FIREBASE_CONFIG} from "./../../app.firebase.config";
 import * as firebase from 'firebase';
 import {NavController} from 'ionic-angular';
+import {LoadingController} from 'ionic-angular';
 
 declare var google;
 
@@ -20,13 +21,14 @@ export class MapPage {
     ref: any;
     marker: any;
     public geoMarkers: any[]; // gonna hold all marker data in here for now.
+    loader: any; // holds the module for loading
     infoWindow: any;
     selectedValue: number; //for poplating menu
     locationsList: Array<{ value: number, text: string}> = []; //array to populate menu with
 
 
 
-    constructor(public navCtrl: NavController) {
+    constructor(public navCtrl: NavController, public loading: LoadingController) {
         if (!firebase.apps.length) {
             this.App = firebase.initializeApp(FIREBASE_CONFIG);
         } else {
@@ -477,5 +479,29 @@ export class MapPage {
         // console.log(this.geoMarkers);
 
     }
+
+    //Use HTML5 geolocation to get current lat/lng and place marker there
+    showCurrLocation () {
+        this.loader = this.loading.create({
+            content: "Getting Coordinates..."
+        })
+
+        if(navigator.geolocation) {
+            this.loader.present().then( () => {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    var latLng = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+
+                    this.marker.setPosition(latLng);
+                    this.map.setCenter(latLng);
+                    this.loader.dismiss();
+                })
+            })
+
+        }
+    }
+
 }
 
