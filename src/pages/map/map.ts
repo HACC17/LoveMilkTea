@@ -1,7 +1,9 @@
-    import {Component, ViewChild, ElementRef} from '@angular/core';
-    import {FIREBASE_CONFIG} from "./../../app.firebase.config";
-    import * as firebase from 'firebase';
-    import {NavController} from 'ionic-angular';
+import {Component, ViewChild, ElementRef, Injectable} from '@angular/core';
+import {FIREBASE_CONFIG} from "./../../app.firebase.config";
+import * as firebase from 'firebase';
+import {IonicPage, NavController, NavParams, LoadingController} from 'ionic-angular';
+import {Http} from '@angular/http';
+import 'rxjs/add/operator/map';
 
     declare var google;
 
@@ -20,13 +22,16 @@
     ref: any;
     marker: any;
     public geoMarkers: any[]; // gonna hold all marker data in here for now.
+    loader: any; // holds the module for loading
     infoWindow: any;
     selectedValue: number; //for poplating menu
-    locationsList: Array<{ value: number, text: string}> = []; //array to populate menu with
+    locationsList: Array<{value: number, text: string}> = []; //array to populate menu with
+    exploreIndex: any;
+    jsonData: any;
 
+    constructor(public navCtrl: NavController, public navParams: NavParams, public loading: LoadingController, public http: Http) {
+        this.exploreIndex = navParams.get('locationIndex');
 
-
-    constructor(public navCtrl: NavController) {
         if (!firebase.apps.length) {
             this.App = firebase.initializeApp(FIREBASE_CONFIG);
         } else {
@@ -35,13 +40,11 @@
         }
         this.db = this.App.database();
         this.ref = this.db.ref("testPoints");
-
-        }
+    }
 
     ionViewDidLoad() {
-        this.loadMap();
         this.loadTags();
-
+        this.loadMap();
     }
 
     loadMap() {
@@ -49,7 +52,7 @@
         this.map = new google.maps.Map(this.mapElement.nativeElement, {
 
             zoom: 18,
-            center: { lat: 21.2969, lng: -157.8171 },
+            center: {lat: 21.2969, lng: -157.8171},
             //streetControlView: false;
             mapTypeControlOptions: {
                 mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain', 'styled_map']
@@ -315,7 +318,7 @@
 
         //set up a default marker.
         this.marker = new google.maps.Marker({
-            position: { lat: 21.2969, lng: -157.8171 },
+            position: {lat: 21.2969, lng: -157.8171},
             title: 'University of Hawaii at Manoa',
             map: this.map,
             icon: {
@@ -326,7 +329,7 @@
         });
 
         this.marker.setAnimation(google.maps.Animation.BOUNCE);
-        }
+    }
 
     //retrieves the tags from our firebase, populates them on map.
     loadTags() {
@@ -352,10 +355,12 @@
 
             .then(() => {
 
-                //console.log(this.geoMarkers);
+                if (this.exploreIndex) {
+                    this.addMarker(this.exploreIndex);
+                }
 
                 for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
-                    this.locationsList.push({ value: i, text: this.geoMarkers[i].name});
+                    this.locationsList.push({value: i, text: this.geoMarkers[i].name});
                 }
 
                 this.infoWindow = new google.maps.InfoWindow();
@@ -363,6 +368,7 @@
                 for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
                     let data = this.geoMarkers[i],
                         latLng = new google.maps.LatLng(data.lat, data.lng);
+
                         // Creating a marker and putting it on the map
                  //       let marker = new google.maps.Marker({
                    //         position: latLng,
@@ -378,10 +384,32 @@
                     }
             })
         // console.log(this.geoMarkers);
+
+                    console.log(data);
+                    console.log("THISSS " + data.type);
+                    //if (data.type === 'classroom') {
+
+                    // Creating a marker and putting it on the map
+                    let marker = new google.maps.Marker({
+                        position: latLng,
+                        map: this.map,
+                    });
+
+                    let info = "Address: " + data.address + " Name: " + data.name;
+
+                    google.maps.event.addListener(marker, 'click', (() => {
+                        this.infoWindow.setContent(info);
+                        this.infoWindow.open(this.map, marker);
+                    }))
+                }
+                // }
+            })
+        //console.log(this.geoMarkers);
+
     }
 
-    addMarker(locationIndex){
-        if(this.marker) {
+    addMarker(locationIndex) {
+        if (this.marker) {
             this.clearMarker();
         }
 
@@ -392,7 +420,7 @@
         let infoContent = '<div class="ui grid"><img class="ui fluid image info" src="' + imgSrc + '">' + '<div id="windowHead">' + geoData[locationIndex].name + '</div>' + '<div id="description">' + geoData[locationIndex].description + '</div>' + '<div id="addressTitle">Address: ' + geoData[locationIndex].address + '</div>' + '<div id="phoneTitle">Phone: ' + geoData[locationIndex].number + '</div>' + '</div>';
 
         this.marker = new google.maps.Marker({
-            position: { lat: geoData[locationIndex].lat, lng: geoData[locationIndex].lng},
+            position: {lat: geoData[locationIndex].lat, lng: geoData[locationIndex].lng},
             title: 'University of Hawaii at Manoa',
             map: this.map,
         });
@@ -418,7 +446,18 @@
         }
     }
 
-    filterMarker(category){
+    //Gets data from locations.json file if needed
+    getGeoData() {
+        this.http.get('assets/data/locations.json')
+            .map((res) => res.json())
+            .subscribe(data => {
+                this.jsonData = data;
+            }, (rej) => {
+                console.error("Could not load local data", rej)
+            });
+    }
+
+    filterMarker(category) {
         //load the tag data into the geoMarkers variable
         this.geoMarkers = [];
         this.ref.once("value")
@@ -447,7 +486,7 @@
                 }
 
                 for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
-                    this.locationsList.push({ value: i, text: this.geoMarkers[i].name});
+                    this.locationsList.push({value: i, text: this.geoMarkers[i].name});
                 }
 
                 this.infoWindow = new google.maps.InfoWindow();
@@ -478,5 +517,31 @@
         // console.log(this.geoMarkers);
 
     }
+
     }
+
+
+    //Use HTML5 geolocation to get current lat/lng and place marker there
+    showCurrLocation() {
+        this.loader = this.loading.create({
+            content: "Getting Coordinates..."
+        })
+
+        if (navigator.geolocation) {
+            this.loader.present().then(() => {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    var latLng = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+
+                    this.marker.setPosition(latLng);
+                    this.map.setCenter(latLng);
+                    this.loader.dismiss();
+                })
+            })
+
+        }
+    }
+}
 

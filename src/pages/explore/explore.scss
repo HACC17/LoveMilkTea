@@ -1,0 +1,45 @@
+page-explore {
+    ion-card {
+      position: relative;
+      text-align: center;
+    }
+
+    span {
+      font-size: 14px;
+    }
+
+    .description {
+      text-align: left;
+      font-size: 12px;
+    }
+
+    .card-title {
+      position: absolute;
+      top: 23%;
+      font-size: 2.0em;
+      width: 100%;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    #wrc {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../../assets/images/wrc.jpg');
+      color: white;
+    }
+
+    #hamilton {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../../assets/images/hamilton.jpg');
+      color: white;
+    }
+
+    #stan-sheriff {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../../assets/images/stan-sheriff.jpg');
+      color: white;
+    }
+}
