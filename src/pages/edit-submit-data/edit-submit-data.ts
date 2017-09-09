@@ -13,14 +13,19 @@ import * as firebase from 'firebase';
 
 export class EditSubmitDataPage {
     ref: any;
-    childRef: any;
     App: any;
     db: any;
     latitude: any;
     longitude: any;
-    loader: any;
+    pointName: string;
+    address: string;
+    description: string;
+    email: string;
+    phone: string;
+    type: string;
+    website: string;
 
-    constructor(public navCtrl: NavController, public loading: LoadingController, private toast: ToastController) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, public loading: LoadingController, private toast: ToastController) {
         if (!firebase.apps.length) {
             this.App = firebase.initializeApp(FIREBASE_CONFIG);
         } else {
@@ -28,6 +33,17 @@ export class EditSubmitDataPage {
         }
         this.db = this.App.database();
         this.ref = this.db.ref("dataPoints");
+
+        //set values to repopulate form
+        this.pointName = this.navParams.get('pointName');
+        this.latitude = this.navParams.get('latitude');
+        this.longitude = this.navParams.get('longitude');
+        this.address = this.navParams.get('address');
+        this.description = this.navParams.get('description');
+        this.phone = this.navParams.get('phone');
+        this.type = this.navParams.get('type');
+        this.email = this.navParams.get('email');
+        this.website = this.navParams.get('website');
 
     }
 
@@ -49,7 +65,7 @@ export class EditSubmitDataPage {
             message: `Edit complete`,
             duration: 3000
         }).present();
-        this.navCtrl.setRoot('AdminPage');
+        this.navCtrl.pop();
     }
 
     // Uses HTML5 navigator to get lat/long

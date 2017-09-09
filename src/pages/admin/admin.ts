@@ -41,7 +41,6 @@ export class AdminPage {
             });
         });
         this.items = items;
-        console.log(this.items);
     }
 
     //value is the key for the entry
@@ -53,9 +52,9 @@ export class AdminPage {
     deny() {
         this.status = "denied";
     }
-    editData(){
-        console.log("test");
-        this.navCtrl.push('EditSubmitDataPage');
+    editData(value){
+        console.log(value);
+        this.navCtrl.push('EditSubmitDataPage', value);
     }
 
     //value is the key for the entry
