@@ -12,29 +12,38 @@
   <ion-item>
     <ion-label>Filter</ion-label>
     <ion-select [(ngModel)]="filter" multiple="false" cancelText="Cancel" okText="Filter!">
-      <ion-option value="classrooms">Classrooms</ion-option>
-      <ion-option value="services">Services</ion-option>
+      <ion-option value="classroom" (click)="filterMarker('classroom')">Classrooms</ion-option>
+      <ion-option value="service">Services</ion-option>
       <ion-option value="food">Food</ion-option>
       <ion-option value="drink">Drink</ion-option>
-      <ion-option value="libraries">Libraries</ion-option>
+      <ion-option value="library">Libraries</ion-option>
+      <ion-option value="entertainment">Entertainment</ion-option>
       <ion-option value="recreational">Recreational</ion-option>
+      <ion-option value="parking">Parking</ion-option>
+      <ion-option value="housing">Housing</ion-option>
       <ion-option value=""></ion-option>
     </ion-select>
   </ion-item>
+
+
 
   <div id="float-button">
     <button ion-button full small (click)="toggleStreetView()">
       Toggle View
     </button>
   </div>
+
+  <div id="float-button-location">
+    <button ion-button full small (click)="showCurrLocation()">
+      Show Me
+    </button>
+  </div>
+
   <div #map id="map"></div>
-  <ion-list>
-    <ion-item>
-      <ion-label>Select Location</ion-label>
-      <ion-select #newSelect [(ngModel)]="location" (ionChange)="addMarker(location)">
-        <ion-option value="1" checked="true">Ka Leo</ion-option>
-        <ion-option value="2" >Holmes Hall</ion-option>
-      </ion-select>
-    </ion-item>
-  </ion-list>
+  <ion-item>
+    <ion-label>Select A Location</ion-label>
+    <ion-select [(ngModel)]="selectedvalue" #newSelect [(ngModel)]="location" (ionChange)="addMarker(location)">
+      <ion-option *ngFor="let item of locationsList" value="{{item.value}}">{{item.text}}</ion-option>
+    </ion-select>
+  </ion-item> 
 </ion-content>

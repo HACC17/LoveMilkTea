@@ -32,6 +32,11 @@
       <ion-input type="text" placeholder="Enter name for point of interest" [(ngModel)]="pointName" name="pointName"></ion-input>
     </ion-item>
     <ion-item>
+      <button ion-button full small (click)="getCurrLocation()">
+        Get Current Location
+      </button>
+    </ion-item>
+    <ion-item>
       <ion-label color="primary" >Latitude</ion-label>
       <ion-input type="text" placeholder="Enter latitude" [(ngModel)]="latitude" name="latitude"></ion-input>
     </ion-item>
@@ -53,6 +58,10 @@
     </ion-item>
     <ion-item>
       <br/>
+      <ion-label color="primary" stacked >Description</ion-label>
+      <ion-input type="text" placeholder="Enter point of interest description" [(ngModel)]="description" name="description"></ion-input>
+    </ion-item>
+    <ion-item>
       <ion-label color="primary" stacked >Note to Admin</ion-label>
       <ion-input type="text" placeholder="Enter a note to the Admin" [(ngModel)]="note" name="note"></ion-input>
     </ion-item>

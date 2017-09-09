@@ -1,5 +1,9 @@
-import {Component, ViewChild, ElementRef} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {Component, ViewChild, ElementRef, Injectable} from '@angular/core';
+import {FIREBASE_CONFIG} from "./../../app.firebase.config";
+import * as firebase from 'firebase';
+import {IonicPage, NavController, NavParams, LoadingController} from 'ionic-angular';
+import {Http} from '@angular/http';
+import 'rxjs/add/operator/map';
 
 declare var google;
 
@@ -12,22 +16,48 @@ export class MapPage {
 
     @ViewChild('map') mapElement: ElementRef;
     map: any;
-    styledMapType: any;
     panorama: any;
+    App: any;
+    db: any;
+    ref: any;
     marker: any;
+    public geoMarkers: any[]; // gonna hold all marker data in here for now.
+    loader: any; // holds the module for loading
     infoWindow: any;
+    selectedValue: number; //for poplating menu
+    locationsList: Array<{value: number, text: string}> = []; //array to populate menu with
+    exploreIndex: any;
+    jsonData: any;
 
-    constructor(public navCtrl: NavController) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, public loading: LoadingController, public http: Http) {
+        this.exploreIndex = navParams.get('locationIndex');
 
+        if (!firebase.apps.length) {
+            this.App = firebase.initializeApp(FIREBASE_CONFIG);
+        } else {
+            console.log(firebase);
+            this.App = firebase.app();
+        }
+        this.db = this.App.database();
+        this.ref = this.db.ref("testPoints");
     }
 
     ionViewDidLoad() {
+        this.loadTags();
         this.loadMap();
     }
 
     loadMap() {
-        this.styledMapType = new google.maps.StyledMapType(
-            [
+
+        this.map = new google.maps.Map(this.mapElement.nativeElement, {
+
+            zoom: 18,
+            center: {lat: 21.2969, lng: -157.8171},
+            //streetControlView: false;
+            mapTypeControlOptions: {
+                mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain', 'styled_map']
+            },
+            styles: [
                 {
                     "featureType": "administrative.country",
                     "elementType": "geometry.stroke",
@@ -280,66 +310,104 @@ export class MapPage {
                         }
                     ]
                 }
-            ],
-            {name: 'Styled Map'});
-
-        this.map = new google.maps.Map(this.mapElement.nativeElement, {
-
-            zoom: 16,
-            center: { lat: 21.2969, lng: -157.8171 },
-            //streetControlView: false;
-            mapTypeControlOptions: {
-                mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain', 'styled_map']
-            }
+            ]
         });
 
         this.panorama = this.map.getStreetView();
         this.panorama.setPosition({lat: 21.298393, lng: -157.818918});
 
-        this.map.mapTypes.set('styled_map', this.styledMapType);
-        this.map.setMapTypeId('styled_map');
-
+        //set up a default marker.
         this.marker = new google.maps.Marker({
-            position: { lat: 21.2969, lng: -157.8171 },
+            position: {lat: 21.2969, lng: -157.8171},
             title: 'University of Hawaii at Manoa',
             map: this.map,
+            icon: {
+                path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW,
+                scale: 4
+            }
+
         });
+
+        this.marker.setAnimation(google.maps.Animation.BOUNCE);
     }
 
-    addMarker(locationIndex){
-        console.log(locationIndex);
-        if(this.marker) {
+    //retrieves the tags from our firebase, populates them on map.
+    loadTags() {
+        //load the tag data into the geoMarkers variable
+        this.geoMarkers = [];
+        this.ref.once("value")
+            .then((dataPoints) => { //ARROW NOTATION IMPORTANT
+                //console.log(dataPoints.val())
+                dataPoints.forEach((dataPoint) => {
+                    this.geoMarkers.push({
+                        address: dataPoint.val().address,
+                        description: dataPoint.val().description,
+                        lat: dataPoint.val().lat,
+                        lng: dataPoint.val().lng,
+                        name: dataPoint.val().name,
+                        number: dataPoint.val().number,
+                        website: dataPoint.val().website,
+                        type: dataPoint.val().type
+                    });
+                });
+                //console.log(this.geoMarkers);
+            })
+
+            .then(() => {
+
+                if (this.exploreIndex) {
+                    this.addMarker(this.exploreIndex);
+                }
+
+                for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
+                    this.locationsList.push({value: i, text: this.geoMarkers[i].name});
+                }
+
+                this.infoWindow = new google.maps.InfoWindow();
+
+                for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
+                    let data = this.geoMarkers[i],
+                        latLng = new google.maps.LatLng(data.lat, data.lng);
+                    console.log(data);
+                    console.log("THISSS " + data.type);
+                    //if (data.type === 'classroom') {
+
+                    // Creating a marker and putting it on the map
+                    let marker = new google.maps.Marker({
+                        position: latLng,
+                        map: this.map,
+                    });
+
+                    let info = "Address: " + data.address + " Name: " + data.name;
+
+                    google.maps.event.addListener(marker, 'click', (() => {
+                        this.infoWindow.setContent(info);
+                        this.infoWindow.open(this.map, marker);
+                    }))
+                }
+                // }
+            })
+        //console.log(this.geoMarkers);
+
+    }
+
+    addMarker(locationIndex) {
+        if (this.marker) {
             this.clearMarker();
         }
-        let geoData = [{
-            "1": {
-                "name": "Ka Leo Office",
-                "address": "2445 Campus Road, Honolulu, HI, 96822",
-                "lat": 21.2985860,
-                "lng": -157.8195610,
-                "description": "Ka Leo O Hawai'i has been the student newspaper for the Manoa campus since 1922. Papers publish biweekly during the school year and monthly in the summer, but do not run on holidays, breaks or exam periods.",
-                "number": "(808) 956-7043",
-                "website": "N/A"
-            },
-            "2": {
-                "name": "Holmes Hall",
-                "address": "2540 Dole Street, Honolulu, HI, 96822",
-                "lat": 21.2968470,
-                "lng": -157.8161010,
-                "description": "Holmes Hall is home to the Mechanical Engineering, Civil Engineering, Computer Engineering, Electrical Engineering, Renewable Energy and Island Sustainability programs.",
-                "number": "N/A",
-                "website": "N/A"
-            }
-        }];
-        let imgSrc = "http://manoanow.org/app/map/images/" + locationIndex + ".png";
-        let infoContent = '<div class="ui grid"><img class="ui fluid image info" src="' + imgSrc + '">' + '<div id="windowHead">' + geoData[0][locationIndex].name + '</div>' + '<div id="description">' + geoData[0][locationIndex].description + '</div>' + '<div id="addressTitle">Address: ' + geoData[0][locationIndex].address + '</div>' + '<div id="phoneTitle">Phone: ' + geoData[0][locationIndex].number + '</div>' + '</div>';
+
+        const geoData = this.geoMarkers;
+        const imgIndex = parseInt(locationIndex) + 1;
+
+        let imgSrc = "http://manoanow.org/app/map/images/" + imgIndex + ".png";
+        let infoContent = '<div class="ui grid"><img class="ui fluid image info" src="' + imgSrc + '">' + '<div id="windowHead">' + geoData[locationIndex].name + '</div>' + '<div id="description">' + geoData[locationIndex].description + '</div>' + '<div id="addressTitle">Address: ' + geoData[locationIndex].address + '</div>' + '<div id="phoneTitle">Phone: ' + geoData[locationIndex].number + '</div>' + '</div>';
 
         this.marker = new google.maps.Marker({
-            position: { lat: geoData[0][locationIndex].lat, lng: geoData[0][locationIndex].lng},
+            position: {lat: geoData[locationIndex].lat, lng: geoData[locationIndex].lng},
             title: 'University of Hawaii at Manoa',
             map: this.map,
         });
-        
+
         this.infoWindow = new google.maps.InfoWindow({
             content: infoContent,
         });
@@ -358,6 +426,94 @@ export class MapPage {
             this.panorama.setVisible(true);
         } else {
             this.panorama.setVisible(false);
+        }
+    }
+
+    //Gets data from locations.json file if needed
+    getGeoData() {
+        this.http.get('assets/data/locations.json')
+            .map((res) => res.json())
+            .subscribe(data => {
+                this.jsonData = data;
+            }, (rej) => {
+                console.error("Could not load local data", rej)
+            });
+    }
+
+    filterMarker(category) {
+        //load the tag data into the geoMarkers variable
+        this.geoMarkers = [];
+        this.ref.once("value")
+            .then((dataPoints) => { //ARROW NOTATION IMPORTANT
+                //console.log(dataPoints.val())
+                dataPoints.forEach((dataPoint) => {
+                    this.geoMarkers.push({
+                        address: dataPoint.val().address,
+                        description: dataPoint.val().description,
+                        lat: dataPoint.val().lat,
+                        lng: dataPoint.val().lng,
+                        name: dataPoint.val().name,
+                        number: dataPoint.val().number,
+                        website: dataPoint.val().website,
+                        type: dataPoint.val().type
+                    });
+                });
+                //console.log(this.geoMarkers);
+            })
+
+            .then(() => {
+
+                //console.log(this.geoMarkers);
+
+                for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
+                    this.locationsList.push({value: i, text: this.geoMarkers[i].name});
+                }
+
+                this.infoWindow = new google.maps.InfoWindow();
+
+                for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
+                    let data = this.geoMarkers[i],
+                        latLng = new google.maps.LatLng(data.lat, data.lng);
+                    if (data.geoMarkers[i].type === category) {
+                        // Creating a marker and putting it on the map
+                        let marker = new google.maps.Marker({
+                            position: latLng,
+                            map: this.map,
+                        });
+
+                        let info = "Address: " + data.address + " Name: " + data.name;
+
+                        google.maps.event.addListener(marker, 'click', (() => {
+                            this.infoWindow.setContent(info);
+                            this.infoWindow.open(this.map, marker);
+                        }))
+                    }
+                }
+            })
+        // console.log(this.geoMarkers);
+
+    }
+
+    //Use HTML5 geolocation to get current lat/lng and place marker there
+    showCurrLocation() {
+        this.loader = this.loading.create({
+            content: "Getting Coordinates..."
+        })
+
+        if (navigator.geolocation) {
+            this.loader.present().then(() => {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    var latLng = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+
+                    this.marker.setPosition(latLng);
+                    this.map.setCenter(latLng);
+                    this.loader.dismiss();
+                })
+            })
+
         }
     }
 }
