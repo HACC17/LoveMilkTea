@@ -53,6 +53,10 @@ export class AdminPage {
     deny() {
         this.status = "denied";
     }
+    editData(){
+        console.log("test");
+        this.navCtrl.push('EditSubmitDataPage');
+    }
 
     //value is the key for the entry
     deleteItem(value){
