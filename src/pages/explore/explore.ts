@@ -10,7 +10,25 @@ import {MapPage} from "../map/map";
 
 export class ExplorePage {
 
+    currentLocation: any;
+    currentLat: any;
+    currentLng: any;
+
     constructor(public navCtrl: NavController, public navParams: NavParams) {
+        if(navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.currentLat = position.coords.latitude;
+                this.currentLng = position.coords.longitude;
+                this.currentLocation = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+            })
+        }
+        else {
+            console.log("Location blocked");
+        }
+        console.log(this.currentLocation);
     }
 
     ionViewDidLoad() {
@@ -21,5 +39,20 @@ export class ExplorePage {
         this.navCtrl.push(MapPage, {
             locationIndex: value.toString()
         });
+    }
+
+    // will check if app has access to user current location to calculate distance from point of interest
+    hasCurrLocation() {
+        if(this.currentLocation){
+            console.log(this.currentLocation);
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    findDistance(){
+
     }
 }

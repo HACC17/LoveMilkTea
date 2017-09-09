@@ -28,8 +28,10 @@
     </ion-card-content>
 
     <ion-item>
-      <span item-left>7 min walk</span>
-      <span item-left>(0.5 mi)</span>
+      <div *ngIf="hasCurrLocation()">
+        <span item-left>7 min walk</span>
+        <span item-left>(0.5 mi)</span>
+      </div>
       <button ion-button icon-left clear item-end (click)="mapTo(147)">
         <ion-icon name="navigate"></ion-icon>
         Start
