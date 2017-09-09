@@ -7,6 +7,7 @@ import {SplashScreen} from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { MapPage }  from '../pages/map/map';
 import {LoginPage} from '../pages/login/login';
+import {ExplorePage} from "../pages/explore/explore";
 import { SubmitDataPage } from '../pages/submit-data/submit-data';
 
 
@@ -29,7 +30,8 @@ export class MyApp {
             {title: 'Home', component: HomePage},
             {title: 'Admin', component: LoginPage},
             {title: 'Map', component: MapPage },
-            {title: 'SubmitData', component: SubmitDataPage},
+            {title: 'Explore', component: ExplorePage },
+            {title: 'Submit Point of Interest', component: SubmitDataPage},
         ];
 
     }

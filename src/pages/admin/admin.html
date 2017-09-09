@@ -12,7 +12,7 @@
   <ion-card *ngFor="let item of items">
     <ion-item item-right>
       <ion-icon name="aperture"></ion-icon>
-      {{status}}
+      {{item.status}}
     </ion-item>
     <ion-card-header>
       {{item.pointName}}
@@ -27,6 +27,7 @@
         <p>Point Name: {{item.pointName}}</p>
         <p>Latitude: {{item.latitude}}</p>
         <p>Longitude: {{item.longitude}}</p>
+        <p>Type: {{item.type}}</p>
         <p>Point Website: {{item.website}}</p>
         <p>Point Phone: {{item.phone}}</p>
         <p>Point Address: {{item.address}}</p>
@@ -36,10 +37,13 @@
         <p>{{item.note}}</p>
       </ion-item>
     </ion-card-content>
-    <button ion-button color="green" (click)="approve(item)">Approve</button>
-    <button ion-button color="danger"(click)="deny()">Deny</button>
-    <button ion-button color="blue">Edit</button>
-    <button ion-button color="blue"(click)="deleteItem(item)">Remove</button>
+    <button ion-button small (click)="approve(item)">Approve</button>
+    <button ion-button small color="blue"(click)="editData(item)">Edit</button>
+    <button ion-button small color="danger"(click)="deny(item)">Deny</button>
+    <button ion-button small color="danger" icon-start (click)="deleteItem(item)">
+      <ion-icon name='close'></ion-icon>
+      Remove
+    </button>
   </ion-card>
 
 </ion-content>

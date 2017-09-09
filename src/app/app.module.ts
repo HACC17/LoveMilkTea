@@ -1,12 +1,14 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {ErrorHandler, NgModule} from '@angular/core';
 import {IonicApp, IonicErrorHandler, IonicModule} from 'ionic-angular';
+import {HttpModule} from '@angular/http';
 
 import {MyApp} from './app.component';
 import {HomePage} from '../pages/home/home';
 import {MapPage} from '../pages/map/map';
 import {LoginPage} from "../pages/login/login";
 import {SubmitDataPage} from "../pages/submit-data/submit-data";
+import {ExplorePage} from "../pages/explore/explore";
 
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
@@ -22,8 +24,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
         MyApp,
         MapPage,
         LoginPage,
+        ExplorePage,
         SubmitDataPage,
-
     ],
     imports: [
         BrowserModule,
@@ -31,13 +33,15 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
         AngularFireModule.initializeApp(FIREBASE_CONFIG),
         AngularFireAuthModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        HttpModule
     ],
     bootstrap: [IonicApp],
     entryComponents: [
         MyApp,
         MapPage,
         LoginPage,
+        ExplorePage,
         SubmitDataPage,
     ],
     providers: [
