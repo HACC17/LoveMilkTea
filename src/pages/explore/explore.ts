@@ -84,7 +84,7 @@ export class ExplorePage {
     loadDistanceAndDuration(data) {
         var length = data.rows[0].elements.length;
         for (var i = 0; i < length; i++) {
-            this.dist.push(data.rows[0].elements[i].distance.text);
+            this.dist.push("(" + data.rows[0].elements[i].distance.text + ")");
             this.dur.push(data.rows[0].elements[i].duration.text);
         }
     }
