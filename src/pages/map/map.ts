@@ -368,6 +368,7 @@ export class MapPage {
                     this.locationsList.push({value: i, text: this.geoMarkers[i].name});
                 }
 
+                /*
                 this.infoWindow = new google.maps.InfoWindow();
 
                 for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
@@ -389,7 +390,7 @@ export class MapPage {
                         this.infoWindow.setContent(info);
                         this.infoWindow.open(this.map, marker);
                     }))
-                }
+                }*/
                 // }
             })
         //console.log(this.geoMarkers);
@@ -439,11 +440,8 @@ export class MapPage {
 
         this.directionsService = new google.maps.DirectionsService;
         this.directionsDisplay = new google.maps.DirectionsRenderer;
-        console.log(this.startValue);
-        console.log(this.endValue);
 
         if ((!isNullOrUndefined(this.startValue)) && (!isNullOrUndefined(this.endValue))) {
-            console.log(this.startValue + " , " + this.endValue);
             this.directionsDisplay.setMap(this.map);
             this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay, this.startValue, this.endValue);
         }
