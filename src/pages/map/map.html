@@ -45,5 +45,17 @@
     <ion-select [(ngModel)]="selectedvalue" #newSelect [(ngModel)]="location" (ionChange)="addMarker(location)">
       <ion-option *ngFor="let item of locationsList" value="{{item.value}}">{{item.text}}</ion-option>
     </ion-select>
-  </ion-item> 
+  </ion-item>
+  <ion-item>
+    <ion-label>Select A Starting Location</ion-label>
+    <ion-select [(ngModel)]="selectedvalue" #newSelect [(ngModel)]="location" (ionChange)="setStartValue(location)">
+      <ion-option *ngFor="let item of locationsList" value="{{item.value}}">{{item.text}}</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>Select A Destination</ion-label>
+    <ion-select [(ngModel)]="selectedvalue" #newSelect [(ngModel)]="location" (ionChange)="setDestValue(location)">
+      <ion-option *ngFor="let item of locationsList" value="{{item.value}}">{{item.text}}</ion-option>
+    </ion-select>
+  </ion-item>
 </ion-content>
