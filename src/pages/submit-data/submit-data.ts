@@ -1,5 +1,5 @@
 import {Component, ViewChild, ElementRef} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import {NavController, ToastController} from 'ionic-angular';
 import {LoadingController} from 'ionic-angular';
 import {NgForm} from '@angular/forms';
 import {FIREBASE_CONFIG} from "./../../app.firebase.config";
@@ -23,7 +23,7 @@ export class SubmitDataPage {
     url: any;
     address: any;
 
-    constructor(public navCtrl: NavController, public loading: LoadingController, public http: Http) {
+    constructor(public navCtrl: NavController, public loading: LoadingController, private toast: ToastController, public http: Http) {
         if (!firebase.apps.length) {
             this.App = firebase.initializeApp(FIREBASE_CONFIG);
         } else {
@@ -47,6 +47,11 @@ export class SubmitDataPage {
         Object.assign(formData.value, {'status': 'pending'});
         this.childRef = this.ref.push();
         this.childRef.set(formData.value);
+        this.toast.create({
+            message: `Data submitted!`,
+            duration: 3000
+        }).present();
+        this.navCtrl.setRoot('HomePage');
     }
 
     // Uses HTML5 navigator to get lat/long

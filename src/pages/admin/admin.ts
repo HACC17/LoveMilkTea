@@ -15,8 +15,6 @@ export class AdminPage {
     App: any;
     db: any;
     items: string[];
-    status: string;
-
 
     constructor(private afAuth: AngularFireAuth, private toast: ToastController, public navCtrl: NavController, public navParams: NavParams) {
         if (!firebase.apps.length) {
@@ -27,37 +25,67 @@ export class AdminPage {
         this.db = this.App.database();
         this.userInputRef = this.db.ref('/dataPoints/');
         this.masterDataRef = this.db.ref('/testPoints');
-        this.status = "pending";
     }
 
     ionViewDidLoad() {
         //added this here instead of constructor, better coding practice to put here?
-        var items = [];
-        this.userInputRef.once('value').then(function(datakey) {
+        var item = [];
+        this.userInputRef.once('value').then(function (datakey) {
             datakey.forEach(function (data) {
                 var temp = data.val();
                 Object.assign(temp, {'key': data.key});
-                items.push(temp);
+                item.push(temp);
             });
         });
-        this.items = items;
-        console.log(this.items);
+        this.items = item;
     }
 
     //value is the key for the entry
     approve(value) {
-        this.status = "approved";
-        console.log(value);
+        this.userInputRef.child(value.key).update({'status': 'approved'});
+        this.masterDataRef = this.masterDataRef.push();
+        this.masterDataRef.set({
+            'name': value.pointName,
+            'address': value.address,
+            'lat': value.latitude,
+            'lng': value.longitude,
+            'description': value.description,
+            'number': value.phone,
+            'website': value.website,
+            'type': value.type,
+        });
+        this.navCtrl.setRoot(this.navCtrl.getActive().component);
     }
 
-    deny() {
-        this.status = "denied";
+    deny(value) {
+        this.userInputRef.child(value.key).update({'status': 'denied'});
+        this.navCtrl.setRoot(this.navCtrl.getActive().component);
+    }
+
+    editData(value) {
+        console.log(value);
+        this.navCtrl.push('EditSubmitDataPage', value);
     }
 
     //value is the key for the entry
-    deleteItem(value){
+    deleteItem(value) {
         this.userInputRef.child(value.key).remove();
+        //refresh page
         this.navCtrl.setRoot(this.navCtrl.getActive().component);
+    }
+    filterItems(value){
+        var item = [];
+        this.userInputRef.once('value').then(function (datakey) {
+            datakey.forEach(function (data) {
+                var temp = data.val();
+                if (value === 'showAll'){
+                    item.push(temp);
+                } else if (temp.status === value){
+                    item.push(temp);
+                }
+            });
+        });
+        this.items = item;
     }
 
     async logout() {
