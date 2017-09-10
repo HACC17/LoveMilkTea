@@ -383,8 +383,6 @@ export class MapPage {
               //      }))
                 }
             })
-        //console.log(this.geoMarkers);
-
     }
 
     addMarker(locationIndex) {
@@ -493,8 +491,6 @@ export class MapPage {
                     }
                 }
             })
-        // console.log(this.geoMarkers);
-
     }
 
     //Use HTML5 geolocation to get current lat/lng and place marker there
