@@ -4,6 +4,7 @@ import * as firebase from 'firebase';
 import {IonicPage, NavController, NavParams, LoadingController} from 'ionic-angular';
 import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
+import {isNullOrUndefined} from "util";
 
 declare var google;
 
@@ -25,9 +26,13 @@ export class MapPage {
     loader: any; // holds the module for loading
     infoWindow: any;
     selectedValue: number; //for poplating menu
-    locationsList: Array<{value: number, text: string}> = []; //array to populate menu with
+    locationsList: Array<{ value: number, text: string }> = []; //array to populate menu with
     exploreIndex: any;
     jsonData: any;
+    directionsService: any;
+    directionsDisplay: any;
+    startValue: any; //two values for destination and location
+    endValue: any;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public loading: LoadingController, public http: Http) {
         this.exploreIndex = navParams.get('locationIndex');
@@ -363,6 +368,7 @@ export class MapPage {
                     this.locationsList.push({value: i, text: this.geoMarkers[i].name});
                 }
 
+                /*
                 this.infoWindow = new google.maps.InfoWindow();
 
                 for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
@@ -411,6 +417,52 @@ export class MapPage {
 
     clearMarker() {
         this.marker.setMap(null);
+    }
+
+    setStartValue(locationIndex) {
+        this.startValue = locationIndex;
+        this.createRoute();
+    }
+
+    setDestValue(locationIndex) {
+        this.endValue = locationIndex;
+        this.createRoute();
+    }
+
+    createRoute() {
+        this.clearRoute();
+
+        this.directionsService = new google.maps.DirectionsService;
+        this.directionsDisplay = new google.maps.DirectionsRenderer;
+
+        if ((!isNullOrUndefined(this.startValue)) && (!isNullOrUndefined(this.endValue))) {
+            this.directionsDisplay.setMap(this.map);
+            this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay, this.startValue, this.endValue);
+        }
+    }
+
+    clearRoute() {
+        if (this.directionsDisplay != null) {
+            this.directionsDisplay.setMap(null);
+            this.directionsDisplay = null;
+        }
+    }
+
+    calculateAndDisplayRoute(directionsService, directionsDisplay, sValue, eValue) {
+        const geoData = this.geoMarkers;
+        let origin = {lat: geoData[sValue].lat, lng: geoData[sValue].lng};
+        let destination = {lat: geoData[eValue].lat, lng: geoData[eValue].lng};
+        directionsService.route({
+            origin: origin,
+            destination: destination,
+            travelMode: 'WALKING'
+        }, function (response, status) {
+            if (status === 'OK') {
+                directionsDisplay.setDirections(response);
+            } else {
+                window.alert('Directions request failed due to ' + status);
+            }
+        });
     }
 
     //Could be useful if needed.

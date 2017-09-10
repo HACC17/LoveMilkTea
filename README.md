@@ -8,7 +8,7 @@ _I got lost in thoughts. It was unfamiliar territory_
 This project gives a better and enchanced view to your navigation experience. With dazzling waypoints and overlaying pathways, it brings your map to life.
 
 ## Overview
-We used [Ionic](https://ionicframework.com/) and [Cordova](https://cordova.apache.org/) to create the app.
+We used [Ionic](https://ionicframework.com/), [Cordova](https://cordova.apache.org/), and [Firebase](https://firebase.google.com/) to create the app.
 
 ## Getting Started
 
