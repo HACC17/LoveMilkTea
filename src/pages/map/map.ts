@@ -372,8 +372,8 @@ export class MapPage {
                 for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
                     let data = this.geoMarkers[i],
                         latLng = new google.maps.LatLng(data.lat, data.lng);
-                    console.log(data);
-                    console.log("THISSS " + data.type);
+                    //console.log(data);
+                    //console.log("THISSS " + data.type);
                     //if (data.type === 'classroom') {
 
                     // Creating a marker and putting it on the map
@@ -425,19 +425,23 @@ export class MapPage {
 
     setStartValue(locationIndex) {
         this.startValue = locationIndex;
+        this.createRoute();
     }
 
     setDestValue(locationIndex) {
         this.endValue = locationIndex;
+        this.createRoute();
     }
 
-    createRoute(locationIndex) {
+    createRoute() {
         this.clearRoute();
 
         this.directionsService = new google.maps.DirectionsService;
         this.directionsDisplay = new google.maps.DirectionsRenderer;
+        console.log(this.startValue);
+        console.log(this.endValue);
 
-        if ((this.startValue && this.endValue) != (null || 0)) {
+        if ((this.startValue && this.endValue) != (null || undefined || 0)) {
             this.directionsDisplay.setMap(this.map);
             this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay, this.startValue, this.endValue);
         }
@@ -452,15 +456,16 @@ export class MapPage {
 
     calculateAndDisplayRoute(directionsService, directionsDisplay, sValue, eValue) {
         const geoData = this.geoMarkers;
+        console.log(geoData);
         let origin = { lat: geoData[sValue].lat, lng: geoData[sValue].lng };
         let destination = { lat: geoData[eValue].lat, lng: geoData[eValue].lng };
-        directionsService.route({
+        this.directionsService.route({
             origin: origin,
             destination: destination,
             travelMode: 'WALKING'
         }, function (response, status) {
             if (status === 'OK') {
-                directionsDisplay.setDirections(response);
+                this.directionsDisplay.setDirections(response);
             } else {
                 window.alert('Directions request failed due to ' + status);
             }
