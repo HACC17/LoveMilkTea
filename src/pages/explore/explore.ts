@@ -36,7 +36,7 @@ export class ExplorePage {
                 this.currentLng = position.coords.longitude;
                 this.currentLocation = this.currentLat + "," + this.currentLng;
                 console.log(this.currentLocation);
-                this.findDistanceAndDuration();
+                //this.findDistanceAndDuration();
             })
         }
         else {
