@@ -4,6 +4,7 @@ import * as firebase from 'firebase';
 import {IonicPage, NavController, NavParams, LoadingController} from 'ionic-angular';
 import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
+import {isNullOrUndefined} from "util";
 
 declare var google;
 
@@ -25,7 +26,7 @@ export class MapPage {
     loader: any; // holds the module for loading
     infoWindow: any;
     selectedValue: number; //for poplating menu
-    locationsList: Array<{value: number, text: string}> = []; //array to populate menu with
+    locationsList: Array<{ value: number, text: string }> = []; //array to populate menu with
     exploreIndex: any;
     jsonData: any;
     directionsService: any;
@@ -441,7 +442,8 @@ export class MapPage {
         console.log(this.startValue);
         console.log(this.endValue);
 
-        if ((this.startValue && this.endValue) != (null || undefined || 0)) {
+        if ((!isNullOrUndefined(this.startValue)) && (!isNullOrUndefined(this.endValue))) {
+            console.log(this.startValue + " , " + this.endValue);
             this.directionsDisplay.setMap(this.map);
             this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay, this.startValue, this.endValue);
         }
@@ -456,16 +458,15 @@ export class MapPage {
 
     calculateAndDisplayRoute(directionsService, directionsDisplay, sValue, eValue) {
         const geoData = this.geoMarkers;
-        console.log(geoData);
-        let origin = { lat: geoData[sValue].lat, lng: geoData[sValue].lng };
-        let destination = { lat: geoData[eValue].lat, lng: geoData[eValue].lng };
-        this.directionsService.route({
+        let origin = {lat: geoData[sValue].lat, lng: geoData[sValue].lng};
+        let destination = {lat: geoData[eValue].lat, lng: geoData[eValue].lng};
+        directionsService.route({
             origin: origin,
             destination: destination,
             travelMode: 'WALKING'
         }, function (response, status) {
             if (status === 'OK') {
-                this.directionsDisplay.setDirections(response);
+                directionsDisplay.setDirections(response);
             } else {
                 window.alert('Directions request failed due to ' + status);
             }
