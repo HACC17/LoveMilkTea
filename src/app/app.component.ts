@@ -31,7 +31,7 @@ export class MyApp {
             {title: 'Admin', component: LoginPage},
             {title: 'Map', component: MapPage },
             {title: 'Explore', component: ExplorePage },
-            {title: 'SubmitData', component: SubmitDataPage},
+            {title: 'Submit Point of Interest', component: SubmitDataPage},
         ];
 
     }

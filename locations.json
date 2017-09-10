@@ -1,4 +1,5 @@
-[{
+{
+"testPoints": {
 	"1": {
 		"name": "Ka Leo Office",
 		"address": "2445 Campus Road, Honolulu, HI, 96822",
@@ -1607,5 +1608,403 @@
 		"number": "(808) 956-8821",
 		"website": "www.nursing.hawaii.edu/dentalhygiene",
 		"type": "classroom"
+	},
+  	"162": {
+	    "name": "Payphone",
+	    "lat": 21.298305,
+	    "lng": -157.818746,
+	    "description": "Hawaiian Telcom",
+	    "number": "",
+		"website": "",
+		"type": "service"
+	},
+	"163": {
+		"name": "Vending Machine - Drinks",
+		"lat": 21.298316,
+		"lng": -157.818761,
+		"description": "DASANI",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "food"
+	},
+	  "164": {
+	    "name": "Vending Machine - Drinks",
+	    "lat": 21.298316,
+	    "lng": -157.818761,
+	    "description": "Coca Cola",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "food"
+	  },
+	  "165": {
+	    "name": "ATM",
+	    "lat": 21.2984151,
+	    "lng": -157.8188461,
+	    "description": "Bank of Hawaii",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "service"
+	  },
+	  "166": {
+	    "name": "ATM",
+	    "lat": 21.2984151,
+	    "lng": -157.8188461,
+	    "description": "First Hawaiian Bank",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "service"
+	  },
+	  "167": {
+	    "floor": "Second",
+	    "name": "Starbucks",
+	    "lat": 21.2983255,
+	    "lng": -157.8189656,
+	    "description": "Starbucks",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "food"
+	  },
+	  "168": {
+	    "floor": "Second",
+	    "name": "Subway",
+	    "lat": 21.2983532,
+	    "lng": -157.8188361,
+	    "description": "Subway",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "food"
+	  },
+	  "169": {
+	    "name": "Pizza Hut",
+	    "lat": 21.2984642,
+	    "lng": -157.8191326,
+	    "description": "Pizza Hut",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "food"
+	  },
+	  "170": {
+	    "floor": "Second",
+	    "name": "Jamba Juice",
+	    "lat": 21.2983033,
+	    "lng": -157.8190055,
+	    "description": "Jamba Juice",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "food"
+	  },
+	  "171": {
+	    "floor": "Third",
+	    "name": "Campus Center Ballroom",
+	    "lat": 21.2980982,
+	    "lng": -157.8186605,
+	    "description": "Campus Center Ballroom",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "entertainment"
+	  },
+	  "172": {
+	    "floor": "Second",
+	    "name": "Campus Center Cafeteria",
+	    "lat": 21.2981571,
+	    "lng": -157.8185258,
+	    "description": "Campus Center Cafeteria",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "food"
+	  },
+	  "173": {
+	    "name": "Campus Store",
+	    "lat": 21.298681,
+	    "lng": -157.819207,
+	    "description": "Campus Store",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "recreational"
+	  },
+	  "174": {
+	    "name": "Warrior Recreational Center",
+	    "lat": 21.2987532,
+	    "lng": -157.818636,
+	    "description": "Warrior Recreational Center",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "recreational"
+	  },
+	  "175": {
+	    "name": "iLab",
+	    "lat": 21.2984515,
+	    "lng": -157.8181405,
+	    "description": "iLab",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "classroom"
+	  },
+	  "176": {
+	    "name": "Campus Center Graphics",
+	    "lat": 21.29869,
+	    "lng": -157.81861,
+	    "description": "",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "service"
+	  },
+	  "177": {
+	    "name": "Elevator",
+	    "lat": 21.29869,
+	    "lng": -157.81861,
+	    "description": "",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "service"
+	  },
+	  "178": {
+	    "floor": "Second",
+	    "name": "Campus Center Food Court",
+	    "lat": 21.2987,
+	    "lng": -157.81872,
+	    "description": "",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "food"
+	  },
+	  "179": {
+	    "floor": "Second.",
+	    "name": "University of Hawaii Federal Credit Union",
+	    "lat": 21.29862,
+	    "lng": -157.81875,
+	    "description": "",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "service"
+	  },
+	  "180": {
+	    "floor": "Second",
+	    "name": "Elevator",
+	    "lat": 21.29831,
+	    "lng": -157.81923,
+	    "description": "",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "serviec"
+	  },
+	  "181": {
+	    "floor": "Second",
+	    "name": "Payphone",
+	    "lat": 21.29847,
+	    "lng": -157.81914,
+	    "description": "",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "service"
+	  },
+	  "182": {
+	    "floor": "Third",
+	    "name": "Campus Center Ballroom",
+	    "lat": 21.29882,
+	    "lng": -157.8193,
+	    "description": "",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "recreational"
+	  },
+	  "183": {
+	    "floor": "Third",
+	    "name": "Elevator",
+	    "lat": 21.29844,
+	    "lng": -157.81919,
+	    "description": "",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "service"
+	  },
+	  "184": {
+	    "floor": "Third",
+	    "name": "Bathroom",
+	    "lat": 21.29842,
+	    "lng": -157.81909,
+	    "description": "",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "service"
+	  },
+	  "185": {
+	    "floor": "Second",
+	    "name": "Jamba Juice",
+	    "lat": 21.29854,
+	    "lng": -157.81923,
+	    "description": "",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "food"
+	  },
+	  "186": {
+	    "floor": "Second",
+	    "name": "Simply togo",
+	    "lat": 21.29816,
+	    "lng": -157.81899,
+	    "description": "",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "food"
+	  },
+	  "187": {
+	    "floor": "Second",
+	    "name": "Starbucks",
+	    "lat": 21.29873,
+	    "lng": -157.81868,
+	    "description": "",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "food"
+	  },
+	  "188": {
+	    "name": "Manoa Bookstore",
+	    "lat": 21.29861,
+	    "lng": -157.81864,
+	    "description": "",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "recreational"
+	  },
+	  "189": {
+	    "name": "Warrior Recreational Center",
+	    "lat": 21.29866,
+	    "lng": -157.81869,
+	    "description": "",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "recreational"
+	  },
+	  "190": {
+	    "name": "Baile",
+	    "lat": 21.29906,
+	    "lng": -157.81964,
+	    "description": "",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "food"
+ 	  },
+	  "191": {
+	    "name": "Restrooms",
+	    "lat": 21.2996,
+	    "lng": -157.81945,
+	    "description": "",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "service"
+	  },
+	  "192": {
+	    "floor": "Second",
+	    "name": "KTUH",
+	    "lat": 21.29905,
+	    "lng": -157.81986,
+	    "description": "",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "entertainment"
+	  },
+	  "193": {
+	    "name": "Manoa Garden",
+	    "lat": 21.29857,
+	    "lng": -157.82007,
+	    "description": "",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "food"
+	  },
+	  "194": {
+	    "name": "American Savings Bank",
+	    "lat": 21.2987,
+	    "lng": -157.81884,
+	    "description": "Atm right next",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "service"
+	  },
+	  "195": {
+	    "name": "5 drink 1 food vending machine",
+	    "lat": 21.29866,
+	    "lng": -157.81942,
+	    "description": "",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "food"
+	  },
+	  "196": {
+	    "floor": "Second",
+	    "name": "Offices of Chartered Student Organizations",
+	    "lat": 21.29867,
+	    "lng": -157.81948,
+	    "description": "",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "service"
+	  },
+	  "197": {
+	    "floor": "Second",
+	    "name": "Elevator",
+	    "lat": 21.29867,
+	    "lng": -157.81948,
+	    "description": "",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "service"
+	  },
+	  "198": {
+	    "name": "Elevator",
+	    "lat": 21.29867,
+	    "lng": -157.81948,
+	    "description": "",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "service"
+	  },
+	  "199": {
+	    "name": "Board of Publications",
+	    "lat": 21.2983,
+	    "lng": -157.81976,
+	    "description": "",
+	    "number": "",
+		"website": "",
+		"address": "",
+		"type": "service"
+	  }
 	}
-}]
+}
