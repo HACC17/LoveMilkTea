@@ -17,6 +17,8 @@ export class ExplorePage {
     currentLat: any;
     currentLng: any;
     url: string;
+    dist: Array<any> = [];
+    dur: Array<any> = [];
 
     public expLocations: string =
         "21.2989380,-157.8185730" + // Warrior Rec Center
@@ -72,10 +74,18 @@ export class ExplorePage {
                 .map(res => res.json()).subscribe(data => {
                 console.log(data);
 
-                
+                this.loadDistanceAndDuration(data);
 
-                resolve(this.data);
+                resolve(data);
             });
         });
+    }
+
+    loadDistanceAndDuration(data) {
+        var length = data.rows[0].elements.length;
+        for (var i = 0; i < length; i++) {
+            this.dist.push(data.rows[0].elements[i].distance.text);
+            this.dur.push(data.rows[0].elements[i].duration.text);
+        }
     }
 }
