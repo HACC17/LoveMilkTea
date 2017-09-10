@@ -4,6 +4,8 @@ import {LoadingController} from 'ionic-angular';
 import {NgForm} from '@angular/forms';
 import {FIREBASE_CONFIG} from "./../../app.firebase.config";
 import * as firebase from 'firebase';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {Http} from '@angular/http';
 
 @Component({
     selector: 'submit-page',
@@ -18,8 +20,10 @@ export class SubmitDataPage {
     latitude: any;
     longitude: any;
     loader: any;
+    url: any;
+    address: any;
 
-    constructor(public navCtrl: NavController, public loading: LoadingController, private toast: ToastController) {
+    constructor(public navCtrl: NavController, public loading: LoadingController, private toast: ToastController, public http: Http) {
         if (!firebase.apps.length) {
             this.App = firebase.initializeApp(FIREBASE_CONFIG);
         } else {
@@ -32,7 +36,7 @@ export class SubmitDataPage {
     }
 
     ionViewDidLoad() {
-
+      this.getCurrLocation();
     }
     onSubmit(formData: NgForm) {
         for (var element in formData.value) {
@@ -61,11 +65,20 @@ export class SubmitDataPage {
                 navigator.geolocation.getCurrentPosition((position) => {
                     this.latitude = position.coords.latitude;
                     this.longitude = position.coords.longitude;
+                    this.getAddress();
                     this.loader.dismiss();
                 })
             })
 
         }
+    }
+    getAddress() {
+        this.url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.latitude},${this.longitude}&key=AIzaSyCeP_xxvneWjyU_0EIg5slVUl3I6TtH4oA`;
+
+        this.http.request(this.url)
+            .map(res => res.json()).subscribe(data => {
+            this.address = data.results[0].formatted_address;
+        });
     }
 
 }
