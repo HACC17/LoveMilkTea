@@ -4,6 +4,7 @@ import * as firebase from 'firebase';
 import {IonicPage, NavController, NavParams, LoadingController} from 'ionic-angular';
 import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
+import {isNullOrUndefined} from "util";
 
 declare var google;
 
@@ -25,9 +26,13 @@ export class MapPage {
     loader: any; // holds the module for loading
     infoWindow: any;
     selectedValue: number; //for poplating menu
-    locationsList: Array<{value: number, text: string}> = []; //array to populate menu with
+    locationsList: Array<{ value: number, text: string }> = []; //array to populate menu with
     exploreIndex: any;
     jsonData: any;
+    directionsService: any;
+    directionsDisplay: any;
+    startValue: any; //two values for destination and location
+    endValue: any;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public loading: LoadingController, public http: Http) {
         this.exploreIndex = navParams.get('locationIndex');
@@ -363,32 +368,27 @@ export class MapPage {
                     this.locationsList.push({value: i, text: this.geoMarkers[i].name});
                 }
 
+
                 this.infoWindow = new google.maps.InfoWindow();
 
                 for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
                     let data = this.geoMarkers[i],
                         latLng = new google.maps.LatLng(data.lat, data.lng);
-                    console.log(data);
-                    console.log("THISSS " + data.type);
-                    //if (data.type === 'classroom') {
 
                     // Creating a marker and putting it on the map
-                    let marker = new google.maps.Marker({
-                        position: latLng,
-                        map: this.map,
-                    });
+                //    let marker = new google.maps.Marker({
+                //        position: latLng,
+                //        map: this.map,
+                //    });
 
                     let info = "Address: " + data.address + " Name: " + data.name;
 
-                    google.maps.event.addListener(marker, 'click', (() => {
-                        this.infoWindow.setContent(info);
-                        this.infoWindow.open(this.map, marker);
-                    }))
+               //     google.maps.event.addListener(marker, 'click', (() => {
+              //          this.infoWindow.setContent(info);
+               //         this.infoWindow.open(this.map, marker);
+              //      }))
                 }
-                // }
             })
-        //console.log(this.geoMarkers);
-
     }
 
     addMarker(locationIndex) {
@@ -417,6 +417,52 @@ export class MapPage {
 
     clearMarker() {
         this.marker.setMap(null);
+    }
+
+    setStartValue(locationIndex) {
+        this.startValue = locationIndex;
+        this.createRoute();
+    }
+
+    setDestValue(locationIndex) {
+        this.endValue = locationIndex;
+        this.createRoute();
+    }
+
+    createRoute() {
+        this.clearRoute();
+
+        this.directionsService = new google.maps.DirectionsService;
+        this.directionsDisplay = new google.maps.DirectionsRenderer;
+
+        if ((!isNullOrUndefined(this.startValue)) && (!isNullOrUndefined(this.endValue))) {
+            this.directionsDisplay.setMap(this.map);
+            this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay, this.startValue, this.endValue);
+        }
+    }
+
+    clearRoute() {
+        if (this.directionsDisplay != null) {
+            this.directionsDisplay.setMap(null);
+            this.directionsDisplay = null;
+        }
+    }
+
+    calculateAndDisplayRoute(directionsService, directionsDisplay, sValue, eValue) {
+        const geoData = this.geoMarkers;
+        let origin = {lat: geoData[sValue].lat, lng: geoData[sValue].lng};
+        let destination = {lat: geoData[eValue].lat, lng: geoData[eValue].lng};
+        directionsService.route({
+            origin: origin,
+            destination: destination,
+            travelMode: 'WALKING'
+        }, function (response, status) {
+            if (status === 'OK') {
+                directionsDisplay.setDirections(response);
+            } else {
+                window.alert('Directions request failed due to ' + status);
+            }
+        });
     }
 
     //Could be useful if needed.
@@ -464,6 +510,9 @@ export class MapPage {
             .then(() => {
 
                 //console.log(this.geoMarkers);
+                for (let i = 0; i < this.geoMarkers.length; i++){
+                    //      this.geoMarkers[i] = null;
+                }
 
                 for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
                     this.locationsList.push({value: i, text: this.geoMarkers[i].name});
@@ -474,7 +523,11 @@ export class MapPage {
                 for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
                     let data = this.geoMarkers[i],
                         latLng = new google.maps.LatLng(data.lat, data.lng);
-                    if (data.geoMarkers[i].type === category) {
+                    console.log(category);
+                    //  if (data.type === 'library') {
+
+                    if (data.type === category) {
+
                         // Creating a marker and putting it on the map
                         let marker = new google.maps.Marker({
                             position: latLng,
@@ -490,8 +543,6 @@ export class MapPage {
                     }
                 }
             })
-        // console.log(this.geoMarkers);
-
     }
 
     //Use HTML5 geolocation to get current lat/lng and place marker there
@@ -499,7 +550,6 @@ export class MapPage {
         this.loader = this.loading.create({
             content: "Getting Coordinates..."
         })
-
         if (navigator.geolocation) {
             this.loader.present().then(() => {
                 navigator.geolocation.getCurrentPosition((position) => {
@@ -507,14 +557,12 @@ export class MapPage {
                         lat: position.coords.latitude,
                         lng: position.coords.longitude
                     };
-
                     this.marker.setPosition(latLng);
                     this.map.setCenter(latLng);
                     this.loader.dismiss();
                 })
             })
-
         }
     }
-}
 
+}
