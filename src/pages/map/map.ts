@@ -7,6 +7,7 @@
     import {isNullOrUndefined} from "util";
 
     declare var google;
+    // Array to contain Markers on the map
     let stash = [];
 
     @Component({
@@ -492,6 +493,7 @@
         }
 
         filterMarker(category) {
+            // For "dual-layered" filtering clean out the "cleanAllMarkers call"
             this.cleanAllMarkers();
             //load the tag data into the geoMarkers variable
             this.geoMarkers = [];
