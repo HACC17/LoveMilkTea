@@ -50,7 +50,10 @@ export class ExplorePage {
 
     mapTo(value) {
         this.navCtrl.push(MapPage, {
-            locationIndex: value.toString()
+            locationIndex: value.toString(),
+            currentLat: this.currentLat,
+            currentLng: this.currentLng
+
         });
     }
 
