@@ -19,6 +19,7 @@ export class ExplorePage {
     url: string;
     dist: Array<any> = [];
     dur: Array<any> = [];
+    direct: boolean;
 
     public expLocations: string =
         "21.2989380,-157.8185730" + // Warrior Rec Center
@@ -30,6 +31,7 @@ export class ExplorePage {
         ;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http) {
+        this.direct = false;
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
                 this.currentLat = position.coords.latitude;
@@ -48,12 +50,20 @@ export class ExplorePage {
     }
 
     mapTo(value) {
+        this.direct = true;
         this.navCtrl.push(MapPage, {
             locationIndex: value.toString(),
             currentLat: this.currentLat,
             currentLng: this.currentLng
-
         });
+    }
+
+    showLocation(value) {
+        if(this.direct == false) {
+            this.navCtrl.push(MapPage, {
+                locationIndex2: value.toString()
+            });
+        }
     }
 
     // will check if app has access to user current location to calculate distance from point of interest

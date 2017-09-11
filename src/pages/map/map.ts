@@ -30,6 +30,7 @@ export class MapPage {
     selectedValue: number; //for populating menu
     locationsList: Array<{value: number, text: string}> = []; //array to populate menu with
     exploreIndex: any;
+    exploreIndex2: any;
     currentLat: any;
     currentLng: any;
     jsonData: any;
@@ -42,6 +43,7 @@ export class MapPage {
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public loading: LoadingController, public http: Http) {
         this.exploreIndex = navParams.get('locationIndex');
+        this.exploreIndex2 = navParams.get('locationIndex2');
         this.currentLat = navParams.get('currentLat');
         this.currentLng = navParams.get('currentLng');
 
@@ -88,6 +90,9 @@ export class MapPage {
                 if (this.exploreIndex && this.currentLat && this.currentLng) {
                     this.createExpRoute();
                 }
+                else if (!this.exploreIndex && this.exploreIndex2) {
+                 this.addMarker(this.exploreIndex2);
+                 }
 
 
                 for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
@@ -97,7 +102,7 @@ export class MapPage {
 
                 this.infoWindow = new google.maps.InfoWindow();
 
-                for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
+                /*for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
                     let data = this.geoMarkers[i],
                         latLng = new google.maps.LatLng(data.lat, data.lng);
 
@@ -116,7 +121,7 @@ export class MapPage {
                         this.infoWindow.setContent(info);
                         this.infoWindow.open(this.map, marker);
                     }))
-                }
+                }*/
             })
     }
 
