@@ -28,6 +28,8 @@ export class MapPage {
     selectedValue: number; //for poplating menu
     locationsList: Array<{ value: number, text: string }> = []; //array to populate menu with
     exploreIndex: any;
+    currentLat: any;
+    currentLng: any;
     jsonData: any;
     directionsService: any;
     directionsDisplay: any;
@@ -36,6 +38,8 @@ export class MapPage {
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public loading: LoadingController, public http: Http) {
         this.exploreIndex = navParams.get('locationIndex');
+        this.currentLat = navParams.get('currentLat');
+        this.currentLng = navParams.get('currentLng');
 
         if (!firebase.apps.length) {
             this.App = firebase.initializeApp(FIREBASE_CONFIG);
@@ -360,8 +364,8 @@ export class MapPage {
 
             .then(() => {
 
-                if (this.exploreIndex) {
-                    this.addMarker(this.exploreIndex);
+                if (this.exploreIndex && this.currentLat && this.currentLng) {
+                    this.createExpRoute();
                 }
 
                 for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
@@ -465,6 +469,38 @@ export class MapPage {
         });
     }
 
+    // For explore page routing
+    createExpRoute() {
+        if (this.marker) {
+            this.clearMarker();
+        }
+        this.clearRoute();
+
+        this.directionsService = new google.maps.DirectionsService;
+        this.directionsDisplay = new google.maps.DirectionsRenderer;
+
+        this.directionsDisplay.setMap(this.map);
+        this.calculateAndDisplayExpRoute(this.directionsService, this.directionsDisplay);
+    }
+
+    // For explore page routing
+    calculateAndDisplayExpRoute(directionsService, directionsDisplay) {
+        const geoData = this.geoMarkers;
+        let origin = {lat: this.currentLat, lng: this.currentLng};
+        let destination = {lat: geoData[this.exploreIndex].lat, lng: geoData[this.exploreIndex].lng};
+        directionsService.route({
+            origin: origin,
+            destination: destination,
+            travelMode: 'WALKING'
+        }, function (response, status) {
+            if (status === 'OK') {
+                directionsDisplay.setDirections(response);
+            } else {
+                window.alert('Directions request failed due to ' + status);
+            }
+        });
+    }
+
     //Could be useful if needed.
     toggleStreetView() {
         let toggle = this.panorama.getVisible();
@@ -553,6 +589,8 @@ export class MapPage {
         if (navigator.geolocation) {
             this.loader.present().then(() => {
                 navigator.geolocation.getCurrentPosition((position) => {
+                    this.currentLat = position.coords.latitude;
+                    this.currentLng = position.coords.longitude;
                     var latLng = {
                         lat: position.coords.latitude,
                         lng: position.coords.longitude

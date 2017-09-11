@@ -36,7 +36,7 @@ export class ExplorePage {
                 this.currentLng = position.coords.longitude;
                 this.currentLocation = this.currentLat + "," + this.currentLng;
                 console.log(this.currentLocation);
-                //this.findDistanceAndDuration();
+                this.findDistanceAndDuration();
             })
         }
         else {
@@ -50,7 +50,10 @@ export class ExplorePage {
 
     mapTo(value) {
         this.navCtrl.push(MapPage, {
-            locationIndex: value.toString()
+            locationIndex: value.toString(),
+            currentLat: this.currentLat,
+            currentLng: this.currentLng
+
         });
     }
 
