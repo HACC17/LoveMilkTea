@@ -8,7 +8,6 @@
 </ion-header>
 
 <ion-content>
-
   <ion-item>
     <ion-label>Filter</ion-label>
     <ion-select [(ngModel)]="filter" multiple="false" #C (ionChange)="filterMarker(C.value)" cancelText="Cancel" okText="Filter!">
@@ -21,7 +20,6 @@
       <ion-option value="parking">Parking</ion-option>
       <ion-option value="recreational">Recreational</ion-option>
       <ion-option value="service">Services</ion-option>
-      <ion-option value=""></ion-option>
     </ion-select>
   </ion-item>
 
@@ -31,13 +29,18 @@
     <button ion-button full small (click)="toggleStreetView()">
       Toggle View
     </button>
-  </div>
-
-  <div id="float-button-location">
     <button ion-button full small (click)="showCurrLocation()">
       Show Me
     </button>
+    <button ion-button full small (click)="cleanAllMarkers()">
+      Clear Map
+    </button>
   </div>
+
+  <div id="float-button-location">
+
+  </div>
+
 
   <div #map id="map"></div>
   <ion-item>
