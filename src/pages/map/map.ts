@@ -41,7 +41,7 @@ export class MapPage {
     // Should we load location types from a config file?
 
     // holds icon SVG data and styling.
-    icons: {
+    icons = {
         food :{
             //spoon and fork
             path:'M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z',
@@ -70,7 +70,7 @@ export class MapPage {
             strokeColor: 'darkgreen',
             fillOpacity: 0.8,
         },
-        "housing" : {
+        housing : {
             //home
             path: 'M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z',
             fillColor: 'lightgreen',
@@ -134,6 +134,7 @@ export class MapPage {
         this.cleanAllMarkers();
         //load the tag data into the geoMarkers variable
         this.geoMarkers = [];
+        console.log(this.icons);
         this.ref.once("value")
             .then((dataPoints) => { //ARROW NOTATION IMPORTANT
                 //console.log(dataPoints.val())
@@ -169,15 +170,16 @@ export class MapPage {
                 for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
                     let data = this.geoMarkers[i],
                         latLng = new google.maps.LatLng(data.lat, data.lng);
+                       // type = this.geoMarkers[i].type;
 
                     // Creating a marker and putting it on the map
                     let marker = new google.maps.Marker({
                         position: latLng,
                         map: this.map,
-                        //icon: this.icons[data.type],
+                        icon: this.icons[data.type],
                     });
 
-                    marker.setIcon(this.icons[data.type]);
+                   // marker.setIcon(this.icons[data.type]);
 
                     stash.push(marker);
 
