@@ -27,7 +27,7 @@ export class ExplorePage {
         "|21.2943550,-157.8186020" + // Stan Sheriff Center
         "|21.2993160,-157.8150410" + // Kennedy Theatre
         "|21.3008300,-157.8156720"   // Paradise Palms Cafe
-    ;
+        ;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http) {
         if (navigator.geolocation) {
@@ -35,8 +35,7 @@ export class ExplorePage {
                 this.currentLat = position.coords.latitude;
                 this.currentLng = position.coords.longitude;
                 this.currentLocation = this.currentLat + "," + this.currentLng;
-                console.log(this.currentLocation);
-                this.findDistanceAndDuration();
+                //this.findDistanceAndDuration();
             })
         }
         else {
@@ -69,18 +68,12 @@ export class ExplorePage {
 
     //must add 'Allow-Control-Allow-Origin: *' Chrome plugin to local browser
     findDistanceAndDuration() {
-        this.url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + this.currentLocation +
-                "&destinations=" + this.expLocations + "&mode=walking&units=imperial&key=" +
-                "AIzaSyCeP_xxvneWjyU_0EIg5slVUl3I6TtH4oA";
-        return new Promise(resolve => {
-            this.http.request(this.url)
-                .map(res => res.json()).subscribe(data => {
-                console.log(data);
+        this.url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${this.currentLocation}&destinations=${this.expLocations}&mode=walking&units=imperial&key=AIzaSyCeP_xxvneWjyU_0EIg5slVUl3I6TtH4oA`;
 
-                this.loadDistanceAndDuration(data);
+        this.http.request(this.url)
+            .map(res => res.json()).subscribe(data => {
+            this.loadDistanceAndDuration(data);
 
-                resolve(data);
-            });
         });
     }
 
