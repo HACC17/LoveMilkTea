@@ -26,7 +26,10 @@ export class ExplorePage {
         "|21.3004500,-157.8161520" + // Hamilton Library
         "|21.2943550,-157.8186020" + // Stan Sheriff Center
         "|21.2993160,-157.8150410" + // Kennedy Theatre
-        "|21.3008300,-157.8156720"   // Paradise Palms Cafe
+        "|21.3008300,-157.8156720" + // Paradise Palms Cafe
+        "|21.3001970,-157.8183760" + // QLC
+        "|21.2984860,157.8201670"  + // Sinclair Library
+        "|21.2983360,-157.8152250"   // University Health Services
         ;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http) {

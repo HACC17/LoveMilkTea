@@ -195,4 +195,91 @@
     </ion-item>
   </ion-card>
 
+  <ion-card>
+    <div (click)="showLocation(151)">
+      <div id="qlc">
+        <div class="card-title">Queen Lili'uokalani Center</div>
+      </div>
+
+      <ion-fab right top>
+        <button ion-fab>
+          <ion-icon name="person"></ion-icon>
+        </button>
+      </ion-fab>
+    </div>
+
+    <ion-card-content>
+      <p class="description">The Queen Lili'uokalani Center, often called QLC, is a center for various student services, including the Office of Admissions, Office of the Registrar, Commuter Services, Financial Aid Services, Mānoa Advising Center, and much more.</p>
+    </ion-card-content>
+
+    <ion-item>
+      <div *ngIf="hasCurrLocation()">
+        <span item-left>{{dur[6]}}</span>
+        <span item-left>{{dist[6]}}</span>
+      </div>
+      <button ion-button icon-left clear item-end (click)="mapTo(151)" *ngIf="hasCurrLocation()">
+        <ion-icon name="navigate"></ion-icon>
+        Start
+      </button>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+    <div (click)="showLocation(4)">
+      <div id="sinclair">
+        <div class="card-title">Sinclair Library</div>
+      </div>
+
+      <ion-fab right top>
+        <button ion-fab>
+          <ion-icon name="book"></ion-icon>
+        </button>
+      </ion-fab>
+    </div>
+
+    <ion-card-content>
+      <p class="description">Sinclair Library, a popular place for late-night studying, is the only library open 24 hours on weekdays.</p>
+    </ion-card-content>
+
+    <ion-item>
+      <div *ngIf="hasCurrLocation()">
+        <span item-left>{{dur[7]}}</span>
+        <span item-left>{{dist[7]}}</span>
+      </div>
+      <button ion-button icon-left clear item-end (click)="mapTo(4)" *ngIf="hasCurrLocation()">
+        <ion-icon name="navigate"></ion-icon>
+        Start
+      </button>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+    <div (click)="showLocation(7)">
+      <div id="uhs">
+        <div class="card-title">University Health Services</div>
+      </div>
+
+      <ion-fab right top>
+        <button ion-fab>
+          <ion-icon name="medkit"></ion-icon>
+        </button>
+      </ion-fab>
+    </div>
+
+    <ion-card-content>
+      <p class="description">The University Health Services Mānoa offers a wide range of medical services and programs. These include general medical care by appointment or on a walk-in basis; women's health, sports medicine, psychiatry, dermatology, and nutrition clinics by appointment</p>
+    </ion-card-content>
+
+    <ion-item>
+      <div *ngIf="hasCurrLocation()">
+        <span item-left>{{dur[8]}}</span>
+        <span item-left>{{dist[8]}}</span>
+      </div>
+      <button ion-button icon-left clear item-end (click)="mapTo(7)" *ngIf="hasCurrLocation()">
+        <ion-icon name="navigate"></ion-icon>
+        Start
+      </button>
+    </ion-item>
+  </ion-card>
+
 </ion-content>
