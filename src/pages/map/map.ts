@@ -173,7 +173,7 @@ export class MapPage {
 
                 this.infoWindow = new google.maps.InfoWindow();
 
-                /*for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
+                for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
                     let data = this.geoMarkers[i],
                         latLng = new google.maps.LatLng(data.lat, data.lng);
                        // type = this.geoMarkers[i].type;
@@ -195,7 +195,7 @@ export class MapPage {
                         this.infoWindow.setContent(info);
                         this.infoWindow.open(this.map, marker);
                     }))
-                }*/
+                }
             })
     }
 
