@@ -382,6 +382,8 @@
                             position: latLng,
                             map: this.map,
                         });
+
+                        // Push into a Markers array
                         stash.push(marker);
 
                         let info = "Address: " + data.address + " Name: " + data.name;

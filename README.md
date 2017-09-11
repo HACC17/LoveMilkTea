@@ -27,13 +27,21 @@ sudo npm install -g cordova
 
 ### Quick Start
 
+Clone the Repository
 ```bash
-# Clone the repository
 git clone https://github.com/HACC17/LoveMilkTea.git && cd LoveMilkTea
-# Install packages
+```
+Install Packages
+```
 npm install
-# Run the local/dev server
+```
+Run as a Web Application
+```
 ionic serve
+```
+Run as a Mobile Application in Ionic Labs
+```
+ionic serve --lab
 ```
 
 ## Downloads
