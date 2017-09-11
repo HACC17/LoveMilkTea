@@ -28,7 +28,7 @@ export class ExplorePage {
         "|21.2993160,-157.8150410" + // Kennedy Theatre
         "|21.3008300,-157.8156720" + // Paradise Palms Cafe
         "|21.3001970,-157.8183760" + // QLC
-        "|21.2984860,157.8201670"  + // Sinclair Library
+        "|21.2984860,-157.8201670" + // Sinclair Library
         "|21.2983360,-157.8152250"   // University Health Services
         ;
 
@@ -38,7 +38,7 @@ export class ExplorePage {
                 this.currentLat = position.coords.latitude;
                 this.currentLng = position.coords.longitude;
                 this.currentLocation = this.currentLat + "," + this.currentLng;
-                //this.findDistanceAndDuration();
+                this.findDistanceAndDuration();
             })
         }
         else {
@@ -81,7 +81,6 @@ export class ExplorePage {
         this.http.request(this.url)
             .map(res => res.json()).subscribe(data => {
             this.loadDistanceAndDuration(data);
-
         });
     }
 
