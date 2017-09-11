@@ -368,7 +368,7 @@ export class MapPage {
                     this.locationsList.push({value: i, text: this.geoMarkers[i].name});
                 }
 
-                /*
+
                 this.infoWindow = new google.maps.InfoWindow();
 
                 for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
@@ -389,8 +389,6 @@ export class MapPage {
               //      }))
                 }
             })
-        //console.log(this.geoMarkers);
-
     }
 
     addMarker(locationIndex) {
@@ -545,8 +543,6 @@ export class MapPage {
                     }
                 }
             })
-        // console.log(this.geoMarkers);
-
     }
 
     //Use HTML5 geolocation to get current lat/lng and place marker there
