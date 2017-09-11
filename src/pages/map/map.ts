@@ -27,7 +27,7 @@
         public geoMarkers: any[]; // gonna hold all marker data in here for now.
         loader: any; // holds the module for loading
         infoWindow: any;
-        selectedValue: number; //for poplating menu
+        selectedValue: number; //for populating menu
         locationsList: Array<{ value: number, text: string }> = []; //array to populate menu with
         exploreIndex: any;
         jsonData: any;
@@ -35,6 +35,8 @@
         directionsDisplay: any;
         startValue: any; //two values for destination and location
         endValue: any;
+        typeList = ["Classroom","Drink", "Food", "Entertainment","Housing","Library","Parking","Recreational","Service"];
+        // Should we load location types from a config file?
 
         constructor(public navCtrl: NavController, public navParams: NavParams, public loading: LoadingController, public http: Http) {
             this.exploreIndex = navParams.get('locationIndex');
@@ -55,7 +57,6 @@
         }
 
         loadMap() {
-
             this.map = new google.maps.Map(this.mapElement.nativeElement, {
 
                 zoom: 18,
@@ -334,7 +335,6 @@
                 }
 
             });
-
             this.marker.setAnimation(google.maps.Animation.BOUNCE);
         }
 
@@ -493,6 +493,8 @@
         }
 
         filterMarker(category) {
+        let criteria = category.charAt(0).toLowerCase() + category.slice(1);
+        console.log(criteria);
             // For "dual-layered" filtering clean out the "cleanAllMarkers call"
             this.cleanAllMarkers();
             //load the tag data into the geoMarkers variable
@@ -528,7 +530,7 @@
                         let data = this.geoMarkers[i],
                             latLng = new google.maps.LatLng(data.lat, data.lng);
 
-                        if (data.type === category) {
+                        if (data.type === criteria) {
 
                             // Creating a marker and putting it on the map
                             let marker = new google.maps.Marker({
@@ -546,7 +548,7 @@
                                 this.infoWindow.open(this.map, marker);
                             }))
                         } else {
-                            console.log("Category: " + category + " does not exist!");
+                            console.log("Category: " + criteria + " does not exist!");
                         }
                     }
                 })
