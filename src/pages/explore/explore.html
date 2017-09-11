@@ -32,7 +32,7 @@
         <span item-left>{{dur[0]}}</span>
         <span item-left>{{dist[0]}}</span>
       </div>
-      <button ion-button icon-left clear item-end (click)="mapTo(147)">
+      <button ion-button icon-left clear item-end (click)="mapTo(147)" *ngIf="hasCurrLocation()">
         <ion-icon name="navigate"></ion-icon>
         Start
       </button>
@@ -51,8 +51,10 @@
     </ion-fab>
 
     <ion-card-content>
-      <p class="description">The campus center offers the university community and the public a wide variety of meeting, dining and entertainment options to enrich campus life and the educational experience.
-      It is the primary venue for programs and events to create an environment where individuals can come and relax, study and be entertained or challenged.</p>
+      <p class="description">The campus center offers the university community and the public a wide variety of meeting,
+        dining and entertainment options to enrich campus life and the educational experience.
+        It is the primary venue for programs and events to create an environment where individuals can come and relax,
+        study and be entertained or challenged.</p>
     </ion-card-content>
 
     <ion-item>
@@ -60,7 +62,7 @@
         <span item-left>{{dur[1]}}</span>
         <span item-left>{{dist[1]}}</span>
       </div>
-      <button ion-button icon-left clear item-end (click)="mapTo(2)">
+      <button ion-button icon-left clear item-end (click)="mapTo(2)" *ngIf="hasCurrLocation()">
         <ion-icon name="navigate"></ion-icon>
         Start
       </button>
@@ -79,7 +81,9 @@
     </ion-fab>
 
     <ion-card-content>
-      <p class="description">The Hamilton Library at the University of Hawaiʻi at Mānoa is the largest research library in the state of Hawaii. The Library serves as a key resource for the flagship Manoa campus as well as the other University of Hawaii system campuses.</p>
+      <p class="description">The Hamilton Library at the University of Hawaiʻi at Mānoa is the largest research library
+        in the state of Hawaii. The Library serves as a key resource for the flagship Manoa campus as well as the other
+        University of Hawaii system campuses.</p>
     </ion-card-content>
 
     <ion-item>
@@ -87,7 +91,7 @@
         <span item-left>{{dur[2]}}</span>
         <span item-left>{{dist[2]}}</span>
       </div>
-      <button ion-button icon-left clear item-end (click)="mapTo(3)">
+      <button ion-button icon-left clear item-end (click)="mapTo(3)" *ngIf="hasCurrLocation()">
         <ion-icon name="navigate"></ion-icon>
         Start
       </button>
@@ -106,7 +110,9 @@
     </ion-fab>
 
     <ion-card-content>
-      <p class="description">The Stan Sheriff Center opened in 1994 and is the jewel of the Athletics Department. The center has served as the home of the University of Hawai‘i men’s and women’s basketball and volleyball teams and has played host to a number of memorable events.</p>
+      <p class="description">The Stan Sheriff Center opened in 1994 and is the jewel of the Athletics Department. The
+        center has served as the home of the University of Hawai‘i men’s and women’s basketball and volleyball teams and
+        has played host to a number of memorable events.</p>
     </ion-card-content>
 
     <ion-item>
@@ -114,7 +120,7 @@
         <span item-left>{{dur[3]}}</span>
         <span item-left>{{dist[3]}}</span>
       </div>
-      <button ion-button icon-left clear item-end (click)="mapTo(130)">
+      <button ion-button icon-left clear item-end (click)="mapTo(130)" *ngIf="hasCurrLocation()">
         <ion-icon name="navigate"></ion-icon>
         Start
       </button>
@@ -122,31 +128,32 @@
   </ion-card>
 
   <ion-card>
-  <div id="kennedy-theatre">
-    <div class="card-title">Kennedy Theatre</div>
-  </div>
-
-  <ion-fab right top>
-    <button ion-fab>
-      <ion-icon name="people"></ion-icon>
-    </button>
-  </ion-fab>
-
-  <ion-card-content>
-    <p class="description">The Kennedy Theatre at the University of Hawai‘i at Manoa is the home base for the productions of the Department of Theatre + Dance.</p>
-  </ion-card-content>
-
-  <ion-item>
-    <div *ngIf="hasCurrLocation()">
-      <span item-left>{{dur[4]}}</span>
-      <span item-left>{{dist[4]}}</span>
+    <div id="kennedy-theatre">
+      <div class="card-title">Kennedy Theatre</div>
     </div>
-    <button ion-button icon-left clear item-end (click)="mapTo(15)">
-      <ion-icon name="navigate"></ion-icon>
-      Start
-    </button>
-  </ion-item>
-</ion-card>
+
+    <ion-fab right top>
+      <button ion-fab>
+        <ion-icon name="people"></ion-icon>
+      </button>
+    </ion-fab>
+
+    <ion-card-content>
+      <p class="description">The Kennedy Theatre at the University of Hawai‘i at Manoa is the home base for the
+        productions of the Department of Theatre + Dance.</p>
+    </ion-card-content>
+
+    <ion-item>
+      <div *ngIf="hasCurrLocation()">
+        <span item-left>{{dur[4]}}</span>
+        <span item-left>{{dist[4]}}</span>
+      </div>
+      <button ion-button icon-left clear item-end (click)="mapTo(15)" *ngIf="hasCurrLocation()">
+        <ion-icon name="navigate"></ion-icon>
+        Start
+      </button>
+    </ion-item>
+  </ion-card>
 
   <ion-card>
     <div id="paradise-palms">
@@ -160,7 +167,8 @@
     </ion-fab>
 
     <ion-card-content>
-      <p class="description">The Paradise Palms Café features six food vendors, an air-conditioned dining room, and an outdoor eating area.</p>
+      <p class="description">The Paradise Palms Café features six food vendors, an air-conditioned dining room, and an
+        outdoor eating area.</p>
     </ion-card-content>
 
     <ion-item>
@@ -168,7 +176,7 @@
         <span item-left>{{dur[5]}}</span>
         <span item-left>{{dist[5]}}</span>
       </div>
-      <button ion-button icon-left clear item-end (click)="mapTo(20)">
+      <button ion-button icon-left clear item-end (click)="mapTo(20)" *ngIf="hasCurrLocation()">
         <ion-icon name="navigate"></ion-icon>
         Start
       </button>
