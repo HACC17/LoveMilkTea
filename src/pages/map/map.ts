@@ -208,7 +208,10 @@ export class MapPage {
             position: {lat: geoData[locationIndex].lat, lng: geoData[locationIndex].lng},
             title: 'University of Hawaii at Manoa',
             map: this.map,
+            icon: this.icons[geoData[locationIndex].type],
         });
+
+
 
         this.infoWindow = new google.maps.InfoWindow({
             content: infoContent,
@@ -365,6 +368,8 @@ export class MapPage {
                         let marker = new google.maps.Marker({
                             position: latLng,
                             map: this.map,
+                            icon: this.icons[data.type],
+
                         });
 
                         // Push into a Markers array
