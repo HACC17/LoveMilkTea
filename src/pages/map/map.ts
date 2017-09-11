@@ -7,6 +7,8 @@ import 'rxjs/add/operator/map';
 import {isNullOrUndefined} from "util";
 
 declare var google;
+// Array to contain Markers on the map
+let stash = [];
 
 @Component({
     selector: 'page-map',
@@ -25,8 +27,8 @@ export class MapPage {
     public geoMarkers: any[]; // gonna hold all marker data in here for now.
     loader: any; // holds the module for loading
     infoWindow: any;
-    selectedValue: number; //for poplating menu
-    locationsList: Array<{ value: number, text: string }> = []; //array to populate menu with
+    selectedValue: number; //for populating menu
+    locationsList: Array<{value: number, text: string}> = []; //array to populate menu with
     exploreIndex: any;
     currentLat: any;
     currentLng: any;
@@ -35,6 +37,8 @@ export class MapPage {
     directionsDisplay: any;
     startValue: any; //two values for destination and location
     endValue: any;
+    typeList = ["Classroom", "Drink", "Food", "Entertainment", "Housing", "Library", "Parking", "Recreational", "Service"];
+    // Should we load location types from a config file?
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public loading: LoadingController, public http: Http) {
         this.exploreIndex = navParams.get('locationIndex');
@@ -56,8 +60,290 @@ export class MapPage {
         this.loadMap();
     }
 
-    loadMap() {
+    //retrieves the tags from our firebase, populates them on map.
+    loadTags() {
+        this.cleanAllMarkers();
+        //load the tag data into the geoMarkers variable
+        this.geoMarkers = [];
+        this.ref.once("value")
+            .then((dataPoints) => { //ARROW NOTATION IMPORTANT
+                //console.log(dataPoints.val())
+                dataPoints.forEach((dataPoint) => {
+                    this.geoMarkers.push({
+                        address: dataPoint.val().address,
+                        description: dataPoint.val().description,
+                        lat: dataPoint.val().lat,
+                        lng: dataPoint.val().lng,
+                        name: dataPoint.val().name,
+                        number: dataPoint.val().number,
+                        website: dataPoint.val().website,
+                        type: dataPoint.val().type
+                    });
+                });
+                //console.log(this.geoMarkers);
+            })
 
+            .then(() => {
+
+                if (this.exploreIndex && this.currentLat && this.currentLng) {
+                    this.createExpRoute();
+                }
+
+
+                for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
+                    this.locationsList.push({value: i, text: this.geoMarkers[i].name});
+                }
+
+
+                this.infoWindow = new google.maps.InfoWindow();
+
+                for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
+                    let data = this.geoMarkers[i],
+                        latLng = new google.maps.LatLng(data.lat, data.lng);
+
+                    // Creating a marker and putting it on the map
+                    let marker = new google.maps.Marker({
+                        position: latLng,
+                        map: this.map,
+                    });
+
+                    // Push into a Markers array
+                    stash.push(marker);
+
+                    let info = "Address: " + data.address + " Name: " + data.name;
+
+                    google.maps.event.addListener(marker, 'click', (() => {
+                        this.infoWindow.setContent(info);
+                        this.infoWindow.open(this.map, marker);
+                    }))
+                }
+            })
+    }
+
+    addMarker(locationIndex) {
+        if (this.marker) {
+            this.clearStarterMarker();
+        }
+
+        const geoData = this.geoMarkers;
+        const imgIndex = parseInt(locationIndex) + 1;
+
+        let imgSrc = "http://manoanow.org/app/map/images/" + imgIndex + ".png";
+        let infoContent = '<div class="ui grid"><img class="ui fluid image info" src="' + imgSrc + '">' + '<div id="windowHead">' + geoData[locationIndex].name + '</div>' + '<div id="description">' + geoData[locationIndex].description + '</div>' + '<div id="addressTitle">Address: ' + geoData[locationIndex].address + '</div>' + '<div id="phoneTitle">Phone: ' + geoData[locationIndex].number + '</div>' + '</div>';
+
+        this.marker = new google.maps.Marker({
+            position: {lat: geoData[locationIndex].lat, lng: geoData[locationIndex].lng},
+            title: 'University of Hawaii at Manoa',
+            map: this.map,
+        });
+
+        this.infoWindow = new google.maps.InfoWindow({
+            content: infoContent,
+        });
+
+        this.infoWindow.open(this.map, this.marker);
+    }
+
+    clearStarterMarker() {
+        this.marker.setMap(null);
+    }
+
+    setStartValue(locationIndex) {
+        this.startValue = locationIndex;
+        this.createRoute();
+    }
+
+    setDestValue(locationIndex) {
+        this.endValue = locationIndex;
+        this.createRoute();
+    }
+
+    createRoute() {
+        this.clearRoute();
+
+        this.directionsService = new google.maps.DirectionsService;
+        this.directionsDisplay = new google.maps.DirectionsRenderer;
+
+        if ((!isNullOrUndefined(this.startValue)) && (!isNullOrUndefined(this.endValue))) {
+            this.directionsDisplay.setMap(this.map);
+            this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay, this.startValue, this.endValue);
+        }
+    }
+
+    clearRoute() {
+        if (this.directionsDisplay != null) {
+            this.directionsDisplay.setMap(null);
+            this.directionsDisplay = null;
+        }
+    }
+
+    calculateAndDisplayRoute(directionsService, directionsDisplay, sValue, eValue) {
+        const geoData = this.geoMarkers;
+        let origin = {lat: geoData[sValue].lat, lng: geoData[sValue].lng};
+        let destination = {lat: geoData[eValue].lat, lng: geoData[eValue].lng};
+        directionsService.route({
+            origin: origin,
+            destination: destination,
+            travelMode: 'WALKING'
+        }, function (response, status) {
+            if (status === 'OK') {
+                directionsDisplay.setDirections(response);
+            } else {
+                window.alert('Directions request failed due to ' + status);
+            }
+        });
+    }
+
+    // For explore page routing
+    createExpRoute() {
+        if (this.marker) {
+            this.clearStarterMarker();
+        }
+        this.clearRoute();
+
+        this.directionsService = new google.maps.DirectionsService;
+        this.directionsDisplay = new google.maps.DirectionsRenderer;
+
+        this.directionsDisplay.setMap(this.map);
+        this.calculateAndDisplayExpRoute(this.directionsService, this.directionsDisplay);
+    }
+
+    // For explore page routing
+    calculateAndDisplayExpRoute(directionsService, directionsDisplay) {
+        const geoData = this.geoMarkers;
+        let origin = {lat: this.currentLat, lng: this.currentLng};
+        let destination = {lat: geoData[this.exploreIndex].lat, lng: geoData[this.exploreIndex].lng};
+        directionsService.route({
+            origin: origin,
+            destination: destination,
+            travelMode: 'WALKING'
+        }, function (response, status) {
+            if (status === 'OK') {
+                directionsDisplay.setDirections(response);
+            } else {
+                window.alert('Directions request failed due to ' + status);
+            }
+        });
+    }
+
+    //Could be useful if needed.
+    toggleStreetView() {
+        let toggle = this.panorama.getVisible();
+        if (toggle == false) {
+            this.panorama.setVisible(true);
+        } else {
+            this.panorama.setVisible(false);
+        }
+    }
+
+
+    //Gets data from locations.json file if needed
+    getGeoData() {
+        this.http.get('assets/data/locations.json')
+            .map((res) => res.json())
+            .subscribe(data => {
+                this.jsonData = data;
+            }, (rej) => {
+                console.error("Could not load local data", rej)
+            });
+    }
+
+    filterMarker(category) {
+        let criteria = category.charAt(0).toLowerCase() + category.slice(1);
+        console.log(criteria);
+        // For "dual-layered" filtering clean out the "cleanAllMarkers call"
+        this.cleanAllMarkers();
+        //load the tag data into the geoMarkers variable
+        this.geoMarkers = [];
+
+
+        this.ref.once("value")
+            .then((dataPoints) => {
+                dataPoints.forEach((dataPoint) => {
+                    this.geoMarkers.push({
+                        address: dataPoint.val().address,
+                        description: dataPoint.val().description,
+                        lat: dataPoint.val().lat,
+                        lng: dataPoint.val().lng,
+                        name: dataPoint.val().name,
+                        number: dataPoint.val().number,
+                        website: dataPoint.val().website,
+                        type: dataPoint.val().type
+                    });
+                });
+            })
+
+            .then(() => {
+
+
+                for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
+                    this.locationsList.push({value: i, text: this.geoMarkers[i].name});
+                }
+
+                this.infoWindow = new google.maps.InfoWindow();
+
+                for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
+                    let data = this.geoMarkers[i],
+                        latLng = new google.maps.LatLng(data.lat, data.lng);
+
+                    if (data.type === criteria) {
+
+                        // Creating a marker and putting it on the map
+                        let marker = new google.maps.Marker({
+                            position: latLng,
+                            map: this.map,
+                        });
+
+                        // Push into a Markers array
+                        stash.push(marker);
+
+                        let info = "Address: " + data.address + " Name: " + data.name;
+
+                        google.maps.event.addListener(marker, 'click', (() => {
+                            this.infoWindow.setContent(info);
+                            this.infoWindow.open(this.map, marker);
+                        }))
+                    } else {
+                        console.log("Category: " + criteria + " does not exist!");
+                    }
+                }
+            })
+    }
+
+    cleanAllMarkers() {
+        if (stash) {
+            for (let i = 0; i < stash.length; i++) {
+                stash[i].setMap(null);
+            }
+            stash.length = 0;
+        } else {
+            console.log('Stash array does not exist!');
+        }
+    }
+
+    //Use HTML5 geolocation to get current lat/lng and place marker there
+    showCurrLocation() {
+        this.loader = this.loading.create({
+            content: "Getting Coordinates..."
+        })
+        if (navigator.geolocation) {
+            this.loader.present().then(() => {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    this.currentLat = position.coords.latitude;
+                    this.currentLng = position.coords.longitude;
+                    var latLng = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    this.marker.setPosition(latLng);
+                    this.map.setCenter(latLng);
+                    this.loader.dismiss();
+                })
+            })
+        }
+    }
+
+    loadMap() {
         this.map = new google.maps.Map(this.mapElement.nativeElement, {
 
             zoom: 18,
@@ -336,271 +622,6 @@ export class MapPage {
             }
 
         });
-
         this.marker.setAnimation(google.maps.Animation.BOUNCE);
     }
-
-    //retrieves the tags from our firebase, populates them on map.
-    loadTags() {
-        //load the tag data into the geoMarkers variable
-        this.geoMarkers = [];
-        this.ref.once("value")
-            .then((dataPoints) => { //ARROW NOTATION IMPORTANT
-                //console.log(dataPoints.val())
-                dataPoints.forEach((dataPoint) => {
-                    this.geoMarkers.push({
-                        address: dataPoint.val().address,
-                        description: dataPoint.val().description,
-                        lat: dataPoint.val().lat,
-                        lng: dataPoint.val().lng,
-                        name: dataPoint.val().name,
-                        number: dataPoint.val().number,
-                        website: dataPoint.val().website,
-                        type: dataPoint.val().type
-                    });
-                });
-                //console.log(this.geoMarkers);
-            })
-
-            .then(() => {
-
-                if (this.exploreIndex && this.currentLat && this.currentLng) {
-                    this.createExpRoute();
-                }
-
-                for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
-                    this.locationsList.push({value: i, text: this.geoMarkers[i].name});
-                }
-
-
-                this.infoWindow = new google.maps.InfoWindow();
-
-                for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
-                    let data = this.geoMarkers[i],
-                        latLng = new google.maps.LatLng(data.lat, data.lng);
-
-                    // Creating a marker and putting it on the map
-                //    let marker = new google.maps.Marker({
-                //        position: latLng,
-                //        map: this.map,
-                //    });
-
-                    let info = "Address: " + data.address + " Name: " + data.name;
-
-               //     google.maps.event.addListener(marker, 'click', (() => {
-              //          this.infoWindow.setContent(info);
-               //         this.infoWindow.open(this.map, marker);
-              //      }))
-                }
-            })
-    }
-
-    addMarker(locationIndex) {
-        if (this.marker) {
-            this.clearMarker();
-        }
-
-        const geoData = this.geoMarkers;
-        const imgIndex = parseInt(locationIndex) + 1;
-
-        let imgSrc = "http://manoanow.org/app/map/images/" + imgIndex + ".png";
-        let infoContent = '<div class="ui grid"><img class="ui fluid image info" src="' + imgSrc + '">' + '<div id="windowHead">' + geoData[locationIndex].name + '</div>' + '<div id="description">' + geoData[locationIndex].description + '</div>' + '<div id="addressTitle">Address: ' + geoData[locationIndex].address + '</div>' + '<div id="phoneTitle">Phone: ' + geoData[locationIndex].number + '</div>' + '</div>';
-
-        this.marker = new google.maps.Marker({
-            position: {lat: geoData[locationIndex].lat, lng: geoData[locationIndex].lng},
-            title: 'University of Hawaii at Manoa',
-            map: this.map,
-        });
-
-        this.infoWindow = new google.maps.InfoWindow({
-            content: infoContent,
-        });
-
-        this.infoWindow.open(this.map, this.marker);
-    }
-
-    clearMarker() {
-        this.marker.setMap(null);
-    }
-
-    setStartValue(locationIndex) {
-        this.startValue = locationIndex;
-        this.createRoute();
-    }
-
-    setDestValue(locationIndex) {
-        this.endValue = locationIndex;
-        this.createRoute();
-    }
-
-    createRoute() {
-        this.clearRoute();
-
-        this.directionsService = new google.maps.DirectionsService;
-        this.directionsDisplay = new google.maps.DirectionsRenderer;
-
-        if ((!isNullOrUndefined(this.startValue)) && (!isNullOrUndefined(this.endValue))) {
-            this.directionsDisplay.setMap(this.map);
-            this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay, this.startValue, this.endValue);
-        }
-    }
-
-    clearRoute() {
-        if (this.directionsDisplay != null) {
-            this.directionsDisplay.setMap(null);
-            this.directionsDisplay = null;
-        }
-    }
-
-    calculateAndDisplayRoute(directionsService, directionsDisplay, sValue, eValue) {
-        const geoData = this.geoMarkers;
-        let origin = {lat: geoData[sValue].lat, lng: geoData[sValue].lng};
-        let destination = {lat: geoData[eValue].lat, lng: geoData[eValue].lng};
-        directionsService.route({
-            origin: origin,
-            destination: destination,
-            travelMode: 'WALKING'
-        }, function (response, status) {
-            if (status === 'OK') {
-                directionsDisplay.setDirections(response);
-            } else {
-                window.alert('Directions request failed due to ' + status);
-            }
-        });
-    }
-
-    // For explore page routing
-    createExpRoute() {
-        if (this.marker) {
-            this.clearMarker();
-        }
-        this.clearRoute();
-
-        this.directionsService = new google.maps.DirectionsService;
-        this.directionsDisplay = new google.maps.DirectionsRenderer;
-
-        this.directionsDisplay.setMap(this.map);
-        this.calculateAndDisplayExpRoute(this.directionsService, this.directionsDisplay);
-    }
-
-    // For explore page routing
-    calculateAndDisplayExpRoute(directionsService, directionsDisplay) {
-        const geoData = this.geoMarkers;
-        let origin = {lat: this.currentLat, lng: this.currentLng};
-        let destination = {lat: geoData[this.exploreIndex].lat, lng: geoData[this.exploreIndex].lng};
-        directionsService.route({
-            origin: origin,
-            destination: destination,
-            travelMode: 'WALKING'
-        }, function (response, status) {
-            if (status === 'OK') {
-                directionsDisplay.setDirections(response);
-            } else {
-                window.alert('Directions request failed due to ' + status);
-            }
-        });
-    }
-
-    //Could be useful if needed.
-    toggleStreetView() {
-        let toggle = this.panorama.getVisible();
-        if (toggle == false) {
-            this.panorama.setVisible(true);
-        } else {
-            this.panorama.setVisible(false);
-        }
-    }
-
-    //Gets data from locations.json file if needed
-    getGeoData() {
-        this.http.get('assets/data/locations.json')
-            .map((res) => res.json())
-            .subscribe(data => {
-                this.jsonData = data;
-            }, (rej) => {
-                console.error("Could not load local data", rej)
-            });
-    }
-
-    filterMarker(category) {
-        //load the tag data into the geoMarkers variable
-        this.geoMarkers = [];
-        this.ref.once("value")
-            .then((dataPoints) => { //ARROW NOTATION IMPORTANT
-                //console.log(dataPoints.val())
-                dataPoints.forEach((dataPoint) => {
-                    this.geoMarkers.push({
-                        address: dataPoint.val().address,
-                        description: dataPoint.val().description,
-                        lat: dataPoint.val().lat,
-                        lng: dataPoint.val().lng,
-                        name: dataPoint.val().name,
-                        number: dataPoint.val().number,
-                        website: dataPoint.val().website,
-                        type: dataPoint.val().type
-                    });
-                });
-                //console.log(this.geoMarkers);
-            })
-
-            .then(() => {
-
-                //console.log(this.geoMarkers);
-                for (let i = 0; i < this.geoMarkers.length; i++){
-                    //      this.geoMarkers[i] = null;
-                }
-
-                for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
-                    this.locationsList.push({value: i, text: this.geoMarkers[i].name});
-                }
-
-                this.infoWindow = new google.maps.InfoWindow();
-
-                for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
-                    let data = this.geoMarkers[i],
-                        latLng = new google.maps.LatLng(data.lat, data.lng);
-                    console.log(category);
-                    //  if (data.type === 'library') {
-
-                    if (data.type === category) {
-
-                        // Creating a marker and putting it on the map
-                        let marker = new google.maps.Marker({
-                            position: latLng,
-                            map: this.map,
-                        });
-
-                        let info = "Address: " + data.address + " Name: " + data.name;
-
-                        google.maps.event.addListener(marker, 'click', (() => {
-                            this.infoWindow.setContent(info);
-                            this.infoWindow.open(this.map, marker);
-                        }))
-                    }
-                }
-            })
-    }
-
-    //Use HTML5 geolocation to get current lat/lng and place marker there
-    showCurrLocation() {
-        this.loader = this.loading.create({
-            content: "Getting Coordinates..."
-        })
-        if (navigator.geolocation) {
-            this.loader.present().then(() => {
-                navigator.geolocation.getCurrentPosition((position) => {
-                    this.currentLat = position.coords.latitude;
-                    this.currentLng = position.coords.longitude;
-                    var latLng = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    };
-                    this.marker.setPosition(latLng);
-                    this.map.setCenter(latLng);
-                    this.loader.dismiss();
-                })
-            })
-        }
-    }
-
 }
