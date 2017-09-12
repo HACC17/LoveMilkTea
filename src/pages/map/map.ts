@@ -394,7 +394,6 @@ export class MapPage {
     }
 
     changeAllMarkers() {
-        console.log(this.changeVal);
         if (this.changeVal === 1) {
             if (stash) {
                 for (let i = 0; i < stash.length; i++) {
