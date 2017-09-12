@@ -27,7 +27,6 @@ export class MapPage {
     public geoMarkers: any[]; // gonna hold all marker data in here for now.
     loader: any; // holds the module for loading
     infoWindow: any;
-    selectedValue: number; //for populating menu
     locationsList: Array<{value: number, text: string}> = []; //array to populate menu with
     exploreIndex: any;
     exploreIndex2: any;
@@ -41,6 +40,7 @@ export class MapPage {
     typeList = ["Classroom", "Drink", "Food", "Entertainment", "Housing", "Library", "Parking", "Recreational", "Service"];
     userMarker: any;
     // Should we load location types from a config file?
+    changeVal: number; //change button change value
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public loading: LoadingController, public http: Http) {
         this.exploreIndex = navParams.get('locationIndex');
@@ -66,7 +66,7 @@ export class MapPage {
 
     //retrieves the tags from our firebase, populates them on map.
     loadTags() {
-        this.cleanAllMarkers();
+        this.clearAllMarkers();
         //load the tag data into the geoMarkers variable
         this.geoMarkers = [];
         console.log(this.icons);
@@ -127,6 +127,7 @@ export class MapPage {
                         this.infoWindow.setContent(info);
                         this.infoWindow.open(this.map, marker);
                     }))
+                    this.changeVal = 1;
                 }
             })
     }
@@ -181,6 +182,9 @@ export class MapPage {
         if ((!isNullOrUndefined(this.startValue)) && (!isNullOrUndefined(this.endValue))) {
             this.directionsDisplay.setMap(this.map);
             this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay, this.startValue, this.endValue);
+            if (this.changeVal === 1) {
+                this.changeAllMarkers();
+            }
         }
     }
 
@@ -265,8 +269,8 @@ export class MapPage {
     filterMarker(category) {
         let criteria = category.charAt(0).toLowerCase() + category.slice(1);
         console.log(criteria);
-        // For "dual-layered" filtering clean out the "cleanAllMarkers call"
-        this.cleanAllMarkers();
+        // For "dual-layered" filtering clean out the "changeAllMarkers call"
+        this.changeAllMarkers();
         //load the tag data into the geoMarkers variable
         this.geoMarkers = [];
 
@@ -326,14 +330,75 @@ export class MapPage {
             })
     }
 
-    cleanAllMarkers() {
+    changeAllMarkers() {
+        if (this.changeVal === 1) {
+            if (stash) {
+                for (let i = 0; i < stash.length; i++) {
+                    stash[i].setMap(null);
+                }
+                stash.length = 0;
+                this.changeVal = 0;
+                this.changeButton();
+            } else {
+                console.log('Stash array does not exist!');
+            }
+        } else if (this.changeVal === 0) {
+            this.changeVal = 1;
+            this.changeButton();
+            this.placeAllMarkers();
+        }
+    }
+
+    clearAllMarkers() {
         if (stash) {
             for (let i = 0; i < stash.length; i++) {
                 stash[i].setMap(null);
             }
             stash.length = 0;
-        } else {
+            this.changeVal = 0;
+        }  else {
             console.log('Stash array does not exist!');
+        }
+    }
+
+    placeAllMarkers() {
+        const geoData = this.geoMarkers;
+
+        if (this.exploreIndex && this.currentLat && this.currentLng) {
+            this.createExpRoute();
+        }
+
+
+        for (let i = 0; i <= geoData.length - 1; i++) {
+            this.locationsList.push({value: i, text: geoData[i].name});
+        }
+
+
+        this.infoWindow = new google.maps.InfoWindow();
+
+        for (let i = 0, length = geoData.length; i < length; i++) {
+            let data = geoData[i],
+                latLng = new google.maps.LatLng(data.lat, data.lng);
+            // type = this.geoMarkers[i].type;
+
+            // Creating a marker and putting it on the map
+            let marker = new google.maps.Marker({
+                position: latLng,
+                map: this.map,
+                icon: this.icons[data.type],
+            });
+
+            // marker.setIcon(this.icons[data.type]);
+
+            stash.push(marker);
+
+            let info = "Address: " + data.address + " Name: " + data.name;
+
+            google.maps.event.addListener(marker, 'click', (() => {
+                this.infoWindow.setContent(info);
+                this.infoWindow.open(this.map, marker);
+            }))
+            this.changeVal = 1;
         }
     }
 
@@ -357,6 +422,13 @@ export class MapPage {
                 })
             })
         }
+    }
+
+    changeButton() {
+        var elem = document.getElementById("clearButton");
+        if (elem.innerHTML=="Show Points") elem.innerHTML = "Clear Points";
+        else elem.innerHTML = "Show Points";
+
     }
 
     loadMap() {
