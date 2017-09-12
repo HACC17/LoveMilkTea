@@ -9,18 +9,20 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
 
   <ion-card>
-    <div id="wrc">
-      <div class="card-title">Warrior Rec Center</div>
-    </div>
+    <div (click)="showLocation(147)">
+      <div id="wrc">
+        <div class="card-title">Warrior Rec Center</div>
+      </div>
 
-    <ion-fab right top>
-      <button ion-fab>
-        <ion-icon name="basketball"></ion-icon>
-      </button>
-    </ion-fab>
+      <ion-fab right top>
+        <button ion-fab>
+          <ion-icon name="basketball"></ion-icon>
+        </button>
+      </ion-fab>
+    </div>
 
     <ion-card-content>
       <p class="description">The Warrior Rec Center is approximately 66,000 sq ft and is considered to be one of the
@@ -32,7 +34,7 @@
         <span item-left>{{dur[0]}}</span>
         <span item-left>{{dist[0]}}</span>
       </div>
-      <button ion-button icon-left clear item-end (click)="mapTo(147)">
+      <button ion-button icon-left clear item-end (click)="mapTo(147)" *ngIf="hasCurrLocation()">
         <ion-icon name="navigate"></ion-icon>
         Start
       </button>
@@ -40,19 +42,23 @@
   </ion-card>
 
   <ion-card>
-    <div id="cc">
-      <div class="card-title">Campus Center</div>
+    <div (click)="showLocation(2)">
+      <div id="cc">
+        <div class="card-title">Campus Center</div>
+      </div>
+
+      <ion-fab right top>
+        <button ion-fab>
+          <ion-icon name="pizza"></ion-icon>
+        </button>
+      </ion-fab>
     </div>
 
-    <ion-fab right top>
-      <button ion-fab>
-        <ion-icon name="pizza"></ion-icon>
-      </button>
-    </ion-fab>
-
     <ion-card-content>
-      <p class="description">The campus center offers the university community and the public a wide variety of meeting, dining and entertainment options to enrich campus life and the educational experience.
-      It is the primary venue for programs and events to create an environment where individuals can come and relax, study and be entertained or challenged.</p>
+      <p class="description">The campus center offers the university community and the public a wide variety of meeting,
+        dining and entertainment options to enrich campus life and the educational experience.
+        It is the primary venue for programs and events to create an environment where individuals can come and relax,
+        study and be entertained or challenged.</p>
     </ion-card-content>
 
     <ion-item>
@@ -60,7 +66,7 @@
         <span item-left>{{dur[1]}}</span>
         <span item-left>{{dist[1]}}</span>
       </div>
-      <button ion-button icon-left clear item-end (click)="mapTo(2)">
+      <button ion-button icon-left clear item-end (click)="mapTo(2)" *ngIf="hasCurrLocation()">
         <ion-icon name="navigate"></ion-icon>
         Start
       </button>
@@ -68,18 +74,22 @@
   </ion-card>
 
   <ion-card>
-    <div id="hamilton">
-      <div class="card-title">Hamilton Library</div>
+    <div (click)="showLocation(3)">
+      <div id="hamilton">
+        <div class="card-title">Hamilton Library</div>
+      </div>
+
+      <ion-fab right top>
+        <button ion-fab>
+          <ion-icon name="book"></ion-icon>
+        </button>
+      </ion-fab>
     </div>
 
-    <ion-fab right top>
-      <button ion-fab>
-        <ion-icon name="book"></ion-icon>
-      </button>
-    </ion-fab>
-
     <ion-card-content>
-      <p class="description">The Hamilton Library at the University of Hawaiʻi at Mānoa is the largest research library in the state of Hawaii. The Library serves as a key resource for the flagship Manoa campus as well as the other University of Hawaii system campuses.</p>
+      <p class="description">The Hamilton Library at the University of Hawaiʻi at Mānoa is the largest research library
+        in the state of Hawaii. The Library serves as a key resource for the flagship Manoa campus as well as the other
+        University of Hawaii system campuses.</p>
     </ion-card-content>
 
     <ion-item>
@@ -87,7 +97,7 @@
         <span item-left>{{dur[2]}}</span>
         <span item-left>{{dist[2]}}</span>
       </div>
-      <button ion-button icon-left clear item-end (click)="mapTo(3)">
+      <button ion-button icon-left clear item-end (click)="mapTo(3)" *ngIf="hasCurrLocation()">
         <ion-icon name="navigate"></ion-icon>
         Start
       </button>
@@ -95,18 +105,22 @@
   </ion-card>
 
   <ion-card>
-    <div id="stan-sheriff">
-      <div class="card-title">Stan Sheriff</div>
+    <div (click)="showLocation(130)">
+      <div id="stan-sheriff">
+        <div class="card-title">Stan Sheriff</div>
+      </div>
+
+      <ion-fab right top>
+        <button ion-fab>
+          <ion-icon name="beer"></ion-icon>
+        </button>
+      </ion-fab>
     </div>
 
-    <ion-fab right top>
-      <button ion-fab>
-        <ion-icon name="beer"></ion-icon>
-      </button>
-    </ion-fab>
-
     <ion-card-content>
-      <p class="description">The Stan Sheriff Center opened in 1994 and is the jewel of the Athletics Department. The center has served as the home of the University of Hawai‘i men’s and women’s basketball and volleyball teams and has played host to a number of memorable events.</p>
+      <p class="description">The Stan Sheriff Center opened in 1994 and is the jewel of the Athletics Department. The
+        center has served as the home of the University of Hawai‘i men’s and women’s basketball and volleyball teams and
+        has played host to a number of memorable events.</p>
     </ion-card-content>
 
     <ion-item>
@@ -114,7 +128,7 @@
         <span item-left>{{dur[3]}}</span>
         <span item-left>{{dist[3]}}</span>
       </div>
-      <button ion-button icon-left clear item-end (click)="mapTo(130)">
+      <button ion-button icon-left clear item-end (click)="mapTo(130)" *ngIf="hasCurrLocation()">
         <ion-icon name="navigate"></ion-icon>
         Start
       </button>
@@ -122,45 +136,51 @@
   </ion-card>
 
   <ion-card>
-  <div id="kennedy-theatre">
-    <div class="card-title">Kennedy Theatre</div>
-  </div>
+    <div (click)="showLocation(15)">
+      <div id="kennedy-theatre">
+        <div class="card-title">Kennedy Theatre</div>
+      </div>
 
-  <ion-fab right top>
-    <button ion-fab>
-      <ion-icon name="people"></ion-icon>
-    </button>
-  </ion-fab>
-
-  <ion-card-content>
-    <p class="description">The Kennedy Theatre at the University of Hawai‘i at Manoa is the home base for the productions of the Department of Theatre + Dance.</p>
-  </ion-card-content>
-
-  <ion-item>
-    <div *ngIf="hasCurrLocation()">
-      <span item-left>{{dur[4]}}</span>
-      <span item-left>{{dist[4]}}</span>
+      <ion-fab right top>
+        <button ion-fab>
+          <ion-icon name="people"></ion-icon>
+        </button>
+      </ion-fab>
     </div>
-    <button ion-button icon-left clear item-end (click)="mapTo(15)">
-      <ion-icon name="navigate"></ion-icon>
-      Start
-    </button>
-  </ion-item>
-</ion-card>
-
-  <ion-card>
-    <div id="paradise-palms">
-      <div class="card-title">Paradise Palms Café</div>
-    </div>
-
-    <ion-fab right top>
-      <button ion-fab>
-        <ion-icon name="pizza"></ion-icon>
-      </button>
-    </ion-fab>
 
     <ion-card-content>
-      <p class="description">The Paradise Palms Café features six food vendors, an air-conditioned dining room, and an outdoor eating area.</p>
+      <p class="description">The Kennedy Theatre at the University of Hawai‘i at Manoa is the home base for the
+        productions of the Department of Theatre + Dance.</p>
+    </ion-card-content>
+
+    <ion-item>
+      <div *ngIf="hasCurrLocation()">
+        <span item-left>{{dur[4]}}</span>
+        <span item-left>{{dist[4]}}</span>
+      </div>
+      <button ion-button icon-left clear item-end (click)="mapTo(15)" *ngIf="hasCurrLocation()">
+        <ion-icon name="navigate"></ion-icon>
+        Start
+      </button>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+    <div (click)="showLocation(20)">
+      <div id="paradise-palms">
+        <div class="card-title">Paradise Palms Café</div>
+      </div>
+
+      <ion-fab right top>
+        <button ion-fab>
+          <ion-icon name="pizza"></ion-icon>
+        </button>
+      </ion-fab>
+    </div>
+
+    <ion-card-content>
+      <p class="description">The Paradise Palms Café features six food vendors, an air-conditioned dining room, and an
+        outdoor eating area.</p>
     </ion-card-content>
 
     <ion-item>
@@ -168,7 +188,94 @@
         <span item-left>{{dur[5]}}</span>
         <span item-left>{{dist[5]}}</span>
       </div>
-      <button ion-button icon-left clear item-end (click)="mapTo(20)">
+      <button ion-button icon-left clear item-end (click)="mapTo(20)" *ngIf="hasCurrLocation()">
+        <ion-icon name="navigate"></ion-icon>
+        Start
+      </button>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+    <div (click)="showLocation(151)">
+      <div id="qlc">
+        <div class="card-title">Queen Lili'uokalani Center</div>
+      </div>
+
+      <ion-fab right top>
+        <button ion-fab>
+          <ion-icon name="person"></ion-icon>
+        </button>
+      </ion-fab>
+    </div>
+
+    <ion-card-content>
+      <p class="description">The Queen Lili'uokalani Center, often called QLC, is a center for various student services, including the Office of Admissions, Office of the Registrar, Commuter Services, Financial Aid Services, Mānoa Advising Center, and much more.</p>
+    </ion-card-content>
+
+    <ion-item>
+      <div *ngIf="hasCurrLocation()">
+        <span item-left>{{dur[6]}}</span>
+        <span item-left>{{dist[6]}}</span>
+      </div>
+      <button ion-button icon-left clear item-end (click)="mapTo(151)" *ngIf="hasCurrLocation()">
+        <ion-icon name="navigate"></ion-icon>
+        Start
+      </button>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+    <div (click)="showLocation(4)">
+      <div id="sinclair">
+        <div class="card-title">Sinclair Library</div>
+      </div>
+
+      <ion-fab right top>
+        <button ion-fab>
+          <ion-icon name="book"></ion-icon>
+        </button>
+      </ion-fab>
+    </div>
+
+    <ion-card-content>
+      <p class="description">Sinclair Library, a popular place for late-night studying, is the only library open 24 hours on weekdays.</p>
+    </ion-card-content>
+
+    <ion-item>
+      <div *ngIf="hasCurrLocation()">
+        <span item-left>{{dur[7]}}</span>
+        <span item-left>{{dist[7]}}</span>
+      </div>
+      <button ion-button icon-left clear item-end (click)="mapTo(4)" *ngIf="hasCurrLocation()">
+        <ion-icon name="navigate"></ion-icon>
+        Start
+      </button>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+    <div (click)="showLocation(7)">
+      <div id="uhs">
+        <div class="card-title">University Health Services</div>
+      </div>
+
+      <ion-fab right top>
+        <button ion-fab>
+          <ion-icon name="medkit"></ion-icon>
+        </button>
+      </ion-fab>
+    </div>
+
+    <ion-card-content>
+      <p class="description">The University Health Services Mānoa offers a wide range of medical services and programs. These include general medical care by appointment or on a walk-in basis; women's health, sports medicine, psychiatry, dermatology, and nutrition clinics by appointment</p>
+    </ion-card-content>
+
+    <ion-item>
+      <div *ngIf="hasCurrLocation()">
+        <span item-left>{{dur[8]}}</span>
+        <span item-left>{{dist[8]}}</span>
+      </div>
+      <button ion-button icon-left clear item-end (click)="mapTo(7)" *ngIf="hasCurrLocation()">
         <ion-icon name="navigate"></ion-icon>
         Start
       </button>
