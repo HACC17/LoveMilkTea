@@ -244,6 +244,7 @@ export class MapPage {
         if ((!isNullOrUndefined(this.startValue)) && (!isNullOrUndefined(this.endValue))) {
             this.directionsDisplay.setMap(this.map);
             this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay, this.startValue, this.endValue);
+            this.cleanAllMarkers();
         }
     }
 
