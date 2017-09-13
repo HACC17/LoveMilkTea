@@ -33,6 +33,11 @@ export class SubmitDataPage {
         this.db = this.App.database();
         this.ref = this.db.ref("dataPoints");
         this.token = this.navParams.get('token');
+        if(!this.token) {
+            this.latitude = this.navParams.get('lat');
+            this.longitude = this.navParams.get('long');
+            this.address = this.navParams.get('address');
+        }
 
 
     }
