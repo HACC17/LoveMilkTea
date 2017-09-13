@@ -4,7 +4,9 @@ import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {FIREBASE_CONFIG} from "./../../app.firebase.config";
 import * as firebase from 'firebase';
+import {LoadingController} from 'ionic-angular';
 
+import { AlertController } from 'ionic-angular';
 
 declare var google;
 
@@ -22,9 +24,11 @@ export class SubmitDataChooseCoordsPage {
     ref: any;
     lat: any;
     long: any;
+    url: any;
+    address: any;
 
 
-    constructor(public navCtrl: NavController) {
+    constructor(public navCtrl: NavController, private alertCtrl: AlertController, public loading: LoadingController,  public http: Http) {
 
         if (!firebase.apps.length) {
             this.App = firebase.initializeApp(FIREBASE_CONFIG);
@@ -39,14 +43,29 @@ export class SubmitDataChooseCoordsPage {
     ionViewDidLoad() {
         this.loadMap();
     }
+
+
     getCoords(){
-        google.maps.event.addListener(this.map, 'click', function(event) {
-            this.lat = event.latLng.lat();
-            this.long = event.latLng.lng();
+        let alert = this.alertCtrl.create({
+            title: 'Subitt This Point',
+            subTitle: 'Would you to use the following information to submit your point?',
+            message: `Latitude: ${this.lat}  \n Longitude: ${this.long} \n\n Address: ${this.address}`,
+            buttons: ['Yes'],
+        });
+        alert.present();
+        console.log(this.lat);
+    }
+    getAddress() {
+        this.url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.lat},${this.long}&key=AIzaSyCeP_xxvneWjyU_0EIg5slVUl3I6TtH4oA`;
+
+        this.http.request(this.url)
+            .map(res => res.json()).subscribe(data => {
+            this.address = data.results[0].formatted_address;
         });
     }
 
     loadMap() {
+
         this.map = new google.maps.Map(this.mapElement.nativeElement, {
 
             zoom: 18,
@@ -309,6 +328,13 @@ export class SubmitDataChooseCoordsPage {
                     ]
                 }
             ]
+        });
+
+        google.maps.event.addListener(this.map, 'click', (event) => {
+            this.lat = event.latLng.lat();
+            this.long = event.latLng.lng();
+            this.getAddress();
+            this.getCoords();
         });
 
     }
