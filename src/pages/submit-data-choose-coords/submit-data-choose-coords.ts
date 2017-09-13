@@ -56,7 +56,7 @@ export class SubmitDataChooseCoordsPage {
                     text: 'ok',
                     role: 'approve',
                     handler: () => {
-                        this.navCtrl.push(SubmitDataPage);
+                        this.navCtrl.push(SubmitDataPage, {'token': false, 'lat' : this.lat, 'long': this.long, 'address': this.address});
                     }
                 }],
 
