@@ -28,6 +28,7 @@
   </div>
 
   <div #map id="map"></div>
+
   <ion-item>
     <ion-label>Select A Location</ion-label>
     <ion-select [(ngModel)]="selectedvalue1" #newSelect [(ngModel)]="location" (ionChange)="addMarker(location)">

@@ -5,6 +5,7 @@ import {IonicPage, NavController, NavParams, LoadingController} from 'ionic-angu
 import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {isNullOrUndefined} from "util";
+import * as Fuse from 'fuse.js';
 
 declare var google;
 // Array to contain Markers on the map
@@ -42,6 +43,13 @@ export class MapPage {
     userMarker: any;
     // Should we load location types from a config file?
 
+
+    fuseOptions: Fuse.FuseOptions = {
+        caseSensitive: false,
+        threshold: 0.4,
+        keys: ['description', 'name', 'type'],
+        shouldSort: true,
+    };
     constructor(public navCtrl: NavController, public navParams: NavParams, public loading: LoadingController, public http: Http) {
         this.exploreIndex = navParams.get('locationIndex');
         this.exploreIndex2 = navParams.get('locationIndex2');
@@ -61,6 +69,11 @@ export class MapPage {
     ionViewDidLoad() {
         this.loadTags();
         this.loadMap();
+    }
+
+    testFuse() {
+        var fuse = new Fuse(this.geoMarkers, this.fuseOptions);
+        console.log(fuse.search('class'));
     }
 
 
@@ -89,6 +102,8 @@ export class MapPage {
             })
 
             .then(() => {
+
+                this.testFuse();
 
                 if (this.exploreIndex && this.currentLat && this.currentLng) {
                     this.createExpRoute();
