@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 import {FIREBASE_CONFIG} from "./../../app.firebase.config";
 import * as firebase from 'firebase';
 import {LoadingController} from 'ionic-angular';
+import {SubmitDataPage} from "../submit-data/submit-data";
 
 import { AlertController } from 'ionic-angular';
 
@@ -50,7 +51,15 @@ export class SubmitDataChooseCoordsPage {
             title: 'Subitt This Point',
             subTitle: 'Would you to use the following information to submit your point?',
             message: `Latitude: ${this.lat}  \n Longitude: ${this.long} \n\n Address: ${this.address}`,
-            buttons: ['Yes'],
+            buttons: [
+                {
+                    text: 'ok',
+                    role: 'approve',
+                    handler: () => {
+                        this.navCtrl.push(SubmitDataPage);
+                    }
+                }],
+
         });
         alert.present();
         console.log(this.lat);
