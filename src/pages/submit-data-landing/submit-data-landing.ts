@@ -10,6 +10,7 @@ import {SubmitDataChooseCoordsPage} from "../submit-data-choose-coords/submit-da
 })
 
 export class SubmitDataLandingPage {
+    token: any;
 
     constructor(public navCtrl: NavController, public loading: LoadingController, private toast: ToastController, public http: Http) {
 
@@ -19,7 +20,8 @@ export class SubmitDataLandingPage {
 
     }
     goMainPage(){
-        this.navCtrl.push(SubmitDataPage);
+        this.token = ({'token': true});
+        this.navCtrl.push(SubmitDataPage, this.token);
     }
 
     goMap(){
