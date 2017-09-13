@@ -5,6 +5,8 @@ import {IonicPage, NavController, NavParams, LoadingController} from 'ionic-angu
 import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {isNullOrUndefined} from "util";
+import * as Fuse from 'fuse.js';
+
 
 declare var google;
 // Array to contain Markers on the map
@@ -35,6 +37,7 @@ export class MapPage {
     jsonData: any;
     directionsService: any;
     directionsDisplay: any;
+    location: any;
     startValue: any; //two values for destination and location
     endValue: any;
     typeList = ["Classroom", "Drink", "Food", "Entertainment", "Housing", "Library", "Parking", "Recreational", "Service"];
@@ -69,12 +72,12 @@ export class MapPage {
         this.clearAllMarkers();
         //load the tag data into the geoMarkers variable
         this.geoMarkers = [];
-        console.log(this.icons);
         this.ref.once("value")
             .then((dataPoints) => { //ARROW NOTATION IMPORTANT
                 //console.log(dataPoints.val())
                 dataPoints.forEach((dataPoint) => {
                     this.geoMarkers.push({
+                        key: dataPoint.key,
                         address: dataPoint.val().address,
                         description: dataPoint.val().description,
                         lat: dataPoint.val().lat,
@@ -85,7 +88,7 @@ export class MapPage {
                         type: dataPoint.val().type
                     });
                 });
-                //console.log(this.geoMarkers);
+                console.log(this.geoMarkers);
             })
 
             .then(() => {
@@ -98,10 +101,13 @@ export class MapPage {
                  }
 
 
-                for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
-                    this.locationsList.push({value: i, text: this.geoMarkers[i].name});
-                }
+                // for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
+                //     this.locationsList.push({value: i, text: this.geoMarkers[i].name});
+                // }
 
+                this.locationsList = this.geoMarkers;
+
+                console.log(this.locationsList);
 
                 this.infoWindow = new google.maps.InfoWindow();
 
@@ -132,22 +138,30 @@ export class MapPage {
             })
     }
 
-    addMarker(locationIndex) {
+
+    //pass in the entire object now that key field holds image index
+    addMarker(location) {
         if (this.marker) {
             this.clearStarterMarker();
         }
 
-        const geoData = this.geoMarkers;
-        const imgIndex = parseInt(locationIndex) + 1;
+        console.log(location);
+
+        //const geoData = this.geoMarkers;
+        const imgIndex = location.key;
 
         let imgSrc = "http://manoanow.org/app/map/images/" + imgIndex + ".png";
-        let infoContent = '<div class="ui grid"><img class="ui fluid image info" src="' + imgSrc + '">' + '<div id="windowHead">' + geoData[locationIndex].name + '</div>' + '<div id="description">' + geoData[locationIndex].description + '</div>' + '<div id="addressTitle">Address: ' + geoData[locationIndex].address + '</div>' + '<div id="phoneTitle">Phone: ' + geoData[locationIndex].number + '</div>' + '</div>';
+        let infoContent = '<div class="ui grid"><img class="ui fluid image info" src="' + imgSrc + '">'
+            + '<div id="windowHead">' + location.name + '</div>'
+            + '<div id="description">' + location.description + '</div>'
+            + '<div id="addressTitle">Address: ' + location.address + '</div>'
+            + '<div id="phoneTitle">Phone: ' + location.number + '</div>' + '</div>';
 
         this.marker = new google.maps.Marker({
-            position: {lat: geoData[locationIndex].lat, lng: geoData[locationIndex].lng},
+            position: {lat: location.lat, lng: location.lng},
             title: 'University of Hawaii at Manoa',
             map: this.map,
-            icon: this.icons[geoData[locationIndex].type],
+            icon: this.icons[location.type],
         });
 
 
@@ -297,6 +311,7 @@ export class MapPage {
                 for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
                     this.locationsList.push({value: i, text: this.geoMarkers[i].name});
                 }
+                console.log(this.locationsList);
 
                 this.infoWindow = new google.maps.InfoWindow();
 
@@ -716,6 +731,14 @@ export class MapPage {
         });
         this.userMarker.setAnimation(google.maps.Animation.BOUNCE);
     }
+
+    // set up search params for the fuzzy search
+    fuseOptions: Fuse.FuseOptions = {
+        caseSensitive: false,
+        keys: ['address', 'description', 'name', 'type'],
+        threshold: 0.5,
+        shouldSort: true,
+    };
 
     // holds icon SVG data and styling.
     icons = {

@@ -31,7 +31,7 @@
   <ion-item>
     <ion-label>Select A Location</ion-label>
     <ion-select #newSelect [(ngModel)]="location" (ionChange)="addMarker(location)">
-      <ion-option *ngFor="let item of locationsList" value="{{item.value}}">{{item.text}}</ion-option>
+      <ion-option *ngFor="let location of locationsList" [value]="location" >{{location.name}}</ion-option>
     </ion-select>
   </ion-item>
   <ion-item>
