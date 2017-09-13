@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Submit Data</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <h1>Click to find Coordinates</h1>
+  <div #map id="map" (click)="getCoords()"></div>
+  <ion-item>
+    {{lat}}
+  </ion-item>
+  <ion-item>
+    {{long}}
+  </ion-item>
+</ion-content>
