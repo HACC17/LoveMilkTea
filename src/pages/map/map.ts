@@ -46,7 +46,7 @@ export class MapPage {
     typeList = ["Classroom", "Drink", "Food", "Entertainment", "Housing", "Library", "Parking", "Recreational", "Service"];
     userMarker: any;
     // Should we load location types from a config file?
-    changeVal: number; //change button change value
+    changeIcon: boolean = false;
     isSearching: boolean = false;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public loading: LoadingController, public http: Http) {
@@ -158,7 +158,6 @@ export class MapPage {
                         this.infoWindow.setContent(info);
                         this.infoWindow.open(this.map, marker);
                     }))
-                    this.changeVal = 0;
                 }
             })
     }
@@ -223,7 +222,7 @@ export class MapPage {
         if ((!isNullOrUndefined(this.startValue)) && (!isNullOrUndefined(this.endValue))) {
             this.directionsDisplay.setMap(this.map);
             this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay, this.startValue, this.endValue);
-            if (this.changeVal === 1) {
+            if (this.changeIcon === true) {
                 this.changeAllMarkers();
             }
         }
@@ -373,20 +372,18 @@ export class MapPage {
     }
 
     changeAllMarkers() {
-        if (this.changeVal === 1) {
+        if (this.changeIcon === true) {
             if (stash) {
                 for (let i = 0; i < stash.length; i++) {
                     stash[i].setMap(null);
                 }
                 stash.length = 0;
-                this.changeVal = 0;
-                this.changeButton();
+                this.changeIcon = false;
             } else {
                 console.log('Stash array does not exist!');
             }
-        } else if (this.changeVal === 0) {
-            this.changeVal = 1;
-            this.changeButton();
+        } else if (this.changeIcon === false) {
+            this.changeIcon = true;
             this.placeAllMarkers();
         }
     }
@@ -397,7 +394,7 @@ export class MapPage {
                 stash[i].setMap(null);
             }
             stash.length = 0;
-            this.changeVal = 0;
+            this.changeIcon = false;
         }  else {
             console.log('Stash array does not exist!');
         }
@@ -440,7 +437,7 @@ export class MapPage {
                 this.infoWindow.setContent(info);
                 this.infoWindow.open(this.map, marker);
             }))
-            this.changeVal = 1;
+            this.changeIcon = true;
         }
     }
 
@@ -466,14 +463,6 @@ export class MapPage {
             })
         }
     }
-
-    changeButton() {
-        var elem = document.getElementById("clearButton");
-        if (elem.innerHTML=="Clear Points") elem.innerHTML = "Show Points";
-        else elem.innerHTML = "Clear Points";
-
-    }
-
 
     loadMap() {
         this.map = new google.maps.Map(this.mapElement.nativeElement, {
