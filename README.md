@@ -10,6 +10,9 @@ This project gives a better and enchanced view to your navigation experience. Wi
 ## Overview
 We used [Ionic](https://ionicframework.com/), [Cordova](https://cordova.apache.org/), and [Firebase](https://firebase.google.com/) to create the app.
 
+## Live Deployment
+Check out the live version of our app on your phone or computer at [Heroku!](https://lovemilktea.herokuapp.com)
+
 ## Getting Started
 
 ### Prerequisites
