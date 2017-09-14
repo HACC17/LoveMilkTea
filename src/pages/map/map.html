@@ -10,7 +10,7 @@
 
 <ion-content>
 
-  <div id="filter-search">
+
     <ion-item>
       <ion-label>Filter</ion-label>
       <ion-select [(ngModel)]="filter" multiple="false" #C (ionChange)="filterMarker(C.value)" cancelText="Cancel"
@@ -19,17 +19,30 @@
       </ion-select>
     </ion-item>
 
-    <div *ngIf="!isSearching">
-      <button ion-button (click)="showSearch()"> <ion-icon name="search"></ion-icon></button>
 
+
+
+  <div id="float-button-left">
+    <button id="clearButton" ion-button full small (click)="changeAllMarkers()">
+      Show Points
+    </button>
+  </div>
+
+
+  <div id="filter-search">
+
+    <div *ngIf="!isSearching">
+      <button ion-button (click)="showSearch()">
+        <ion-icon name="search"></ion-icon>
+      </button>
     </div>
 
     <div *ngIf="isSearching">
       <ion-grid>
         <ion-row>
-          <ion-col>
+          <ion-col col-8>
             <ion-searchbar [(ngModel)]="input" (ionInput)="searchPoints(input)" (ionCancel)="stopSearch($event)"
-                           placeholder="Looking for something?"></ion-searchbar>
+                           placeholder="search"></ion-searchbar>
           </ion-col>
           <ion-col>
             <button ion-button (click)="stopSearch()">
@@ -38,24 +51,23 @@
           </ion-col>
         </ion-row>
       </ion-grid>
+
       <ion-scroll class="scrollable" scrollY="true">
         <ion-list>
           <ion-item *ngFor="let location of locationsList">
-            {{location.name}}
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                {{location.name}}
+                </ion-col>
+              </ion-row>
+            </ion-grid>
           </ion-item>
         </ion-list>
       </ion-scroll>
     </div>
 
 
-  </div>
-
-
-
-  <div id="float-button-left">
-    <button id="clearButton" ion-button full small (click)="changeAllMarkers()">
-      Show Points
-    </button>
   </div>
 
   <div id="float-button-right">
