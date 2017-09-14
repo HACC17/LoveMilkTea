@@ -19,6 +19,7 @@ import {FIREBASE_CONFIG} from "../app.firebase.config";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SubmitDataLandingPage} from "../pages/submit-data-landing/submit-data-landing";
 
+
 @NgModule({
     declarations: [
         MyApp,
