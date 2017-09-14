@@ -74,9 +74,9 @@ export class MapPage {
         this.isSearching = true;
         let fuse = new Fuse(this.locationsList, this.fuseOptions)
         console.log(input);
-        if(input ==='') {
+        if (input === '') {
             this.locationsList = this.geoMarkers;
-        }else {
+        } else {
             //console.log(fuse.search(input));
             this.locationsList = fuse.search(input);
         }
@@ -84,7 +84,6 @@ export class MapPage {
 
     stopSearch() {
         this.isSearching = false;
-        console.log(this.isSearching);
     }
 
     showSearch() {
