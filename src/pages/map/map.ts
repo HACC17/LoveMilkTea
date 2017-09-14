@@ -170,6 +170,8 @@ export class MapPage {
             this.clearStarterMarker();
         }
 
+        this.stopSearch();
+
         console.log(location);
 
         //const geoData = this.geoMarkers;

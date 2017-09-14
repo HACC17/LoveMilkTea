@@ -60,6 +60,11 @@
                 <ion-col>
                 {{location.name}}
                 </ion-col>
+                <ion-col>
+                  <button ion-button (click)="addMarker(location)">
+                    <ion-icon name="close-circle"></ion-icon>
+                  </button>
+                </ion-col>
               </ion-row>
             </ion-grid>
           </ion-item>
