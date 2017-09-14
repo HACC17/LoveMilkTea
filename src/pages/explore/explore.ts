@@ -34,13 +34,13 @@ export class ExplorePage {
     uhs = new google.maps.LatLng(21.2983360, -157.8152250);
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http, public loading: LoadingController) {
-        this.showLoading();
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
                 this.currentLat = position.coords.latitude;
                 this.currentLng = position.coords.longitude;
                 this.current = new google.maps.LatLng(this.currentLat, this.currentLng);
             })
+            this.showLoading();
         }
         else {
             console.log("Location blocked");
@@ -108,7 +108,7 @@ export class ExplorePage {
 
     private showLoading() {
         this.loader = this.loading.create({
-            content: "Please wait..."
+            content: "Calculating..."
         });
         this.loader.present();
         this.findDistanceAndDuration();
