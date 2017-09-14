@@ -8,8 +8,7 @@ import { HomePage } from '../pages/home/home';
 import { MapPage }  from '../pages/map/map';
 import {LoginPage} from '../pages/login/login';
 import {ExplorePage} from "../pages/explore/explore";
-import { SubmitDataPage } from '../pages/submit-data/submit-data';
-
+import { SubmitDataLandingPage } from '../pages/submit-data-landing/submit-data-landing';
 
 @Component({
     templateUrl: 'app.html'
@@ -31,7 +30,7 @@ export class MyApp {
             {title: 'Admin', component: LoginPage},
             {title: 'Map', component: MapPage },
             {title: 'Explore', component: ExplorePage },
-            {title: 'Submit Point of Interest', component: SubmitDataPage},
+            {title: 'Submit Point of Interest', component: SubmitDataLandingPage},
         ];
 
     }

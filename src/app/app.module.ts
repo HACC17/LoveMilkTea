@@ -8,6 +8,7 @@ import {HomePage} from '../pages/home/home';
 import {MapPage} from '../pages/map/map';
 import {LoginPage} from "../pages/login/login";
 import {SubmitDataPage} from "../pages/submit-data/submit-data";
+import {SubmitDataChooseCoordsPage} from "../pages/submit-data-choose-coords/submit-data-choose-coords";
 import {ExplorePage} from "../pages/explore/explore";
 
 import {StatusBar} from '@ionic-native/status-bar';
@@ -16,7 +17,7 @@ import {AngularFireModule} from "angularfire2";
 import {AngularFireAuthModule} from "angularfire2/auth";
 import {FIREBASE_CONFIG} from "../app.firebase.config";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-
+import {SubmitDataLandingPage} from "../pages/submit-data-landing/submit-data-landing";
 
 
 @NgModule({
@@ -25,7 +26,9 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
         MapPage,
         LoginPage,
         ExplorePage,
+        SubmitDataLandingPage,
         SubmitDataPage,
+        SubmitDataChooseCoordsPage,
     ],
     imports: [
         BrowserModule,
@@ -42,7 +45,9 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
         MapPage,
         LoginPage,
         ExplorePage,
+        SubmitDataLandingPage,
         SubmitDataPage,
+        SubmitDataChooseCoordsPage,
     ],
     providers: [
         StatusBar,

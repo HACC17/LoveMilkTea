@@ -1,5 +1,5 @@
 import {Component, ViewChild, ElementRef} from '@angular/core';
-import {NavController, ToastController} from 'ionic-angular';
+import {NavController, ToastController, NavParams} from 'ionic-angular';
 import {LoadingController} from 'ionic-angular';
 import {NgForm} from '@angular/forms';
 import {FIREBASE_CONFIG} from "./../../app.firebase.config";
@@ -22,8 +22,9 @@ export class SubmitDataPage {
     loader: any;
     url: any;
     address: any;
+    token: any;
 
-    constructor(public navCtrl: NavController, public loading: LoadingController, private toast: ToastController, public http: Http) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, public loading: LoadingController, private toast: ToastController, public http: Http) {
         if (!firebase.apps.length) {
             this.App = firebase.initializeApp(FIREBASE_CONFIG);
         } else {
@@ -31,12 +32,20 @@ export class SubmitDataPage {
         }
         this.db = this.App.database();
         this.ref = this.db.ref("dataPoints");
+        this.token = this.navParams.get('token');
+        if(!this.token) {
+            this.latitude = this.navParams.get('lat');
+            this.longitude = this.navParams.get('long');
+            this.address = this.navParams.get('address');
+        }
 
 
     }
 
     ionViewDidLoad() {
-      this.getCurrLocation();
+      if(this.token){
+          this.getCurrLocation();
+      }
     }
     onSubmit(formData: NgForm) {
         for (var element in formData.value) {

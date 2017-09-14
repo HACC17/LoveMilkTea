@@ -1,12 +1,38 @@
 page-map {
 
+  #float-button-left-bottom {
+    margin-bottom: 10px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index :5;
+  }
 
-  #float-button {
+  #float-button-left-top {
     margin-top: 7px;
-    margin-right: 5px;
+    margin-left: 5px;
+    position: absolute;
+    left: 0;
+    z-index :5;
+  }
+
+  #float-button-right-top {
+    margin-top: 15px;
+    margin-right: 7px;
     position: absolute;
     right: 0;
     z-index :5;
+  }
+
+  #menu-icon {
+    font-size: 30px;
+  }
+
+  #search {
+    position: absolute;
+    top: 50px;
+    z-index :5;
+
   }
 
   #float-button-location {
@@ -20,12 +46,17 @@ page-map {
   }
 
   #map {
-    height: 90%;
+    height: 100%;
   }
 
   #geoLoc {
     width: 60%;
   }
+
+  .scrollable {
+    height: 200px;
+  }
+
 
   #windowHead {
     color: black;

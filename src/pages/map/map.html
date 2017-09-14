@@ -1,49 +1,101 @@
 <ion-header>
-  <ion-navbar color="primary">
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>UH Map</ion-title>
-  </ion-navbar>
 </ion-header>
 
 <ion-content>
 
-  <ion-item>
-    <ion-label>Filter</ion-label>
-    <ion-select [(ngModel)]="filter" multiple="false" #C (ionChange)="filterMarker(C.value)" cancelText="Cancel" okText="Filter!">
-      <ion-option value="classroom">Classrooms</ion-option>
-      <ion-option value="service">Services</ion-option>
-      <ion-option value="food">Food</ion-option>
-      <ion-option value="drink">Drink</ion-option>
-      <ion-option value="library">Libraries</ion-option>
-      <ion-option value="entertainment">Entertainment</ion-option>
-      <ion-option value="recreational">Recreational</ion-option>
-      <ion-option value="parking">Parking</ion-option>
-      <ion-option value="housing">Housing</ion-option>
-      <ion-option value=""></ion-option>
-    </ion-select>
-  </ion-item>
+  <div id="float-button-left-top">
+    <button ion-button clear menuToggle><ion-icon id="menu-icon" large name="menu"></ion-icon></button>
+  </div>
 
 
+  <div id="search">
 
-  <div id="float-button">
-    <button ion-button full small (click)="toggleStreetView()">
-      Toggle View
+    <div *ngIf="!isSearching">
+      <button ion-button (click)="showSearch()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </div>
+
+    <div *ngIf="isSearching">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-8>
+            <ion-searchbar [(ngModel)]="input" (ionInput)="searchPoints(input)" (ionCancel)="stopSearch($event)"
+                           placeholder="search"></ion-searchbar>
+          </ion-col>
+          <ion-col>
+            <button ion-button (click)="stopSearch()">
+              <ion-icon name="close-circle"></ion-icon>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-scroll class="scrollable" scrollY="true">
+        <ion-list>
+          <ion-item *ngFor="let location of locationsList">
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  {{location.name}}
+                </ion-col>
+                <ion-col>
+                  <button ion-button (click)="addMarker(location)">
+                    <ion-icon name="close-circle"></ion-icon>
+                  </button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+        </ion-list>
+      </ion-scroll>
+    </div>
+  </div>
+
+  <div id="float-button-right-top">
+    <button id="clearButton" ion-button full small (click)="changeAllMarkers()">
+      Show Points
     </button>
   </div>
 
-  <div id="float-button-location">
-    <button ion-button full small (click)="showCurrLocation()">
-      Show Me
+  <div id="float-button-left-bottom">
+    <button ion-fab mini (click)="toggleStreetView()">
+      <ion-icon name="eye"></ion-icon>
+    </button>
+    <button ion-fab mini (click)="showCurrLocation()">
+      <ion-icon name="locate"></ion-icon>
     </button>
   </div>
 
   <div #map id="map"></div>
+
+  <ion-item>
+    <ion-label>Filter</ion-label>
+    <ion-select [(ngModel)]="filter" multiple="false" #C (ionChange)="filterMarker(C.value)" cancelText="Cancel"
+                okText="Filter!">
+      <ion-option *ngFor="let item of typeList" value="{{item}}">{{item}}</ion-option>
+    </ion-select>
+  </ion-item>
+
   <ion-item>
     <ion-label>Select A Location</ion-label>
-    <ion-select [(ngModel)]="selectedvalue" #newSelect [(ngModel)]="location" (ionChange)="addMarker(location)">
+    <ion-select #newSelect [(ngModel)]="location" (ionChange)="addMarker(location)">
       <ion-option *ngFor="let item of locationsList" value="{{item.value}}">{{item.text}}</ion-option>
     </ion-select>
-  </ion-item> 
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Select A Starting Location</ion-label>
+    <ion-select #newSelect [(ngModel)]="startLoc" (ionChange)="setStartValue(startLoc)">
+      <ion-option *ngFor="let item of locationsList" value="{{item.value}}">{{item.text}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Select A Destination</ion-label>
+    <ion-select #newSelect [(ngModel)]="endLoc" (ionChange)="setDestValue(endLoc)">
+      <ion-option *ngFor="let item of locationsList" value="{{item.value}}">{{item.text}}</ion-option>
+    </ion-select>
+  </ion-item>
+
 </ion-content>
