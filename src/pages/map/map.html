@@ -9,6 +9,7 @@
 
 
 <ion-content>
+
   <div id="filter-search">
     <ion-item>
       <ion-label>Filter</ion-label>
@@ -49,15 +50,20 @@
 
   </div>
 
-  <div id="float-button">
-    <button ion-button full small (click)="toggleStreetView()">
-      Toggle View
-    </button>
-    <button ion-button full small (click)="showCurrLocation()">
-      Show Me
-    </button>
+
+
+  <div id="float-button-left">
     <button id="clearButton" ion-button full small (click)="changeAllMarkers()">
-      Clear Points
+      Show Points
+    </button>
+  </div>
+
+  <div id="float-button-right">
+    <button ion-fab mini (click)="toggleStreetView()">
+      <ion-icon name="eye"></ion-icon>
+    </button>
+    <button ion-fab mini (click)="showCurrLocation()">
+      <ion-icon name="locate"></ion-icon>
     </button>
   </div>
 

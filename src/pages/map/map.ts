@@ -144,7 +144,7 @@ export class MapPage {
                     // Creating a marker and putting it on the map
                     let marker = new google.maps.Marker({
                         position: latLng,
-                        map: this.map,
+                        //map: this.map,
                         icon: this.icons[data.type],
                     });
 
@@ -158,7 +158,7 @@ export class MapPage {
                         this.infoWindow.setContent(info);
                         this.infoWindow.open(this.map, marker);
                     }))
-                    this.changeVal = 1;
+                    this.changeVal = 0;
                 }
             })
     }
@@ -457,6 +457,7 @@ export class MapPage {
                         lng: position.coords.longitude
                     };
                     this.userMarker.setPosition(latLng);
+                    this.userMarker.setMap(this.map);
                     this.map.setCenter(latLng);
                     this.loader.dismiss();
                 })
@@ -466,8 +467,8 @@ export class MapPage {
 
     changeButton() {
         var elem = document.getElementById("clearButton");
-        if (elem.innerHTML=="Show Points") elem.innerHTML = "Clear Points";
-        else elem.innerHTML = "Show Points";
+        if (elem.innerHTML=="Clear Points") elem.innerHTML = "Show Points";
+        else elem.innerHTML = "Clear Points";
 
     }
 
@@ -475,11 +476,12 @@ export class MapPage {
     loadMap() {
         this.map = new google.maps.Map(this.mapElement.nativeElement, {
 
-            zoom: 18,
+            zoom: 15,
+            zoomControl: false,
             center: {lat: 21.2969, lng: -157.8171},
             //streetControlView: false;
             mapTypeControlOptions: {
-                mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain', 'styled_map']
+                mapTypeIds: ['styled_map']
             },
             styles: [
                 {
@@ -744,7 +746,7 @@ export class MapPage {
         this.userMarker = new google.maps.Marker({
             position: {lat: 21.2969, lng: -157.8171},
             title: 'University of Hawaii at Manoa',
-            map: this.map,
+            //map: this.map,
             icon: {
                 //directions walk
                 path:'M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7',
