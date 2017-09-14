@@ -8,8 +8,17 @@ page-map {
     z-index :5;
   }
 
+  #float-button-right-bottom {
+    margin-bottom: 20px;
+    margin-right: 50px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index :5;
+  }
+
   #float-button-left-top {
-    margin-top: 7px;
+    margin-top: 15px;
     margin-left: 5px;
     position: absolute;
     left: 0;
@@ -17,8 +26,8 @@ page-map {
   }
 
   #float-button-right-top {
-    margin-top: 15px;
-    margin-right: 7px;
+    margin-top: 3px;
+    margin-right: 3px;
     position: absolute;
     right: 0;
     z-index :5;
@@ -27,6 +36,10 @@ page-map {
   #menu-icon {
     font-size: 30px;
   }
+
+  #search-button {
+      font-size: 24px;
+    }
 
   #search {
     position: absolute;
