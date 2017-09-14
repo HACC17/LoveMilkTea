@@ -6,6 +6,8 @@ import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {isNullOrUndefined} from "util";
 import * as Fuse from 'fuse.js';
+import { PopoverController } from 'ionic-angular';
+import { ModalController } from 'ionic-angular';
 
 
 declare var google;
@@ -14,7 +16,8 @@ let stash = [];
 
 @Component({
     selector: 'page-map',
-    templateUrl: 'map.html'
+    templateUrl: 'map.html',
+
 })
 
 export class MapPage {
@@ -29,7 +32,7 @@ export class MapPage {
     public geoMarkers: any[]; // gonna hold all marker data in here for now.
     loader: any; // holds the module for loading
     infoWindow: any;
-    locationsList: Array<{value: number, text: string}> = []; //array to populate menu with
+    locationsList: any[]; //array to populate menu with and used for searching
     exploreIndex: any;
     exploreIndex2: any;
     currentLat: any;
@@ -64,6 +67,18 @@ export class MapPage {
     ionViewDidLoad() {
         this.loadTags();
         this.loadMap();
+    }
+
+    searchPoints(input){
+        let fuse = new Fuse(this.locationsList, this.fuseOptions)
+        console.log(input);
+        if(input ==='') {
+            this.locationsList = this.geoMarkers;
+        }else {
+
+            //console.log(fuse.search(input));
+            this.locationsList = fuse.search(input);
+        }
     }
 
 
@@ -445,6 +460,7 @@ export class MapPage {
         else elem.innerHTML = "Show Points";
 
     }
+
 
     loadMap() {
         this.map = new google.maps.Map(this.mapElement.nativeElement, {

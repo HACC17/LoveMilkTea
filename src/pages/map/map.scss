@@ -5,8 +5,9 @@ page-map {
     margin-top: 7px;
     margin-right: 5px;
     position: absolute;
-    right: 0;
+    left: 0;
     z-index :5;
+    bottom: 20px;
   }
 
   #float-button-location {
@@ -14,13 +15,18 @@ page-map {
     margin-right: 5px;
     display: block;
     position: absolute;
-    right: 0;
-    top: 80px;
+    left: 0;
+    bottom: 80px;
     z-index :5;
   }
 
+#filter-search {
+  position: absolute;
+  z-index :5;
+}
+
   #map {
-    height: 90%;
+    height: 100%;
   }
 
   #geoLoc {
@@ -44,5 +50,9 @@ page-map {
   .ui.fluid.image.info {
     width: 100%;
     height: 50%;
+  }
+
+  .scrollable {
+    height: 200px;
   }
 }
