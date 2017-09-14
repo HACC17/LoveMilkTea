@@ -7,6 +7,51 @@
     <button ion-button clear menuToggle><ion-icon id="menu-icon" large name="menu"></ion-icon></button>
   </div>
 
+
+  <div id="search">
+
+    <div *ngIf="!isSearching">
+      <button ion-button (click)="showSearch()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </div>
+
+    <div *ngIf="isSearching">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-8>
+            <ion-searchbar [(ngModel)]="input" (ionInput)="searchPoints(input)" (ionCancel)="stopSearch($event)"
+                           placeholder="search"></ion-searchbar>
+          </ion-col>
+          <ion-col>
+            <button ion-button (click)="stopSearch()">
+              <ion-icon name="close-circle"></ion-icon>
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-scroll class="scrollable" scrollY="true">
+        <ion-list>
+          <ion-item *ngFor="let location of locationsList">
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                  {{location.name}}
+                </ion-col>
+                <ion-col>
+                  <button ion-button (click)="addMarker(location)">
+                    <ion-icon name="close-circle"></ion-icon>
+                  </button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+        </ion-list>
+      </ion-scroll>
+    </div>
+  </div>
+
   <div id="float-button-right-top">
     <button id="clearButton" ion-button full small (click)="changeAllMarkers()">
       Show Points

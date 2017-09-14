@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
+  <script data-ionic="inject">
+    (function(w){var i=w.Ionic=w.Ionic||{};i.version='3.6.0';i.angular='4.1.3';i.staticDir='build/';})(window);
+  </script>
   <meta charset="UTF-8">
   <title>Ionic App</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -44,6 +47,9 @@
 
   <!-- GoogleMaps API  -->
   <script src="https://maps.google.com/maps/api/js?key=AIzaSyCeP_xxvneWjyU_0EIg5slVUl3I6TtH4oA&sensor=true"></script>
+
+  <!-- Fuse.js API. used for search functionality  -->
+  <script src="node_modules/fuse.js/dist/fuse.min.js"> </script>
 
 </body>
 </html>

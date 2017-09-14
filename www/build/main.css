@@ -25235,83 +25235,108 @@ page-explore .description {
 
 page-explore .card-title {
   position: absolute;
-  top: 23%;
+  top: 40%;
   font-size: 2.0em;
   width: 100%;
   font-weight: bold;
   color: #fff;
 }
 
-page-explore #wrc {
+page-explore .card-title-2 {
+  position: absolute;
+  top: 37%;
+  font-size: 2.0em;
+  width: 100%;
+  font-weight: bold;
+  color: #fff;
+}
+
+page-explore .imgContainer {
   width: 100%;
   height: 200px;
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.4)), to(rgba(0, 0, 0, 0.4))), url("../../assets/images/wrc.jpg");
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("../../assets/images/wrc.jpg");
+  position: relative;
   color: white;
+}
+
+page-explore #wrc {
+  height: 100%;
+  position: relative;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.4)), to(rgba(0, 0, 0, 0.4))), url("../../assets/images/wrc.jpg") no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("../../assets/images/wrc.jpg") no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 page-explore #cc {
-  width: 100%;
-  height: 200px;
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.4)), to(rgba(0, 0, 0, 0.4))), url("../../assets/images/campus-center.png");
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("../../assets/images/campus-center.png");
-  color: white;
+  height: 100%;
+  position: relative;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.4)), to(rgba(0, 0, 0, 0.4))), url("../../assets/images/campus-center.png") no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("../../assets/images/campus-center.png") no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 page-explore #hamilton {
-  width: 100%;
-  height: 200px;
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.4)), to(rgba(0, 0, 0, 0.4))), url("../../assets/images/hamilton.jpg");
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("../../assets/images/hamilton.jpg");
-  color: white;
+  height: 100%;
+  position: relative;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.4)), to(rgba(0, 0, 0, 0.4))), url("../../assets/images/hamilton.jpg") no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("../../assets/images/hamilton.jpg") no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 page-explore #stan-sheriff {
-  width: 100%;
-  height: 200px;
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.4)), to(rgba(0, 0, 0, 0.4))), url("../../assets/images/stan-sheriff.jpg");
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("../../assets/images/stan-sheriff.jpg");
-  color: white;
+  height: 100%;
+  position: relative;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.4)), to(rgba(0, 0, 0, 0.4))), url("../../assets/images/stan-sheriff.jpg") no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("../../assets/images/stan-sheriff.jpg") no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 page-explore #kennedy-theatre {
-  width: 100%;
-  height: 200px;
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.4)), to(rgba(0, 0, 0, 0.4))), url("../../assets/images/kennedy-theatre.jpg");
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("../../assets/images/kennedy-theatre.jpg");
-  color: white;
+  height: 100%;
+  position: relative;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.4)), to(rgba(0, 0, 0, 0.4))), url("../../assets/images/kennedy-theatre.jpg") no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("../../assets/images/kennedy-theatre.jpg") no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 page-explore #paradise-palms {
-  width: 100%;
-  height: 200px;
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.4)), to(rgba(0, 0, 0, 0.4))), url("../../assets/images/paradise-palms.jpg");
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("../../assets/images/paradise-palms.jpg");
-  color: white;
+  height: 100%;
+  position: relative;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.4)), to(rgba(0, 0, 0, 0.4))), url("../../assets/images/paradise-palms.jpg") no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("../../assets/images/paradise-palms.jpg") no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 page-explore #qlc {
-  width: 100%;
-  height: 200px;
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.4)), to(rgba(0, 0, 0, 0.4))), url("../../assets/images/qlc.jpg");
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("../../assets/images/qlc.jpg");
-  color: white;
+  height: 100%;
+  position: relative;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.4)), to(rgba(0, 0, 0, 0.4))), url("../../assets/images/qlc.jpg") no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("../../assets/images/qlc.jpg") no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 page-explore #sinclair {
-  width: 100%;
-  height: 200px;
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.4)), to(rgba(0, 0, 0, 0.4))), url("../../assets/images/sinclair.jpg");
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("../../assets/images/sinclair.jpg");
-  color: white;
+  height: 100%;
+  position: relative;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.4)), to(rgba(0, 0, 0, 0.4))), url("../../assets/images/sinclair.jpg") no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("../../assets/images/sinclair.jpg") no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 page-explore #uhs {
-  width: 100%;
-  height: 200px;
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.4)), to(rgba(0, 0, 0, 0.4))), url("../../assets/images/uhs.jpg");
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("../../assets/images/uhs.jpg");
-  color: white;
+  height: 100%;
+  position: relative;
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.4)), to(rgba(0, 0, 0, 0.4))), url("../../assets/images/uhs.jpg") no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("../../assets/images/uhs.jpg") no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 page-home ion-title {
@@ -25334,12 +25359,32 @@ page-login .register-btn {
   font-size: 0.8em;
 }
 
-page-map #float-button {
+page-map #float-button-left-bottom {
+  margin-bottom: 10px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 5;
+}
+
+page-map #float-button-left-top {
   margin-top: 7px;
-  margin-right: 5px;
+  margin-left: 5px;
+  position: absolute;
+  left: 0;
+  z-index: 5;
+}
+
+page-map #float-button-right-top {
+  margin-top: 15px;
+  margin-right: 7px;
   position: absolute;
   right: 0;
   z-index: 5;
+}
+
+page-map #menu-icon {
+  font-size: 30px;
 }
 
 page-map #float-button-location {
@@ -25353,7 +25398,7 @@ page-map #float-button-location {
 }
 
 page-map #map {
-  height: 90%;
+  height: 100%;
 }
 
 page-map #geoLoc {
@@ -25375,6 +25420,51 @@ page-map #phoneTitle {
 }
 
 page-map .ui.fluid.image.info {
+  width: 100%;
+  height: 50%;
+}
+
+submit-data-coords-page #float-button {
+  margin-top: 7px;
+  margin-right: 5px;
+  position: absolute;
+  right: 0;
+  z-index: 5;
+}
+
+submit-data-coords-page #float-button-location {
+  margin-top: 7px;
+  margin-right: 5px;
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 80px;
+  z-index: 5;
+}
+
+submit-data-coords-page #map {
+  height: 50%;
+}
+
+submit-data-coords-page #geoLoc {
+  width: 50%;
+}
+
+submit-data-coords-page #windowHead {
+  color: black;
+  font-weight: bold;
+  font-size: 130%;
+}
+
+submit-data-coords-page #addressTitle {
+  font-weight: bold;
+}
+
+submit-data-coords-page #phoneTitle {
+  font-weight: bold;
+}
+
+submit-data-coords-page .ui.fluid.image.info {
   width: 100%;
   height: 50%;
 }

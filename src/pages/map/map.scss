@@ -28,6 +28,13 @@ page-map {
     font-size: 30px;
   }
 
+  #search {
+    position: absolute;
+    top: 50px;
+    z-index :5;
+
+  }
+
   #float-button-location {
     margin-top: 7px;
     margin-right: 5px;
@@ -45,6 +52,11 @@ page-map {
   #geoLoc {
     width: 60%;
   }
+
+  .scrollable {
+    height: 200px;
+  }
+
 
   #windowHead {
     color: black;
