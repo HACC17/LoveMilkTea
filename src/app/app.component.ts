@@ -34,7 +34,8 @@ export class MyApp {
             {
                 title: 'Admin',
                 icon: 'person',
-                component: LoginPage},
+                component: LoginPage
+            },
             {
                 title: 'Map',
                 icon: 'map',

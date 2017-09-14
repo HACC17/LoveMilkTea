@@ -19,14 +19,9 @@
     <div *ngIf="isSearching">
       <ion-grid>
         <ion-row>
-          <ion-col col-8>
-            <ion-searchbar [(ngModel)]="input" (ionInput)="searchPoints(input)" (ionCancel)="stopSearch($event)"
-                           placeholder="search"></ion-searchbar>
-          </ion-col>
           <ion-col>
-            <button ion-button (click)="stopSearch()">
-              <ion-icon name="close-circle"></ion-icon>
-            </button>
+            <ion-searchbar showCancelButton	[(ngModel)]="input" (ionInput)="searchPoints(input)" (ionCancel)="stopSearch($event)"
+                           placeholder="Search"></ion-searchbar>
           </ion-col>
         </ion-row>
       </ion-grid>
