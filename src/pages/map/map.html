@@ -10,20 +10,24 @@
 <ion-content>
   <ion-item>
     <ion-label>Filter</ion-label>
-    <ion-select [(ngModel)]="filter" multiple="false" #C (ionChange)="filterMarker(C.value)" cancelText="Cancel" okText="Filter!">
+    <ion-select [(ngModel)]="filter" multiple="false" #C (ionChange)="filterMarker(C.value)" cancelText="Cancel"
+                okText="Filter!">
       <ion-option *ngFor="let item of typeList" value="{{item}}">{{item}}</ion-option>
     </ion-select>
   </ion-item>
 
-  <div id="float-button">
-    <button ion-button full small (click)="toggleStreetView()">
-      Toggle View
-    </button>
-    <button ion-button full small (click)="showCurrLocation()">
-      Show Me
-    </button>
+  <div id="float-button-left">
     <button id="clearButton" ion-button full small (click)="changeAllMarkers()">
-      Clear Points
+      Show Points
+    </button>
+  </div>
+
+  <div id="float-button-right">
+    <button ion-fab mini (click)="toggleStreetView()">
+      <ion-icon name="eye"></ion-icon>
+    </button>
+    <button ion-fab mini (click)="showCurrLocation()">
+      <ion-icon name="locate"></ion-icon>
     </button>
   </div>
 
