@@ -1,11 +1,17 @@
 page-map {
 
-
-  #float-button {
-    margin-top: 7px;
-    margin-right: 5px;
+  #float-button-right {
+    margin: none;
     position: absolute;
     right: 0;
+    z-index :5;
+  }
+
+  #float-button-left {
+    margin-top: 7px;
+    margin-left: 5px;
+    position: absolute;
+    left: 0;
     z-index :5;
   }
 
