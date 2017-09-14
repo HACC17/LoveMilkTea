@@ -1,5 +1,5 @@
 import {Component, Injectable} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, NavController, NavParams, LoadingController} from 'ionic-angular';
 import {MapPage} from "../map/map";
 import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
@@ -19,6 +19,7 @@ export class ExplorePage {
     currentLng: any;
     dist: Array<any> = [];
     dur: Array<any> = [];
+    loader: any;
 
     service = new google.maps.DistanceMatrixService();
     current: any;
@@ -32,13 +33,13 @@ export class ExplorePage {
     sinclair = new google.maps.LatLng(21.2984860, -157.8201670);
     uhs = new google.maps.LatLng(21.2983360, -157.8152250);
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http, public loading: LoadingController) {
+        this.showLoading();
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
                 this.currentLat = position.coords.latitude;
                 this.currentLng = position.coords.longitude;
                 this.current = new google.maps.LatLng(this.currentLat, this.currentLng);
-                this.findDistanceAndDuration();
             })
         }
         else {
@@ -75,23 +76,26 @@ export class ExplorePage {
     }
 
     findDistanceAndDuration() {
-        this.service.getDistanceMatrix({
-                origins: [this.current],
-                destinations: [this.wrc, this.cc, this.hamilton, this.stanSheriff, this.kennedy, this.paradisePalms, this.qlc, this.sinclair, this.uhs],
-                travelMode: google.maps.TravelMode.WALKING,
-                unitSystem: google.maps.UnitSystem.IMPERIAL,
-                durationInTraffic: false,
-                avoidHighways: false,
-                avoidTolls: false
-            },
-            (response, status) => {
-                if (status !== google.maps.DistanceMatrixStatus.OK) {
-                    console.log('Error:', status);
-                } else {
-                    console.log(response);
-                    this.loadDistanceAndDuration(response);
-                }
-            });
+        setTimeout(() => {
+            this.service.getDistanceMatrix({
+                    origins: [this.current],
+                    destinations: [this.wrc, this.cc, this.hamilton, this.stanSheriff, this.kennedy, this.paradisePalms, this.qlc, this.sinclair, this.uhs],
+                    travelMode: google.maps.TravelMode.WALKING,
+                    unitSystem: google.maps.UnitSystem.IMPERIAL,
+                    durationInTraffic: false,
+                    avoidHighways: false,
+                    avoidTolls: false
+                },
+                (response, status) => {
+                    if (status !== google.maps.DistanceMatrixStatus.OK) {
+                        console.log('Error:', status);
+                    } else {
+                        console.log(response);
+                        this.loadDistanceAndDuration(response);
+                    }
+                });
+            this.hideLoading();
+        }, 4000);
     }
 
     loadDistanceAndDuration(data) {
@@ -101,4 +105,16 @@ export class ExplorePage {
             this.dur.push(data.rows[0].elements[i].duration.text);
         }
     }
+
+    private showLoading() {
+        this.loader = this.loading.create({
+            content: "Please wait..."
+        });
+        this.loader.present();
+        this.findDistanceAndDuration();
+    }
+    private hideLoading(){
+        this.loader.dismiss();
+    }
+
 }
