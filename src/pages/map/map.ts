@@ -47,6 +47,7 @@ export class MapPage {
     userMarker: any;
     // Should we load location types from a config file?
     changeVal: number; //change button change value
+    isSearching: boolean = false;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public loading: LoadingController, public http: Http) {
         this.exploreIndex = navParams.get('locationIndex');
@@ -70,15 +71,24 @@ export class MapPage {
     }
 
     searchPoints(input){
+        this.isSearching = true;
         let fuse = new Fuse(this.locationsList, this.fuseOptions)
         console.log(input);
         if(input ==='') {
             this.locationsList = this.geoMarkers;
         }else {
-
             //console.log(fuse.search(input));
             this.locationsList = fuse.search(input);
         }
+    }
+
+    stopSearch() {
+        this.isSearching = false;
+        console.log(this.isSearching);
+    }
+
+    showSearch() {
+        this.isSearching = true;
     }
 
 
@@ -392,22 +402,22 @@ export class MapPage {
     }
 
     placeAllMarkers() {
-        const geoData = this.geoMarkers;
+        //const geoData = this.geoMarkers; //this creates an array of nearly 43 million.... So i got rid of it.
 
         if (this.exploreIndex && this.currentLat && this.currentLng) {
             this.createExpRoute();
         }
 
 
-        for (let i = 0; i <= geoData.length - 1; i++) {
-            this.locationsList.push({value: i, text: geoData[i].name});
-        }
+        // for (let i = 0; i <= geoData.length - 1; i++) {
+        //     this.locationsList.push({value: i, text: geoData[i].name});
+        // }
 
 
         this.infoWindow = new google.maps.InfoWindow();
 
-        for (let i = 0, length = geoData.length; i < length; i++) {
-            let data = geoData[i],
+        for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
+            let data = this.geoMarkers[i],
                 latLng = new google.maps.LatLng(data.lat, data.lng);
             // type = this.geoMarkers[i].type;
 
