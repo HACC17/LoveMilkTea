@@ -190,7 +190,7 @@ export class MapPage {
         });
 
 
-        let info = this.getInfoWindowData(this.geoMarkers[locationIndex], locationIndex);
+        let info = this.getInfoWindowData(location);
         this.infoWindow = new google.maps.InfoWindow({
             content: info,
         });
@@ -399,12 +399,17 @@ export class MapPage {
         }
     }
 
-    getInfoWindowData(data, index){
-        console.log(index);
-        const imgIndex = parseInt(index) + 1;
-        let imgSrc = "http://manoanow.org/app/map/images/" + imgIndex + ".png";
-        let infoContent = '<div class="ui grid"><img class="ui fluid image info" src="' + imgSrc + '">' + '<div id="windowHead">' + data.name + '</div>' + '<div id="description">' + data.description + '</div>' + '<div id="addressTitle">Address: ' + data.address + '</div>' + '<div id="phoneTitle">Phone: ' + data.number + '</div>' + '<button class="tagButton">'+ "Show Comments" + '</button>' + '\n'+'<button class="tagButton">'+ "Get Directions" + '</button>' + '</div>';
-        console.log(data.key);
+    getInfoWindowData(location){
+      //  const imgIndex = parseInt(index) + 1;
+        // let imgSrc = "http://manoanow.org/app/map/images/" + imgIndex + ".png";
+        // let infoContent = '<div class="ui grid"><img class="ui fluid image info" src="' + imgSrc + '">' + '<div id="windowHead">' + data.name + '</div>' + '<div id="description">' + data.description + '</div>' + '<div id="addressTitle">Address: ' + data.address + '</div>' + '<div id="phoneTitle">Phone: ' + data.number + '</div>' + '<button class="tagButton">'+ "Show Comments" + '</button>' + '\n'+'<button class="tagButton">'+ "Get Directions" + '</button>' + '</div>';
+        let imgSrc = "http://manoanow.org/app/map/images/" + location.key + ".png";
+        let infoContent = '<div class="ui grid"><img class="ui fluid image info" src="' + imgSrc + '">'
+            + '<div id="windowHead">' + location.name + '</div>'
+            + '<div id="description">' + location.description + '</div>'
+            + '<div id="addressTitle">Address: ' + location.address + '</div>'
+            + '<div id="phoneTitle">Phone: ' + location.number + '</div>' + '</div>';
+        //console.log(data.key);
         return infoContent;
     }
 
@@ -415,8 +420,8 @@ export class MapPage {
             this.createExpRoute();
         }
 
-        for (let i = 0; i <= geoData.length - 1; i++) {
-            this.locationsList.push({value: i, text: geoData[i].name});
+        for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
+            this.locationsList.push({value: i, text: this.geoMarkers[i].name});
         }
 
 
@@ -443,7 +448,7 @@ export class MapPage {
             //let info = "Address: " + '\n' + data.address + " Name: " + data.name;
 
             google.maps.event.addListener(marker, 'click', (() => {
-                let info = this.getInfoWindowData(data, i);
+                let info = this.getInfoWindowData(data);
                 this.infoWindow.setContent(info);
                 this.infoWindow.open(this.map, marker);
             }))
