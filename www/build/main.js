@@ -156,7 +156,7 @@ let MapPage = class MapPage {
     showSearch() {
         this.isSearching = true;
     }
-    // retireves all tags in firebase, stores in geoMarkers array.
+    // retireves all tags in firebase, stores in our arrays.
     // This only needs
     getTags() {
         this.geoMarkers = [];
@@ -178,6 +178,9 @@ let MapPage = class MapPage {
             console.log('this is get tags');
             console.log(this.geoMarkers);
             this.searchList = this.geoMarkers.slice();
+            for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
+                this.locationsList.push({ value: i, text: this.geoMarkers[i].name });
+            }
         });
     }
     //retrieves the tags from our firebase, populates them on map.
@@ -380,9 +383,9 @@ let MapPage = class MapPage {
         //             });
         //         });
         //     })
-        for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
-            this.locationsList.push({ value: i, text: this.geoMarkers[i].name });
-        }
+        // for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
+        //     this.locationsList.push({value: i, text: this.geoMarkers[i].name});
+        // }
         console.log(this.locationsList);
         this.infoWindow = new google.maps.InfoWindow();
         for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
@@ -458,7 +461,7 @@ let MapPage = class MapPage {
         // for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
         //     this.locationsList.push({value: i, text: this.geoMarkers[i].name});
         // }
-        this.locationsList = this.geoMarkers.slice();
+        // this.locationsList = this.geoMarkers.slice();
         this.infoWindow = new google.maps.InfoWindow();
         for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
             let data = this.geoMarkers[i], latLng = new google.maps.LatLng(data.lat, data.lng);

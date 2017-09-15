@@ -33,7 +33,7 @@ export class MapPage {
     loader: any; // holds the module for loading
     infoWindow: any;
     locationsList: any[]; //array to populate menu with\
-    searchList: any[]; //array that will be used for searching.
+    searchList: any[]; //array that will be used for searching. Eventually make this function like locationsList?
     exploreIndex: any;
     exploreIndex2: any;
     currentLat: any;
@@ -93,7 +93,7 @@ export class MapPage {
         this.isSearching = true;
     }
 
-    // retireves all tags in firebase, stores in geoMarkers array.
+    // retireves all tags in firebase, stores in our arrays.
     // This only needs
     getTags() {
         this.geoMarkers = [];
@@ -115,6 +115,9 @@ export class MapPage {
                 console.log('this is get tags');
                 console.log(this.geoMarkers);
                 this.searchList = this.geoMarkers.slice();
+                for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
+                    this.locationsList.push({value: i, text: this.geoMarkers[i].name});
+                }
             })
     }
 
@@ -359,9 +362,9 @@ export class MapPage {
         //     })
 
 
-         for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
-             this.locationsList.push({value: i, text: this.geoMarkers[i].name});
-         }
+         // for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
+         //     this.locationsList.push({value: i, text: this.geoMarkers[i].name});
+         // }
 
 
         console.log(this.locationsList);
@@ -453,7 +456,7 @@ export class MapPage {
         // }
 
 
-        this.locationsList = this.geoMarkers.slice();
+       // this.locationsList = this.geoMarkers.slice();
 
 
         this.infoWindow = new google.maps.InfoWindow();
