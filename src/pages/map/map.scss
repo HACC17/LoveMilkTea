@@ -9,10 +9,10 @@ page-map {
   }
 
   #float-button-left-top {
-    margin-top: 7px;
+    margin-top: 16px;
     margin-left: 5px;
     position: absolute;
-    left: 0;
+    // left: 0;
     z-index :5;
   }
 
@@ -26,6 +26,13 @@ page-map {
 
   #menu-icon {
     font-size: 30px;
+  }
+
+  #search {
+    position: absolute;
+    // top: 50px;
+    z-index :5;
+
   }
 
   #float-button-location {
@@ -45,6 +52,11 @@ page-map {
   #geoLoc {
     width: 60%;
   }
+
+  .scrollable {
+    height: 200px;
+  }
+
 
   #windowHead {
     color: black;
