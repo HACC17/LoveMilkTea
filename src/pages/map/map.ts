@@ -316,11 +316,21 @@ export class MapPage {
 
     //Could be useful if needed.
     toggleStreetView() {
-        let toggle = this.panorama.getVisible();
-        if (toggle == false) {
+        if (!this.inStreetView()) {
             this.panorama.setVisible(true);
         } else {
             this.panorama.setVisible(false);
+        }
+    }
+
+    inStreetView() {
+        if (this.panorama) {
+            if (this.panorama.getVisible()){
+                return true;
+            }
+            else {
+                return false;
+            }
         }
     }
 
@@ -780,6 +790,10 @@ export class MapPage {
 
         this.panorama = this.map.getStreetView();
         this.panorama.setPosition({lat: 21.298393, lng: -157.818918});
+        this.panorama.enableCloseButton = false;
+        this.panorama.addressControl = false;
+        this.panorama.zoomControl = false;
+        this.panorama.panControl = false;
 
         //set up a default marker.
         this.userMarker = new google.maps.Marker({
