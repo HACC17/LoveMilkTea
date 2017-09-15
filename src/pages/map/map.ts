@@ -121,7 +121,7 @@ export class MapPage {
 
                     stash.push(marker);
 
-                    let info = "Address: " + data.address + " Name: " + data.name;
+                    let info = "ddddddAddress: " + data.address + " Name: " + data.name;
 
                     google.maps.event.addListener(marker, 'click', (() => {
                         this.infoWindow.setContent(info);
@@ -133,15 +133,16 @@ export class MapPage {
     }
 
     addMarker(locationIndex) {
+        //console.log("this add : " + this.geoMarkers[locationIndex].name);
         if (this.marker) {
             this.clearStarterMarker();
         }
 
         const geoData = this.geoMarkers;
-        const imgIndex = parseInt(locationIndex) + 1;
+        //const imgIndex = parseInt(locationIndex) + 1;
 
-        let imgSrc = "http://manoanow.org/app/map/images/" + imgIndex + ".png";
-        let infoContent = '<div class="ui grid"><img class="ui fluid image info" src="' + imgSrc + '">' + '<div id="windowHead">' + geoData[locationIndex].name + '</div>' + '<div id="description">' + geoData[locationIndex].description + '</div>' + '<div id="addressTitle">Address: ' + geoData[locationIndex].address + '</div>' + '<div id="phoneTitle">Phone: ' + geoData[locationIndex].number + '</div>' + '</div>';
+        //let imgSrc = "http://manoanow.org/app/map/images/" + imgIndex + ".png";
+        // let infoContent = '<div class="ui grid"><img class="ui fluid image info" src="' + imgSrc + '">' + '<div id="windowHead">' + geoData[locationIndex].name + '</div>' + '<div id="description">' + geoData[locationIndex].description + '</div>' + '<div id="addressTitle">Address: ' + geoData[locationIndex].address + '</div>' + '<div id="phoneTitle">Phone: ' + geoData[locationIndex].number + '</div>' + '</div>';
 
         this.marker = new google.maps.Marker({
             position: {lat: geoData[locationIndex].lat, lng: geoData[locationIndex].lng},
@@ -151,9 +152,9 @@ export class MapPage {
         });
 
 
-
+        let info = this.getInfoWindowData(this.geoMarkers[locationIndex], locationIndex);
         this.infoWindow = new google.maps.InfoWindow({
-            content: infoContent,
+            content: info,
         });
 
         this.infoWindow.open(this.map, this.marker);
@@ -361,13 +362,21 @@ export class MapPage {
         }
     }
 
+    getInfoWindowData(data, index){
+        console.log(index);
+        const imgIndex = parseInt(index) + 1;
+        let imgSrc = "http://manoanow.org/app/map/images/" + imgIndex + ".png";
+        let infoContent = '<div class="ui grid"><img class="ui fluid image info" src="' + imgSrc + '">' + '<div id="windowHead">' + data.name + '</div>' + '<div id="description">' + data.description + '</div>' + '<div id="addressTitle">Address: ' + data.address + '</div>' + '<div id="phoneTitle">Phone: ' + data.number + '</div>' + '<button class="tagButton">'+ "Show Comments" + '</button>' + '\n'+'<button class="tagButton">'+ "Get Directions" + '</button>' + '</div>';
+        console.log(data.key);
+        return infoContent;
+    }
+
     placeAllMarkers() {
         const geoData = this.geoMarkers;
 
         if (this.exploreIndex && this.currentLat && this.currentLng) {
             this.createExpRoute();
         }
-
 
         for (let i = 0; i <= geoData.length - 1; i++) {
             this.locationsList.push({value: i, text: geoData[i].name});
@@ -392,9 +401,11 @@ export class MapPage {
 
             stash.push(marker);
 
-            let info = "Address: " + data.address + " Name: " + data.name;
+            //get info
+            //let info = "Address: " + '\n' + data.address + " Name: " + data.name;
 
             google.maps.event.addListener(marker, 'click', (() => {
+                let info = this.getInfoWindowData(data, i);
                 this.infoWindow.setContent(info);
                 this.infoWindow.open(this.map, marker);
             }))
