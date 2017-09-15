@@ -46,7 +46,7 @@ export class MapPage {
     typeList = ["Classroom", "Drink", "Food", "Entertainment", "Housing", "Library", "Parking", "Recreational", "Service"];
     userMarker: any;
     // Should we load location types from a config file?
-    changeVal: number; //change button change value
+    changeIcon: boolean = false;
     isSearching: boolean = false;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public loading: LoadingController, public http: Http) {
@@ -74,9 +74,9 @@ export class MapPage {
         this.isSearching = true;
         let fuse = new Fuse(this.locationsList, this.fuseOptions)
         console.log(input);
-        if(input ==='') {
+        if (input === '') {
             this.locationsList = this.geoMarkers;
-        }else {
+        } else {
             //console.log(fuse.search(input));
             this.locationsList = fuse.search(input);
         }
@@ -84,7 +84,6 @@ export class MapPage {
 
     stopSearch() {
         this.isSearching = false;
-        console.log(this.isSearching);
     }
 
     showSearch() {
@@ -152,13 +151,12 @@ export class MapPage {
 
                     stash.push(marker);
 
-                    let info = "Address: " + data.address + " Name: " + data.name;
+                    let info = "ddddddAddress: " + data.address + " Name: " + data.name;
 
                     google.maps.event.addListener(marker, 'click', (() => {
                         this.infoWindow.setContent(info);
                         this.infoWindow.open(this.map, marker);
                     }))
-                    this.changeVal = 0;
                 }
             })
     }
@@ -174,7 +172,7 @@ export class MapPage {
 
         console.log(location);
 
-        //const geoData = this.geoMarkers;
+        const geoData = this.geoMarkers;
         const imgIndex = location.key;
 
         let imgSrc = "http://manoanow.org/app/map/images/" + imgIndex + ".png";
@@ -192,9 +190,9 @@ export class MapPage {
         });
 
 
-
+        let info = this.getInfoWindowData(location);
         this.infoWindow = new google.maps.InfoWindow({
-            content: infoContent,
+            content: info,
         });
 
         this.infoWindow.open(this.map, this.marker);
@@ -223,7 +221,7 @@ export class MapPage {
         if ((!isNullOrUndefined(this.startValue)) && (!isNullOrUndefined(this.endValue))) {
             this.directionsDisplay.setMap(this.map);
             this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay, this.startValue, this.endValue);
-            if (this.changeVal === 1) {
+            if (this.changeIcon === true) {
                 this.changeAllMarkers();
             }
         }
@@ -383,20 +381,18 @@ export class MapPage {
     }
 
     changeAllMarkers() {
-        if (this.changeVal === 1) {
+        if (this.changeIcon === true) {
             if (stash) {
                 for (let i = 0; i < stash.length; i++) {
                     stash[i].setMap(null);
                 }
                 stash.length = 0;
-                this.changeVal = 0;
-                this.changeButton();
+                this.changeIcon = false;
             } else {
                 console.log('Stash array does not exist!');
             }
-        } else if (this.changeVal === 0) {
-            this.changeVal = 1;
-            this.changeButton();
+        } else if (this.changeIcon === false) {
+            this.changeIcon = true;
             this.placeAllMarkers();
         }
     }
@@ -407,10 +403,24 @@ export class MapPage {
                 stash[i].setMap(null);
             }
             stash.length = 0;
-            this.changeVal = 0;
+            this.changeIcon = false;
         }  else {
             console.log('Stash array does not exist!');
         }
+    }
+
+    getInfoWindowData(location){
+      //  const imgIndex = parseInt(index) + 1;
+        // let imgSrc = "http://manoanow.org/app/map/images/" + imgIndex + ".png";
+        // let infoContent = '<div class="ui grid"><img class="ui fluid image info" src="' + imgSrc + '">' + '<div id="windowHead">' + data.name + '</div>' + '<div id="description">' + data.description + '</div>' + '<div id="addressTitle">Address: ' + data.address + '</div>' + '<div id="phoneTitle">Phone: ' + data.number + '</div>' + '<button class="tagButton">'+ "Show Comments" + '</button>' + '\n'+'<button class="tagButton">'+ "Get Directions" + '</button>' + '</div>';
+        let imgSrc = "http://manoanow.org/app/map/images/" + location.key + ".png";
+        let infoContent = '<div class="ui grid"><img class="ui fluid image info" src="' + imgSrc + '">'
+            + '<div id="windowHead">' + location.name + '</div>'
+            + '<div id="description">' + location.description + '</div>'
+            + '<div id="addressTitle">Address: ' + location.address + '</div>'
+            + '<div id="phoneTitle">Phone: ' + location.number + '</div>' + '</div>';
+        //console.log(data.key);
+        return infoContent;
     }
 
     placeAllMarkers() {
@@ -420,10 +430,10 @@ export class MapPage {
             this.createExpRoute();
         }
 
+        for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
+            this.locationsList.push({value: i, text: this.geoMarkers[i].name});
+        }
 
-        // for (let i = 0; i <= geoData.length - 1; i++) {
-        //     this.locationsList.push({value: i, text: geoData[i].name});
-        // }
 
 
         this.infoWindow = new google.maps.InfoWindow();
@@ -444,13 +454,15 @@ export class MapPage {
 
             stash.push(marker);
 
-            let info = "Address: " + data.address + " Name: " + data.name;
+            //get info
+            //let info = "Address: " + '\n' + data.address + " Name: " + data.name;
 
             google.maps.event.addListener(marker, 'click', (() => {
+                let info = this.getInfoWindowData(data);
                 this.infoWindow.setContent(info);
                 this.infoWindow.open(this.map, marker);
             }))
-            this.changeVal = 1;
+            this.changeIcon = true;
         }
     }
 
@@ -476,14 +488,6 @@ export class MapPage {
             })
         }
     }
-
-    changeButton() {
-        var elem = document.getElementById("clearButton");
-        if (elem.innerHTML=="Clear Points") elem.innerHTML = "Show Points";
-        else elem.innerHTML = "Clear Points";
-
-    }
-
 
     loadMap() {
         this.map = new google.maps.Map(this.mapElement.nativeElement, {

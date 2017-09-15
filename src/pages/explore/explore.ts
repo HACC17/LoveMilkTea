@@ -95,7 +95,7 @@ export class ExplorePage {
                     }
                 });
             this.hideLoading();
-        }, 4000);
+        }, 5000);
     }
 
     loadDistanceAndDuration(data) {
@@ -113,6 +113,7 @@ export class ExplorePage {
         this.loader.present();
         this.findDistanceAndDuration();
     }
+    
     private hideLoading(){
         this.loader.dismiss();
     }

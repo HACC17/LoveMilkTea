@@ -16,16 +16,12 @@
   <div id="search">
 
     <div *ngIf="isSearching">
+
       <ion-grid>
         <ion-row>
-          <ion-col col-8>
-            <ion-searchbar [(ngModel)]="input" (ionInput)="searchPoints(input)" (ionCancel)="stopSearch($event)"
-                           placeholder="search"></ion-searchbar>
-          </ion-col>
           <ion-col>
-            <button ion-button (click)="stopSearch()">
-              <ion-icon name="close-circle"></ion-icon>
-            </button>
+            <ion-searchbar showCancelButton	[(ngModel)]="input" (ionInput)="searchPoints(input)" (ionCancel)="stopSearch($event)"
+                           placeholder="Search"></ion-searchbar>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -51,13 +47,18 @@
     </div>
   </div>
 
+
   <div *ngIf="!inStreetView()" id="float-button-right-bottom">
     <button id="clearButton" ion-button full small (click)="changeAllMarkers()">
       Show Points
     </button>
   </div>
 
+
   <div id="float-button-left-bottom">
+    <button *ngIf="!inStreetView()" ion-fab mini (click)="changeAllMarkers()">
+      <ion-icon [name]="changeIcon ? 'remove' :'add'"></ion-icon>
+    </button>
     <button *ngIf="!inStreetView()" ion-fab mini (click)="showCurrLocation()">
       <ion-icon name="locate"></ion-icon>
     </button>
