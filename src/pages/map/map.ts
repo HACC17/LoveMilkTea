@@ -48,7 +48,6 @@ export class MapPage {
     // Should we load location types from a config file?
     changeVal: number; //change button change value
     isSearching: boolean = false;
-    inStreetView: boolean = false;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public loading: LoadingController, public http: Http) {
         this.exploreIndex = navParams.get('locationIndex');
@@ -288,13 +287,21 @@ export class MapPage {
 
     //Could be useful if needed.
     toggleStreetView() {
-        let toggle = this.panorama.getVisible();
-        if (toggle == false) {
+        if (!this.inStreetView()) {
             this.panorama.setVisible(true);
-            this.inStreetView = true;
         } else {
             this.panorama.setVisible(false);
-            this.inStreetView = false;
+        }
+    }
+
+    inStreetView() {
+        if (this.panorama) {
+            if (this.panorama.getVisible()){
+                return true;
+            }
+            else {
+                return false;
+            }
         }
     }
 
@@ -747,6 +754,9 @@ export class MapPage {
         this.panorama = this.map.getStreetView();
         this.panorama.setPosition({lat: 21.298393, lng: -157.818918});
         this.panorama.enableCloseButton = false;
+        this.panorama.addressControl = false;
+        this.panorama.zoomControl = false;
+        this.panorama.panControl = false;
 
         //set up a default marker.
         this.userMarker = new google.maps.Marker({

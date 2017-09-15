@@ -3,11 +3,11 @@
 
 <ion-content>
 
-  <div id="float-button-left-top" *ngIf="!inStreetView">
+  <div *ngIf="!inStreetView()" id="float-button-left-top">
     <button ion-button clear menuToggle><ion-icon id="menu-icon" large name="menu"></ion-icon></button>
   </div>
 
-  <div id="float-button-right-top" *ngIf="!isSearching && !inStreetView">
+  <div id="float-button-right-top" *ngIf="!isSearching && !inStreetView()">
     <button ion-button clear large id="search-button" (click)="showSearch()">
       <ion-icon name="search"></ion-icon>
     </button>
@@ -51,18 +51,18 @@
     </div>
   </div>
 
-  <div id="float-button-right-bottom">
+  <div *ngIf="!inStreetView()" id="float-button-right-bottom">
     <button id="clearButton" ion-button full small (click)="changeAllMarkers()">
       Show Points
     </button>
   </div>
 
   <div id="float-button-left-bottom">
+    <button *ngIf="!inStreetView()" ion-fab mini (click)="showCurrLocation()">
+      <ion-icon name="locate"></ion-icon>
+    </button>
     <button ion-fab mini (click)="toggleStreetView()">
       <ion-icon name="eye"></ion-icon>
-    </button>
-    <button ion-fab mini (click)="showCurrLocation()">
-      <ion-icon name="locate"></ion-icon>
     </button>
   </div>
 
