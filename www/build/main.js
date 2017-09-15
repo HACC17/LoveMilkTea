@@ -15,6 +15,8 @@ webpackJsonp([5],{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_map__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_util__ = __webpack_require__(410);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_util___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_util__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_fuse_js__ = __webpack_require__(413);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_fuse_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_fuse_js__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -31,6 +33,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 // Array to contain Markers on the map
 let stash = [];
 let MapPage = class MapPage {
@@ -39,8 +42,17 @@ let MapPage = class MapPage {
         this.navParams = navParams;
         this.loading = loading;
         this.http = http;
-        this.locationsList = []; //array to populate menu with
         this.typeList = ["Classroom", "Drink", "Food", "Entertainment", "Housing", "Library", "Parking", "Recreational", "Service"];
+        // Should we load location types from a config file?
+        this.changeIcon = false;
+        this.isSearching = false;
+        // set up search params for the fuzzy search
+        this.fuseOptions = {
+            caseSensitive: false,
+            keys: ['address', 'description', 'name', 'type'],
+            threshold: 0.5,
+            shouldSort: true,
+        };
         // holds icon SVG data and styling.
         this.icons = {
             food: {
@@ -122,20 +134,37 @@ let MapPage = class MapPage {
         this.ref = this.db.ref("testPoints");
     }
     ionViewDidLoad() {
-        this.loadTags();
+        this.getTags(); //we'll just load all data from firebase once
+        // this.loadTags();
         this.loadMap();
     }
-    //retrieves the tags from our firebase, populates them on map.
-    loadTags() {
-        this.clearAllMarkers();
-        //load the tag data into the geoMarkers variable
+    searchPoints(input) {
+        this.isSearching = true;
+        let fuse = new __WEBPACK_IMPORTED_MODULE_7_fuse_js__(this.searchList, this.fuseOptions);
+        console.log(input);
+        if (input === '') {
+            this.searchList = this.geoMarkers;
+        }
+        else {
+            //console.log(fuse.search(input));
+            this.searchList = fuse.search(input);
+        }
+    }
+    stopSearch() {
+        this.isSearching = false;
+    }
+    showSearch() {
+        this.isSearching = true;
+    }
+    // retireves all tags in firebase, stores in our arrays.
+    // This only needs
+    getTags() {
         this.geoMarkers = [];
-        console.log(this.icons);
         this.ref.once("value")
             .then((dataPoints) => {
-            //console.log(dataPoints.val())
             dataPoints.forEach((dataPoint) => {
                 this.geoMarkers.push({
+                    key: dataPoint.key,
                     address: dataPoint.val().address,
                     description: dataPoint.val().description,
                     lat: dataPoint.val().lat,
@@ -146,7 +175,35 @@ let MapPage = class MapPage {
                     type: dataPoint.val().type
                 });
             });
-            //console.log(this.geoMarkers);
+            console.log('this is get tags');
+            console.log(this.geoMarkers);
+            this.searchList = this.geoMarkers.slice();
+            for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
+                this.locationsList.push({ value: i, text: this.geoMarkers[i].name });
+            }
+        });
+    }
+    //retrieves the tags from our firebase, populates them on map.
+    loadTags() {
+        // this.clearAllMarkers();
+        //load the tag data into the geoMarkers variable
+        this.geoMarkers = [];
+        this.ref.once("value")
+            .then((dataPoints) => {
+            dataPoints.forEach((dataPoint) => {
+                this.geoMarkers.push({
+                    key: dataPoint.key,
+                    address: dataPoint.val().address,
+                    description: dataPoint.val().description,
+                    lat: dataPoint.val().lat,
+                    lng: dataPoint.val().lng,
+                    name: dataPoint.val().name,
+                    number: dataPoint.val().number,
+                    website: dataPoint.val().website,
+                    type: dataPoint.val().type
+                });
+            });
+            console.log(this.geoMarkers);
         })
             .then(() => {
             if (this.exploreIndex && this.currentLat && this.currentLng) {
@@ -158,6 +215,8 @@ let MapPage = class MapPage {
             for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
                 this.locationsList.push({ value: i, text: this.geoMarkers[i].name });
             }
+            // this.locationsList = this.geoMarkers;
+            console.log(this.locationsList);
             this.infoWindow = new google.maps.InfoWindow();
             for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
                 let data = this.geoMarkers[i], latLng = new google.maps.LatLng(data.lat, data.lng);
@@ -170,31 +229,38 @@ let MapPage = class MapPage {
                 });
                 // marker.setIcon(this.icons[data.type]);
                 stash.push(marker);
-                let info = "Address: " + data.address + " Name: " + data.name;
+                let info = "ddddddAddress: " + data.address + " Name: " + data.name;
                 google.maps.event.addListener(marker, 'click', (() => {
                     this.infoWindow.setContent(info);
                     this.infoWindow.open(this.map, marker);
                 }));
-                this.changeVal = 0;
             }
         });
     }
-    addMarker(locationIndex) {
+    //pass in the entire object now that key field holds image index
+    addMarker(location) {
         if (this.marker) {
             this.clearStarterMarker();
         }
-        const geoData = this.geoMarkers;
-        const imgIndex = parseInt(locationIndex) + 1;
+        this.stopSearch();
+        console.log(location);
+        const geoData = this.geoMarkers.slice();
+        const imgIndex = location.key;
         let imgSrc = "http://manoanow.org/app/map/images/" + imgIndex + ".png";
-        let infoContent = '<div class="ui grid"><img class="ui fluid image info" src="' + imgSrc + '">' + '<div id="windowHead">' + geoData[locationIndex].name + '</div>' + '<div id="description">' + geoData[locationIndex].description + '</div>' + '<div id="addressTitle">Address: ' + geoData[locationIndex].address + '</div>' + '<div id="phoneTitle">Phone: ' + geoData[locationIndex].number + '</div>' + '</div>';
+        let infoContent = '<div class="ui grid"><img class="ui fluid image info" src="' + imgSrc + '">'
+            + '<div id="windowHead">' + location.name + '</div>'
+            + '<div id="description">' + location.description + '</div>'
+            + '<div id="addressTitle">Address: ' + location.address + '</div>'
+            + '<div id="phoneTitle">Phone: ' + location.number + '</div>' + '</div>';
         this.marker = new google.maps.Marker({
-            position: { lat: geoData[locationIndex].lat, lng: geoData[locationIndex].lng },
+            position: { lat: location.lat, lng: location.lng },
             title: 'University of Hawaii at Manoa',
             map: this.map,
-            icon: this.icons[geoData[locationIndex].type],
+            icon: this.icons[location.type],
         });
+        let info = this.getInfoWindowData(location);
         this.infoWindow = new google.maps.InfoWindow({
-            content: infoContent,
+            content: info,
         });
         this.infoWindow.open(this.map, this.marker);
     }
@@ -216,7 +282,7 @@ let MapPage = class MapPage {
         if ((!Object(__WEBPACK_IMPORTED_MODULE_6_util__["isNullOrUndefined"])(this.startValue)) && (!Object(__WEBPACK_IMPORTED_MODULE_6_util__["isNullOrUndefined"])(this.endValue))) {
             this.directionsDisplay.setMap(this.map);
             this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay, this.startValue, this.endValue);
-            if (this.changeVal === 1) {
+            if (this.changeIcon === true) {
                 this.changeAllMarkers();
             }
         }
@@ -228,7 +294,7 @@ let MapPage = class MapPage {
         }
     }
     calculateAndDisplayRoute(directionsService, directionsDisplay, sValue, eValue) {
-        const geoData = this.geoMarkers;
+        const geoData = this.geoMarkers.slice();
         let origin = { lat: geoData[sValue].lat, lng: geoData[sValue].lng };
         let destination = { lat: geoData[eValue].lat, lng: geoData[eValue].lng };
         directionsService.route({
@@ -298,68 +364,67 @@ let MapPage = class MapPage {
         console.log(criteria);
         // For "dual-layered" filtering clean out the "changeAllMarkers call"
         this.changeAllMarkers();
-        //load the tag data into the geoMarkers variable
-        this.geoMarkers = [];
-        this.ref.once("value")
-            .then((dataPoints) => {
-            dataPoints.forEach((dataPoint) => {
-                this.geoMarkers.push({
-                    address: dataPoint.val().address,
-                    description: dataPoint.val().description,
-                    lat: dataPoint.val().lat,
-                    lng: dataPoint.val().lng,
-                    name: dataPoint.val().name,
-                    number: dataPoint.val().number,
-                    website: dataPoint.val().website,
-                    type: dataPoint.val().type
+        // //load the tag data into the geoMarkers variable
+        // this.geoMarkers = [];
+        //
+        //
+        // this.ref.once("value")
+        //     .then((dataPoints) => {
+        //         dataPoints.forEach((dataPoint) => {
+        //             this.geoMarkers.push({
+        //                 address: dataPoint.val().address,
+        //                 description: dataPoint.val().description,
+        //                 lat: dataPoint.val().lat,
+        //                 lng: dataPoint.val().lng,
+        //                 name: dataPoint.val().name,
+        //                 number: dataPoint.val().number,
+        //                 website: dataPoint.val().website,
+        //                 type: dataPoint.val().type
+        //             });
+        //         });
+        //     })
+        // for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
+        //     this.locationsList.push({value: i, text: this.geoMarkers[i].name});
+        // }
+        console.log(this.locationsList);
+        this.infoWindow = new google.maps.InfoWindow();
+        for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
+            let data = this.geoMarkers[i], latLng = new google.maps.LatLng(data.lat, data.lng);
+            if (data.type === criteria) {
+                // Creating a marker and putting it on the map
+                let marker = new google.maps.Marker({
+                    position: latLng,
+                    map: this.map,
+                    icon: this.icons[data.type],
                 });
-            });
-        })
-            .then(() => {
-            for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
-                this.locationsList.push({ value: i, text: this.geoMarkers[i].name });
+                // Push into a Markers array
+                stash.push(marker);
+                let info = "Address: " + data.address + " Name: " + data.name;
+                google.maps.event.addListener(marker, 'click', (() => {
+                    this.infoWindow.setContent(info);
+                    this.infoWindow.open(this.map, marker);
+                }));
             }
-            this.infoWindow = new google.maps.InfoWindow();
-            for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
-                let data = this.geoMarkers[i], latLng = new google.maps.LatLng(data.lat, data.lng);
-                if (data.type === criteria) {
-                    // Creating a marker and putting it on the map
-                    let marker = new google.maps.Marker({
-                        position: latLng,
-                        map: this.map,
-                        icon: this.icons[data.type],
-                    });
-                    // Push into a Markers array
-                    stash.push(marker);
-                    let info = "Address: " + data.address + " Name: " + data.name;
-                    google.maps.event.addListener(marker, 'click', (() => {
-                        this.infoWindow.setContent(info);
-                        this.infoWindow.open(this.map, marker);
-                    }));
-                }
-                else {
-                    console.log("Category: " + criteria + " does not exist!");
-                }
+            else {
+                console.log("Category: " + criteria + " does not exist!");
             }
-        });
+        }
     }
     changeAllMarkers() {
-        if (this.changeVal === 1) {
+        if (this.changeIcon === true) {
             if (stash) {
                 for (let i = 0; i < stash.length; i++) {
                     stash[i].setMap(null);
                 }
                 stash.length = 0;
-                this.changeVal = 0;
-                this.changeButton();
+                this.changeIcon = false;
             }
             else {
                 console.log('Stash array does not exist!');
             }
         }
-        else if (this.changeVal === 0) {
-            this.changeVal = 1;
-            this.changeButton();
+        else if (this.changeIcon === false) {
+            this.changeIcon = true;
             this.placeAllMarkers();
         }
     }
@@ -369,23 +434,37 @@ let MapPage = class MapPage {
                 stash[i].setMap(null);
             }
             stash.length = 0;
-            this.changeVal = 0;
+            this.changeIcon = false;
         }
         else {
             console.log('Stash array does not exist!');
         }
     }
+    getInfoWindowData(location) {
+        //  const imgIndex = parseInt(index) + 1;
+        // let imgSrc = "http://manoanow.org/app/map/images/" + imgIndex + ".png";
+        // let infoContent = '<div class="ui grid"><img class="ui fluid image info" src="' + imgSrc + '">' + '<div id="windowHead">' + data.name + '</div>' + '<div id="description">' + data.description + '</div>' + '<div id="addressTitle">Address: ' + data.address + '</div>' + '<div id="phoneTitle">Phone: ' + data.number + '</div>' + '<button class="tagButton">'+ "Show Comments" + '</button>' + '\n'+'<button class="tagButton">'+ "Get Directions" + '</button>' + '</div>';
+        let imgSrc = "http://manoanow.org/app/map/images/" + location.key + ".png";
+        let infoContent = '<div class="ui grid"><img class="ui fluid image info" src="' + imgSrc + '">'
+            + '<div id="windowHead">' + location.name + '</div>'
+            + '<div id="description">' + location.description + '</div>'
+            + '<div id="addressTitle">Address: ' + location.address + '</div>'
+            + '<div id="phoneTitle">Phone: ' + location.number + '</div>' + '</div>';
+        //console.log(data.key);
+        return infoContent;
+    }
     placeAllMarkers() {
-        const geoData = this.geoMarkers;
+        //const geoData = this.geoMarkers; //this creates an array of nearly 43 million.... So i got rid of it.
         if (this.exploreIndex && this.currentLat && this.currentLng) {
             this.createExpRoute();
         }
-        for (let i = 0; i <= geoData.length - 1; i++) {
-            this.locationsList.push({ value: i, text: geoData[i].name });
-        }
+        // for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
+        //     this.locationsList.push({value: i, text: this.geoMarkers[i].name});
+        // }
+        // this.locationsList = this.geoMarkers.slice();
         this.infoWindow = new google.maps.InfoWindow();
-        for (let i = 0, length = geoData.length; i < length; i++) {
-            let data = geoData[i], latLng = new google.maps.LatLng(data.lat, data.lng);
+        for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
+            let data = this.geoMarkers[i], latLng = new google.maps.LatLng(data.lat, data.lng);
             // type = this.geoMarkers[i].type;
             // Creating a marker and putting it on the map
             let marker = new google.maps.Marker({
@@ -395,12 +474,14 @@ let MapPage = class MapPage {
             });
             // marker.setIcon(this.icons[data.type]);
             stash.push(marker);
-            let info = "Address: " + data.address + " Name: " + data.name;
+            //get info
+            //let info = "Address: " + '\n' + data.address + " Name: " + data.name;
             google.maps.event.addListener(marker, 'click', (() => {
+                let info = this.getInfoWindowData(data);
                 this.infoWindow.setContent(info);
                 this.infoWindow.open(this.map, marker);
             }));
-            this.changeVal = 1;
+            this.changeIcon = true;
         }
     }
     //Use HTML5 geolocation to get current lat/lng and place marker there
@@ -424,13 +505,6 @@ let MapPage = class MapPage {
                 });
             });
         }
-    }
-    changeButton() {
-        var elem = document.getElementById("clearButton");
-        if (elem.innerHTML == "Clear Points")
-            elem.innerHTML = "Show Points";
-        else
-            elem.innerHTML = "Clear Points";
     }
     loadMap() {
         this.map = new google.maps.Map(this.mapElement.nativeElement, {
@@ -717,15 +791,16 @@ let MapPage = class MapPage {
 };
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_13" /* ViewChild */])('map'),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* ElementRef */])
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* ElementRef */]) === "function" && _a || Object)
 ], MapPage.prototype, "mapElement", void 0);
 MapPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-map',template:/*ion-inline-start:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/map/map.html"*/'<ion-header>\n</ion-header>\n\n<ion-content>\n\n  <div id="float-button-left-top">\n    <button ion-button clear menuToggle><ion-icon id="menu-icon" large name="menu"></ion-icon></button>\n  </div>\n\n  <div id="float-button-right-top">\n    <button id="clearButton" ion-button full small (click)="changeAllMarkers()">\n      Show Points\n    </button>\n  </div>\n\n  <div id="float-button-left-bottom">\n    <button ion-fab mini (click)="toggleStreetView()">\n      <ion-icon name="eye"></ion-icon>\n    </button>\n    <button ion-fab mini (click)="showCurrLocation()">\n      <ion-icon name="locate"></ion-icon>\n    </button>\n  </div>\n\n  <div #map id="map"></div>\n\n  <ion-item>\n    <ion-label>Filter</ion-label>\n    <ion-select [(ngModel)]="filter" multiple="false" #C (ionChange)="filterMarker(C.value)" cancelText="Cancel"\n                okText="Filter!">\n      <ion-option *ngFor="let item of typeList" value="{{item}}">{{item}}</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <ion-item>\n    <ion-label>Select A Location</ion-label>\n    <ion-select #newSelect [(ngModel)]="location" (ionChange)="addMarker(location)">\n      <ion-option *ngFor="let item of locationsList" value="{{item.value}}">{{item.text}}</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <ion-item>\n    <ion-label>Select A Starting Location</ion-label>\n    <ion-select #newSelect [(ngModel)]="startLoc" (ionChange)="setStartValue(startLoc)">\n      <ion-option *ngFor="let item of locationsList" value="{{item.value}}">{{item.text}}</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <ion-item>\n    <ion-label>Select A Destination</ion-label>\n    <ion-select #newSelect [(ngModel)]="endLoc" (ionChange)="setDestValue(endLoc)">\n      <ion-option *ngFor="let item of locationsList" value="{{item.value}}">{{item.text}}</ion-option>\n    </ion-select>\n  </ion-item>\n\n</ion-content>'/*ion-inline-end:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/map/map.html"*/
+        selector: 'page-map',template:/*ion-inline-start:"/Users/russellomo/Projects/LoveMilkTea/src/pages/map/map.html"*/'<ion-header>\n</ion-header>\n\n<ion-content>\n  <div>\n    <div id="float-button-left-top">\n      <button ion-button clear menuToggle><ion-icon id="menu-icon" large name="menu"></ion-icon></button>\n    </div>\n    <div style="margin-left: 40px" id="search">\n\n      <!-- <div *ngIf="!isSearching">\n        <button ion-button (click)="showSearch()">\n          <ion-icon name="search"></ion-icon>\n        </button>\n      </div> -->\n\n      <ion-grid>\n        <ion-row>\n          <ion-col>\n            <ion-searchbar showCancelButton	[(ngModel)]="input" (ionInput)="searchPoints(input)" (ionCancel)="stopSearch($event)"\n                           placeholder="Search"></ion-searchbar>\n          </ion-col>\n        </ion-row>\n      </ion-grid>\n\n      <ion-scroll class="scrollable" scrollY="true">\n        <ion-list>\n          <ion-item *ngFor="let location of searchList">\n            <ion-grid>\n              <ion-row>\n                <ion-col>\n                  {{location.name}}\n                </ion-col>\n                <ion-col>\n                  <button ion-button (click)="addMarker(location)">\n                    <ion-icon name="close-circle"></ion-icon>\n                  </button>\n                </ion-col>\n              </ion-row>\n            </ion-grid>\n          </ion-item>\n        </ion-list>\n      </ion-scroll>\n    </div>\n  </div>\n\n  <div id="float-button-left-bottom">\n    <button ion-fab mini (click)="changeAllMarkers()">\n      <ion-icon [name]="changeIcon ? \'remove\' :\'add\'"></ion-icon>\n    </button>\n    <button ion-fab mini (click)="toggleStreetView()">\n      <ion-icon name="eye"></ion-icon>\n    </button>\n    <button ion-fab mini (click)="showCurrLocation()">\n      <ion-icon name="locate"></ion-icon>\n    </button>\n  </div>\n\n  <div #map id="map"></div>\n\n  <ion-item>\n    <ion-label>Filter</ion-label>\n    <ion-select [(ngModel)]="filter" multiple="false" #C (ionChange)="filterMarker(C.value)" cancelText="Cancel"\n                okText="Filter!">\n      <ion-option *ngFor="let item of typeList" value="{{item}}">{{item}}</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <ion-item>\n    <ion-label>Select A Location</ion-label>\n    <ion-select #newSelect [(ngModel)]="location" (ionChange)="addMarker(location)">\n      <ion-option *ngFor="let item of locationsList" value="{{item.value}}">{{item.text}}</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <ion-item>\n    <ion-label>Select A Starting Location</ion-label>\n    <ion-select #newSelect [(ngModel)]="startLoc" (ionChange)="setStartValue(startLoc)">\n      <ion-option *ngFor="let item of locationsList" value="{{item.value}}">{{item.text}}</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <ion-item>\n    <ion-label>Select A Destination</ion-label>\n    <ion-select #newSelect [(ngModel)]="endLoc" (ionChange)="setDestValue(endLoc)">\n      <ion-option *ngFor="let item of locationsList" value="{{item.value}}">{{item.text}}</ion-option>\n    </ion-select>\n  </ion-item>\n\n</ion-content>\n'/*ion-inline-end:"/Users/russellomo/Projects/LoveMilkTea/src/pages/map/map.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["g" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Http */]])
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* NavController */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["j" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["j" /* NavParams */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["g" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["g" /* LoadingController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Http */]) === "function" && _e || Object])
 ], MapPage);
 
+var _a, _b, _c, _d, _e;
 //# sourceMappingURL=map.js.map
 
 /***/ }),
@@ -824,7 +899,7 @@ let SubmitDataPage = class SubmitDataPage {
 };
 SubmitDataPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'submit-page',template:/*ion-inline-start:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/submit-data/submit-data.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Submit Data</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n<ion-list inset>\n  <form #formData=\'ngForm\'(ngSubmit)="onSubmit(formData)">\n    <ion-label>Contact Information</ion-label>\n    <ion-item>\n      <ion-label color="primary" >First Name</ion-label>\n      <ion-input type="text" placeholder="Enter name" [(ngModel)]="firstName" name="firstName"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-label color="primary" >Last Name</ion-label>\n      <ion-input type="text" placeholder="Enter name" [(ngModel)]="lastName" name="lastName"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-label color="primary" >Contact Email</ion-label>\n      <ion-input type="text" placeholder="Enter email" [(ngModel)]="email" name="email"></ion-input>\n    </ion-item>\n    <br/>\n    <ion-label>Point of Interest</ion-label>\n    <ion-item>\n      <ion-label color="primary" >Point of interest name</ion-label>\n      <ion-input type="text" placeholder="Enter name for point of interest" [(ngModel)]="pointName" name="pointName"></ion-input>\n    </ion-item>\n    <!-- <ion-item>\n      <button ion-button type="button" full small (click)="getCurrLocation()">\n        Get Current Location\n      </button>\n    </ion-item> -->\n    <ion-item>\n      <ion-label color="primary" >Latitude</ion-label>\n      <ion-input type="text" placeholder="Enter latitude" [(ngModel)]="latitude" name="latitude"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-label color="primary" >Longitude</ion-label>\n      <ion-input type="text" placeholder="Enter longitude"[(ngModel)]="longitude" name="longitude"></ion-input>\n    </ion-item>\n    <ion-item>\n    <ion-label color="primary" >Address</ion-label>\n    <ion-input type="text" placeholder="Enter address"[(ngModel)]="address" name="address"></ion-input>\n  </ion-item>\n    <ion-item>\n      <ion-label color="primary" >Phone</ion-label>\n      <ion-input type="text" placeholder="Enter phone for point of interest"[(ngModel)]="phone" name="phone"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-label color="primary" >Website</ion-label>\n      <ion-input type="text" placeholder="Enter a website point of interest"[(ngModel)]="website" name="website"></ion-input>\n    </ion-item>\n\n      <ion-list>\n        <ion-label color="primary">Location Type</ion-label>\n        <ion-item>\n          <ion-select placeholder="Choose One"[(ngModel)]="type" name="type" cancelText="Nah" okText="Okay!">\n            <ion-option value="unknown" selected="true">Unknown</ion-option>\n            <ion-option value="classroom">Classroom</ion-option>\n            <ion-option value="service">Service</ion-option>\n            <ion-option value="restaurant">Restaurant</ion-option>\n            <ion-option value="bathroom">Bathroom</ion-option>\n            <ion-option value="vending machine">Vending Machine</ion-option>\n            <ion-option value="office">Office</ion-option>\n            <ion-option value="other">Other</ion-option>\n\n          </ion-select>\n        </ion-item>\n      </ion-list>\n\n    <ion-item>\n      <br/>\n      <ion-label color="primary" stacked >Description</ion-label>\n      <ion-input type="text" placeholder="Enter point of interest description" [(ngModel)]="description" name="description"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-label color="primary" stacked >Note to Admin</ion-label>\n      <ion-input type="text" placeholder="Enter a note to the Admin" [(ngModel)]="note" name="note"></ion-input>\n    </ion-item>\n    <button ion-button type="submit" block>Submit</button>\n  </form>\n</ion-list>\n</ion-content>\n'/*ion-inline-end:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/submit-data/submit-data.html"*/
+        selector: 'submit-page',template:/*ion-inline-start:"/Users/russellomo/Projects/LoveMilkTea/src/pages/submit-data/submit-data.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Submit Data</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n<ion-list inset>\n  <form #formData=\'ngForm\'(ngSubmit)="onSubmit(formData)">\n    <ion-label>Point of Interest</ion-label>\n    <ion-item>\n      <ion-label color="primary">Name</ion-label>\n      <ion-input type="text" placeholder="Enter name for point of interest" [(ngModel)]="pointName" name="pointName"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-label color="primary">Latitude</ion-label>\n      <ion-input type="text" placeholder="Enter latitude" [(ngModel)]="latitude" name="latitude"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-label color="primary">Longitude</ion-label>\n      <ion-input type="text" placeholder="Enter longitude"[(ngModel)]="longitude" name="longitude"></ion-input>\n    </ion-item>\n    <ion-item>\n    <ion-label color="primary">Address</ion-label>\n    <ion-input type="text" placeholder="Enter address"[(ngModel)]="address" name="address"></ion-input>\n  </ion-item>\n    <ion-item>\n      <ion-label color="primary">Phone</ion-label>\n      <ion-input type="text" placeholder="Enter phone for point of interest"[(ngModel)]="phone" name="phone"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-label color="primary">Website</ion-label>\n      <ion-input type="text" placeholder="Enter a website point of interest"[(ngModel)]="website" name="website"></ion-input>\n    </ion-item>\n\n      <ion-list>\n        <ion-label color="primary">Location Type</ion-label>\n        <ion-item>\n          <ion-select placeholder="Choose One"[(ngModel)]="type" name="type" cancelText="Nah" okText="Okay!">\n            <!-- <ion-option value="unknown" selected="true">Unknown</ion-option> -->\n            <ion-option value="classroom">\n              Classroom\n            </ion-option>\n            <ion-option value="service">Service</ion-option>\n            <ion-option value="restaurant">Restaurant</ion-option>\n            <ion-option value="bathroom">Bathroom</ion-option>\n            <ion-option value="vending machine">Vending Machine</ion-option>\n            <ion-option value="office">Office</ion-option>\n            <ion-option value="other">Other</ion-option>\n          </ion-select>\n        </ion-item>\n      </ion-list>\n\n    <ion-label>Contact Information</ion-label>\n    <ion-item>\n      <ion-label color="primary">First Name</ion-label>\n      <ion-input type="text" placeholder="Enter name" [(ngModel)]="firstName" name="firstName"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-label color="primary">Last Name</ion-label>\n      <ion-input type="text" placeholder="Enter name" [(ngModel)]="lastName" name="lastName"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-label color="primary">Contact Email</ion-label>\n      <ion-input type="text" placeholder="Enter email" [(ngModel)]="email" name="email"></ion-input>\n    </ion-item>\n    <br/>\n\n    <ion-item>\n      <ion-label color="primary" stacked >Description</ion-label>\n      <ion-input type="text" placeholder="Enter point of interest description" [(ngModel)]="description" name="description"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-label color="primary" stacked >Note to Admin</ion-label>\n      <ion-input type="text" placeholder="Enter a note to the Admin" [(ngModel)]="note" name="note"></ion-input>\n    </ion-item>\n    <button ion-button type="submit" block>Submit</button>\n  </form>\n</ion-list>\n</ion-content>\n'/*ion-inline-end:"/Users/russellomo/Projects/LoveMilkTea/src/pages/submit-data/submit-data.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* ToastController */], __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Http */]])
 ], SubmitDataPage);
@@ -903,7 +978,7 @@ let LoginPage = class LoginPage {
 LoginPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPage */])(),
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-login',template:/*ion-inline-start:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/login/login.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Admin Login</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n\n  <ion-item>\n    <ion-label floating>Email Address</ion-label>\n    <ion-input type="text" [(ngModel)]="user.email"></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label floating>Password</ion-label>\n    <ion-input type="password" [(ngModel)]="user.password"></ion-input>\n  </ion-item>\n\n  <button ion-button class="login-btn" full color="primary" (click)="login(user)">Login</button>\n\n</ion-content>\n'/*ion-inline-end:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/login/login.html"*/,
+        selector: 'page-login',template:/*ion-inline-start:"/Users/russellomo/Projects/LoveMilkTea/src/pages/login/login.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Admin</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n\n  <ion-item>\n    <ion-label floating>Email Address</ion-label>\n    <ion-input type="text" [(ngModel)]="user.email"></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label floating>Password</ion-label>\n    <ion-input type="password" [(ngModel)]="user.password"></ion-input>\n  </ion-item>\n\n  <button ion-button class="login-btn" full color="primary" (click)="login(user)">Login</button>\n\n</ion-content>\n'/*ion-inline-end:"/Users/russellomo/Projects/LoveMilkTea/src/pages/login/login.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* ToastController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]])
 ], LoginPage);
@@ -1009,7 +1084,7 @@ let ExplorePage = class ExplorePage {
 ExplorePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPage */])(),
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-explore',template:/*ion-inline-start:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/explore/explore.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Explore</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(147)">\n      <div id="wrc">\n        <div class="card-title">Warrior Rec Center</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="basketball"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">The Warrior Rec Center is approximately 66,000 sq ft and is considered to be one of the\n        best recreational facilities in the state.</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[0]}}</span>\n        <span item-left>{{dist[0]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(147)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(2)">\n      <div id="cc">\n        <div class="card-title">Campus Center</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="pizza"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">The campus center offers the university community and the public a wide variety of meeting,\n        dining and entertainment options to enrich campus life and the educational experience.\n        It is the primary venue for programs and events to create an environment where individuals can come and relax,\n        study and be entertained or challenged.</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[1]}}</span>\n        <span item-left>{{dist[1]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(2)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(3)">\n      <div id="hamilton">\n        <div class="card-title">Hamilton Library</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="book"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">The Hamilton Library at the University of Hawaiʻi at Mānoa is the largest research library\n        in the state of Hawaii. The Library serves as a key resource for the flagship Manoa campus as well as the other\n        University of Hawaii system campuses.</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[2]}}</span>\n        <span item-left>{{dist[2]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(3)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(130)">\n      <div id="stan-sheriff">\n        <div class="card-title">Stan Sheriff</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="beer"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">The Stan Sheriff Center opened in 1994 and is the jewel of the Athletics Department. The\n        center has served as the home of the University of Hawai‘i men’s and women’s basketball and volleyball teams and\n        has played host to a number of memorable events.</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[3]}}</span>\n        <span item-left>{{dist[3]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(130)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(15)">\n      <div id="kennedy-theatre">\n        <div class="card-title">Kennedy Theatre</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="people"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">The Kennedy Theatre at the University of Hawai‘i at Manoa is the home base for the\n        productions of the Department of Theatre + Dance.</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[4]}}</span>\n        <span item-left>{{dist[4]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(15)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(20)">\n      <div id="paradise-palms">\n        <div class="card-title">Paradise Palms Café</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="pizza"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">The Paradise Palms Café features six food vendors, an air-conditioned dining room, and an\n        outdoor eating area.</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[5]}}</span>\n        <span item-left>{{dist[5]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(20)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(151)">\n      <div id="qlc">\n        <div class="card-title-2">Queen Lili\'uokalani Center</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="person"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">The Queen Lili\'uokalani Center, often called QLC, is a center for various student services, including the Office of Admissions, Office of the Registrar, Commuter Services, Financial Aid Services, Mānoa Advising Center, and much more.</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[6]}}</span>\n        <span item-left>{{dist[6]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(151)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(4)">\n      <div id="sinclair">\n        <div class="card-title">Sinclair Library</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="book"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">Sinclair Library, a popular place for late-night studying, is the only library open 24 hours on weekdays.</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[7]}}</span>\n        <span item-left>{{dist[7]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(4)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(7)">\n      <div id="uhs">\n        <div class="card-title-2">University Health Services</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="medkit"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">The University Health Services Mānoa offers a wide range of medical services and programs. These include general medical care by appointment or on a walk-in basis; women\'s health, sports medicine, psychiatry, dermatology, and nutrition clinics by appointment</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[8]}}</span>\n        <span item-left>{{dist[8]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(7)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n</ion-content>'/*ion-inline-end:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/explore/explore.html"*/,
+        selector: 'page-explore',template:/*ion-inline-start:"/Users/russellomo/Projects/LoveMilkTea/src/pages/explore/explore.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Explore</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(147)">\n      <div id="wrc">\n        <div class="card-title">Warrior Rec Center</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="basketball"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">The Warrior Rec Center is approximately 66,000 sq ft and is considered to be one of the\n        best recreational facilities in the state.</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[0]}}</span>\n        <span item-left>{{dist[0]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(147)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(2)">\n      <div id="cc">\n        <div class="card-title">Campus Center</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="pizza"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">The campus center offers the university community and the public a wide variety of meeting,\n        dining and entertainment options to enrich campus life and the educational experience.\n        It is the primary venue for programs and events to create an environment where individuals can come and relax,\n        study and be entertained or challenged.</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[1]}}</span>\n        <span item-left>{{dist[1]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(2)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(3)">\n      <div id="hamilton">\n        <div class="card-title">Hamilton Library</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="book"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">The Hamilton Library at the University of Hawaiʻi at Mānoa is the largest research library\n        in the state of Hawaii. The Library serves as a key resource for the flagship Manoa campus as well as the other\n        University of Hawaii system campuses.</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[2]}}</span>\n        <span item-left>{{dist[2]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(3)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(130)">\n      <div id="stan-sheriff">\n        <div class="card-title">Stan Sheriff</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="beer"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">The Stan Sheriff Center opened in 1994 and is the jewel of the Athletics Department. The\n        center has served as the home of the University of Hawai‘i men’s and women’s basketball and volleyball teams and\n        has played host to a number of memorable events.</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[3]}}</span>\n        <span item-left>{{dist[3]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(130)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(15)">\n      <div id="kennedy-theatre">\n        <div class="card-title">Kennedy Theatre</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="people"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">The Kennedy Theatre at the University of Hawai‘i at Manoa is the home base for the\n        productions of the Department of Theatre + Dance.</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[4]}}</span>\n        <span item-left>{{dist[4]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(15)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(20)">\n      <div id="paradise-palms">\n        <div class="card-title">Paradise Palms Café</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="pizza"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">The Paradise Palms Café features six food vendors, an air-conditioned dining room, and an\n        outdoor eating area.</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[5]}}</span>\n        <span item-left>{{dist[5]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(20)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(151)">\n      <div id="qlc">\n        <div class="card-title-2">Queen Lili\'uokalani Center</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="person"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">The Queen Lili\'uokalani Center, often called QLC, is a center for various student services, including the Office of Admissions, Office of the Registrar, Commuter Services, Financial Aid Services, Mānoa Advising Center, and much more.</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[6]}}</span>\n        <span item-left>{{dist[6]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(151)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(4)">\n      <div id="sinclair">\n        <div class="card-title">Sinclair Library</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="book"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">Sinclair Library, a popular place for late-night studying, is the only library open 24 hours on weekdays.</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[7]}}</span>\n        <span item-left>{{dist[7]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(4)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(7)">\n      <div id="uhs">\n        <div class="card-title-2">University Health Services</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="medkit"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">The University Health Services Mānoa offers a wide range of medical services and programs. These include general medical care by appointment or on a walk-in basis; women\'s health, sports medicine, psychiatry, dermatology, and nutrition clinics by appointment</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[8]}}</span>\n        <span item-left>{{dist[8]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(7)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n</ion-content>'/*ion-inline-end:"/Users/russellomo/Projects/LoveMilkTea/src/pages/explore/explore.html"*/,
     }),
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */]])
@@ -1041,23 +1116,23 @@ webpackEmptyAsyncContext.id = 161;
 
 var map = {
 	"../pages/admin/admin.module": [
-		442,
+		443,
 		1
 	],
 	"../pages/edit-submit-data/edit-submit-data.module": [
-		443,
+		444,
 		0
 	],
 	"../pages/explore/explore.module": [
-		441,
+		442,
 		4
 	],
 	"../pages/home/home.module": [
-		439,
+		440,
 		3
 	],
 	"../pages/login/login.module": [
-		440,
+		441,
 		2
 	]
 };
@@ -1121,7 +1196,7 @@ let SubmitDataLandingPage = class SubmitDataLandingPage {
 };
 SubmitDataLandingPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'submit-data-landing-page',template:/*ion-inline-start:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/submit-data-landing/submit-data-landing.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Submit Data</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <button ion-button large (click)="goMainPage()">Submit your current location</button>\n  <button ion-button large (click)="goMap()">Browse a map to find a location</button>\n</ion-content>\n'/*ion-inline-end:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/submit-data-landing/submit-data-landing.html"*/
+        selector: 'submit-data-landing-page',template:/*ion-inline-start:"/Users/russellomo/Projects/LoveMilkTea/src/pages/submit-data-landing/submit-data-landing.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Submit Data</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <button ion-button large (click)="goMainPage()">Submit your current location</button>\n  <button ion-button large (click)="goMap()">Browse a map to find a location</button>\n</ion-content>\n'/*ion-inline-end:"/Users/russellomo/Projects/LoveMilkTea/src/pages/submit-data-landing/submit-data-landing.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* ToastController */], __WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Http */]])
 ], SubmitDataLandingPage);
@@ -1483,7 +1558,7 @@ __decorate([
 ], SubmitDataChooseCoordsPage.prototype, "mapElement", void 0);
 SubmitDataChooseCoordsPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'submit-data-coords-page',template:/*ion-inline-start:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/submit-data-choose-coords/submit-data-choose-cords.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Submit Data</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <h1>Click to find Coordinates</h1>\n  <div #map id="map"></div>\n</ion-content>\n'/*ion-inline-end:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/submit-data-choose-coords/submit-data-choose-cords.html"*/
+        selector: 'submit-data-coords-page',template:/*ion-inline-start:"/Users/russellomo/Projects/LoveMilkTea/src/pages/submit-data-choose-coords/submit-data-choose-cords.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Submit Data</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <h1>Click to find Coordinates</h1>\n  <div #map id="map"></div>\n</ion-content>\n'/*ion-inline-end:"/Users/russellomo/Projects/LoveMilkTea/src/pages/submit-data-choose-coords/submit-data-choose-cords.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Http */]])
 ], SubmitDataChooseCoordsPage);
@@ -1525,7 +1600,7 @@ let HomePage = class HomePage {
 HomePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPage */])(),
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-home',template:/*ion-inline-start:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Home</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <h3>Ionic Menu Starter</h3>\n\n  <p>\n    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.\n  </p>\n\n  <button ion-button secondary menuToggle>Toggle Menu</button>\n</ion-content>\n'/*ion-inline-end:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/home/home.html"*/,
+        selector: 'page-home',template:/*ion-inline-start:"/Users/russellomo/Projects/LoveMilkTea/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Home</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <h3>Ionic Menu Starter</h3>\n\n  <p>\n    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.\n  </p>\n\n  <button ion-button secondary menuToggle>Toggle Menu</button>\n</ion-content>\n'/*ion-inline-end:"/Users/russellomo/Projects/LoveMilkTea/src/pages/home/home.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]])
 ], HomePage);
@@ -1557,7 +1632,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__(430);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__(431);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_map_map__ = __webpack_require__(114);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_login_login__ = __webpack_require__(151);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_submit_data_submit_data__ = __webpack_require__(150);
@@ -1645,7 +1720,7 @@ AppModule = __decorate([
 
 /***/ }),
 
-/***/ 430:
+/***/ 431:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1686,11 +1761,31 @@ let MyApp = class MyApp {
         this.initializeApp();
         // used for an example of ngFor and navigation
         this.pages = [
-            { title: 'Home', component: __WEBPACK_IMPORTED_MODULE_4__pages_home_home__["a" /* HomePage */] },
-            { title: 'Admin', component: __WEBPACK_IMPORTED_MODULE_6__pages_login_login__["a" /* LoginPage */] },
-            { title: 'Map', component: __WEBPACK_IMPORTED_MODULE_5__pages_map_map__["a" /* MapPage */] },
-            { title: 'Explore', component: __WEBPACK_IMPORTED_MODULE_7__pages_explore_explore__["a" /* ExplorePage */] },
-            { title: 'Submit Point of Interest', component: __WEBPACK_IMPORTED_MODULE_8__pages_submit_data_landing_submit_data_landing__["a" /* SubmitDataLandingPage */] },
+            {
+                title: 'Home',
+                icon: 'home',
+                component: __WEBPACK_IMPORTED_MODULE_4__pages_home_home__["a" /* HomePage */]
+            },
+            {
+                title: 'Admin',
+                icon: 'person',
+                component: __WEBPACK_IMPORTED_MODULE_6__pages_login_login__["a" /* LoginPage */]
+            },
+            {
+                title: 'Map',
+                icon: 'map',
+                component: __WEBPACK_IMPORTED_MODULE_5__pages_map_map__["a" /* MapPage */]
+            },
+            {
+                title: 'Explore',
+                icon: 'search',
+                component: __WEBPACK_IMPORTED_MODULE_7__pages_explore_explore__["a" /* ExplorePage */]
+            },
+            {
+                title: 'Submit Point of Interest',
+                icon: 'send',
+                component: __WEBPACK_IMPORTED_MODULE_8__pages_submit_data_landing_submit_data_landing__["a" /* SubmitDataLandingPage */]
+            }
         ];
     }
     initializeApp() {
@@ -1712,7 +1807,7 @@ __decorate([
     __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* Nav */])
 ], MyApp.prototype, "nav", void 0);
 MyApp = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/app/app.html"*/'<ion-menu [content]="content">\n  <ion-header>\n    <ion-toolbar>\n      <ion-title>Menu</ion-title>\n    </ion-toolbar>\n  </ion-header>\n\n  <ion-content>\n    <ion-list>\n      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">\n        {{p.title}}\n      </button>\n    </ion-list>\n  </ion-content>\n\n</ion-menu>\n\n<!-- Disable swipe-to-go-back because it\'s poor UX to combine STGB with side menus -->\n<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>'/*ion-inline-end:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/app/app.html"*/
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"/Users/russellomo/Projects/LoveMilkTea/src/app/app.html"*/'<ion-menu [content]="content">\n  <!-- <ion-header>\n    <ion-toolbar>\n      <ion-title>Menu</ion-title>\n    </ion-toolbar>\n  </ion-header> -->\n\n  <ion-content>\n    <ion-list class="item">\n      <button text-center menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">\n        \n        <ion-icon name="{{ p.icon }}"></ion-icon>\n        {{p.title}}\n      </button>\n    </ion-list>\n  </ion-content>\n\n</ion-menu>\n\n<!-- Disable swipe-to-go-back because it\'s poor UX to combine STGB with side menus -->\n<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>\n'/*ion-inline-end:"/Users/russellomo/Projects/LoveMilkTea/src/app/app.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
 ], MyApp);
