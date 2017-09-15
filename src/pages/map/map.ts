@@ -32,7 +32,8 @@ export class MapPage {
     public geoMarkers: any[]; // gonna hold all marker data in here for now.
     loader: any; // holds the module for loading
     infoWindow: any;
-    locationsList: any[]; //array to populate menu with and used for searching
+    locationsList: any[]; //array to populate menu with\
+    searchList: any[]; //array that will be used for searching.
     exploreIndex: any;
     exploreIndex2: any;
     currentLat: any;
@@ -66,19 +67,21 @@ export class MapPage {
     }
 
     ionViewDidLoad() {
-        this.loadTags();
+        this.getTags(); //we'll just load all data from firebase once
+       // this.loadTags();
         this.loadMap();
     }
 
     searchPoints(input){
         this.isSearching = true;
-        let fuse = new Fuse(this.locationsList, this.fuseOptions)
+        let fuse = new Fuse(this.searchList, this.fuseOptions)
+
         console.log(input);
         if (input === '') {
-            this.locationsList = this.geoMarkers;
+           this.searchList = this.geoMarkers;
         } else {
             //console.log(fuse.search(input));
-            this.locationsList = fuse.search(input);
+            this.searchList = fuse.search(input);
         }
     }
 
@@ -90,15 +93,40 @@ export class MapPage {
         this.isSearching = true;
     }
 
+    // retireves all tags in firebase, stores in geoMarkers array.
+    // This only needs
+    getTags() {
+        this.geoMarkers = [];
+        this.ref.once("value")
+            .then((dataPoints) => { //ARROW NOTATION IMPORTANT
+                dataPoints.forEach((dataPoint) => {
+                    this.geoMarkers.push({
+                        key: dataPoint.key,
+                        address: dataPoint.val().address,
+                        description: dataPoint.val().description,
+                        lat: dataPoint.val().lat,
+                        lng: dataPoint.val().lng,
+                        name: dataPoint.val().name,
+                        number: dataPoint.val().number,
+                        website: dataPoint.val().website,
+                        type: dataPoint.val().type
+                    });
+                });
+                console.log('this is get tags');
+                console.log(this.geoMarkers);
+                this.searchList = this.geoMarkers.slice();
+            })
+    }
+
 
     //retrieves the tags from our firebase, populates them on map.
     loadTags() {
-        this.clearAllMarkers();
+       // this.clearAllMarkers();
         //load the tag data into the geoMarkers variable
         this.geoMarkers = [];
         this.ref.once("value")
             .then((dataPoints) => { //ARROW NOTATION IMPORTANT
-                //console.log(dataPoints.val())
+
                 dataPoints.forEach((dataPoint) => {
                     this.geoMarkers.push({
                         key: dataPoint.key,
@@ -125,11 +153,11 @@ export class MapPage {
                  }
 
 
-                // for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
-                //     this.locationsList.push({value: i, text: this.geoMarkers[i].name});
-                // }
+                 for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
+                     this.locationsList.push({value: i, text: this.geoMarkers[i].name});
+                 }
 
-                this.locationsList = this.geoMarkers;
+               // this.locationsList = this.geoMarkers;
 
                 console.log(this.locationsList);
 
@@ -172,7 +200,7 @@ export class MapPage {
 
         console.log(location);
 
-        const geoData = this.geoMarkers;
+        const geoData = this.geoMarkers.slice();
         const imgIndex = location.key;
 
         let imgSrc = "http://manoanow.org/app/map/images/" + imgIndex + ".png";
@@ -235,7 +263,7 @@ export class MapPage {
     }
 
     calculateAndDisplayRoute(directionsService, directionsDisplay, sValue, eValue) {
-        const geoData = this.geoMarkers;
+        const geoData = this.geoMarkers.slice();
         let origin = {lat: geoData[sValue].lat, lng: geoData[sValue].lng};
         let destination = {lat: geoData[eValue].lat, lng: geoData[eValue].lng};
         directionsService.route({
@@ -309,65 +337,65 @@ export class MapPage {
         let criteria = category.charAt(0).toLowerCase() + category.slice(1);
         console.log(criteria);
         // For "dual-layered" filtering clean out the "changeAllMarkers call"
-        this.changeAllMarkers();
-        //load the tag data into the geoMarkers variable
-        this.geoMarkers = [];
+        this.changeAllMarkers()
+        // //load the tag data into the geoMarkers variable
+        // this.geoMarkers = [];
+        //
+        //
+        // this.ref.once("value")
+        //     .then((dataPoints) => {
+        //         dataPoints.forEach((dataPoint) => {
+        //             this.geoMarkers.push({
+        //                 address: dataPoint.val().address,
+        //                 description: dataPoint.val().description,
+        //                 lat: dataPoint.val().lat,
+        //                 lng: dataPoint.val().lng,
+        //                 name: dataPoint.val().name,
+        //                 number: dataPoint.val().number,
+        //                 website: dataPoint.val().website,
+        //                 type: dataPoint.val().type
+        //             });
+        //         });
+        //     })
 
 
-        this.ref.once("value")
-            .then((dataPoints) => {
-                dataPoints.forEach((dataPoint) => {
-                    this.geoMarkers.push({
-                        address: dataPoint.val().address,
-                        description: dataPoint.val().description,
-                        lat: dataPoint.val().lat,
-                        lng: dataPoint.val().lng,
-                        name: dataPoint.val().name,
-                        number: dataPoint.val().number,
-                        website: dataPoint.val().website,
-                        type: dataPoint.val().type
-                    });
+         for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
+             this.locationsList.push({value: i, text: this.geoMarkers[i].name});
+         }
+
+
+        console.log(this.locationsList);
+
+        this.infoWindow = new google.maps.InfoWindow();
+
+        for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
+            let data = this.geoMarkers[i],
+                latLng = new google.maps.LatLng(data.lat, data.lng);
+
+            if (data.type === criteria) {
+
+                // Creating a marker and putting it on the map
+                let marker = new google.maps.Marker({
+                    position: latLng,
+                    map: this.map,
+                    icon: this.icons[data.type],
+
                 });
-            })
 
-            .then(() => {
+                // Push into a Markers array
+                stash.push(marker);
 
+                let info = "Address: " + data.address + " Name: " + data.name;
 
-                for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
-                    this.locationsList.push({value: i, text: this.geoMarkers[i].name});
-                }
-                console.log(this.locationsList);
+                google.maps.event.addListener(marker, 'click', (() => {
+                    this.infoWindow.setContent(info);
+                    this.infoWindow.open(this.map, marker);
+                }))
+            } else {
+                console.log("Category: " + criteria + " does not exist!");
+            }
+        }
 
-                this.infoWindow = new google.maps.InfoWindow();
-
-                for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
-                    let data = this.geoMarkers[i],
-                        latLng = new google.maps.LatLng(data.lat, data.lng);
-
-                    if (data.type === criteria) {
-
-                        // Creating a marker and putting it on the map
-                        let marker = new google.maps.Marker({
-                            position: latLng,
-                            map: this.map,
-                            icon: this.icons[data.type],
-
-                        });
-
-                        // Push into a Markers array
-                        stash.push(marker);
-
-                        let info = "Address: " + data.address + " Name: " + data.name;
-
-                        google.maps.event.addListener(marker, 'click', (() => {
-                            this.infoWindow.setContent(info);
-                            this.infoWindow.open(this.map, marker);
-                        }))
-                    } else {
-                        console.log("Category: " + criteria + " does not exist!");
-                    }
-                }
-            })
     }
 
     changeAllMarkers() {
@@ -420,10 +448,12 @@ export class MapPage {
             this.createExpRoute();
         }
 
-        for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
-            this.locationsList.push({value: i, text: this.geoMarkers[i].name});
-        }
+        // for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
+        //     this.locationsList.push({value: i, text: this.geoMarkers[i].name});
+        // }
 
+
+        this.locationsList = this.geoMarkers.slice();
 
 
         this.infoWindow = new google.maps.InfoWindow();
