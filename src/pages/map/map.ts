@@ -151,7 +151,7 @@ export class MapPage {
 
                     stash.push(marker);
 
-                    let info = "Address: " + data.address + " Name: " + data.name;
+                    let info = "ddddddAddress: " + data.address + " Name: " + data.name;
 
                     google.maps.event.addListener(marker, 'click', (() => {
                         this.infoWindow.setContent(info);
@@ -172,7 +172,7 @@ export class MapPage {
 
         console.log(location);
 
-        //const geoData = this.geoMarkers;
+        const geoData = this.geoMarkers;
         const imgIndex = location.key;
 
         let imgSrc = "http://manoanow.org/app/map/images/" + imgIndex + ".png";
@@ -190,9 +190,9 @@ export class MapPage {
         });
 
 
-
+        let info = this.getInfoWindowData(this.geoMarkers[locationIndex], locationIndex);
         this.infoWindow = new google.maps.InfoWindow({
-            content: infoContent,
+            content: info,
         });
 
         this.infoWindow.open(this.map, this.marker);
@@ -399,6 +399,15 @@ export class MapPage {
         }
     }
 
+    getInfoWindowData(data, index){
+        console.log(index);
+        const imgIndex = parseInt(index) + 1;
+        let imgSrc = "http://manoanow.org/app/map/images/" + imgIndex + ".png";
+        let infoContent = '<div class="ui grid"><img class="ui fluid image info" src="' + imgSrc + '">' + '<div id="windowHead">' + data.name + '</div>' + '<div id="description">' + data.description + '</div>' + '<div id="addressTitle">Address: ' + data.address + '</div>' + '<div id="phoneTitle">Phone: ' + data.number + '</div>' + '<button class="tagButton">'+ "Show Comments" + '</button>' + '\n'+'<button class="tagButton">'+ "Get Directions" + '</button>' + '</div>';
+        console.log(data.key);
+        return infoContent;
+    }
+
     placeAllMarkers() {
         //const geoData = this.geoMarkers; //this creates an array of nearly 43 million.... So i got rid of it.
 
@@ -406,10 +415,10 @@ export class MapPage {
             this.createExpRoute();
         }
 
+        for (let i = 0; i <= geoData.length - 1; i++) {
+            this.locationsList.push({value: i, text: geoData[i].name});
+        }
 
-        // for (let i = 0; i <= geoData.length - 1; i++) {
-        //     this.locationsList.push({value: i, text: geoData[i].name});
-        // }
 
 
         this.infoWindow = new google.maps.InfoWindow();
@@ -430,9 +439,11 @@ export class MapPage {
 
             stash.push(marker);
 
-            let info = "Address: " + data.address + " Name: " + data.name;
+            //get info
+            //let info = "Address: " + '\n' + data.address + " Name: " + data.name;
 
             google.maps.event.addListener(marker, 'click', (() => {
+                let info = this.getInfoWindowData(data, i);
                 this.infoWindow.setContent(info);
                 this.infoWindow.open(this.map, marker);
             }))
