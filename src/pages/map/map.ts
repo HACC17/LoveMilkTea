@@ -298,9 +298,8 @@ export class MapPage {
         let criteria = category.charAt(0).toLowerCase() + category.slice(1);
         console.log(criteria);
         // For "dual-layered" filtering clean out the "changeAllMarkers call"
-        this.changeAllMarkers();
-
-        console.log(this.locationsList);
+        this.clearAllMarkers();
+        this.changeIcon = true;
 
         this.infoWindow = new google.maps.InfoWindow();
 
@@ -308,7 +307,7 @@ export class MapPage {
             let data = this.geoMarkers[i],
                 latLng = new google.maps.LatLng(data.lat, data.lng);
 
-            if (data.type.toString() === criteria.toString()) {
+            if (data.type === criteria) {
 
                 // Creating a marker and putting it on the map
                 let marker = new google.maps.Marker({
@@ -340,12 +339,14 @@ export class MapPage {
 
     changeAllMarkers() {
         if (this.changeIcon === true) {
-            if (stash) {
+            if (stash.length !== 0) {
                 for (let i = 0; i < stash.length; i++) {
                     stash[i].setMap(null);
                 }
                 stash.length = 0;
                 this.changeIcon = false;
+                console.log('this is change all markers')
+                console.log(stash)
             } else {
                 console.log('Stash array does not exist!');
             }
@@ -362,6 +363,8 @@ export class MapPage {
             }
             stash.length = 0;
             this.changeIcon = false;
+            console.log('this is clear all markers');
+            console.log(stash);
         }  else {
             console.log('Stash array does not exist!');
         }
