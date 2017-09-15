@@ -111,7 +111,9 @@ export class MapPage {
                         website: dataPoint.val().website,
                         type: dataPoint.val().type
                     });
-                });
+                })
+            })
+            .then(() => {
                 console.log('this is get tags');
                 console.log(this.geoMarkers);
                 this.searchList = this.geoMarkers.slice();
@@ -119,6 +121,7 @@ export class MapPage {
                     this.locationsList.push({value: i, text: this.geoMarkers[i].name});
                 }
             })
+
     }
 
 
