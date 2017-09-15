@@ -27,11 +27,6 @@ export class MyApp {
         // used for an example of ngFor and navigation
         this.pages = [
             {
-                title: 'Admin',
-                icon: 'person',
-                component: LoginPage
-            },
-            {
                 title: 'Map',
                 icon: 'map',
                 component: MapPage
@@ -42,9 +37,14 @@ export class MyApp {
                 component: ExplorePage
             },
             {
-                title: 'Submit Point of Interest',
+                title: 'Submit',
                 icon: 'send',
                 component: SubmitDataLandingPage
+            },
+            {
+                title: 'Admin',
+                icon: 'person',
+                component: LoginPage
             }
         ];
 
