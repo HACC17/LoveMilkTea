@@ -113,7 +113,7 @@ export class ExplorePage {
         this.loader.present();
         this.findDistanceAndDuration();
     }
-    
+
     private hideLoading(){
         this.loader.dismiss();
     }
