@@ -15,8 +15,7 @@
     </button>
   </div>
 
-  <div *ngIf="isSearching" id="search">
-
+  <div *ngIf="isSearching" class="search">
     <ion-searchbar showCancelButton
                    [(ngModel)]="input"
                    (ionInput)="searchPoints(input)"
@@ -25,7 +24,27 @@
 
     <ion-scroll class="scrollable" scrollY="true">
       <ion-list>
-        <ion-item id="search-item" *ngFor="let location of searchList" (click)="addMarker(location)">
+        <ion-item class="search-item" *ngFor="let location of searchList" (click)="addMarker(location)">
+          {{location.name}}
+        </ion-item>
+      </ion-list>
+    </ion-scroll>
+  </div>
+
+  <div *ngIf="searchingStart" class="search">
+    <ion-searchbar showCancelButton
+                   [(ngModel)]="input"
+                   (ionInput)="searchPoints(input)"
+                   (ionCancel)="searchStop($event)"
+                   placeholder="Select starting location"></ion-searchbar>
+
+    <ion-scroll class="scrollable" scrollY="true">
+      <ion-list>
+        <ion-item class="current-location" *ngIf="latLng" (click)="directFromCurrentLocation()">
+          <ion-icon name="locate"></ion-icon>
+          Current Location
+        </ion-item>
+        <ion-item class="search-item" *ngFor="let location of searchList" (click)="directFromLocation(location)">
           {{location.name}}
         </ion-item>
       </ion-list>
@@ -33,7 +52,7 @@
   </div>
 
   <div id="float-button-left-bottom">
-    <button *ngIf="isInfoWindowOpen && !inStreetView()" ion-fab mini (click)="directToPoint()">
+    <button *ngIf="isInfoWindowOpen && !inStreetView()" ion-fab mini (click)="searchStart()">
       <ion-icon [name]="inRoute ? 'hand' :'navigate'"></ion-icon>
     </button>
     <button *ngIf="!isInfoWindowOpen && !inStreetView()" ion-fab mini (click)="changeAllMarkers()">

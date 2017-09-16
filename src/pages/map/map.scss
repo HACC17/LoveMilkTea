@@ -59,14 +59,14 @@ page-map {
     top: 14px;
   }
 
-  #search {
+  .search {
     position: absolute;
     top: 20px;
     z-index :5;
     width: 100%;
   }
 
-  #search-item {
+  .search-item {
     font-size: 13.5px;
     height: 20px;
     background-color: rgba(255,255,255,0.85);
@@ -75,6 +75,13 @@ page-map {
   .searchbar-ios-cancel {
     color: black;
   }
+
+  .current-location {
+      font-size: 13.5px;
+      color: blue;
+      height: 20px;
+      background-color: rgba(255,255,255,0.85);
+    }
 
   #float-button-location {
     margin-top: 7px;

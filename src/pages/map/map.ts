@@ -49,6 +49,7 @@ export class MapPage {
     changeIcon: boolean = false;
     isSearching: boolean = false;
     isInfoWindowOpen: boolean = false;
+    searchingStart: boolean = false;
     inRoute: boolean = false;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public loading: LoadingController, public http: Http) {
@@ -265,39 +266,72 @@ export class MapPage {
         });
     }
 
-    directToPoint() {
+    searchStart() {
         if (!this.inRoute) {
             if (this.marker) {
                 this.clearStarterMarker();
             }
-            this.clearRoute();
-
             this.inRoute = true;
-
-            this.directionsService = new google.maps.DirectionsService;
-            this.directionsDisplay = new google.maps.DirectionsRenderer;
-            this.directionsDisplay.setMap(this.map);
-
-            let origin = {lat: this.currentLat, lng: this.currentLng};
-            let destination = this.endValue;
-            this.directionsService.route({
-                origin: origin,
-                destination: destination,
-                travelMode: 'WALKING'
-            }, (response, status) => {
-                if (status === 'OK') {
-                    this.directionsDisplay.setDirections(response);
-                } else {
-                    window.alert('Directions request failed due to ' + status);
-                }
-            });
+            this.searchingStart = true;
         }
         else {
             this.clearRoute();
             this.isInfoWindowOpen = false;
             this.inRoute = false;
+            this.searchingStart = false;
             this.showCurrLocation();
         }
+    }
+
+    searchStop() {
+        this.isInfoWindowOpen = false;
+        this.inRoute = false;
+        this.searchingStart = false;
+    }
+
+    directFromCurrentLocation() {
+        this.searchingStart = false;
+
+        this.directionsService = new google.maps.DirectionsService;
+        this.directionsDisplay = new google.maps.DirectionsRenderer;
+        this.directionsDisplay.setMap(this.map);
+
+        let origin = {lat: this.currentLat, lng: this.currentLng};
+        let destination = this.endValue;
+        this.directionsService.route({
+            origin: origin,
+            destination: destination,
+            travelMode: 'WALKING'
+        }, (response, status) => {
+            if (status === 'OK') {
+                this.directionsDisplay.setDirections(response);
+            } else {
+                window.alert('Directions request failed due to ' + status);
+            }
+        });
+    }
+
+    directFromLocation(location) {
+        console.log(location);
+        this.searchingStart = false;
+
+        this.directionsService = new google.maps.DirectionsService;
+        this.directionsDisplay = new google.maps.DirectionsRenderer;
+        this.directionsDisplay.setMap(this.map);
+
+        let origin = {lat: location.lat, lng: location.lng};
+        let destination = this.endValue;
+        this.directionsService.route({
+            origin: origin,
+            destination: destination,
+            travelMode: 'WALKING'
+        }, (response, status) => {
+            if (status === 'OK') {
+                this.directionsDisplay.setDirections(response);
+            } else {
+                window.alert('Directions request failed due to ' + status);
+            }
+        });
     }
 
     //Could be useful if needed.
