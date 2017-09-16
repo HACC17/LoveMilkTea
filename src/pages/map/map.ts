@@ -49,6 +49,7 @@ export class MapPage {
     changeIcon: boolean = false;
     isSearching: boolean = false;
     isInfoWindowOpen: boolean = false;
+    inRoute: boolean = false;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public loading: LoadingController, public http: Http) {
         this.exploreIndex = navParams.get('locationIndex');
@@ -150,14 +151,15 @@ export class MapPage {
 
         this.stopSearch();
 
-        console.log(location);
+        // console.log(location);
 
         const geoData = this.geoMarkers.slice();
         const imgIndex = location.key;
 
+        this.endValue = {lat: location.lat, lng: location.lng};
 
         this.marker = new google.maps.Marker({
-            position: {lat: location.lat, lng: location.lng},
+            position: this.endValue,
             title: 'University of Hawaii at Manoa',
             map: this.map,
             icon: this.icons[location.type],
@@ -261,6 +263,41 @@ export class MapPage {
                 window.alert('Directions request failed due to ' + status);
             }
         });
+    }
+
+    directToPoint() {
+        if (!this.inRoute) {
+            if (this.marker) {
+                this.clearStarterMarker();
+            }
+            this.clearRoute();
+
+            this.inRoute = true;
+
+            this.directionsService = new google.maps.DirectionsService;
+            this.directionsDisplay = new google.maps.DirectionsRenderer;
+            this.directionsDisplay.setMap(this.map);
+
+            let origin = {lat: this.currentLat, lng: this.currentLng};
+            let destination = this.endValue;
+            this.directionsService.route({
+                origin: origin,
+                destination: destination,
+                travelMode: 'WALKING'
+            }, (response, status) => {
+                if (status === 'OK') {
+                    this.directionsDisplay.setDirections(response);
+                } else {
+                    window.alert('Directions request failed due to ' + status);
+                }
+            });
+        }
+        else {
+            this.clearRoute();
+            this.isInfoWindowOpen = false;
+            this.inRoute = false;
+            this.showCurrLocation();
+        }
     }
 
     //Could be useful if needed.
@@ -425,14 +462,20 @@ export class MapPage {
     }
 
     getLatLng() {
+        this.loader = this.loading.create({
+            content: "Getting Coordinates..."
+        })
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((position) => {
-                this.currentLat = position.coords.latitude;
-                this.currentLng = position.coords.longitude;
-                this.latLng = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                };
+            this.loader.present().then(() => {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    this.currentLat = position.coords.latitude;
+                    this.currentLng = position.coords.longitude;
+                    this.latLng = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    this.loader.dismiss();
+                });
             });
         }
     }
@@ -440,9 +483,10 @@ export class MapPage {
     //Use HTML5 geolocation to get current lat/lng and place marker there
     showCurrLocation() {
         if (this.latLng) {
-            this.userMarker.setPosition(this.latLng);
             this.userMarker.setMap(this.map);
             this.map.setCenter(this.latLng);
+            this.userMarker.setPosition(this.latLng);
+            this.map.setZoom(18);
         }
     }
 
