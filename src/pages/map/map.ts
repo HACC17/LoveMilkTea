@@ -337,6 +337,7 @@ export class MapPage {
 
     //Could be useful if needed.
     toggleStreetView() {
+        this.panorama.setPosition(this.endValue);
         if (!this.inStreetView()) {
             this.panorama.setVisible(true);
         } else {
@@ -793,7 +794,7 @@ export class MapPage {
         });
 
         this.panorama = this.map.getStreetView();
-        this.panorama.setPosition({lat: 21.298393, lng: -157.818918});
+        // this.panorama.setPosition({lat: 21.298393, lng: -157.818918});
         this.panorama.enableCloseButton = false;
         this.panorama.addressControl = false;
         this.panorama.zoomControl = false;

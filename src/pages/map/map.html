@@ -61,7 +61,7 @@
     <button *ngIf="!isSearching && !isInfoWindowOpen && !inStreetView()" ion-fab mini (click)="showCurrLocation()">
       <ion-icon name="locate"></ion-icon>
     </button>
-    <button *ngIf="!isSearching" ion-fab mini (click)="toggleStreetView()">
+    <button *ngIf="(!isSearching && isInfoWindowOpen) || inStreetView()" ion-fab mini (click)="toggleStreetView()">
       <ion-icon name="eye"></ion-icon>
     </button>
   </div>
