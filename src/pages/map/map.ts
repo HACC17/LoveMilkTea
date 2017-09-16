@@ -272,6 +272,7 @@ export class MapPage {
             if (this.marker) {
                 this.clearStarterMarker();
             }
+            this.changeAllMarkers();
             this.inRoute = true;
             this.searchingStart = true;
         }
@@ -371,7 +372,6 @@ export class MapPage {
 
     doFilter() {
         this.filterSelect.open();
-        console.log("test");
     }
 
     filterMarker(category) {
@@ -390,21 +390,27 @@ export class MapPage {
             if (data.type === criteria) {
 
                 // Creating a marker and putting it on the map
-                let marker = new google.maps.Marker({
+                this.marker = new google.maps.Marker({
                     position: latLng,
                     map: this.map,
                     icon: this.icons[data.type],
-
                 });
 
                 // Push into a Markers array
-                stash.push(marker);
+                stash.push(this.marker);
 
                 let info = this.getInfoWindowData(data);
 
-                google.maps.event.addListener(marker, 'click', (() => {
+                google.maps.event.addListener(this.marker, 'click', (() => {
                     this.infoWindow.setContent(info);
-                    this.infoWindow.open(this.map, marker);
+                    this.endValue = latLng;
+                    this.marker.setPosition({lat: data.lat, lng: data.lng});
+                    this.infoWindow.open(this.map, this.marker);
+                    this.isInfoWindowOpen = true;
+                }));
+
+                google.maps.event.addListener(this.infoWindow, 'closeclick', (() => {
+                    this.isInfoWindowOpen = false;
                 }));
             } else {
                 console.log("Category: " + criteria + " does not exist!");
@@ -478,10 +484,7 @@ export class MapPage {
 
     placeAllMarkers() {
 
-        if (this.exploreIndex && this.currentLat && this.currentLng) {
-            this.createExpRoute();
-        }
-
+        this.clearAllMarkers();
         this.infoWindow = new google.maps.InfoWindow();
 
         for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
@@ -489,20 +492,30 @@ export class MapPage {
                 latLng = new google.maps.LatLng(data.lat, data.lng);
 
             // Creating a marker and putting it on the map
-            let marker = new google.maps.Marker({
+            this.marker = new google.maps.Marker({
                 position: latLng,
                 map: this.map,
                 icon: this.icons[data.type],
             });
 
-            stash.push(marker);
+            stash.push(this.marker);
+            let info = this.getInfoWindowData(data);
 
-            google.maps.event.addListener(marker, 'click', (() => {
-                let info = this.getInfoWindowData(data);
+            google.maps.event.addListener(this.marker, 'click', (() => {
                 this.infoWindow.setContent(info);
-                this.infoWindow.open(this.map, marker);
-            }))
+                this.endValue = latLng;
+                this.marker.setPosition({lat: data.lat, lng: data.lng});
+                this.infoWindow.open(this.map, this.marker);
+                this.isInfoWindowOpen = true;
+            }));
+
+            google.maps.event.addListener(this.infoWindow, 'closeclick', (() => {
+                this.isInfoWindowOpen = false;
+            }));
+
             this.changeIcon = true;
+            this.map.setCenter({lat: 21.2969, lng: -157.8171});
+            this.map.setZoom(15);
         }
     }
 
