@@ -802,12 +802,15 @@ export class MapPage {
             ]
         });
 
-        this.panorama = this.map.getStreetView();
-        // this.panorama.setPosition({lat: 21.298393, lng: -157.818918});
-        this.panorama.enableCloseButton = false;
-        this.panorama.addressControl = false;
-        this.panorama.zoomControl = false;
-        this.panorama.panControl = false;
+        this.panorama = new google.maps.StreetViewPanorama(
+            document.getElementById('map'), {
+                addressControl: false,
+                panControl: false,
+                enableCloseButton: false,
+                zoomControl: false
+            });
+        this.panorama.setVisible(false);
+        this.map.setStreetView(this.panorama);
 
         //set up a default marker.
         this.userMarker = new google.maps.Marker({
