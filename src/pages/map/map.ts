@@ -6,8 +6,7 @@ import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {isNullOrUndefined} from "util";
 import * as Fuse from 'fuse.js';
-import { PopoverController } from 'ionic-angular';
-import { ModalController } from 'ionic-angular';
+
 
 
 declare var google;
@@ -154,12 +153,6 @@ export class MapPage {
         const geoData = this.geoMarkers.slice();
         const imgIndex = location.key;
 
-        // let imgSrc = "http://manoanow.org/app/map/images/" + imgIndex + ".png";
-        // let infoContent = '<div class="ui grid"><img class="ui fluid image info" src="' + imgSrc + '">'
-        //     + '<div id="windowHead">' + location.name + '</div>'
-        //     + '<div id="description">' + location.description + '</div>'
-        //     + '<div id="addressTitle">Address: ' + location.address + '</div>'
-        //     + '<div id="phoneTitle">Phone: ' + location.number + '</div>' + '</div>';
 
         this.marker = new google.maps.Marker({
             position: {lat: location.lat, lng: location.lng},
@@ -298,9 +291,8 @@ export class MapPage {
         let criteria = category.charAt(0).toLowerCase() + category.slice(1);
         console.log(criteria);
         // For "dual-layered" filtering clean out the "changeAllMarkers call"
-        this.changeAllMarkers();
-
-        console.log(this.locationsList);
+        this.clearAllMarkers();
+        this.changeIcon = true;
 
         this.infoWindow = new google.maps.InfoWindow();
 
@@ -308,7 +300,7 @@ export class MapPage {
             let data = this.geoMarkers[i],
                 latLng = new google.maps.LatLng(data.lat, data.lng);
 
-            if (data.type.toString() === criteria.toString()) {
+            if (data.type === criteria) {
 
                 // Creating a marker and putting it on the map
                 let marker = new google.maps.Marker({
@@ -321,8 +313,6 @@ export class MapPage {
                 // Push into a Markers array
                 stash.push(marker);
 
-
-                // let info = "Address: " + data.address + " Name: " + data.name;
                 let info = this.getInfoWindowData(data);
 
                 google.maps.event.addListener(marker, 'click', (() => {
@@ -340,12 +330,14 @@ export class MapPage {
 
     changeAllMarkers() {
         if (this.changeIcon === true) {
-            if (stash) {
+            if (stash.length !== 0) {
                 for (let i = 0; i < stash.length; i++) {
                     stash[i].setMap(null);
                 }
                 stash.length = 0;
                 this.changeIcon = false;
+                console.log('this is change all markers')
+                console.log(stash)
             } else {
                 console.log('Stash array does not exist!');
             }
@@ -362,46 +354,49 @@ export class MapPage {
             }
             stash.length = 0;
             this.changeIcon = false;
+            console.log('this is clear all markers');
+            console.log(stash);
         }  else {
             console.log('Stash array does not exist!');
         }
     }
 
     getInfoWindowData(location){
-        // const imgIndex = parseInt(index) + 1;
-        // let imgSrc = "http://manoanow.org/app/map/images/" + imgIndex + ".png";
-        // let infoContent = '<div class="ui grid"><img class="ui fluid image info" src="' + imgSrc + '">' + '<div id="windowHead">' + data.name + '</div>' + '<div id="description">' + data.description + '</div>' + '<div id="addressTitle">Address: ' + data.address + '</div>' + '<div id="phoneTitle">Phone: ' + data.number + '</div>' + '<button class="tagButton">'+ "Show Comments" + '</button>' + '\n'+'<button class="tagButton">'+ "Get Directions" + '</button>' + '</div>';
-        let imgSrc = "http://manoanow.org/app/map/images/" + location.key + ".png";
-        let infoContent = '<div class="ui grid"><img class="ui fluid image info" src="' + imgSrc + '">'
-            + '<div id="windowHead">' + location.name + '</div>'
-            + '<div id="description">' + location.description + '</div>'
-            + '<div id="addressTitle">Address: ' + location.address + '</div>'
-            + '<div id="phoneTitle">Phone: ' + location.number + '</div>' + '</div>';
-        //console.log(data.key);
+
+        let infoContent = '<div class="ui grid">';
+        if(location.key){
+            let imgSrc = "http://manoanow.org/app/map/images/" + location.key + ".png";
+            infoContent +='<img class="ui fluid image info" src="' + imgSrc + '">'
+        }
+        if(location.name) {
+            infoContent +=  '<div id="windowHead">' + location.name + '</div>'
+        }
+        if(location.description) {
+            infoContent += '<div id="description">' + location.description + '</div>'
+        }
+        if(location.address) {
+            infoContent +=  '<div id="addressTitle">Address: ' + location.address + '</div>'
+        }
+        if(location.number) {
+            infoContent +=   '<div id="phoneTitle">Phone: ' + location.number + '</div>' ;
+        }
+
+        infoContent+=  '</div>';
+
         return infoContent;
     }
 
     placeAllMarkers() {
-        //const geoData = this.geoMarkers; //this creates an array of nearly 43 million.... So i got rid of it.
 
         if (this.exploreIndex && this.currentLat && this.currentLng) {
             this.createExpRoute();
         }
-
-        // for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
-        //     this.locationsList.push({value: i, text: this.geoMarkers[i].name});
-        // }
-
-
-       // this.locationsList = this.geoMarkers.slice();
-
 
         this.infoWindow = new google.maps.InfoWindow();
 
         for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
             let data = this.geoMarkers[i],
                 latLng = new google.maps.LatLng(data.lat, data.lng);
-            // type = this.geoMarkers[i].type;
 
             // Creating a marker and putting it on the map
             let marker = new google.maps.Marker({
@@ -410,12 +405,7 @@ export class MapPage {
                 icon: this.icons[data.type],
             });
 
-            // marker.setIcon(this.icons[data.type]);
-
             stash.push(marker);
-
-            //get info
-            //let info = "Address: " + '\n' + data.address + " Name: " + data.name;
 
             google.maps.event.addListener(marker, 'click', (() => {
                 let info = this.getInfoWindowData(data);
@@ -726,7 +716,6 @@ export class MapPage {
         this.userMarker = new google.maps.Marker({
             position: {lat: 21.2969, lng: -157.8171},
             title: 'University of Hawaii at Manoa',
-            //map: this.map,
             icon: {
                 //directions walk
                 path:'M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7',
