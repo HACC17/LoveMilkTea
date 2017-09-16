@@ -287,6 +287,7 @@ export class MapPage {
         this.isInfoWindowOpen = false;
         this.inRoute = false;
         this.searchingStart = false;
+        this.showCurrLocation();
     }
 
     directFromCurrentLocation() {

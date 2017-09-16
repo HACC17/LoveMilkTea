@@ -55,13 +55,13 @@
     <button *ngIf="isInfoWindowOpen && !inStreetView()" ion-fab mini (click)="searchStart()">
       <ion-icon [name]="inRoute ? 'hand' :'navigate'"></ion-icon>
     </button>
-    <button *ngIf="!isInfoWindowOpen && !inStreetView()" ion-fab mini (click)="changeAllMarkers()">
+    <button *ngIf="!isSearching && !isInfoWindowOpen && !inStreetView()" ion-fab mini (click)="changeAllMarkers()">
       <ion-icon [name]="changeIcon ? 'remove' :'add'"></ion-icon>
     </button>
-    <button *ngIf="!isInfoWindowOpen && !inStreetView()" ion-fab mini (click)="showCurrLocation()">
+    <button *ngIf="!isSearching && !isInfoWindowOpen && !inStreetView()" ion-fab mini (click)="showCurrLocation()">
       <ion-icon name="locate"></ion-icon>
     </button>
-    <button ion-fab mini (click)="toggleStreetView()">
+    <button *ngIf="!isSearching" ion-fab mini (click)="toggleStreetView()">
       <ion-icon name="eye"></ion-icon>
     </button>
   </div>
@@ -81,7 +81,7 @@
     <ion-select #newSelect [(ngModel)]="location" (ionChange)="addMarker(location)">
       <ion-option *ngFor="let item of locationsList" value="{{item.value}}">{{item.text}}</ion-option>
     </ion-select>
-  </ion-item>-->
+  </ion-item>
 
   <ion-item>
     <ion-label>Select A Starting Location</ion-label>
@@ -95,6 +95,6 @@
     <ion-select #newSelect [(ngModel)]="endLoc" (ionChange)="setDestValue(endLoc)">
       <ion-option *ngFor="let item of locationsList" value="{{item.value}}">{{item.text}}</ion-option>
     </ion-select>
-  </ion-item>
+  </ion-item>-->
 
 </ion-content>
