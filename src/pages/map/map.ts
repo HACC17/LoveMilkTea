@@ -6,8 +6,7 @@ import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {isNullOrUndefined} from "util";
 import * as Fuse from 'fuse.js';
-import { PopoverController } from 'ionic-angular';
-import { ModalController } from 'ionic-angular';
+
 
 
 declare var google;
@@ -314,8 +313,6 @@ export class MapPage {
                 // Push into a Markers array
                 stash.push(marker);
 
-
-                // let info = "Address: " + data.address + " Name: " + data.name;
                 let info = this.getInfoWindowData(data);
 
                 google.maps.event.addListener(marker, 'click', (() => {
@@ -365,9 +362,6 @@ export class MapPage {
     }
 
     getInfoWindowData(location){
-        // const imgIndex = parseInt(index) + 1;
-        // let imgSrc = "http://manoanow.org/app/map/images/" + imgIndex + ".png";
-        // let infoContent = '<div class="ui grid"><img class="ui fluid image info" src="' + imgSrc + '">' + '<div id="windowHead">' + data.name + '</div>' + '<div id="description">' + data.description + '</div>' + '<div id="addressTitle">Address: ' + data.address + '</div>' + '<div id="phoneTitle">Phone: ' + data.number + '</div>' + '<button class="tagButton">'+ "Show Comments" + '</button>' + '\n'+'<button class="tagButton">'+ "Get Directions" + '</button>' + '</div>';
 
         let infoContent = '<div class="ui grid">';
         if(location.key){
@@ -388,7 +382,7 @@ export class MapPage {
         }
 
         infoContent+=  '</div>';
-        
+
         return infoContent;
     }
 
@@ -397,7 +391,6 @@ export class MapPage {
         if (this.exploreIndex && this.currentLat && this.currentLng) {
             this.createExpRoute();
         }
-
 
         this.infoWindow = new google.maps.InfoWindow();
 
@@ -411,7 +404,6 @@ export class MapPage {
                 map: this.map,
                 icon: this.icons[data.type],
             });
-
 
             stash.push(marker);
 
