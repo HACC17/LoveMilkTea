@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+<p>{{name}}</p>
+  <p>{{address}}</p>
+  <p>{{number}}</p>
+  <p>{{description}}</p>
+  <button ion-button (click)="showComments()">Comments</button>
+  <div *ngIf="showing">
+    <p *ngIf="comments">showing</p>
+    <p *ngIf="!comments">no comments</p>
+    <button ion-button (click)="addComments()">Add Comment</button>
+  </div>
+</ion-content>

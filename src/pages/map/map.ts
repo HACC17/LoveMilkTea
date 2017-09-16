@@ -122,7 +122,8 @@ export class MapPage {
                         name: dataPoint.val().name,
                         number: dataPoint.val().number,
                         website: dataPoint.val().website,
-                        type: dataPoint.val().type
+                        type: dataPoint.val().type,
+                        comments: dataPoint.val().comments,
                     });
                 });
             })
@@ -501,6 +502,8 @@ export class MapPage {
                 let info = this.getInfoWindowData(data);
                 this.infoWindow.setContent(info);
                 this.infoWindow.open(this.map, marker);
+                this.navCtrl.push('PointsPage', data);
+
             }))
             this.changeIcon = true;
         }
