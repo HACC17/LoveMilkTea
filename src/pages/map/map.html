@@ -18,7 +18,6 @@
   <div *ngIf="isSearching" id="search">
 
     <ion-searchbar showCancelButton
-                   animated="true"
                    [(ngModel)]="input"
                    (ionInput)="searchPoints(input)"
                    (ionCancel)="stopSearch($event)"
