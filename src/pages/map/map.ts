@@ -1,7 +1,7 @@
 import {Component, ViewChild, ElementRef, Injectable} from '@angular/core';
 import {FIREBASE_CONFIG} from "./../../app.firebase.config";
 import * as firebase from 'firebase';
-import {IonicPage, NavController, NavParams, LoadingController} from 'ionic-angular';
+import {IonicPage, NavController, NavParams, LoadingController, Select} from 'ionic-angular';
 import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {isNullOrUndefined} from "util";
@@ -21,6 +21,7 @@ let stash = [];
 export class MapPage {
 
     @ViewChild('map') mapElement: ElementRef;
+    @ViewChild('filterSelect') filterSelect: Select;
     map: any;
     panorama: any;
     App: any;
@@ -368,6 +369,11 @@ export class MapPage {
             });
     }
 
+    doFilter() {
+        this.filterSelect.open();
+        console.log("test");
+    }
+
     filterMarker(category) {
         let criteria = category.charAt(0).toLowerCase() + category.slice(1);
         console.log(criteria);
@@ -404,8 +410,11 @@ export class MapPage {
                 console.log("Category: " + criteria + " does not exist!");
             }
         }
-        console.log('this is the stash')
-        console.log(stash);
+
+        this.map.setCenter({lat: 21.2969, lng: -157.8171});
+        this.map.setZoom(15);
+        // console.log('this is the stash')
+        // console.log(stash);
 
     }
 

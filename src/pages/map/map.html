@@ -64,17 +64,19 @@
     <button *ngIf="(!isSearching && isInfoWindowOpen) || inStreetView()" ion-fab mini (click)="toggleStreetView()">
       <ion-icon name="eye"></ion-icon>
     </button>
+    <button *ngIf="!isSearching && !isInfoWindowOpen && !inStreetView()" ion-fab mini (click)="doFilter()">
+      <ion-icon name="funnel"></ion-icon>
+    </button>
   </div>
 
   <div #map id="map"></div>
 
-  <ion-item>
-    <ion-label>Filter</ion-label>
-    <ion-select [(ngModel)]="filter" multiple="false" #C (ionChange)="filterMarker(C.value)" cancelText="Cancel"
-                okText="Filter!">
-      <ion-option *ngFor="let item of typeList" value="{{item}}">{{item}}</ion-option>
-    </ion-select>
-  </ion-item>
+
+  <ion-select #filterSelect [(ngModel)]="filter" multiple="false" #C (ionChange)="filterMarker(C.value)" cancelText="Cancel"
+              okText="Filter!">
+    <ion-option *ngFor="let item of typeList" value="{{item}}">{{item}}</ion-option>
+  </ion-select>
+
 
   <!--<ion-item>
     <ion-label>Select A Location</ion-label>

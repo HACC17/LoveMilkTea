@@ -1,7 +1,7 @@
 page-map {
 
   #float-button-left-bottom {
-    margin-bottom: 10px;
+    margin-bottom: 25px;
     position: absolute;
     left: 0;
     bottom: 0;
@@ -126,10 +126,23 @@ page-map {
     width: 100%;
     height: 50%;
   }
+
   .tagButton {
     width: 25%;
     background-color: white;
     color: black;
     border: 2px solid #4CAF50;
   }
+
+  ion-select {
+    position: absolute;
+    .select-icon, .select-text {
+      display: none !important;  /* hidden triangle icon and selected text */
+     }
+  }
+
+  .scroll-content {
+    overflow-y: hidden;
+  }
+
 }
