@@ -23,7 +23,10 @@ export class PointsPage {
     allComments: any;
     showing: any;
     key: any;
-    comments: String[];
+    comments: any;
+    image: any;
+    date: any;
+    showAdd: any;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public loading: LoadingController, private toast: ToastController) {
         if (!firebase.apps.length) {
@@ -41,22 +44,41 @@ export class PointsPage {
         this.allComments = this.navParams.get('comments');
         this.showing = false;
         this.key = this.navParams.get('key');
+        this.image = "http://manoanow.org/app/map/images/" + this.key + ".png";
+        this.date = new Date();
+        console.log(this.date);
+        this.showAdd = false;
     }
 
     ionViewDidLoad() {
     }
 
     showComments(){
-        this.showing = true;
-        let comments = _.values(this.allComments);
-        this.comments = _.pluck(comments, 'messages');
-
+        if(this.showing){
+            this.showing = false;
+        } else {
+            this.showing = true;
+            this.comments = _.values(this.allComments);
+            this.comments = _.toArray(this.comments);
+            console.log(this.comments);
+            //this.comments = _.pluck(comments, 'messages');
+        }
     }
 
     addComments(formData: NgForm){
+        this.date = new Date().toString();
+        Object.assign(formData.value, {'dateTime': this.date});
+
         let comments =  this.ref.child(this.key);
         comments.child('/comments').push(formData.value);
         console.log(formData.value);
+    }
+    showAddButton(){
+        if(this.showAdd) {
+            this.showAdd = false;
+        }else{
+            this.showAdd = true;
+        }
     }
 
 }
