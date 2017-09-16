@@ -3,8 +3,10 @@
 
 <ion-content>
 
-  <div *ngIf="!inStreetView()" id="float-button-left-top">
-    <button ion-button clear menuToggle><ion-icon id="menu-icon" large name="menu"></ion-icon></button>
+  <div *ngIf="!isSearching && !inStreetView()" id="float-button-left-top">
+    <button ion-button clear menuToggle>
+      <ion-icon id="menu-icon" large name="menu"></ion-icon>
+    </button>
   </div>
 
   <div id="float-button-right-top" *ngIf="!isSearching && !inStreetView()">
@@ -13,38 +15,22 @@
     </button>
   </div>
 
-  <div id="search">
+  <div *ngIf="isSearching" id="search">
 
-    <div *ngIf="isSearching">
+    <ion-searchbar showCancelButton
+                   animated="true"
+                   [(ngModel)]="input"
+                   (ionInput)="searchPoints(input)"
+                   (ionCancel)="stopSearch($event)"
+                   placeholder="Search for a location"></ion-searchbar>
 
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <ion-searchbar showCancelButton	[(ngModel)]="input" (ionInput)="searchPoints(input)" (ionCancel)="stopSearch($event)"
-                           placeholder="Search"></ion-searchbar>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-
-      <ion-scroll class="scrollable" scrollY="true">
-        <ion-list>
-          <ion-item *ngFor="let location of searchList">
-            <ion-grid>
-              <ion-row>
-                <ion-col>
-                  {{location.name}}
-                </ion-col>
-                <ion-col>
-                  <button ion-button (click)="addMarker(location)">
-                    <ion-icon name="close-circle"></ion-icon>
-                  </button>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-item>
-        </ion-list>
-      </ion-scroll>
-    </div>
+    <ion-scroll class="scrollable" scrollY="true">
+      <ion-list>
+        <ion-item id="search-item" *ngFor="let location of searchList" (click)="addMarker(location)">
+          {{location.name}}
+        </ion-item>
+      </ion-list>
+    </ion-scroll>
   </div>
 
   <div id="float-button-left-bottom">
