@@ -486,7 +486,8 @@ export class MapPage {
             this.userMarker.setMap(this.map);
             this.map.setCenter(this.latLng);
             this.userMarker.setPosition(this.latLng);
-            this.map.setZoom(18);
+            this.userMarker.setAnimation(google.maps.Animation.BOUNCE);
+            this.map.setZoom(17);
         }
     }
 
