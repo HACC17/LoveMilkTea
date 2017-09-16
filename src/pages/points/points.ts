@@ -4,6 +4,7 @@ import {LoadingController} from 'ionic-angular';
 import {NgForm} from '@angular/forms';
 import {FIREBASE_CONFIG} from "./../../app.firebase.config";
 import * as firebase from 'firebase';
+import * as _ from 'underscore/underscore'
 
 @IonicPage()
 @Component({
@@ -12,20 +13,34 @@ import * as firebase from 'firebase';
 })
 
 export class PointsPage {
+    ref: any;
+    App: any;
+    db: any;
     name: any;
     address: any;
     number: any;
     description: any;
-    comments: any;
+    allComments: any;
     showing: any;
+    key: any;
+    comments: String[];
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public loading: LoadingController, private toast: ToastController) {
+        if (!firebase.apps.length) {
+            this.App = firebase.initializeApp(FIREBASE_CONFIG);
+        } else {
+            this.App = firebase.app();
+        }
+        this.db = this.App.database();
+        this.ref = this.db.ref("testPoints");
+
         this.name = this.navParams.get('name');
         this.address = this.navParams.get('address');
         this.number = this.navParams.get('number');
         this.description = this.navParams.get('description');
-        this.comments = this.navParams.get('comments');
+        this.allComments = this.navParams.get('comments');
         this.showing = false;
+        this.key = this.navParams.get('key');
     }
 
     ionViewDidLoad() {
@@ -33,11 +48,15 @@ export class PointsPage {
 
     showComments(){
         this.showing = true;
-        console.log(this.showing);
+        let comments = _.values(this.allComments);
+        this.comments = _.pluck(comments, 'messages');
+
     }
 
-    addComments(){
-        
+    addComments(formData: NgForm){
+        let comments =  this.ref.child(this.key);
+        comments.child('/comments').push(formData.value);
+        console.log(formData.value);
     }
 
 }

@@ -53,9 +53,6 @@ export class AdminPage {
             'number': value.phone,
             'website': value.website,
             'type': value.type,
-            'comments':{
-                'message': 'test',
-            }
         });
         this.navCtrl.setRoot(this.navCtrl.getActive().component);
     }

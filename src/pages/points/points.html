@@ -16,8 +16,18 @@
   <p>{{description}}</p>
   <button ion-button (click)="showComments()">Comments</button>
   <div *ngIf="showing">
-    <p *ngIf="comments">showing</p>
+    <div *ngIf="comments">showing
+        <ul *ngFor="let comment of comments">{{ comment }}
+
+        </ul></div>
     <p *ngIf="!comments">no comments</p>
-    <button ion-button (click)="addComments()">Add Comment</button>
+    <form #formData='ngForm'(ngSubmit)="addComments(formData)">
+      <ion-label>Comments</ion-label>
+      <ion-item>
+        <ion-label color="primary" stacked >Comments</ion-label>
+        <ion-input type="text" placeholder="Enter a comment" [(ngModel)]="messages" name="messages"></ion-input>
+      </ion-item>
+      <button ion-button type="submit" block>Add Comments</button>
+    </form>
   </div>
 </ion-content>
