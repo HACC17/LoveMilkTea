@@ -243,7 +243,7 @@ export class MapPage {
         this.clearRoute();
         this.inRoute = true;
         this.isInfoWindowOpen = true;
-        
+
         this.directionsService = new google.maps.DirectionsService;
         this.directionsDisplay = new google.maps.DirectionsRenderer;
 
@@ -522,21 +522,23 @@ export class MapPage {
     }
 
     getLatLng() {
-        this.loader = this.loading.create({
-            content: "Getting Coordinates..."
-        })
-        if (navigator.geolocation) {
-            this.loader.present().then(() => {
-                navigator.geolocation.getCurrentPosition((position) => {
-                    this.currentLat = position.coords.latitude;
-                    this.currentLng = position.coords.longitude;
-                    this.latLng = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    };
-                    this.loader.dismiss();
+        if(!this.currentLat && !this.latLng) {
+            this.loader = this.loading.create({
+                content: "Getting Coordinates..."
+            })
+            if (navigator.geolocation) {
+                this.loader.present().then(() => {
+                    navigator.geolocation.getCurrentPosition((position) => {
+                        this.currentLat = position.coords.latitude;
+                        this.currentLng = position.coords.longitude;
+                        this.latLng = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+                        this.loader.dismiss();
+                    });
                 });
-            });
+            }
         }
     }
 
