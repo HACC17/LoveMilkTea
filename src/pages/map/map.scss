@@ -5,15 +5,23 @@ page-map {
     position: absolute;
     left: 0;
     bottom: 0;
-    z-index :5;
+    z-index: 5;
   }
 
   #float-button-left-top {
+<<<<<<< Updated upstream
     margin-top: 7px;
     margin-left: 5px;
     position: absolute;
     left: 0;
     z-index :5;
+=======
+    margin-top: 15px;
+    margin-left: 5px;
+    position: absolute;
+    // left: 0;
+    z-index: 5;
+>>>>>>> Stashed changes
   }
 
   #float-button-right-top {
@@ -21,7 +29,7 @@ page-map {
     margin-right: 7px;
     position: absolute;
     right: 0;
-    z-index :5;
+    z-index: 5;
   }
 
   #menu-icon {
@@ -30,10 +38,21 @@ page-map {
 
   #search {
     position: absolute;
+<<<<<<< Updated upstream
     top: 50px;
     z-index :5;
+=======
+    // top: 50px;
+    z-index: 5;
+>>>>>>> Stashed changes
 
   }
+  @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+    #search {
+      width: 80%;
+    }
+  }
+
 
   #float-button-location {
     margin-top: 7px;
@@ -42,7 +61,7 @@ page-map {
     position: absolute;
     right: 0;
     top: 80px;
-    z-index :5;
+    z-index: 5;
   }
 
   #map {

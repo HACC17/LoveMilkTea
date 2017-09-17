@@ -32,7 +32,7 @@ export class MyApp {
                 component: HomePage
             },
             {
-                title: 'Admin',
+                title: 'User',
                 icon: 'person',
                 component: LoginPage},
             {
