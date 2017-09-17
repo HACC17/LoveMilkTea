@@ -1,0 +1,1451 @@
+{
+	"1": {
+		"name": "Ka Leo Office",
+		"address": "2445 Campus Road, Honolulu, HI, 96822",
+		"lat": 21.2985860,
+		"lng": -157.8195610,
+		"description": "Ka Leo O Hawai'i has been the student newspaper for the Manoa campus since 1922. Papers publish biweekly during the school year and monthly in the summer, but do not run on holidays, breaks or exam periods.",
+		"number": "(808) 956-7043",
+		"website": "N/A"
+	},
+	"2": {
+		"name": "Holmes Hall",
+		"address": "2540 Dole Street, Honolulu, HI, 96822",
+		"lat": 21.2968470,
+		"lng": -157.8161010,
+		"description": "Holmes Hall is home to the Mechanical Engineering, Civil Engineering, Computer Engineering, Electrical Engineering, Renewable Energy and Island Sustainability programs.",
+		"number": "N/A",
+		"website": "N/A"
+	},
+	"3": {
+		"name": "Campus Center",
+		"address": "2465 Campus Road, Honolulu, HI, 96822",
+		"lat": 21.2984350,
+		"lng": -157.8188780,
+		"description": "N/A",
+		"number": "N/A",
+		"website": "N/A"
+	},
+	"4": {
+		"name": "Hamilton Library",
+		"address": "2550 McCarthy Mall, Honolulu, HI, 96822",
+		"lat": 21.3004500,
+		"lng": -157.8161520,
+		"description": "Hamilton Library is home to the Library and Information Science (M.L.I.Sc) program. Room 002",
+		"number": "(808) 956-7321",
+		"website": "http://www.hawaii.edu/lis/"
+	},
+	"5": {
+		"name": "Sinclair Library",
+		"address": "2425 Campus Road, Honolulu, HI, 96822",
+		"lat": 21.2984860,
+		"lng": -157.8201670,
+		"description": "The Gregg M. Sinclair Library is open 24 hours a day Monday-Thursday, and has limited hours on Friday (12 a.m.-6 p.m.), Saturday (12 p.m.- 6 p.m.) and Sunday (12 p.m.- 12 a.m.). It is home to the Wong Audiovisual Center, which has separate hours of operation. See this page for Fall 2016 hours: ",
+		"number": "(808) 956-8308",
+		"website": "guides.library.manoa.hawaii.edu/sinclairlibrary"
+	},
+	"6": {
+		"name": "Pacific Ocean Science and Technology (POST)",
+		"address": "1680 East-West Road, Honolulu, HI, 96822",
+		"lat": 21.2972820,
+		"lng": -157.8164670,
+		"description": "The Pacific Ocean Science and Technology (POST) building is home to the Information and Computer  Sciences, Geology and Geophysics and Ocean Resources Engineering programs.",
+		"number": "N/A",
+		"website": "N/A"
+	},
+	"7": {
+		"name": "Marine Sciences Building",
+		"address": "1680 East-West Road, Honolulu, HI, 96822",
+		"lat": 21.2977710,
+		"lng": -157.8158330,
+		"description": "The Marine Sciences Building is home to the Global Environmental Science (B.S.) and Oceanography (M.S., Ph.D.) programs. Room 205.",
+		"number": "(808) 956-7633",
+		"website": "www.soest.hawaii.edu/oceanography"
+	},
+	"8": {
+		"name": "University Health Services",
+		"address": "1710 East West Road1710 East West Road, Honolulu, HI, 96822",
+		"lat": 21.2983360,
+		"lng": -157.8152250,
+		"description": "University Health Services Clinic Hours:",
+		"number": "(808) 956-8965",
+		"website": "http://www.hawaii.edu/shs/"
+	},
+	"9": {
+		"name": "Watanabe Hall",
+		"address": "2505 Correa Road, Honolulu, HI, 96822",
+		"lat": 21.2982710,
+		"lng": -157.8159980,
+		"description": "This building is home to the Astronomy (B.A., Minor, M.S., Ph.D.) program, whose main office is in Room 416.  ",
+		"number": "(808) 956-7091",
+		"website": "N/A"
+	},
+	"10": {
+		"name": "Hawaii Institute of Geophysics",
+		"address": "2525 Correa Road, Honolulu, HI, 96822",
+		"lat": 21.2979960,
+		"lng": -157.8167090,
+		"description": "Hawaii Institute of Geophysics (B.S., M.S., Ph.D., Minor) is home to the Atmospheric Sciences program. Room 350.",
+		"number": "(808) 956-8775",
+		"website": "www.soest.hawaii.edu/MET"
+	},
+	"11": {
+		"name": "Physical Science Building",
+		"address": "2565 McCarthy Mall, Honolulu, HI, 96822",
+		"lat": 21.2991960,
+		"lng": -157.8160150,
+		"description": "N/A",
+		"number": "",
+		"website": ""
+	},
+	"12": {
+		"name": "Keller Hall",
+		"address": "2565 McCarthy Mall, Honolulu, HI, 96822",
+		"lat": 21.2997060,
+		"lng": -157.8158610,
+		"description": "Keller Hall is home to Manoa's Math department, whose main office can be found in Room 401A. The building does not have air conditioning- classes here can get hot, plan accordingly.",
+		"number": "(808) 956-4679",
+		"website": "math.hawaii.edu/wordpress/"
+	},
+	"13": {
+		"name": "Bilger Hall",
+		"address": "2545 McCarthy Mall, Honolulu, HI, 96822",
+		"lat": 21.2988510,
+		"lng": -157.8168750,
+		"description": "Bilger Hall houses the Chemistry department.",
+		"number": "(808) 956-7480",
+		"website": "http://manoa.hawaii.edu/chem/"
+	},
+	"14": {
+		"name": "Bilger Addition",
+		"address": "2545 McCarthy Mall, Honolulu, HI, 96822",
+		"lat": 21.3005740,
+		"lng": -157.8161080,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"15": {
+		"name": "Information Technology Center",
+		"address": "2520 Correa Road, Honolulu, HI, 96822",
+		"lat": 21.2988180,
+		"lng": -157.8164890,
+		"description": "N/A",
+		"number": "",
+		"website": ""
+	},
+	"16": {
+		"name": "Kennedy Theatre",
+		"address": "1770 East-West Road, Honolulu, HI, 96822",
+		"lat": 21.2993160,
+		"lng": -157.8150410,
+		"description": "Kennedy Theatre puts on Main Stage, Primetime and Late Night shows that are open to the public. Individuals with a UH ID can get a discount. The phone number for the box office is (808) 956-7655. ",
+		"number": "(808) 956-7655",
+		"website": "manoa.hawaii.edu/liveonstage/"
+	},
+	"17": {
+		"name": "Art Building",
+		"address": "2535 McCarthy Mall, Honolulu, HI, 96822",
+		"lat": 21.2993370,
+		"lng": -157.8177860,
+		"description": "Manoa's Art and Art History departments are housed here in Room 142 and their offices are open from 8 a.m.-4:30 p.m. on weekdays.",
+		"number": "(808) 956-8251",
+		"website": "http://www.hawaii.edu/art/"
+	},
+	"18": {
+		"name": "Sakamaki Hall",
+		"address": "2500 Campus Rd., HI, 96822",
+		"lat": 21.2973070,
+		"lng": -157.8172060,
+		"description": "Sakamaki Hall is home to the Psychology, History, Philosophy, and Religion programs.",
+		"number": "",
+		"website": ""
+	},
+	"19": {
+		"name": "Kuykendall Hall",
+		"address": "1733 Donaghho Road, Honolulu, HI, 96822",
+		"lat": 21.2983160,
+		"lng": -157.8176410,
+		"description": "Kuykendall Hall is home to the English department, whose main office is located in Room 402. Plan on bringing a jacket- most of the building's rooms can get cold.",
+		"number": "(808) 956-7619",
+		"website": "english.hawaii.edu/"
+	},
+	"20": {
+		"name": "Building 37 ( i-Lab )",
+		"address": "2532 Correa Road, Honolulu, HI, 96822",
+		"lat": 21.2987310,
+		"lng": -157.8178390,
+		"description": "N/A",
+		"number": "",
+		"website": ""
+	},
+	"21": {
+		"name": "Paradise Palms Cafe",
+		"address": "2560 McCarthy Mall, Honolulu, HI, 96822",
+		"lat": 21.3008300,
+		"lng": -157.8156720,
+		"description": "Paradise Palms is a food court that features six food vendors: The Curb, Domino's Pizza, Honolulu Gourmet, India Cafe Curry Express, L&L and Panda Express. Although the space is open from 8 a.m. to 4:30 p.m., the businesses may have different hours of operation. See the website for more information.",
+		"number": "",
+		"website": "manoa.hawaii.edu/food/paradisePalms.php"
+	},
+	"22": {
+		"name": "Moore Hall",
+		"address": "1890 East-West Road, Honolulu, HI, 96822",
+		"lat": 21.3008400,
+		"lng": -157.8151620,
+		"description": "Moore Hall is home to the American Studies, Chinese Studies, East Asian Languages and Literatures, Languages and Literatures of Europe and the Americas (LLEA), Linguistics, Pacific and Asian Studies, Philippine Studies, and Second Language Studies departments.",
+		"number": "",
+		"website": ""
+	},
+	"23": {
+		"name": "Henke Hall",
+		"address": "1800 East-West Road, Honolulu, HI, 96822",
+		"lat": 21.3002600,
+		"lng": -157.8150500,
+		"description": "N/A",
+		"number": "",
+		"website": ""
+	},
+	"24": {
+		"name": "Snyder Hall",
+		"address": "2538 McCarthy Mall, Honolulu, HI, 96822",
+		"lat": 21.3002500,
+		"lng": -157.8172440,
+		"description": "Snyder Hall is home to the Microbiology (B.A., B.S., Minor, M.S. and Ph.D.) and the Molecular Cell Biology (B.S.) programs whose main office is in Room 207.",
+		"number": "(808) 956-8553",
+		"website": "www.hawaii.edu/microbiology/"
+	},
+	"25": {
+		"name": "Edmonson Hall",
+		"address": "2538 McCarthy Mall, Honolulu, HI, 96822",
+		"lat": 21.3003900,
+		"lng": -157.8167340,
+		"description": "Edmondson Hall is home to the Biology (B.A., B.S., Minor), Ethnobotany (B.S.), Marine Biology (B.S. M.S. Ph.D.), Marine Option Program (Certificate), and Zoology programs. The main office for these programs is in Room 216.",
+		"number": "(808) 956-8303",
+		"website": "http://manoa.hawaii.edu/biology/"
+	},
+	"26": {
+		"name": "Webster Hall",
+		"address": "2528 McCarthy Mall, Honolulu, HI, 96822",
+		"lat": 21.3004400,
+		"lng": -157.8177640,
+		"description": "Webster Hall is home to the Nursing Department (B.S., M.S., Ph.D. and Grad. Cert.), whose main office is in Room 446.",
+		"number": "(808) 956-8522",
+		"website": "www.nursing.hawaii.edu"
+	},
+	"27": {
+		"name": "Spalding Hall",
+		"address": "2540 Maile Way, Honolulu, HI, 96822",
+		"lat": 21.3007900,
+		"lng": -157.8174640,
+		"description": "Spalding is home to the Hawaiian (Undergrad. Cert., Minor, B.A., M.A.), Filipino (B.A. and Cert.), Filipino Language and Culture (Minor), Hindi (B.A. and Undergrad. Cert.), Ilokano (B.A., Undergrad. Cert.), Ilokano Language and Culture (Minor), Indonesian (B.A., Undergrad. Cert.), Indo-Pacific Languages (Undergrad. Cert.), Khmer (Cambodian) (B.A., Undergrad. Cert.), Philippine Language and Literature (B.A.), Samoan (B.A., Undergrad. Cert.), Sanskrit (B.A., Undergrad. Cert.), Tahitian (Certificate), Thai (B.A., Undergrad. Cert.), and the Vietnamese (B.A., Undergrad. Cert.) programs",
+		"number": "",
+		"website": ""
+	},
+	"28": {
+		"name": "Administrative Services Building 1",
+		"address": "2442 Campus Road, Honolulu, HI, 96822",
+		"lat": 21.2980010,
+		"lng": -157.8193040,
+		"description": "N/A",
+		"number": "",
+		"website": ""
+	},
+	"29": {
+		"name": "Administrative Services Building 1",
+		"address": "2440 Campus Road, Honolulu, HI, 96822",
+		"lat": 21.2980060,
+		"lng": -157.8197810,
+		"description": "N/A",
+		"number": "",
+		"website": ""
+	},
+	"30": {
+		"name": "Agricultural Engineering Institute",
+		"address": "3131 Maile Way, Honolulu, HI, 96822",
+		"lat": 21.3016200,
+		"lng": -157.8162400,
+		"description": "N/A",
+		"number": "",
+		"website": ""
+	},
+	"31": {
+		"name": "Agricultural Science",
+		"address": "1955 East-West Road, Honolulu, HI, 96822",
+		"lat": 21.3027240,
+		"lng": -157.8139180,
+		"description": "The Agricultural Science building is home to two departments: Human Nutrition, Food and Animal Sciences and Molecular Biosciences and Bioengineering. ",
+		"number": "",
+		"website": ""
+	},
+	"32": {
+		"name": "Air Force ROTC Building",
+		"address": "1460 Lower Campus Road, Honolulu, HI, 96822",
+		"lat": 21.2921910,
+		"lng": -157.8170200,
+		"description": "N/A",
+		"number": "",
+		"website": ""
+	},
+	"33": {
+		"name": "Andrews Outdoor Theatre",
+		"address": "2515 Dole Street, Honolulu, HI, 96822",
+		"lat": 21.2970080,
+		"lng": -157.8188120,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"34": {
+		"name": "Architecture School",
+		"address": "2410 Campus Road, Honolulu, HI, 96822",
+		"lat": 21.2997760,
+		"lng": -157.8207360,
+		"description": "The School of Architecture houses the Department of Architecture, whose main office is in Room 201. Both Environmental Design (B.Env.D.) majors and Architecture (D.Arch.) candidates can find help here.",
+		"number": "(808) 956-7225",
+		"website": "http://www.arch.hawaii.edu/"
+	},
+	"35": {
+		"name": "Army ROTC Building",
+		"address": "1311 Lower Campus Road, Honolulu, HI, 96822",
+		"lat": 21.2920780,
+		"lng": -157.8164910,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"36": {
+		"name": "Institute for Astronomy",
+		"address": "2680 Woodlawn Drive , Honolulu, HI, 96822",
+		"lat": 21.3069520,
+		"lng": -157.8117560,
+		"description": "",
+		"number": "(808) 956-8312",
+		"website": "http://www.ifa.hawaii.edu/"
+	},
+	"37": {
+		"name": "Auxiliary Services",
+		"address": "1951 East-West Road, Honolulu, HI, 96822",
+		"lat": 21.3023740,
+		"lng": -157.8141000,
+		"description": "",
+		"number": "",
+		"website": "http://manoa.hawaii.edu/campusservices/"
+	},
+	"38": {
+		"name": "Bachman Annex 6",
+		"address": "Honolulu, HI, 96822",
+		"lat": 21.2977810,
+		"lng": -157.8201140,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"39": {
+		"name": "Bachman Annexes 9-13",
+		"address": "2444 Dole Street, Honolulu, HI, 96822",
+		"lat": 21.2970990,
+		"lng": -157.8192970,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"40": {
+		"name": "Bachman Hall",
+		"address": "2444 Dole Street, Honolulu, HI, 96822",
+		"lat": 21.2971420,
+		"lng": -157.8199470,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"41": {
+		"name": "Bachman Annex 2",
+		"address": "1627 Bachman Place, Honolulu, HI, 96822",
+		"lat": 21.2977060,
+		"lng": -157.8192930,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"42": {
+		"name": "Biomedical Sciences",
+		"address": "1960 East-West Road, Honolulu, HI, 96822",
+		"lat": 21.3033440,
+		"lng": -157.8146900,
+		"description": "The Biomedical Science building is home to the Medical Technology, Epidemiology, Public Health and Global Health Protection and Security programs.",
+		"number": "",
+		"website": ""
+	},
+	"43": {
+		"name": "Burns Hall",
+		"address": "1601 East-West Road, Honolulu, HI, 96822",
+		"lat": 21.2965170,
+		"lng": -157.8145130,
+		"description": "Burns Hall is home to the International Cultural Studies (Grad. Cert.) program in Room 2045.",
+		"number": "(808) 944-7593",
+		"website": "http://manoa.hawaii.edu/internationalculture/"
+	},
+	"44": {
+		"name": "Business Administration (BUSAD- Shidler)",
+		"address": "2404 Maile Way, Honolulu, HI, 96822",
+		"lat": 21.3009200,
+		"lng": -157.8203680,
+		"description": "The Business Administration building is home to the Business Administration, Entrepreneurship, Human Resource Management, International Business, Management, Finance, Accounting, Marketing and Management Information Systems programs.",
+		"number": "",
+		"website": "shidler.hawaii.edu/prospective"
+	},
+	"45": {
+		"name": "Campus Security",
+		"address": "1951 East-West Road, Honolulu, HI",
+		"lat": 21.3038090,
+		"lng": -157.8137380,
+		"description": "Safety Escort: (808) 956-SAFE (7233)",
+		"number": "(808) 956-6911",
+		"website": "http://www.manoa.hawaii.edu/dps/"
+	},
+	"46": {
+		"name": "Castle Memorial",
+		"address": "1776 University Avenue, Honolulu, HI, 96822",
+		"lat": 21.2973910,
+		"lng": -157.8228680,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"47": {
+		"name": "Castle Annex",
+		"address": "1776 University Avenue, Honolulu, HI, 96822",
+		"lat": 21.2974410,
+		"lng": -157.8233400,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"48": {
+		"name": "Clarence T.C. Ching Field",
+		"address": "Kalele Road, Honolulu, HI, 96822",
+		"lat": 21.2941930,
+		"lng": -157.8171070,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"49": {
+		"name": "Clarence T.C. Ching Athletic Complex",
+		"address": "Kalele Road, Honolulu, HI, 96822",
+		"lat": 21.2944830,
+		"lng": -157.8166030,
+		"description": "http://hawaiiathletics.com/sports/2008/5/14/cooke_field.aspx?tab=clarencetcchingcomplex",
+		"number": "",
+		"website": ""
+	},
+	"50": {
+		"name": "Crawford Hall",
+		"address": "2550 Campus Road, Honolulu, HI, 96822",
+		"lat": 21.2996230,
+		"lng": -157.8184590,
+		"description": "Crawford Hall is home to the Academy of Creative Media, Communications, Journalism, Telecommunications Information Resource Management programs.",
+		"number": "",
+		"website": ""
+	},
+	"51": {
+		"name": "Food Sciences & Technology",
+		"address": "1820 Edmondson Road, Honolulu, HI, 96822",
+		"lat": 21.3019700,
+		"lng": -157.8157120,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"52": {
+		"name": "Dean Hall",
+		"address": "2450 Campus Road, Honolulu, HI, 96822",
+		"lat": 21.2995310,
+		"lng": -157.8195100,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"53": {
+		"name": "Driving Safety Program",
+		"address": "2040 East-West Road, Honolulu, HI, 96822",
+		"lat": 21.3047380,
+		"lng": -157.8144030,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"54": {
+		"name": "Dole Street Parking Structure (Zone 22)",
+		"address": "2327 Dole Street, Honolulu, HI, 96822",
+		"lat": 21.2941430,
+		"lng": -157.8117750,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"55": {
+		"name": "Dole Street Offices",
+		"address": "2327 Dole Street, Honolulu, HI, 96822",
+		"lat": 21.2965620,
+		"lng": -157.8227180,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"56": {
+		"name": "Energy House",
+		"address": "East-West Rd., Honolulu, HI, 96822",
+		"lat": 21.3049760,
+		"lng": -157.8145650,
+		"description": "The Energy House was originally built in 1976 and serves the School of Architecture. In 2010, the space was remodeled to better educate families on sustainable family living.",
+		"number": "",
+		"website": "https://sites.google.com/site/fetchhi/where-we-work/energy-house"
+	},
+	"57": {
+		"name": "Environmental Protection Facility",
+		"address": "East-West Rd., Honolulu, HI, 96848",
+		"lat": 21.3045690,
+		"lng": -157.8143780,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"58": {
+		"name": "Environmental Health and Safety Office",
+		"address": "2040 East-West Road, Honolulu, HI, 96822",
+		"lat": 21.3044090,
+		"lng": -157.8140910,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"59": {
+		"name": "Everly Hall",
+		"address": "1776 University Avenue, Honolulu, HI, 96822",
+		"lat": 21.2988610,
+		"lng": -157.8218190,
+		"description": "Everly Hall is home to the Disability and Diversity Studies, Early Childhood Education, Education, Professional Educational Practice, Curriculum and Instruction, Curriculum Studies, and Secondary Education programs.",
+		"number": "",
+		"website": ""
+	},
+	"60": {
+		"name": "Federal Credit Union",
+		"address": "2010 East-West Road, Honolulu, HI, 96822",
+		"lat": 21.3047560,
+		"lng": -157.8148440,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"61": {
+		"name": "Financial Management Office",
+		"address": "1380-1408 Lower Campus Road, Honolulu, HI, 96822",
+		"lat": 21.2935830,
+		"lng": -157.8191640,
+		"description": "",
+		"number": "(808) 956-7161",
+		"website": "http://www.fmo.hawaii.edu/"
+	},
+	"62": {
+		"name": "Frear Hall",
+		"address": "2569 Dole Street, Honolulu, HI, 96822",
+		"lat": 21.2957720,
+		"lng": -157.8139660,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"63": {
+		"name": "Gateway House",
+		"address": "2569 Dole Street, Honolulu, HI, 96822",
+		"lat": 21.2958520,
+		"lng": -157.8148510,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"64": {
+		"name": "Gartley Hall",
+		"address": "2430 Campus Road, Honolulu, HI, 96822",
+		"lat": 21.2993240,
+		"lng": -157.8204990,
+		"description": "Gartley Hall is home to the Social Welfare (Ph.D.) and Social Work (B.S.W., M.S.W.) programs.",
+		"number": "(808) 956-7182",
+		"website": "www.hawaii.edu/sswork"
+	},
+	"65": {
+		"name": "Geroge Hall",
+		"address": "2560 Campus Road, Honolulu, HI, 96822",
+		"lat": 21.3002700,
+		"lng": -157.8202850,
+		"description": "George Hall is home to the Ethnic Studies, Communicology, Sustainable Tourism, and Travel Industry Management programs.",
+		"number": "",
+		"website": ""
+	},
+	"66": {
+		"name": "Gilmore Hall",
+		"address": "3050 Maile Way, Honolulu, HI, 96822",
+		"lat": 21.3015800,
+		"lng": -157.8167610,
+		"description": "Gilmore Hall is home to the Molecular Biosciences and Biotechnology, Entomology, Plant and Environmental Protection Sciences, and Tropical Plant Pathology programs.",
+		"number": "",
+		"website": ""
+	},
+	"67": {
+		"name": "Gym 1",
+		"address": "1333 Lower Campus Road, Honolulu, HI, 96822",
+		"lat": 21.2950220,
+		"lng": -157.8195400,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"68": {
+		"name": "Gym 2",
+		"address": "1333 Lower Campus Road, Honolulu, HI, 96822",
+		"lat": 21.2948870,
+		"lng": -157.8185040,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"69": {
+		"name": "Klum Gym",
+		"address": "1333 Lower Campus Road, Honolulu, HI, 96822",
+		"lat": 21.2953820,
+		"lng": -157.8190840,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"70": {
+		"name": "Hale Aloha Cafeteria",
+		"address": "2573 Dole Street, Honolulu, HI, 96822",
+		"lat": 21.2943130,
+		"lng": -157.8129360,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"71": {
+		"name": "Hale Aloha Lokelani Tower",
+		"address": "2579 Dole Street, Honolulu, HI, 96822",
+		"lat": 21.2939830,
+		"lng": -157.8132740,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"72": {
+		"name": "Hale Aloha Mokihana Tower",
+		"address": "2583 Dole Street, Honolulu, HI, 96822",
+		"lat": 21.2940300,
+		"lng": -157.8126720,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"73": {
+		"name": "Hale Aloha Lehua Tower",
+		"address": "2571 Dole Street, Honolulu, HI, 96822",
+		"lat": 21.2948050,
+		"lng": -157.8133500,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"74": {
+		"name": "Hale Aloha Ilima Tower",
+		"address": "2575 Dole Street, Honolulu, HI, 96822",
+		"lat": 21.2946680,
+		"lng": -157.8126790,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"75": {
+		"name": "Hale Anuenue",
+		"address": "2741 Varsity Place, Honolulu, HI, 96822",
+		"lat": 21.2924180,
+		"lng": -157.8187780,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"76": {
+		"name": "Hale Halawai",
+		"address": "1601 East-West Rd., Honolulu, HI, 96848",
+		"lat": 21.2977760,
+		"lng": -157.8141810,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"77": {
+		"name": "Hale Manoa",
+		"address": "1711 East-West Road, Honolulu, HI, 96822",
+		"lat": 21.2982260,
+		"lng": -157.8144430,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"78": {
+		"name": "Hale Kuahine",
+		"address": "1811 East-West Road,, Honolulu, HI, 96822",
+		"lat": 21.3000900,
+		"lng": -157.8136710,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"79": {
+		"name": "Hale Kahawai",
+		"address": "1825 East-West Road, Honolulu, HI, 96822",
+		"lat": 21.3006080,
+		"lng": -157.8134420,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"80": {
+		"name": "Hale Laulima",
+		"address": "1837 East-West Road, Honolulu, HI, 96822",
+		"lat": 21.3009750,
+		"lng": -157.8132850,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"81": {
+		"name": "Hale Noelani",
+		"address": "2585 Dole Street, Honolulu, HI, 96822",
+		"lat": 21.2936230,
+		"lng": -157.8135960,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"82": {
+		"name": "Hale Wainani",
+		"address": "2591 Dole Street, Honolulu, HI, 96822",
+		"lat": 21.2928580,
+		"lng": -157.8143740,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"83": {
+		"name": "Multipurpose Building",
+		"address": "2550 The Mall St., Honolulu, HI, 96822",
+		"lat": 21.3007360,
+		"lng": -157.8163890,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"84": {
+		"name": "Hawaii Hall",
+		"address": "2500 Campus Road, Honolulu, HI, 96822",
+		"lat": 21.2998380,
+		"lng": -157.8189750,
+		"description": "Hawai‘i Hall is home to the Interdisciplinary Studies and Ocean Policy programs.",
+		"number": "",
+		"website": ""
+	},
+	"85": {
+		"name": "Horticulture Headhouse",
+		"address": "2717 Woodlawn Dr., Honolulu, HI",
+		"lat": 21.3067880,
+		"lng": -157.8099860,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"86": {
+		"name": "Horticulture Greenhouse",
+		"address": "2717 Woodlawn Dr., Honolulu, HI",
+		"lat": 21.3061780,
+		"lng": -157.8097830,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"87": {
+		"name": "Jakuan Tea House",
+		"address": "1890 East-West Rd., Honolulu, HI, 96822",
+		"lat": 21.2997260,
+		"lng": -157.8135960,
+		"description": "The Jakuan Tea House is a part of the Center of Japanese Studies' Way of Tea Center, which coordinates activities and perpetuates the culture of tea.",
+		"number": "(808) 956-2665",
+		"website": "http://www.hawaii.edu/cjs/?page_id=22"
+	},
+	"88": {
+		"name": "Jefferson Hall",
+		"address": "1777 East-West Road, Honolulu, HI, 96822",
+		"lat": 21.2992010,
+		"lng": -157.8142070,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"89": {
+		"name": "Johnson Hall-B",
+		"address": "2550 Dole Street, Honolulu, HI, 96822",
+		"lat": 21.2960320,
+		"lng": -157.8157470,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"90": {
+		"name": "Johnson Hall-A",
+		"address": "2555 Dole Street, Honolulu, HI, 96822",
+		"lat": 21.2961920,
+		"lng": -157.8164500,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"91": {
+		"name": "Duke Kahanamoku Aquatic Complex",
+		"address": "1337 Lower Campus Road, Honolulu, HI, 96822",
+		"lat": 21.2935180,
+		"lng": -157.8174520,
+		"description": "",
+		"number": "",
+		"website": "http://hawaiiathletics.com/sports/2008/5/14/duke_kahanamoku_aquatic_complex.aspx?tab=kahanamokuaquaticcomplex"
+	},
+	"92": {
+		"name": "Kamakakuokalani Bldg (Hawaiian Studies)",
+		"address": "2645 Dole Street, Honolulu, HI, 96822",
+		"lat": 21.2949520,
+		"lng": -157.8120430,
+		"description": "The Kamakakuokalani Building is home to the Hawaiian Studies program. Room 209A. ",
+		"number": "(808) 973-0555",
+		"website": "manoa.hawaii.edu/hshk/kamakakuokalani/"
+	},
+	"93": {
+		"name": "KHET TV / PBS Hawaii",
+		"address": "2350 Dole Street, Honolulu, HI, 96822",
+		"lat": 21.2970620,
+		"lng": -157.8219480,
+		"description": "",
+		"number": "http://www.communications.hawaii.edu/mlab/home.html",
+		"website": "(808) 956-3355"
+	},
+	"94": {
+		"name": "Center for Korean Studies",
+		"address": "1881 East-West Road, Honolulu, HI, 96822",
+		"lat": 21.3009230,
+		"lng": -157.8141620,
+		"description": "",
+		"number": "(808) 956-7041",
+		"website": "http://www.hawaii.edu/korea/index.html"
+	},
+	"95": {
+		"name": "Krauss Hall",
+		"address": "2500 Dole Street, Honolulu, HI, 96822",
+		"lat": 21.2971520,
+		"lng": -157.8176770,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"96": {
+		"name": "Krauss Annex 7",
+		"address": "Honolulu, HI, 96822",
+		"lat": 21.2980640,
+		"lng": -157.8178380,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"97": {
+		"name": "Krauss Annex 19",
+		"address": "2500 Dole Street, Honolulu, HI, 96822",
+		"lat": 21.2975740,
+		"lng": -157.8176450,
+		"description": "Kraus Annex 19 is home to the Environmental Studies (B.A., Cert.) program.",
+		"number": "(808) 956-7361",
+		"website": "www.hawaii.edu/envctr/"
+	},
+	"98": {
+		"name": "Kuykendall Annex",
+		"address": "1733 Donagho Road, Honolulu, HI, 96822",
+		"lat": 21.2980690,
+		"lng": -157.8176040,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"99": {
+		"name": "Lab School Lockers",
+		"address": "University Ave, Honolulu, HI, 96822",
+		"lat": 21.2977910,
+		"lng": -157.8236270,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"100": {
+		"name": "Lab School Portables 1-4",
+		"address": "1776 University Avenue, Honolulu, HI, 96822",
+		"lat": 21.2985310,
+		"lng": -157.8234360,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"101": {
+		"name": "University of Hawaii - Landscape Services",
+		"address": "2002 East-West Rd., Honolulu, HI, 96822",
+		"lat": 21.3042990,
+		"lng": -157.8134360,
+		"description": "",
+		"number": "(808) 956-7922",
+		"website": "http://manoa.hawaii.edu/landscaping/"
+	},
+	"102": {
+		"name": "Law Library",
+		"address": "2525 Dole Street, Honolulu, HI, 96822",
+		"lat": 21.2963570,
+		"lng": -157.8173250,
+		"description": "",
+		"number": "",
+		"website": "https://www.law.hawaii.edu/library"
+	},
+	"103": {
+		"name": "William S. Richardson School of Law",
+		"address": "2515 Dole Street , Honolulu, HI, 96822",
+		"lat": 21.2964670,
+		"lng": -157.8187600,
+		"description": "The William S. Richardson School of Law is home to the Law program at UH Manoa. ",
+		"number": "(808) 956-7966",
+		"website": "https://www.law.hawaii.edu"
+	},
+	"104": {
+		"name": "Lincoln Hall",
+		"address": "1821 East-West Road, Honolulu, HI, 96822",
+		"lat": 21.3004600,
+		"lng": -157.8142500,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"105": {
+		"name": "Lower Campus Portables",
+		"address": "1395 Lower Campus Rd., Honolulu, HI, 96822",
+		"lat": 21.2924780,
+		"lng": -157.8172650,
+		"description": "The Lower Campus Portables are home to the Hawaii English Language Program.",
+		"number": "(808) 956-6636",
+		"website": "http://manoa.hawaii.edu/eslhelp/wordpress/"
+	},
+	"106": {
+		"name": "Lunalilo Freeway Portables",
+		"address": "Lower Campus Rd, Honolulu, HI, 96801",
+		"lat": 21.2949770,
+		"lng": -157.8202750,
+		"description": "The Lunalilo Freeway Portables hosts the Career and Technical Education Center and a studio for Dance Department.",
+		"number": "",
+		"website": ""
+	},
+	"107": {
+		"name": "Magoon Facility",
+		"address": "2717 Woodlawn Dr., Honolulu, HI",
+		"lat": 21.3070020,
+		"lng": -157.8102110,
+		"description": "",
+		"number": "(808) 956-7508",
+		"website": "http://www.ctahr.hawaii.edu/idolt/mauka.html"
+	},
+	"108": {
+		"name": "Maile Way Annexes",
+		"address": "2525 Maile Way, Honolulu, HI, 96822",
+		"lat": 21.3014400,
+		"lng": -157.8177260,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"109": {
+		"name": "Makai Campus Portables",
+		"address": "Honolulu, HI, 96822",
+		"lat": 21.2928080,
+		"lng": -157.8169590,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"110": {
+		"name": "Miller Hall",
+		"address": "2515 Campus Rd., Honolulu, HI, 96822",
+		"lat": 21.2993510,
+		"lng": -157.8181780,
+		"description": "Miller Hall is home to the Family Resources (B.S.), Fashion Design and Merchandising (B.S. and Minor) and, Merchandising (Minor) programs. Room 110.",
+		"number": "(808) 956-8105",
+		"website": "cms.ctahr.hawaii.edu/fcs/Home.aspx"
+	},
+	"111": {
+		"name": "Multipurpose Building",
+		"address": "University Ave, Honolulu, HI, 96822",
+		"lat": 21.2975060,
+		"lng": -157.8221150,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"112": {
+		"name": "Les Murakami Baseball Stadium",
+		"address": "1337 Lower Campus Rd., Honolulu, HI, 96822",
+		"lat": 21.2928650,
+		"lng": -157.8159960,
+		"description": "http://hawaiiathletics.com/schedule.aspx?path=bb",
+		"number": "",
+		"website": ""
+	},
+	"113": {
+		"name": "Music Building Complex",
+		"address": "2411 Dole Street, Honolulu, HI, 96822",
+		"lat": 21.2956420,
+		"lng": -157.8208080,
+		"description": "The Music Building Complex is the home of the Music Department (B.A., B.M., B.Ed., Minor, Certificate, M.A., M.Mus., Ph.D.). The Music Department office is located in Music 3.",
+		"number": "(808) 956-7756",
+		"website": "http://manoa.hawaii.edu/music/"
+	},
+	"114": {
+		"name": "National Marine Fisheries Service",
+		"address": "2570 Dole Street, Honolulu, HI, 96822",
+		"lat": 21.2963620,
+		"lng": -157.8139650,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"115": {
+		"name": "Newman Center (University Catholic Center",
+		"address": "1941 East-West Center, Honolulu, HI, 96822",
+		"lat": 21.3019600,
+		"lng": -157.8136490,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"116": {
+		"name": "NREM Greenhouses",
+		"address": "2717 Woodlawn Dr., Honolulu, HI",
+		"lat": 21.3058230,
+		"lng": -157.8103560,
+		"description": "",
+		"number": "(808) 956-7508",
+		"website": ""
+	},
+	"117": {
+		"name": "Pacific Biomedical Research Center",
+		"address": "1933 East-West Road, Honolulu, HI, 96822",
+		"lat": 21.3031290,
+		"lng": -157.8132470,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"118": {
+		"name": "Mae Zenke Orvis Auditorium",
+		"address": "2411 Dole Street, Honolulu, HI, 96822",
+		"lat": 21.2959600,
+		"lng": -157.8203780,
+		"description": "",
+		"number": "",
+		"website": "http://manoa.hawaii.edu/music/events/category/MUS-199/"
+	},
+	"119": {
+		"name": "Parking Structure",
+		"address": "2520 Dole Street, Honolulu, HI, 96822",
+		"lat": 21.2959600,
+		"lng": -157.8189960,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"120": {
+		"name": "Physical Education/Athletic Complex",
+		"address": "1337 Lower Campus Road, Honolulu, HI, 96822",
+		"lat": 21.2946820,
+		"lng": -157.8181290,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"121": {
+		"name": "Physical Plant Building",
+		"address": "2002 East-West Rd., Honolulu, HI, 96822",
+		"lat": 21.3035690,
+		"lng": -157.8133330,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"122": {
+		"name": "Pope Labratory",
+		"address": "3190 Maile Way, Honolulu, HI, 96822",
+		"lat": 21.3026240,
+		"lng": -157.8151570,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"123": {
+		"name": "Cooke Field - Grass Practice Fields",
+		"address": "1337 Lower Campus Rd., Honolulu, HI, 96822",
+		"lat": 21.2940480,
+		"lng": -157.8149800,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"124": {
+		"name": "Office of Procurement & Real Property Management",
+		"address": "1400 Lower Campus Road, Room 15, Honolulu, HI, 96822",
+		"lat": 21.2931880,
+		"lng": -157.8186650,
+		"description": "",
+		"number": "(808) 956-8687",
+		"website": "https://www.hawaii.edu/oprpm/"
+	},
+	"125": {
+		"name": "St. John Plant Science Lab",
+		"address": "3190 Maile Way, Honolulu, HI, 96822",
+		"lat": 21.3016150,
+		"lng": -157.8154410,
+		"description": "St. John is home to the Botany (B.A., B.S., Minor, M.S. and Ph.D.), the Tropical Plant and Soil Sciences (B.S., Minor, Certificate, M.S. and Ph.D.), and the Plant Production and Management (Minor) programs.",
+		"number": "",
+		"website": ""
+	},
+	"126": {
+		"name": "Saunders Hall",
+		"address": "2424 Maile Way, Honolulu, HI, 96822",
+		"lat": 21.3005600,
+		"lng": -157.8191320,
+		"description": "Saunders Hall is home of the Anthropology (B.A., Minor, M.A. and Ph.D.) program.",
+		"number": "",
+		"website": ""
+	},
+	"127": {
+		"name": "G. Donald Sherman Labratory",
+		"address": "1910 East-West Rd., Honolulu, HI, 96822",
+		"lat": 21.3022770,
+		"lng": -157.8151260,
+		"description": "The G. Donald Sherman Laboratory is home to the Natural Resources and Environmental Management (B.S., M.S., Ph.D.) program. Their main office is in room 101.",
+		"number": "(808) 956-7530",
+		"website": "http://www.ctahr.hawaii.edu/nrem/"
+	},
+	"128": {
+		"name": "Shops",
+		"address": "East-West Rd., Honolulu, HI, 96848",
+		"lat": 21.3040590,
+		"lng": -157.8131330,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"129": {
+		"name": "Sinclair Annexes",
+		"address": "1633 Bachman Place, Honolulu, HI, 96822",
+		"lat": 21.2981790,
+		"lng": -157.8201770,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"130": {
+		"name": "Rainbow Wahine Softball Stadium",
+		"address": "Kalele Rd., Honolulu, HI, 96822",
+		"lat": 21.2944980,
+		"lng": -157.8158600,
+		"description": "",
+		"number": "",
+		"website": "http://www.hawaiiathletics.com/index.aspx?tab=softball&path=softball"
+	},
+	"131": {
+		"name": "Stan Sheriff Center",
+		"address": "1337 Lower Campus Road, Honolulu, HI, 96822",
+		"lat": 21.2943550,
+		"lng": -157.8186020,
+		"description": "",
+		"number": "",
+		"website": "http://hawaiiathletics.com/sports/2008/5/14/stan_sheriff_center.aspx?tab=stansheriffcenter"
+	},
+	"132": {
+		"name": "Center on Disability Studies",
+		"address": "1410 Lower Campus Rd. #171F, Honolulu, HI, 96826",
+		"lat": 21.2929980,
+		"lng": -157.8182900,
+		"description": "",
+		"number": "",
+		"website": "http://www.cds.hawaii.edu/"
+	},
+	"133": {
+		"name": "Tennis Courts",
+		"address": "1337 Lower Campus Rd., Honolulu, HI, 96822",
+		"lat": 21.2955270,
+		"lng": -157.8166640,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"134": {
+		"name": "Temporary Portables",
+		"address": "Honolulu, HI, 96822",
+		"lat": 21.3010850,
+		"lng": -157.8136400,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"135": {
+		"name": "Thrift Shop",
+		"address": "East-West Rd., Honolulu, HI, 96822",
+		"lat": 21.3045590,
+		"lng": -157.8145880,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"136": {
+		"name": "Transportation Services",
+		"address": "2027 East-West Road, Honolulu, HI, 96822",
+		"lat": 21.3047980,
+		"lng": -157.8137840,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"137": {
+		"name": "Warehouse",
+		"address": "East-West Rd., Honolulu, HI, 96848",
+		"lat": 21.3038040,
+		"lng": -157.8127430,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"138": {
+		"name": "Waahila Faculty Housing",
+		"address": "2640 Dole Street, Honolulu, HI, 96822",
+		"lat": 21.2959120,
+		"lng": -157.8122140,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"139": {
+		"name": "Trailers L-P",
+		"address": "Lower Campus Rd., Honolulu, HI, 96822",
+		"lat": 21.2937200,
+		"lng": -157.8196330,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"140": {
+		"name": "USDA Fruit Fly Labratory",
+		"address": "2727 Woodlawn Drive, Honolulu, HI, 96822",
+		"lat": 21.3072470,
+		"lng": -157.8094140,
+		"description": "",
+		"number": "(808) 956-7530",
+		"website": ""
+	},
+	"141": {
+		"name": "University of Hawaii Press",
+		"address": "2840 Kolowalu Street, Honolulu, HI, 96822",
+		"lat": 21.3073520,
+		"lng": -157.8125390,
+		"description": "",
+		"number": "(808) 956-8255",
+		"website": "http://www.uhpress.hawaii.edu/"
+	},
+	"142": {
+		"name": "University High School 3",
+		"address": "1776 University Avenue, Honolulu, HI, 96822",
+		"lat": 21.2979490,
+		"lng": -157.8216600,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"143": {
+		"name": "Wist Annex 1",
+		"address": "1776 University Avenue, Honolulu, HI, 96822",
+		"lat": 21.2979510,
+		"lng": -157.8225280,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"144": {
+		"name": "University High School 2",
+		"address": "1776 University Avenue, Honolulu, HI, 96822",
+		"lat": 21.2983460,
+		"lng": -157.8226890,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"145": {
+		"name": "University High School 1",
+		"address": "1776 University Avenue, Honolulu, HI, 96822",
+		"lat": 21.2986310,
+		"lng": -157.8226550,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"146": {
+		"name": "Multipurpose Building",
+		"address": "University Ave., Honolulu, HI, 96822",
+		"lat": 21.3017890,
+		"lng": -157.8203180,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"147": {
+		"name": "Wist Hall",
+		"address": "1776 University Avenue, Honolulu, HI, 96822",
+		"lat": 21.2987330,
+		"lng": -157.8219660,
+		"description": "Wist Hall is home to the Educational Foundations (M.Ed. and Ph.D.) and the Educational Policy Studies (Ph.D.), the Special Education (PBCSPED and M.Ed.), the Educational Psychology (M.Ed. and Ph.D.), the Educational Administration (M.Ed. and Ph.D.), and the Learning Design and Technology (Grad. Cert., M.Ed. and Ph.D.) programs.",
+		"number": "",
+		"website": ""
+	},
+	"148": {
+		"name": "Warrior Recreation Center",
+		"address": "2505 Campus Rd, Honolulu, HI 96822, Honolulu, HI, 96822",
+		"lat": 21.2989380,
+		"lng": -157.8185730,
+		"description": "",
+		"number": "(808) 956-5490",
+		"website": "http://manoa.hawaii.edu/studentrec/fitnesscenter/about.html"
+	},
+	"149": {
+		"name": "Sinclair Circle",
+		"address": "Honolulu, HI, 96822",
+		"lat": 21.2977760,
+		"lng": -157.8208430,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"150": {
+		"name": "Legacy Path",
+		"address": "Honolulu, HI, 96822",
+		"lat": 21.2968970,
+		"lng": -157.8182310,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"151": {
+		"name": "Varney Circle",
+		"address": "Honolulu, HI, 96822",
+		"lat": 21.2999630,
+		"lng": -157.8182110,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"152": {
+		"name": "Queen Lili'uokalani Center (QLC)",
+		"address": "2600 Campus Road, Honolulu, HI, 96822",
+		"lat": 21.3001970,
+		"lng": -157.8183760,
+		"description": "",
+		"number": "",
+		"website": ""
+	},
+	"153": {
+		"name": "QLC GF",
+		"address": "",
+		"lat": 21.3003390,
+		"lng": -157.8185880,
+		"description": "On the ground floor of the QLC you can find the Office of Admissions, the Office of the Registrar, and the KOKUA Program (Disability Access Services).",
+		"number": "",
+		"website": ""
+	},
+	"154": {
+		"name": "QLC 1F",
+		"address": "",
+		"lat": 21.3005660,
+		"lng": -157.8185960,
+		"description": "On the first floor of the QLC you can find Financial Aid Services. Room 112, (808) 956-7251, finaid@hawaii.edu. http://www.hawaii.edu/fas/",
+		"number": "",
+		"website": ""
+	},
+	"155": {
+		"name": "QLC 2F",
+		"address": "",
+		"lat": 21.3005560,
+		"lng": -157.8182350,
+		"description": "On the second floor of QLC you can find the Office of Judicial Affairs, Bridge to Hope, Women's Center, Student Parents at Manoa (SPAM), LGBTI Student Services, Osher Reentry Scholarships, Manoa Career Center, and the Online Learning Academy.",
+		"number": "",
+		"website": ""
+	},
+	"156": {
+		"name": "QLC 3F",
+		"address": "",
+		"lat": 21.3003270,
+		"lng": -157.8182700,
+		"description": "On the third floor of QLC you can find the College Opportunities Program, the Office of Multicultural Student Services, GEAR UP Manoa, the Office of Veteran Support Services (OVSS), and the Counseling & Student Development Center.",
+		"number": "",
+		"website": ""
+	},
+	"157": {
+		"name": "QLC 4F",
+		"address": "",
+		"lat": 21.3004080,
+		"lng": -157.8183940,
+		"description": "On the 4th floor of QLC you can find Kua'ana - Native Hawaiian Student Development Services, Nā Pua No'eau - Center for Gifted and Talented Native Hawaiian Children, the Children's Center, SEED (Student Equity, Excellence, and Diversity), Graduate Professional Access, Health Careers Opportunity Program, Senior Citizen Visitor Program - Na Kapuna, and SEED Initiative for Diversity, Equity, Access and Success (IDEAS).",
+		"number": "",
+		"website": ""
+	},
+	"158": {
+		"name": "Japanese Garden",
+		"address": "1601 East-West Rd., Honolulu, HI, 96848",
+		"lat": 21.2992580,
+		"lng": -157.8137260,
+		"description": "",
+		"number": "(808) 944-7111",
+		"website": ""
+	},
+	"159": {
+		"name": "Thai Pavillion",
+		"address": "1601 East-West Rd., Honolulu, HI, 96848",
+		"lat": 21.3000750,
+		"lng": -157.8142090,
+		"description": "",
+		"number": "(808) 944-7111",
+		"website": ""
+	},
+	"160": {
+		"name": "Kanewai Cultural Garden",
+		"address": "3190 Maile Way #101, Honolulu, HI, 96822",
+		"lat": 21.2956320,
+		"lng": -157.8126210,
+		"description": "",
+		"number": "(808) 956-8369",
+		"website": ""
+	},
+	"161": {
+		"name": "Hemenway Hall",
+		"address": "2445 Campus Road, Honolulu, HI, 96822",
+		"lat": 21.2988080,
+		"lng": -157.8195920,
+		"description": "Hemenway Hall is home to the Dental Hygiene (B.S.) program. Room 200-B.",
+		"number": "(808) 956-8821",
+		"website": "www.nursing.hawaii.edu/dentalhygiene"
+	}
+}

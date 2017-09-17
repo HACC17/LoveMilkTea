@@ -7,9 +7,6 @@
         "files": {}
     },
     "installed_plugins": {
-        "cordova-plugin-console": {
-            "PACKAGE_NAME": "io.ionic.starter"
-        },
         "cordova-plugin-device": {
             "PACKAGE_NAME": "io.ionic.starter"
         },
