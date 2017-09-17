@@ -438,6 +438,9 @@ export class MapPage {
                     this.endValue = latLng;
                     this.marker.setPosition({lat: data.lat, lng: data.lng});
                     this.infoWindow.open(this.map, this.marker);
+                    document.getElementById("infoIcon").addEventListener("click", ()=>{
+                        this.navCtrl.push("PointsPage", data);
+                    });
                     this.isInfoWindowOpen = true;
 
                 }));
