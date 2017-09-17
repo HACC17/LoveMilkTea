@@ -63,7 +63,7 @@ export class MapPage {
         if (!firebase.apps.length) {
             this.App = firebase.initializeApp(FIREBASE_CONFIG);
         } else {
-            console.log(firebase);
+            //console.log(firebase);
             this.App = firebase.app();
         }
         this.db = this.App.database();
@@ -80,7 +80,6 @@ export class MapPage {
         this.isSearching = true;
         let fuse = new Fuse(this.searchList, this.fuseOptions)
 
-        console.log(input);
         if (input === '') {
             this.searchList = this.geoMarkers;
         } else {
@@ -133,7 +132,7 @@ export class MapPage {
                     this.createExpRoute();
                 }
                 else if (!this.exploreIndex && this.exploreIndex2) {
-                    this.addMarker(this.exploreIndex2);
+                    this.addExpMarker(this.exploreIndex2);
                 }
 
                 this.searchList = this.geoMarkers.slice();
@@ -183,6 +182,37 @@ export class MapPage {
         }));
     }
 
+    addExpMarker(index) {
+        if (this.marker) {
+            this.clearStarterMarker();
+        }
+
+        const geoData = this.geoMarkers.slice();
+        const location = geoData[index];
+
+        this.endValue = {lat: location.lat, lng: location.lng};
+
+        this.marker = new google.maps.Marker({
+            position: this.endValue,
+            title: 'University of Hawaii at Manoa',
+            map: this.map,
+            icon: this.icons[location.type],
+        });
+
+        let info = this.getInfoWindowData(location);
+        this.infoWindow = new google.maps.InfoWindow({
+            content: info,
+        });
+
+        this.infoWindow.open(this.map, this.marker);
+        this.isInfoWindowOpen = true;
+
+        google.maps.event.addListener(this.infoWindow, 'closeclick', (() => {
+            this.isInfoWindowOpen = false;
+            this.clearStarterMarker();
+        }));
+    }
+
     clearStarterMarker() {
         this.marker.setMap(null);
     }
@@ -197,6 +227,13 @@ export class MapPage {
         this.createRoute();
     }
 
+    clearRoute() {
+        if (this.directionsDisplay != null) {
+            this.directionsDisplay.setMap(null);
+            this.directionsDisplay = null;
+        }
+    }
+
     createRoute() {
         this.clearRoute();
 
@@ -209,13 +246,6 @@ export class MapPage {
             if (this.changeIcon === true) {
                 this.changeAllMarkers();
             }
-        }
-    }
-
-    clearRoute() {
-        if (this.directionsDisplay != null) {
-            this.directionsDisplay.setMap(null);
-            this.directionsDisplay = null;
         }
     }
 
@@ -242,6 +272,8 @@ export class MapPage {
             this.clearStarterMarker();
         }
         this.clearRoute();
+        this.inRoute = true;
+        this.isInfoWindowOpen = true;
 
         this.directionsService = new google.maps.DirectionsService;
         this.directionsDisplay = new google.maps.DirectionsRenderer;
@@ -273,6 +305,7 @@ export class MapPage {
             if (this.marker) {
                 this.clearStarterMarker();
             }
+            this.clearAllMarkers();
             this.inRoute = true;
             this.searchingStart = true;
         }
@@ -315,7 +348,6 @@ export class MapPage {
     }
 
     directFromLocation(location) {
-        console.log(location);
         this.searchingStart = false;
 
         this.directionsService = new google.maps.DirectionsService;
@@ -372,12 +404,11 @@ export class MapPage {
 
     doFilter() {
         this.filterSelect.open();
-        console.log("test");
     }
 
     filterMarker(category) {
         let criteria = category.charAt(0).toLowerCase() + category.slice(1);
-        console.log(criteria);
+        //console.log(criteria);
         // For "dual-layered" filtering clean out the "changeAllMarkers call"
         this.clearAllMarkers();
         this.changeIcon = true;
@@ -391,21 +422,27 @@ export class MapPage {
             if (data.type === criteria) {
 
                 // Creating a marker and putting it on the map
-                let marker = new google.maps.Marker({
+                this.marker = new google.maps.Marker({
                     position: latLng,
                     map: this.map,
                     icon: this.icons[data.type],
-
                 });
 
                 // Push into a Markers array
-                stash.push(marker);
+                stash.push(this.marker);
 
                 let info = this.getInfoWindowData(data);
 
-                google.maps.event.addListener(marker, 'click', (() => {
+                google.maps.event.addListener(this.marker, 'click', (() => {
                     this.infoWindow.setContent(info);
-                    this.infoWindow.open(this.map, marker);
+                    this.endValue = latLng;
+                    this.marker.setPosition({lat: data.lat, lng: data.lng});
+                    this.infoWindow.open(this.map, this.marker);
+                    this.isInfoWindowOpen = true;
+                }));
+
+                google.maps.event.addListener(this.infoWindow, 'closeclick', (() => {
+                    this.isInfoWindowOpen = false;
                 }));
             } else {
                 console.log("Category: " + criteria + " does not exist!");
@@ -427,8 +464,6 @@ export class MapPage {
                 }
                 stash.length = 0;
                 this.changeIcon = false;
-                console.log('this is change all markers')
-                console.log(stash)
             } else {
                 console.log('Stash array does not exist!');
             }
@@ -445,8 +480,6 @@ export class MapPage {
             }
             stash.length = 0;
             this.changeIcon = false;
-            console.log('this is clear all markers');
-            console.log(stash);
         } else {
             console.log('Stash array does not exist!');
         }
@@ -479,10 +512,7 @@ export class MapPage {
 
     placeAllMarkers() {
 
-        if (this.exploreIndex && this.currentLat && this.currentLng) {
-            this.createExpRoute();
-        }
-
+        this.clearAllMarkers();
         this.infoWindow = new google.maps.InfoWindow();
 
         for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
@@ -490,43 +520,64 @@ export class MapPage {
                 latLng = new google.maps.LatLng(data.lat, data.lng);
 
             // Creating a marker and putting it on the map
-            let marker = new google.maps.Marker({
+            this.marker = new google.maps.Marker({
                 position: latLng,
                 map: this.map,
                 icon: this.icons[data.type],
             });
 
-            stash.push(marker);
+            stash.push(this.marker);
+            let info = this.getInfoWindowData(data);
 
-            google.maps.event.addListener(marker, 'click', (() => {
-                let info = this.getInfoWindowData(data);
+            google.maps.event.addListener(this.marker, 'click', (() => {
                 this.infoWindow.setContent(info);
+
                 this.infoWindow.open(this.map, marker);
                 document.getElementById("infoIcon").addEventListener("click", ()=>{
                     this.navCtrl.push(PointsPage, data);
                 });
             }))
+                this.endValue = latLng;
+                this.marker.setPosition({lat: data.lat, lng: data.lng});
+                this.infoWindow.open(this.map, this.marker);
+                this.isInfoWindowOpen = true;
+            }));
+
+            google.maps.event.addListener(this.infoWindow, 'closeclick', (() => {
+                this.isInfoWindowOpen = false;
+            }));
+
             this.changeIcon = true;
+            this.map.setCenter({lat: 21.2969, lng: -157.8171});
+            this.map.setZoom(15);
         }
     }
 
 
     getLatLng() {
-        this.loader = this.loading.create({
-            content: "Getting Coordinates..."
-        })
-        if (navigator.geolocation) {
-            this.loader.present().then(() => {
-                navigator.geolocation.getCurrentPosition((position) => {
-                    this.currentLat = position.coords.latitude;
-                    this.currentLng = position.coords.longitude;
-                    this.latLng = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    };
-                    this.loader.dismiss();
+        if(this.currentLat && this.currentLng && !this.latLng) {
+            this.latLng = {
+                lat: this.currentLat,
+                lng: this.currentLng
+            };
+        }
+        else if(!this.latLng) {
+            this.loader = this.loading.create({
+                content: "Getting Coordinates..."
+            })
+            if (navigator.geolocation) {
+                this.loader.present().then(() => {
+                    navigator.geolocation.getCurrentPosition((position) => {
+                        this.currentLat = position.coords.latitude;
+                        this.currentLng = position.coords.longitude;
+                        this.latLng = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+                        this.loader.dismiss();
+                    });
                 });
-            });
+            }
         }
     }
 
@@ -651,6 +702,53 @@ export class MapPage {
                         }
                     ]
                 },
+                // remove next five if we want labels back
+                {
+                    "featureType": "poi",
+                    "elementType": "labels",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi",
+                    "elementType": "labels.text",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi",
+                    "elementType": "labels.text.fill",
+                    "stylers": [
+                        {
+                            "visibility": "simplified"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi",
+                    "elementType": "labels.text.stroke",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi",
+                    "elementType": "labels.icon",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+
                 {
                     "featureType": "road",
                     "elementType": "geometry",
@@ -807,12 +905,15 @@ export class MapPage {
             ]
         });
 
-        this.panorama = this.map.getStreetView();
-        // this.panorama.setPosition({lat: 21.298393, lng: -157.818918});
-        this.panorama.enableCloseButton = false;
-        this.panorama.addressControl = false;
-        this.panorama.zoomControl = false;
-        this.panorama.panControl = false;
+        this.panorama = new google.maps.StreetViewPanorama(
+            document.getElementById('map'), {
+                addressControl: false,
+                panControl: false,
+                enableCloseButton: false,
+                zoomControl: false
+            });
+        this.panorama.setVisible(false);
+        this.map.setStreetView(this.panorama);
 
         //set up a default marker.
         this.userMarker = new google.maps.Marker({
