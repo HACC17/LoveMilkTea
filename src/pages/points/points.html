@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{name}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-img class="pointImage" src={{image}}></ion-img>
+  <div>
+    <br>
+    <h2 *ngIf="name != 'n/a'">{{name}}</h2>
+    <div *ngIf="address != 'n/a'">{{address}}</div>
+    <div *ngIf="number != 'n/a'"> {{number}}</div>
+    <hr>
+    <div *ngIf="description != 'n/a'"> {{description}}
+    <hr></div>
+    <br>
+
+  </div>
+  <button ion-button (click)="showComments()">Comments</button>
+  <button ion-button (click)="showAddButton()">Add a Comment</button>
+  <div *ngIf="showAdd">
+    <form #formData='ngForm' (ngSubmit)="addComments(formData)">
+      <br><br>
+      <ion-label color="primary">Add a new comment</ion-label>
+      <ion-item>
+        <ion-input type="text" placeholder="Enter a comment" [(ngModel)]="messages" name="messages"></ion-input>
+      </ion-item>
+      <button ion-button type="submit" block>Submit</button>
+    </form>
+  </div>
+  <div *ngIf="showing">
+    <div *ngIf="comments">
+      <ion-card *ngFor="let comment of comments">
+        <ion-item>
+          <ion-icon name="person">UserName</ion-icon>
+        </ion-item>
+        <div class="font">{{comment.dateTime}}</div>
+        <ion-card-content> {{ comment.messages }}</ion-card-content>
+      </ion-card>
+    </div>
+    <div *ngIf="!comments">
+      <h3>Currently no comments...</h3>
+    </div>
+  </div>
+</ion-content>
