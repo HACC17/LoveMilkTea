@@ -584,6 +584,32 @@ export class MapPage {
         }
     }
 
+    //Use HTML5 Geolocation to track lat/lng
+    trackLocation() {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var newPoint = new google.maps.LatLng(position.coords.latitude,
+                position.coords.longitude);
+
+            if (this.userMarker) {
+
+                this.userMarker.setPosition(newPoint);
+            }
+            else {
+                // Marker does not exist - Create it
+                this.userMarker = new google.maps.Marker({
+                    position: newPoint,
+                    map: this.map
+                });
+            }
+
+            // Center the map on the new position
+            this.map.setCenter(newPoint);
+        });
+
+        // Call the autoUpdate() function every 5 seconds
+        setTimeout(this.trackLocation(), 5000);
+    }
+
     loadMap() {
         this.map = new google.maps.Map(this.mapElement.nativeElement, {
 
