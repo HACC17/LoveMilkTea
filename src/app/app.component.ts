@@ -17,7 +17,7 @@ export class MyApp {
 
     @ViewChild(Nav) nav: Nav;
 
-    rootPage: any = 'HomePage';
+    rootPage: any;
 
     pages: Array<{title: string, icon: string, component: any}>;
 
@@ -27,6 +27,7 @@ export class MyApp {
         // used for an example of ngFor and navigation
         this.pages = [
             {
+<<<<<<< HEAD
                 title: 'Home',
                 icon: 'home',
                 component: HomePage
@@ -36,6 +37,8 @@ export class MyApp {
                 icon: 'person',
                 component: LoginPage},
             {
+=======
+>>>>>>> master
                 title: 'Map',
                 icon: 'map',
                 component: MapPage
@@ -46,9 +49,14 @@ export class MyApp {
                 component: ExplorePage
             },
             {
-                title: 'Submit Point of Interest',
+                title: 'Submit',
                 icon: 'send',
                 component: SubmitDataLandingPage
+            },
+            {
+                title: 'Admin',
+                icon: 'person',
+                component: LoginPage
             }
         ];
 
@@ -56,8 +64,8 @@ export class MyApp {
 
     initializeApp() {
         this.platform.ready().then(() => {
-            // Okay, so the platform is ready and our plugins are available.
-            // Here you can do any higher level native things you might need.
+            this.rootPage = MapPage;
+
             this.statusBar.styleDefault();
             this.splashScreen.hide();
         });
