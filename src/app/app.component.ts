@@ -17,28 +17,43 @@ export class MyApp {
 
     @ViewChild(Nav) nav: Nav;
 
-    rootPage: any = 'HomePage';
+    rootPage: any;
 
-    pages: Array<{title: string, component: any}>;
+    pages: Array<{title: string, icon: string, component: any}>;
 
     constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
         this.initializeApp();
 
         // used for an example of ngFor and navigation
         this.pages = [
-            {title: 'Home', component: HomePage},
-            {title: 'Admin', component: LoginPage},
-            {title: 'Map', component: MapPage },
-            {title: 'Explore', component: ExplorePage },
-            {title: 'Submit Point of Interest', component: SubmitDataLandingPage},
+            {
+                title: 'Map',
+                icon: 'map',
+                component: MapPage
+            },
+            {
+                title: 'Explore',
+                icon: 'search',
+                component: ExplorePage
+            },
+            {
+                title: 'Submit',
+                icon: 'send',
+                component: SubmitDataLandingPage
+            },
+            {
+                title: 'Admin',
+                icon: 'person',
+                component: LoginPage
+            }
         ];
 
     }
 
     initializeApp() {
         this.platform.ready().then(() => {
-            // Okay, so the platform is ready and our plugins are available.
-            // Here you can do any higher level native things you might need.
+            this.rootPage = MapPage;
+
             this.statusBar.styleDefault();
             this.splashScreen.hide();
         });

@@ -1,8 +1,10 @@
 import {Component, Injectable} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {IonicPage, NavController, NavParams, LoadingController} from 'ionic-angular';
 import {MapPage} from "../map/map";
 import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
+
+declare var google;
 
 @IonicPage()
 @Component({
@@ -13,33 +15,32 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class ExplorePage {
 
-    currentLocation: string;
     currentLat: any;
     currentLng: any;
-    url: string;
     dist: Array<any> = [];
     dur: Array<any> = [];
+    loader: any;
 
-    public expLocations: string =
-        "21.2989380,-157.8185730" + // Warrior Rec Center
-        "|21.2984350,-157.8188780" + // Campus Center
-        "|21.3004500,-157.8161520" + // Hamilton Library
-        "|21.2943550,-157.8186020" + // Stan Sheriff Center
-        "|21.2993160,-157.8150410" + // Kennedy Theatre
-        "|21.3008300,-157.8156720" + // Paradise Palms Cafe
-        "|21.3001970,-157.8183760" + // QLC
-        "|21.2984860,-157.8201670" + // Sinclair Library
-        "|21.2983360,-157.8152250"   // University Health Services
-        ;
+    service = new google.maps.DistanceMatrixService();
+    current: any;
+    wrc = new google.maps.LatLng(21.2989380, -157.8185730);
+    cc = new google.maps.LatLng(21.2984350, -157.8188780);
+    hamilton = new google.maps.LatLng(21.3004500, -157.8161520);
+    stanSheriff = new google.maps.LatLng(21.2943550, -157.8186020);
+    kennedy = new google.maps.LatLng(21.2993160, -157.8150410);
+    paradisePalms = new google.maps.LatLng(21.3008300, -157.8156720);
+    qlc = new google.maps.LatLng(21.3001970, -157.8183760);
+    sinclair = new google.maps.LatLng(21.2984860, -157.8201670);
+    uhs = new google.maps.LatLng(21.2983360, -157.8152250);
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http, public loading: LoadingController) {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
                 this.currentLat = position.coords.latitude;
                 this.currentLng = position.coords.longitude;
-                this.currentLocation = this.currentLat + "," + this.currentLng;
-                this.findDistanceAndDuration();
+                this.current = new google.maps.LatLng(this.currentLat, this.currentLng);
             })
+            this.showLoading();
         }
         else {
             console.log("Location blocked");
@@ -66,7 +67,7 @@ export class ExplorePage {
 
     // will check if app has access to user current location to calculate distance from point of interest
     hasCurrLocation() {
-        if (this.currentLocation) {
+        if (this.current) {
             return true;
         }
         else {
@@ -74,14 +75,27 @@ export class ExplorePage {
         }
     }
 
-    //must add 'Allow-Control-Allow-Origin: *' Chrome plugin to local browser
     findDistanceAndDuration() {
-        this.url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${this.currentLocation}&destinations=${this.expLocations}&mode=walking&units=imperial&key=AIzaSyCeP_xxvneWjyU_0EIg5slVUl3I6TtH4oA`;
-
-        this.http.request(this.url)
-            .map(res => res.json()).subscribe(data => {
-            this.loadDistanceAndDuration(data);
-        });
+        setTimeout(() => {
+            this.service.getDistanceMatrix({
+                    origins: [this.current],
+                    destinations: [this.wrc, this.cc, this.hamilton, this.stanSheriff, this.kennedy, this.paradisePalms, this.qlc, this.sinclair, this.uhs],
+                    travelMode: google.maps.TravelMode.WALKING,
+                    unitSystem: google.maps.UnitSystem.IMPERIAL,
+                    durationInTraffic: false,
+                    avoidHighways: false,
+                    avoidTolls: false
+                },
+                (response, status) => {
+                    if (status !== google.maps.DistanceMatrixStatus.OK) {
+                        console.log('Error:', status);
+                    } else {
+                        console.log(response);
+                        this.loadDistanceAndDuration(response);
+                    }
+                });
+            this.hideLoading();
+        }, 5000);
     }
 
     loadDistanceAndDuration(data) {
@@ -91,4 +105,17 @@ export class ExplorePage {
             this.dur.push(data.rows[0].elements[i].duration.text);
         }
     }
+
+    private showLoading() {
+        this.loader = this.loading.create({
+            content: "Calculating..."
+        });
+        this.loader.present();
+        this.findDistanceAndDuration();
+    }
+
+    private hideLoading(){
+        this.loader.dismiss();
+    }
+
 }

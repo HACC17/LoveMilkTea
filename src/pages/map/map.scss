@@ -1,24 +1,33 @@
 page-map {
 
   #float-button-left-bottom {
-    margin-bottom: 10px;
+    margin-bottom: 25px;
     position: absolute;
     left: 0;
     bottom: 0;
     z-index :5;
   }
 
-  #float-button-left-top {
-    margin-top: 7px;
-    margin-left: 5px;
+  #float-button-right-bottom {
+    margin-bottom: 20px;
+    margin-right: 50px;
     position: absolute;
-    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index :5;
+  }
+
+  #float-button-left-top {
+    margin-top: 16px;
+    margin-left: 7px;
+    position: absolute;
+    // left: 0;
     z-index :5;
   }
 
   #float-button-right-top {
-    margin-top: 15px;
-    margin-right: 7px;
+    margin-top: 20px;
+    margin-right: 1px;
     position: absolute;
     right: 0;
     z-index :5;
@@ -27,6 +36,53 @@ page-map {
   #menu-icon {
     font-size: 30px;
   }
+
+  #search-button {
+      height: 1.2em;
+      font-size: 24px;
+    }
+
+  .searchbar-ios {
+    background: none;
+    padding-top: 15px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .searchbar-ios .searchbar-input {
+    border-radius: 0px;
+    height: 4rem;
+    box-shadow: 0px 5px 10px 5px rgba(1,1,1,0.2);
+  }
+
+  .searchbar-ios .searchbar-search-icon {
+    top: 14px;
+  }
+
+  .search {
+    position: absolute;
+    top: 20px;
+    z-index :5;
+    width: 100%;
+  }
+
+  .search-item {
+    font-size: 13.5px;
+    height: 20px;
+    background-color: rgba(255,255,255,0.85);
+  }
+
+  .searchbar-ios-cancel {
+    color: black;
+  }
+
+  .current-location {
+      font-size: 13.5px;
+      color: blue;
+      height: 20px;
+      background-color: rgba(255,255,255,0.85);
+    }
 
   #float-button-location {
     margin-top: 7px;
@@ -46,6 +102,13 @@ page-map {
     width: 60%;
   }
 
+  .scrollable {
+    height: 55vh;
+    margin: 5px 12px 0px 12px;
+    box-shadow: 0px 5px 10px 5px rgba(1,1,1,0.2);
+  }
+
+
   #windowHead {
     color: black;
     font-weight: bold;
@@ -64,4 +127,23 @@ page-map {
     width: 100%;
     height: 50%;
   }
+
+  .tagButton {
+    width: 25%;
+    background-color: white;
+    color: black;
+    border: 2px solid #4CAF50;
+  }
+
+  ion-select {
+    position: absolute;
+    .select-icon, .select-text {
+      display: none !important;  /* hidden triangle icon and selected text */
+     }
+  }
+
+  .scroll-content {
+    overflow-y: hidden;
+  }
+
 }
