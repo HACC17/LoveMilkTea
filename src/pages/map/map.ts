@@ -62,7 +62,7 @@ export class MapPage {
         if (!firebase.apps.length) {
             this.App = firebase.initializeApp(FIREBASE_CONFIG);
         } else {
-            console.log(firebase);
+            //console.log(firebase);
             this.App = firebase.app();
         }
         this.db = this.App.database();
@@ -79,7 +79,6 @@ export class MapPage {
         this.isSearching = true;
         let fuse = new Fuse(this.searchList, this.fuseOptions)
 
-        console.log(input);
         if (input === '') {
             this.searchList = this.geoMarkers;
         } else {
@@ -132,7 +131,7 @@ export class MapPage {
                     this.createExpRoute();
                 }
                 else if (!this.exploreIndex && this.exploreIndex2) {
-                    this.addMarker(this.exploreIndex2);
+                    this.addExpMarker(this.exploreIndex2);
                 }
 
                 this.searchList = this.geoMarkers.slice();
@@ -167,6 +166,37 @@ export class MapPage {
             icon: this.icons[location.type],
         });
 
+
+        let info = this.getInfoWindowData(location);
+        this.infoWindow = new google.maps.InfoWindow({
+            content: info,
+        });
+
+        this.infoWindow.open(this.map, this.marker);
+        this.isInfoWindowOpen = true;
+
+        google.maps.event.addListener(this.infoWindow, 'closeclick', (() => {
+            this.isInfoWindowOpen = false;
+            this.clearStarterMarker();
+        }));
+    }
+
+    addExpMarker(index) {
+        if (this.marker) {
+            this.clearStarterMarker();
+        }
+
+        const geoData = this.geoMarkers.slice();
+        const location = geoData[index];
+
+        this.endValue = {lat: location.lat, lng: location.lng};
+
+        this.marker = new google.maps.Marker({
+            position: this.endValue,
+            title: 'University of Hawaii at Manoa',
+            map: this.map,
+            icon: this.icons[location.type],
+        });
 
         let info = this.getInfoWindowData(location);
         this.infoWindow = new google.maps.InfoWindow({
@@ -274,7 +304,7 @@ export class MapPage {
             if (this.marker) {
                 this.clearStarterMarker();
             }
-            this.changeAllMarkers();
+            this.clearAllMarkers();
             this.inRoute = true;
             this.searchingStart = true;
         }
@@ -317,7 +347,6 @@ export class MapPage {
     }
 
     directFromLocation(location) {
-        console.log(location);
         this.searchingStart = false;
 
         this.directionsService = new google.maps.DirectionsService;
@@ -378,7 +407,7 @@ export class MapPage {
 
     filterMarker(category) {
         let criteria = category.charAt(0).toLowerCase() + category.slice(1);
-        console.log(criteria);
+        //console.log(criteria);
         // For "dual-layered" filtering clean out the "changeAllMarkers call"
         this.clearAllMarkers();
         this.changeIcon = true;
@@ -434,8 +463,6 @@ export class MapPage {
                 }
                 stash.length = 0;
                 this.changeIcon = false;
-                console.log('this is change all markers')
-                console.log(stash)
             } else {
                 console.log('Stash array does not exist!');
             }
@@ -452,8 +479,6 @@ export class MapPage {
             }
             stash.length = 0;
             this.changeIcon = false;
-            console.log('this is clear all markers');
-            console.log(stash);
         } else {
             console.log('Stash array does not exist!');
         }
@@ -522,7 +547,13 @@ export class MapPage {
     }
 
     getLatLng() {
-        if(!this.currentLat && !this.latLng) {
+        if(this.currentLat && this.currentLng && !this.latLng) {
+            this.latLng = {
+                lat: this.currentLat,
+                lng: this.currentLng
+            };
+        }
+        else if(!this.latLng) {
             this.loader = this.loading.create({
                 content: "Getting Coordinates..."
             })

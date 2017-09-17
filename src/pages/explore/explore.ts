@@ -47,10 +47,6 @@ export class ExplorePage {
         }
     }
 
-    ionViewDidLoad() {
-        console.log('ionViewDidLoad ExplorePage');
-    }
-
     mapTo(value) {
         this.navCtrl.push(MapPage, {
             locationIndex: value.toString(),
@@ -61,7 +57,9 @@ export class ExplorePage {
 
     showLocation(value) {
         this.navCtrl.push(MapPage, {
-            locationIndex2: value.toString()
+            locationIndex2: value,
+            currentLat: this.currentLat,
+            currentLng: this.currentLng
         });
     }
 
