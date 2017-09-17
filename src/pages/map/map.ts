@@ -196,6 +196,13 @@ export class MapPage {
         this.createRoute();
     }
 
+    clearRoute() {
+        if (this.directionsDisplay != null) {
+            this.directionsDisplay.setMap(null);
+            this.directionsDisplay = null;
+        }
+    }
+
     createRoute() {
         this.clearRoute();
 
@@ -208,13 +215,6 @@ export class MapPage {
             if (this.changeIcon === true) {
                 this.changeAllMarkers();
             }
-        }
-    }
-
-    clearRoute() {
-        if (this.directionsDisplay != null) {
-            this.directionsDisplay.setMap(null);
-            this.directionsDisplay = null;
         }
     }
 
@@ -241,7 +241,9 @@ export class MapPage {
             this.clearStarterMarker();
         }
         this.clearRoute();
-
+        this.inRoute = true;
+        this.isInfoWindowOpen = true;
+        
         this.directionsService = new google.maps.DirectionsService;
         this.directionsDisplay = new google.maps.DirectionsRenderer;
 
@@ -659,6 +661,53 @@ export class MapPage {
                         }
                     ]
                 },
+                // remove next five if we want labels back
+                {
+                    "featureType": "poi",
+                    "elementType": "labels",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi",
+                    "elementType": "labels.text",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi",
+                    "elementType": "labels.text.fill",
+                    "stylers": [
+                        {
+                            "visibility": "simplified"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi",
+                    "elementType": "labels.text.stroke",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi",
+                    "elementType": "labels.icon",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+
                 {
                     "featureType": "road",
                     "elementType": "geometry",

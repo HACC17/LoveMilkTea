@@ -90,7 +90,6 @@ export class ExplorePage {
                     if (status !== google.maps.DistanceMatrixStatus.OK) {
                         console.log('Error:', status);
                     } else {
-                        console.log(response);
                         this.loadDistanceAndDuration(response);
                     }
                 });
