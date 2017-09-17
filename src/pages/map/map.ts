@@ -6,7 +6,7 @@ import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {isNullOrUndefined} from "util";
 import * as Fuse from 'fuse.js';
-import {PointsPage} from '../points/points';
+//import {PointsPage} from '../points/points';
 
 
 declare var google;
@@ -439,6 +439,7 @@ export class MapPage {
                     this.marker.setPosition({lat: data.lat, lng: data.lng});
                     this.infoWindow.open(this.map, this.marker);
                     this.isInfoWindowOpen = true;
+
                 }));
 
                 google.maps.event.addListener(this.infoWindow, 'closeclick', (() => {
@@ -531,17 +532,15 @@ export class MapPage {
 
             google.maps.event.addListener(this.marker, 'click', (() => {
                 this.infoWindow.setContent(info);
-
-                this.infoWindow.open(this.map, marker);
+                this.infoWindow.open(this.map, this.marker);
                 document.getElementById("infoIcon").addEventListener("click", ()=>{
-                    this.navCtrl.push(PointsPage, data);
+                    this.navCtrl.push("PointsPage", data);
                 });
             }))
                 this.endValue = latLng;
                 this.marker.setPosition({lat: data.lat, lng: data.lng});
                 this.infoWindow.open(this.map, this.marker);
                 this.isInfoWindowOpen = true;
-            }));
 
             google.maps.event.addListener(this.infoWindow, 'closeclick', (() => {
                 this.isInfoWindowOpen = false;
