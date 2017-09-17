@@ -6,6 +6,7 @@ import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {isNullOrUndefined} from "util";
 import * as Fuse from 'fuse.js';
+import {PointsPage} from '../points/points';
 
 
 declare var google;
@@ -123,7 +124,6 @@ export class MapPage {
                         number: dataPoint.val().number,
                         website: dataPoint.val().website,
                         type: dataPoint.val().type,
-                        comments: dataPoint.val().comments,
                     });
                 });
             })
@@ -471,7 +471,7 @@ export class MapPage {
         if (location.number) {
             infoContent += '<div id="phoneTitle">Phone: ' + location.number + '</div>';
         }
-
+        infoContent += '<i id="infoIcon">' + '&#9432;' + '</i>';
         infoContent += '</div>';
 
         return infoContent;
@@ -502,12 +502,14 @@ export class MapPage {
                 let info = this.getInfoWindowData(data);
                 this.infoWindow.setContent(info);
                 this.infoWindow.open(this.map, marker);
-                this.navCtrl.push('PointsPage', data);
-
+                document.getElementById("infoIcon").addEventListener("click", ()=>{
+                    this.navCtrl.push(PointsPage, data);
+                });
             }))
             this.changeIcon = true;
         }
     }
+
 
     getLatLng() {
         this.loader = this.loading.create({

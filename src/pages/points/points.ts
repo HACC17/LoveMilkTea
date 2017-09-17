@@ -20,10 +20,9 @@ export class PointsPage {
     address: any;
     number: any;
     description: any;
-    allComments: any;
     showing: any;
     key: any;
-    comments: any;
+    public comments: any[];
     image: any;
     date: any;
     showAdd: any;
@@ -35,18 +34,15 @@ export class PointsPage {
             this.App = firebase.app();
         }
         this.db = this.App.database();
-        this.ref = this.db.ref("testPoints");
-
+        this.ref = this.db.ref("/testPoints/");
         this.name = this.navParams.get('name');
         this.address = this.navParams.get('address');
         this.number = this.navParams.get('number');
         this.description = this.navParams.get('description');
-        this.allComments = this.navParams.get('comments');
         this.showing = false;
-        this.key = this.navParams.get('key');
+        this.key = String(this.navParams.get('key'));
         this.image = "http://manoanow.org/app/map/images/" + this.key + ".png";
         this.date = new Date();
-        console.log(this.date);
         this.showAdd = false;
     }
 
@@ -58,10 +54,13 @@ export class PointsPage {
             this.showing = false;
         } else {
             this.showing = true;
-            this.comments = _.values(this.allComments);
-            this.comments = _.toArray(this.comments);
-            console.log(this.comments);
-            //this.comments = _.pluck(comments, 'messages');
+            var item = [];
+            this.ref.child(this.key).child("comments").once("value")
+                .then((dataPoints) => {
+                    item = dataPoints.val();
+                    console.log(item);
+                    this.comments = _.toArray(item);
+                });
         }
     }
 
@@ -71,7 +70,7 @@ export class PointsPage {
 
         let comments =  this.ref.child(this.key);
         comments.child('/comments').push(formData.value);
-        console.log(formData.value);
+
     }
     showAddButton(){
         if(this.showAdd) {
