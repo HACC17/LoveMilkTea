@@ -548,6 +548,8 @@ export class MapPage {
 
             google.maps.event.addListener(this.marker, 'click', (() => {
                 this.infoWindow.setContent(info);
+                this.marker.setPosition({lat: data.lat, lng: data.lng});
+                this.marker.setIcon(this.icons[data.type]);
                 this.infoWindow.open(this.map, this.marker);
                 document.getElementById("infoIcon").addEventListener("click", ()=>{
                     this.navCtrl.push("PointsPage", data);
@@ -557,6 +559,7 @@ export class MapPage {
             this.marker.setPosition({lat: data.lat, lng: data.lng});
             this.infoWindow.open(this.map, this.marker);
             this.isInfoWindowOpen = true;
+
 
             google.maps.event.addListener(this.infoWindow, 'closeclick', (() => {
                 this.isInfoWindowOpen = false;
