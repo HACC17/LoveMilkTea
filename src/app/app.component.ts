@@ -27,6 +27,16 @@ export class MyApp {
         // used for an example of ngFor and navigation
         this.pages = [
             {
+                title: 'Home',
+                icon: 'home',
+                component: HomePage
+            },
+            {
+                title: 'User',
+                icon: 'person',
+                component: LoginPage
+            },
+            {
                 title: 'Map',
                 icon: 'map',
                 component: MapPage
@@ -40,11 +50,6 @@ export class MyApp {
                 title: 'Submit',
                 icon: 'send',
                 component: SubmitDataLandingPage
-            },
-            {
-                title: 'Admin',
-                icon: 'person',
-                component: LoginPage
             }
         ];
 
@@ -53,7 +58,6 @@ export class MyApp {
     initializeApp() {
         this.platform.ready().then(() => {
             this.rootPage = MapPage;
-
             this.statusBar.styleDefault();
             this.splashScreen.hide();
         });

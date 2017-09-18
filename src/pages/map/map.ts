@@ -83,7 +83,6 @@ export class MapPage {
         if (input === '') {
             this.searchList = this.geoMarkers;
         } else {
-            //console.log(fuse.search(input));
             this.searchList = fuse.search(input);
         }
     }
@@ -100,17 +99,20 @@ export class MapPage {
     //Load up locationsList for populating selector menus. Called in loadTags();
     loadLocationsList() {
         for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
-            this.locationsList.push({value: i, text: this.geoMarkers[i].name});
+            this.locationsList.push({
+                value: i,
+                text: this.geoMarkers[i].name
+            });
         }
     }
 
-    //retrieves the tags from our firebase, populates them on map.
+    //Retrieves the tags from Firebase and populates them on map.
     loadTagData() {
         // this.clearAllMarkers();
-        //load the tag data into the geoMarkers variable
+        // Load the tag data into the geoMarkers variable
         this.geoMarkers = [];
         this.ref.once("value")
-            .then((dataPoints) => { //ARROW NOTATION IMPORTANT
+            .then((dataPoints) => { 
 
                 dataPoints.forEach((dataPoint) => {
                     this.geoMarkers.push({
@@ -350,6 +352,8 @@ export class MapPage {
                 window.alert('Directions request failed due to ' + status);
             }
         });
+        this.trackLocation();
+
     }
 
     directFromLocation(location) {
@@ -372,6 +376,9 @@ export class MapPage {
                 window.alert('Directions request failed due to ' + status);
             }
         });
+            this.trackLocation();
+
+
     }
 
     //Could be useful if needed.
@@ -460,8 +467,6 @@ export class MapPage {
 
         this.map.setCenter({lat: 21.2969, lng: -157.8171});
         this.map.setZoom(15);
-        // console.log('this is the stash')
-        // console.log(stash);
 
     }
 
@@ -597,6 +602,41 @@ export class MapPage {
             this.userMarker.setAnimation(google.maps.Animation.BOUNCE);
             this.map.setZoom(17);
         }
+    }
+
+    //Use HTML5 Geolocation to track lat/lng
+    trackLocation() {
+        var id = navigator.geolocation.watchPosition((position) => {
+                if (this.inRoute) {
+                    var newPoint = new google.maps.LatLng(position.coords.latitude,
+                        position.coords.longitude);
+
+
+                    if (this.userMarker) {
+
+                        this.userMarker.setPosition(newPoint);
+                        this.userMarker.setMap(this.map);
+                        this.map.setZoom(17);
+                    }
+                    else {
+
+
+                    }
+                    this.map.setZoom(17);
+                    this.map.setCenter(newPoint);
+                } else {
+                    navigator.geolocation.clearWatch(id);
+                    this.userMarker.setMap(null);
+                    console.log('no more tracking');
+                }
+            },
+            (error) => {
+                console.log(error);
+            }, {
+                timeout: 5000
+        });
+
+        //setTimeout(this.trackLocation(), 10000);
     }
 
     loadMap() {
