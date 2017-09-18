@@ -55,7 +55,7 @@
     "ionic": "3.10.3",
     "typescript": "2.3.4"
   },
-  "description": "An Ionic project",
+  "description": "HACC17/LoveMilkTea",
   "cordova": {
     "plugins": {
       "cordova-plugin-console": {},
@@ -113,7 +113,7 @@
       "ionic": "3.10.3",
       "typescript": "2.3.4"
     },
-    "description": "An Ionic project",
+    "description": "HACC17/LoveMilkTea",
     "cordova": {
         "plugins": {
             "cordova-plugin-console": {},
@@ -164,7 +164,7 @@
             "ionic": "3.10.3",
             "typescript": "2.3.4"
         },
-        "description": "An Ionic project",
+        "description": "HACC17/LoveMilkTea",
         "cordova": {
             "plugins": {
                 "cordova-plugin-device": {},
@@ -183,4 +183,5 @@
             "ios"
         ]
     }
+  }
 }

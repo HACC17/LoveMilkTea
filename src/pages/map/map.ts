@@ -9,8 +9,7 @@ import * as Fuse from 'fuse.js';
 import { Geolocation } from '@ionic-native/geolocation';
 
 declare var google;
-// Array to contain Markers on the map
-let stash = [];
+let stash = []; // Array to contain Markers on the map
 
 @Component({
     selector: 'page-map',
