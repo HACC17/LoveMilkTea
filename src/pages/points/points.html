@@ -38,7 +38,11 @@
             <ion-icon name="person"> Anonymous</ion-icon>
           </ion-item>
         </ion-card-header>
+
         <ion-card-content>
+          <div class="font">
+            {{ this.getDate(comment) }}
+          </div>
           {{ comment.messages }}
         </ion-card-content>
       </ion-card>
@@ -54,24 +58,10 @@
       <button ion-button type="submit" block>Submit</button>
     </form>
   </div>
-  <div *ngIf="showing">
-    <div *ngIf="comments">
-      <ion-card *ngFor="let comment of comments">
-        <ion-item>
-          <ion-icon name="person"></ion-icon>
-        </ion-item>
-        <div class="font">{{comment.dateTime}}</div>
-        <ion-card-content> {{ comment.messages }}</ion-card-content>
-      </ion-card>
-    </div>
-    <div *ngIf="!comments">
-      <h3>Currently no comments...</h3>
-    </div>
-  <br>
+
   <div style="display: flex;">
     <button style="margin: auto;" ion-button (click)="showAddButton()">
       Comment
     </button>
-  </div>
   </div>
 </ion-content>
