@@ -165,9 +165,12 @@ page-map {
 .gm-style-iw {
   .ui.grid {
     #infoIcon {
-      font-style: normal;
+      i {
+        font-style: normal;
+      }
       margin-top: 3%;
     }
+
     width: fluid;
   }
 }
