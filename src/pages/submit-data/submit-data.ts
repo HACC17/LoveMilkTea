@@ -6,6 +6,7 @@ import { FIREBASE_CONFIG } from "./../../app.firebase.config";
 import * as firebase from 'firebase';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Http } from '@angular/http';
+import { MapPage } from "../map/map";
 
 @Component({
     selector: 'submit-page',
@@ -58,7 +59,7 @@ export class SubmitDataPage {
             message: `Data submitted!`,
             duration: 3000
         }).present();
-        this.navCtrl.setRoot('HomePage');
+        this.navCtrl.setRoot(MapPage);
     }
 
     // Uses HTML5 navigator to get lat/long
