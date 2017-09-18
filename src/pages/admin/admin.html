@@ -1,21 +1,60 @@
-<!--
-  Generated template for the AdminPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar color="primary">
-    <ion-title>Admin</ion-title>
-    <button class="logout-btn" ion-button clear icon-only float-right (click)="logout()">
-      <ion-icon class="logout-icon" name="log-out"></ion-icon>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
     </button>
+    <ion-title>Admin Approval Page</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
-  This is the admin page.
+
+  <ion-item>
+    <ion-label>Filter Items</ion-label>
+    <ion-select [(ngModel)]="filter" multiple="false" #item (ionChange)="filterItems(item.value)" cancelText="Cancel" okText="Filter!">
+      <ion-option value="approved">Approved</ion-option>
+      <ion-option value="pending">Pending</ion-option>
+      <ion-option value="denied">Denied</ion-option>
+      <ion-option value="showAll">Show All</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-card *ngFor="let item of items">
+    <ion-item item-right>
+      <ion-icon name="aperture"></ion-icon>
+      {{item.status}}
+    </ion-item>
+    <ion-card-header>
+      {{item.pointName}}
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <h2>Submitter Information</h2>
+        <p>Name: {{item.firstName}} {{item.lastName}}</p>
+        <p>Email: {{item.email}}</p>
+        <br/>
+        <h2>Point of Interest Information</h2>
+        <p>Point Name: {{item.pointName}}</p>
+        <p>Latitude: {{item.latitude}}</p>
+        <p>Longitude: {{item.longitude}}</p>
+        <p>Type: {{item.type}}</p>
+        <p>Point Website: {{item.website}}</p>
+        <p>Point Phone: {{item.phone}}</p>
+        <p>Point Address: {{item.address}}</p>
+        <p>Description: {{item.description}}</p>
+        <br/>
+        <h2>Note to Admin</h2>
+        <p>{{item.note}}</p>
+      </ion-item>
+    </ion-card-content>
+    <button ion-button small (click)="approve(item)">Approve</button>
+    <button ion-button small color="blue"(click)="editData(item)">Edit</button>
+    <button ion-button small color="danger"(click)="deny(item)">Deny</button>
+    <button ion-button small color="danger" icon-start (click)="deleteItem(item)">
+      <ion-icon name='close'></ion-icon>
+      Remove
+    </button>
+  </ion-card>
+
 </ion-content>

@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Edit Data</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+<ion-list inset>
+  <form #formData='ngForm'(ngSubmit)="onSubmit(formData)">
+    <br/>
+    <ion-label>Point of Interest</ion-label>
+    <ion-item>
+      <ion-label color="primary" >Point of interest name</ion-label>
+      <ion-input type="text" placeholder="Enter name for point of interest" [(ngModel)]="pointName" name="pointName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" >Latitude</ion-label>
+      <ion-input type="text" placeholder="Enter latitude" [(ngModel)]="latitude" name="latitude"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" >Longitude</ion-label>
+      <ion-input type="text" placeholder="Enter longitude"[(ngModel)]="longitude" name="longitude"></ion-input>
+    </ion-item>
+    <ion-item>
+    <ion-label color="primary" >Address</ion-label>
+    <ion-input type="text" placeholder="Enter address"[(ngModel)]="address" name="address"></ion-input>
+  </ion-item>
+    <ion-item>
+      <ion-label color="primary" >Phone</ion-label>
+      <ion-input type="text" placeholder="Enter phone for point of interest"[(ngModel)]="phone" name="phone"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" >Website</ion-label>
+      <ion-input type="text" placeholder="Enter a website point of interest"[(ngModel)]="website" name="website"></ion-input>
+    </ion-item>
+
+      <ion-list>
+        <ion-label color="primary">Location Type</ion-label>
+        <ion-item>
+          <ion-select placeholder="Choose one"[(ngModel)]="type" name="type" cancelText="Nah" okText="Okay!">
+            <ion-option value="unknown" selected="true">Unknown</ion-option>
+            <ion-option value="classroom">Classroom</ion-option>
+            <ion-option value="service">Service</ion-option>
+            <ion-option value="restaurant">Restaurant</ion-option>
+            <ion-option value="bathroom">Bathroom</ion-option>
+            <ion-option value="vending machine">Vending Machine</ion-option>
+            <ion-option value="office">Office</ion-option>
+            <ion-option value="other">Other</ion-option>
+
+          </ion-select>
+        </ion-item>
+      </ion-list>
+
+    <ion-item>
+      <br/>
+      <ion-label color="primary" stacked >Description</ion-label>
+      <ion-input type="text" placeholder="Enter point of interest description" [(ngModel)]="description" name="description"></ion-input>
+    </ion-item>
+    <button ion-button type="submit" block>Edit</button>
+  </form>
+</ion-list>
+</ion-content>

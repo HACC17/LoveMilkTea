@@ -1,0 +1,118 @@
+page-explore {
+
+    ion-card {
+      position: relative;
+      text-align: center;
+    }
+
+    span {
+      font-size: 14px;
+    }
+
+    .description {
+      text-align: left;
+      font-size: 14px;
+    }
+
+    .card-title {
+      position: absolute;
+      top: 40%;
+      font-size: 2.0em;
+      width: 100%;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .card-title-2 {
+      position: absolute;
+      top: 37%;
+      font-size: 2.0em;
+      width: 100%;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .imgContainer {
+      width: 100%;
+      height: 200px;
+      position: relative;
+      color: white;
+    }
+
+    .dd {
+      margin-left: 20px;
+      font-weight: bold;
+    }
+
+    #wrc {
+      height: 100%;
+      position: relative;
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../../assets/images/wrc.jpg') no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+
+    #cc {
+      height: 100%;
+      position: relative;
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../../assets/images/campus-center.png') no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+
+    #hamilton {
+      height: 100%;
+      position: relative;
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../../assets/images/hamilton.jpg') no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+
+    #stan-sheriff {
+      height: 100%;
+      position: relative;
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../../assets/images/stan-sheriff.jpg') no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+
+    #kennedy-theatre {
+      height: 100%;
+      position: relative;
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../../assets/images/kennedy-theatre.jpg') no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+
+    #paradise-palms {
+      height: 100%;
+      position: relative;
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../../assets/images/paradise-palms.jpg') no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+
+    #qlc {
+      height: 100%;
+      position: relative;
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../../assets/images/qlc.jpg') no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+
+    #sinclair {
+      height: 100%;
+      position: relative;
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../../assets/images/sinclair.jpg') no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+
+    #uhs {
+      height: 100%;
+      position: relative;
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../../assets/images/uhs.jpg') no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+}

@@ -12,7 +12,6 @@ log.txt
 .vscode/
 .sass-cache/
 .versions/
-www/
 coverage/
 dist/
 node_modules/
@@ -32,3 +31,7 @@ scripts/e2e/webpackEntryPoints.json
 scripts/build/e2e-generated-tsconfig.json
 *.css.ts
 
+
+package-lock.json
+
+*.icloud
