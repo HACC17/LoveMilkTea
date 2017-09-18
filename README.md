@@ -11,7 +11,7 @@ This project gives a better and enchanced view to your navigation experience. Wi
 We used [Ionic](https://ionicframework.com/), [Cordova](https://cordova.apache.org/), and [Firebase](https://firebase.google.com/) to create the app.
 
 ## Live Deployment
-Check out the live version of our app on your phone or computer at [Heroku!](https://lovemilktea.herokuapp.com)
+Check out the live version of our app on your phone or computer at [Heroku!](https://lovemilktea.herokuapp.com). Our app was built for mobile first, so please check it our using your phone.
 
 ## Getting Started
 
