@@ -25263,6 +25263,11 @@ page-explore .imgContainer {
   color: white;
 }
 
+page-explore .dd {
+  margin-left: 20px;
+  font-weight: bold;
+}
+
 page-explore #wrc {
   height: 100%;
   position: relative;
@@ -25510,6 +25515,15 @@ page-map ion-select .select-icon, page-map ion-select .select-text {
 
 page-map .scroll-content {
   overflow-y: hidden;
+}
+
+.pointImage {
+  height: 50%;
+  width: 100%;
+}
+
+.font {
+  font-size: smaller;
 }
 
 submit-data-coords-page #float-button {

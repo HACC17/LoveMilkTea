@@ -1,6 +1,6 @@
 webpackJsonp([2],{
 
-/***/ 445:
+/***/ 443:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,7 +8,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminPageModule", function() { return AdminPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__admin__ = __webpack_require__(448);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__edit_submit_data__ = __webpack_require__(447);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -23,29 +23,28 @@ let AdminPageModule = class AdminPageModule {
 AdminPageModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["L" /* NgModule */])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_2__admin__["a" /* AdminPage */],
+            __WEBPACK_IMPORTED_MODULE_2__edit_submit_data__["a" /* EditSubmitDataPage */],
         ],
         imports: [
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__admin__["a" /* AdminPage */]),
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__edit_submit_data__["a" /* EditSubmitDataPage */]),
         ],
     })
 ], AdminPageModule);
 
-//# sourceMappingURL=admin.module.js.map
+//# sourceMappingURL=edit-submit-data.module.js.map
 
 /***/ }),
 
-/***/ 448:
+/***/ 447:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdminPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EditSubmitDataPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__ = __webpack_require__(153);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_firebase_config__ = __webpack_require__(62);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_firebase__ = __webpack_require__(83);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_firebase__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_firebase_config__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_firebase__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_firebase__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -55,108 +54,59 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 
 
 
 
 
-let AdminPage = class AdminPage {
-    constructor(afAuth, toast, navCtrl, navParams) {
-        this.afAuth = afAuth;
-        this.toast = toast;
+let EditSubmitDataPage = class EditSubmitDataPage {
+    constructor(navCtrl, navParams, loading, toast) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
-        if (!__WEBPACK_IMPORTED_MODULE_4_firebase__["apps"].length) {
-            this.App = __WEBPACK_IMPORTED_MODULE_4_firebase__["initializeApp"](__WEBPACK_IMPORTED_MODULE_3__app_firebase_config__["a" /* FIREBASE_CONFIG */]);
+        this.loading = loading;
+        this.toast = toast;
+        if (!__WEBPACK_IMPORTED_MODULE_3_firebase__["apps"].length) {
+            this.App = __WEBPACK_IMPORTED_MODULE_3_firebase__["initializeApp"](__WEBPACK_IMPORTED_MODULE_2__app_firebase_config__["a" /* FIREBASE_CONFIG */]);
         }
         else {
-            this.App = __WEBPACK_IMPORTED_MODULE_4_firebase__;
+            this.App = __WEBPACK_IMPORTED_MODULE_3_firebase__["app"]();
         }
         this.db = this.App.database();
-        this.userInputRef = this.db.ref('/dataPoints/');
-        this.masterDataRef = this.db.ref('/testPoints');
+        this.ref = this.db.ref("dataPoints");
+        //set values to repopulate form
+        this.pointName = this.navParams.get('pointName');
+        this.latitude = this.navParams.get('latitude');
+        this.longitude = this.navParams.get('longitude');
+        this.address = this.navParams.get('address');
+        this.description = this.navParams.get('description');
+        this.phone = this.navParams.get('phone');
+        this.type = this.navParams.get('type');
+        this.email = this.navParams.get('email');
+        this.website = this.navParams.get('website');
+        this.dataKey = this.navParams.get('key');
     }
     ionViewDidLoad() {
-        //added this here instead of constructor, better coding practice to put here?
-        var item = [];
-        this.userInputRef.once('value').then(function (datakey) {
-            datakey.forEach(function (data) {
-                var temp = data.val();
-                Object.assign(temp, { 'key': data.key });
-                item.push(temp);
-            });
-        });
-        this.items = item;
     }
-    //value is the key for the entry
-    approve(value) {
-        this.userInputRef.child(value.key).update({ 'status': 'approved' });
-        this.masterDataRef = this.masterDataRef.push();
-        this.masterDataRef.set({
-            'name': value.pointName,
-            'address': value.address,
-            'lat': value.latitude,
-            'lng': value.longitude,
-            'description': value.description,
-            'number': value.phone,
-            'website': value.website,
-            'type': value.type,
-        });
-        this.navCtrl.setRoot(this.navCtrl.getActive().component);
-    }
-    deny(value) {
-        this.userInputRef.child(value.key).update({ 'status': 'denied' });
-        this.navCtrl.setRoot(this.navCtrl.getActive().component);
-    }
-    editData(value) {
-        console.log(value);
-        this.navCtrl.push('EditSubmitDataPage', value);
-    }
-    //value is the key for the entry
-    deleteItem(value) {
-        this.userInputRef.child(value.key).remove();
-        //refresh page
-        this.navCtrl.setRoot(this.navCtrl.getActive().component);
-    }
-    filterItems(value) {
-        var item = [];
-        this.userInputRef.once('value').then(function (datakey) {
-            datakey.forEach(function (data) {
-                var temp = data.val();
-                if (value === 'showAll') {
-                    item.push(temp);
-                }
-                else if (temp.status === value) {
-                    item.push(temp);
-                }
-            });
-        });
-        this.items = item;
-    }
-    logout() {
-        return __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.afAuth.auth.signOut();
-            this.navCtrl.setRoot('HomePage');
-        });
+    onSubmit(formData) {
+        for (var element in formData.value) {
+            this.ref.child(this.dataKey).update({ [element]: formData.value[element] });
+        }
+        this.toast.create({
+            message: `Edit Complete`,
+            duration: 3000
+        }).present();
+        this.navCtrl.setRoot('AdminPage');
     }
 };
-AdminPage = __decorate([
+EditSubmitDataPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPage */])(),
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-admin',template:/*ion-inline-start:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/admin/admin.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Admin Approval Page</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content padding>\n\n  <ion-item>\n    <ion-label>Filter Items</ion-label>\n    <ion-select [(ngModel)]="filter" multiple="false" #item (ionChange)="filterItems(item.value)" cancelText="Cancel" okText="Filter!">\n      <ion-option value="approved">Approved</ion-option>\n      <ion-option value="pending">Pending</ion-option>\n      <ion-option value="denied">Denied</ion-option>\n      <ion-option value="showAll">Show All</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <ion-card *ngFor="let item of items">\n    <ion-item item-right>\n      <ion-icon name="aperture"></ion-icon>\n      {{item.status}}\n    </ion-item>\n    <ion-card-header>\n      {{item.pointName}}\n    </ion-card-header>\n    <ion-card-content>\n      <ion-item>\n        <h2>Submitter Information</h2>\n        <p>Name: {{item.firstName}} {{item.lastName}}</p>\n        <p>Email: {{item.email}}</p>\n        <br/>\n        <h2>Point of Interest Information</h2>\n        <p>Point Name: {{item.pointName}}</p>\n        <p>Latitude: {{item.latitude}}</p>\n        <p>Longitude: {{item.longitude}}</p>\n        <p>Type: {{item.type}}</p>\n        <p>Point Website: {{item.website}}</p>\n        <p>Point Phone: {{item.phone}}</p>\n        <p>Point Address: {{item.address}}</p>\n        <p>Description: {{item.description}}</p>\n        <br/>\n        <h2>Note to Admin</h2>\n        <p>{{item.note}}</p>\n      </ion-item>\n    </ion-card-content>\n    <button ion-button small (click)="approve(item)">Approve</button>\n    <button ion-button small color="blue"(click)="editData(item)">Edit</button>\n    <button ion-button small color="danger"(click)="deny(item)">Deny</button>\n    <button ion-button small color="danger" icon-start (click)="deleteItem(item)">\n      <ion-icon name=\'close\'></ion-icon>\n      Remove\n    </button>\n  </ion-card>\n\n</ion-content>\n'/*ion-inline-end:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/admin/admin.html"*/,
+        selector: 'edit-submit-page',template:/*ion-inline-start:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/edit-submit-data/edit-submit-data.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Edit Data</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n<ion-list inset>\n  <form #formData=\'ngForm\'(ngSubmit)="onSubmit(formData)">\n    <br/>\n    <ion-label>Point of Interest</ion-label>\n    <ion-item>\n      <ion-label color="primary" >Point of interest name</ion-label>\n      <ion-input type="text" placeholder="Enter name for point of interest" [(ngModel)]="pointName" name="pointName"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-label color="primary" >Latitude</ion-label>\n      <ion-input type="text" placeholder="Enter latitude" [(ngModel)]="latitude" name="latitude"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-label color="primary" >Longitude</ion-label>\n      <ion-input type="text" placeholder="Enter longitude"[(ngModel)]="longitude" name="longitude"></ion-input>\n    </ion-item>\n    <ion-item>\n    <ion-label color="primary" >Address</ion-label>\n    <ion-input type="text" placeholder="Enter address"[(ngModel)]="address" name="address"></ion-input>\n  </ion-item>\n    <ion-item>\n      <ion-label color="primary" >Phone</ion-label>\n      <ion-input type="text" placeholder="Enter phone for point of interest"[(ngModel)]="phone" name="phone"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-label color="primary" >Website</ion-label>\n      <ion-input type="text" placeholder="Enter a website point of interest"[(ngModel)]="website" name="website"></ion-input>\n    </ion-item>\n\n      <ion-list>\n        <ion-label color="primary">Location Type</ion-label>\n        <ion-item>\n          <ion-select placeholder="Choose one"[(ngModel)]="type" name="type" cancelText="Nah" okText="Okay!">\n            <ion-option value="unknown" selected="true">Unknown</ion-option>\n            <ion-option value="classroom">Classroom</ion-option>\n            <ion-option value="service">Service</ion-option>\n            <ion-option value="restaurant">Restaurant</ion-option>\n            <ion-option value="bathroom">Bathroom</ion-option>\n            <ion-option value="vending machine">Vending Machine</ion-option>\n            <ion-option value="office">Office</ion-option>\n            <ion-option value="other">Other</ion-option>\n\n          </ion-select>\n        </ion-item>\n      </ion-list>\n\n    <ion-item>\n      <br/>\n      <ion-label color="primary" stacked >Description</ion-label>\n      <ion-input type="text" placeholder="Enter point of interest description" [(ngModel)]="description" name="description"></ion-input>\n    </ion-item>\n    <button ion-button type="submit" block>Edit</button>\n  </form>\n</ion-list>\n</ion-content>'/*ion-inline-end:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/edit-submit-data/edit-submit-data.html"*/
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* ToastController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]])
-], AdminPage);
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* ToastController */]])
+], EditSubmitDataPage);
 
-//# sourceMappingURL=admin.js.map
+//# sourceMappingURL=edit-submit-data.js.map
 
 /***/ })
 
