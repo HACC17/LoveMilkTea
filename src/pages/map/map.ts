@@ -32,6 +32,7 @@ export class MapPage {
     public geoMarkers: any[]; // gonna hold all marker data in here for now.
     loader: any; // holds the module for loading
     infoWindow: any;
+    streetTag: any;
     locationsList: any = []; //array to populate menu with\
     searchList: any[]; //array that will be used for searching. Eventually make this function like locationsList?
     exploreIndex: any;
@@ -171,7 +172,6 @@ export class MapPage {
             icon: this.icons[location.type],
         });
 
-
         let info = this.getInfoWindowData(location);
         this.infoWindow = new google.maps.InfoWindow({
             content: info,
@@ -181,9 +181,12 @@ export class MapPage {
                 this.navCtrl.push("PointsPage", location);
             });
         }));
-
         this.infoWindow.open(this.map, this.marker);
         this.isInfoWindowOpen = true;
+
+        this.streetTag = new google.maps.InfoWindow({
+            content: location.name,
+        });
 
         google.maps.event.addListener(this.infoWindow, 'closeclick', (() => {
             this.isInfoWindowOpen = false;
@@ -212,9 +215,12 @@ export class MapPage {
         this.infoWindow = new google.maps.InfoWindow({
             content: info,
         });
-
         this.infoWindow.open(this.map, this.marker);
         this.isInfoWindowOpen = true;
+
+        this.streetTag = new google.maps.InfoWindow({
+            content: location.name,
+        });
 
         google.maps.event.addListener(this.infoWindow, 'closeclick', (() => {
             this.isInfoWindowOpen = false;
@@ -277,9 +283,9 @@ export class MapPage {
 
     // For explore page routing
     createExpRoute() {
-        if (this.marker) {
+        /*if (this.marker) {
             this.clearStarterMarker();
-        }
+        }*/
         this.clearRoute();
         this.inRoute = true;
         this.isInfoWindowOpen = true;
@@ -296,6 +302,9 @@ export class MapPage {
         const geoData = this.geoMarkers;
         let origin = {lat: this.currentLat, lng: this.currentLng};
         let destination = {lat: geoData[this.exploreIndex].lat, lng: geoData[this.exploreIndex].lng};
+
+        this.addMarker(geoData[this.exploreIndex]);
+
         directionsService.route({
             origin: origin,
             destination: destination,
@@ -320,6 +329,10 @@ export class MapPage {
         }
         else {
             this.clearRoute();
+            if(this.infoWindow){
+                this.infoWindow.close();
+                this.clearStarterMarker();
+            }
             this.isInfoWindowOpen = false;
             this.inRoute = false;
             this.searchingStart = false;
@@ -342,7 +355,7 @@ export class MapPage {
         this.directionsDisplay = new google.maps.DirectionsRenderer;
         this.directionsDisplay.setMap(this.map);
 
-        let origin = {lat: this.currentLat, lng: this.currentLng};
+        let origin = this.latLng;
         let destination = this.endValue;
         this.directionsService.route({
             origin: origin,
@@ -366,7 +379,7 @@ export class MapPage {
         this.directionsDisplay = new google.maps.DirectionsRenderer;
         this.directionsDisplay.setMap(this.map);
 
-        let origin = {lat: location.lat, lng: location.lng};
+        let origin = this.latLng;
         let destination = this.endValue;
         this.directionsService.route({
             origin: origin,
@@ -379,17 +392,24 @@ export class MapPage {
                 window.alert('Directions request failed due to ' + status);
             }
         });
-            this.trackLocation();
-
-
     }
 
     //Could be useful if needed.
     toggleStreetView() {
         this.panorama.setPosition(this.endValue);
         if (!this.inStreetView()) {
+            if (this.infoWindow && this.marker && this.streetTag){
+                this.marker.setMap(this.panorama);
+                this.infoWindow.close();
+                this.streetTag.open(this.panorama, this.marker);
+            }
             this.panorama.setVisible(true);
         } else {
+            if (this.infoWindow && this.marker && this.streetTag){
+                this.streetTag.close();
+                this.infoWindow.open(this.map, this.marker);
+                this.marker.setMap(this.map);
+            }
             this.panorama.setVisible(false);
         }
     }
@@ -450,14 +470,16 @@ export class MapPage {
 
                 google.maps.event.addListener(this.marker, 'click', (() => {
                     this.infoWindow.setContent(info);
-                    this.endValue = latLng;
+                    this.isInfoWindowOpen = true;
                     this.marker.setPosition({lat: data.lat, lng: data.lng});
                     this.infoWindow.open(this.map, this.marker);
                     document.getElementById("infoIcon").addEventListener("click", ()=>{
                         this.navCtrl.push("PointsPage", data);
                     });
-                    this.isInfoWindowOpen = true;
-
+                    this.endValue = latLng;
+                    this.streetTag = new google.maps.InfoWindow({
+                        content: data.name,
+                    });
                 }));
 
                 google.maps.event.addListener(this.infoWindow, 'closeclick', (() => {
@@ -556,6 +578,9 @@ export class MapPage {
                     this.navCtrl.push("PointsPage", data);
                 });
                 this.endValue = latLng;
+                this.streetTag = new google.maps.InfoWindow({
+                    content: data.name,
+                });
             }))
 
             google.maps.event.addListener(this.infoWindow, 'closeclick', (() => {
@@ -626,6 +651,7 @@ export class MapPage {
                     this.userMarker.setPosition(newPoint);
                     this.userMarker.setMap(this.map);
                     this.map.setZoom(17);
+                    this.userMarker.setAnimation(google.maps.Animation.BOUNCE);
                 }
 
                 this.map.setZoom(17);
