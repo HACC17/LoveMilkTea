@@ -345,6 +345,7 @@ export class MapPage {
                 window.alert('Directions request failed due to ' + status);
             }
         });
+
     }
 
     directFromLocation(location) {
@@ -367,6 +368,9 @@ export class MapPage {
                 window.alert('Directions request failed due to ' + status);
             }
         });
+            this.trackLocation();
+
+
     }
 
     //Could be useful if needed.
@@ -455,8 +459,6 @@ export class MapPage {
 
         this.map.setCenter({lat: 21.2969, lng: -157.8171});
         this.map.setZoom(15);
-        // console.log('this is the stash')
-        // console.log(stash);
 
     }
 
@@ -596,28 +598,28 @@ export class MapPage {
 
     //Use HTML5 Geolocation to track lat/lng
     trackLocation() {
-        navigator.geolocation.getCurrentPosition(function(position) {
+        navigator.geolocation.watchPosition((position) => {
             var newPoint = new google.maps.LatLng(position.coords.latitude,
                 position.coords.longitude);
 
             if (this.userMarker) {
 
                 this.userMarker.setPosition(newPoint);
+                this.userMarker.setMap(this.map);
+                this.map.setZoom(17);
             }
             else {
-                // Marker does not exist - Create it
-                this.userMarker = new google.maps.Marker({
-                    position: newPoint,
-                    map: this.map
-                });
+
+
             }
-
-            // Center the map on the new position
+            this.map.setZoom(17);
             this.map.setCenter(newPoint);
-        });
+        },
+            () =>{
+                console.log('error');
+            },{timeout: 5000});
 
-        // Call the autoUpdate() function every 5 seconds
-        setTimeout(this.trackLocation(), 5000);
+        //setTimeout(this.trackLocation(), 10000);
     }
 
     loadMap() {
