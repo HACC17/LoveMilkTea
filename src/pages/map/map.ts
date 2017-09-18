@@ -397,10 +397,7 @@ export class MapPage {
 
     placeDirectionsIcons(directionResult, startIndex, endIndex) {
         let directRoute = directionResult.routes[0].legs[0];
-
-        console.log(endIndex);
-        console.log(this.endValueIndex)
-
+        
         if (startIndex != -1) {
             this.startMarker = new google.maps.Marker({
                 position: directRoute.steps[0].start_point,
