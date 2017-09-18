@@ -21,7 +21,6 @@ page-map {
     margin-top: 15px;
     margin-left: 5px;
     position: absolute;
-    // left: 0;
     z-index: 5;
   }
 
@@ -97,9 +96,6 @@ page-map {
     }
   }
 
-
-
-
   #float-button-location {
     margin-top: 7px;
     margin-right: 5px;
@@ -124,8 +120,8 @@ page-map {
     box-shadow: 0px 5px 10px 5px rgba(1,1,1,0.2);
   }
 
-
   #windowHead {
+    margin-top: 3%;
     color: black;
     font-weight: bold;
     font-size: 130%;
@@ -133,6 +129,7 @@ page-map {
 
   #addressTitle {
     font-weight: bold;
+    margin-top: 3%;
   }
 
   #phoneTitle {
@@ -165,5 +162,15 @@ page-map {
 
   .street-tag {
     font-weight: bold;
+  }
+}
+
+.gm-style-iw {
+  .ui.grid {
+    #infoIcon {
+      font-style: normal;
+      margin-top: 3%;
+    }
+    width: fluid;
   }
 }

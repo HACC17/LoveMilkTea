@@ -25349,16 +25349,6 @@ page-explore #uhs {
   background-position: center;
 }
 
-page-home ion-title {
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 0 90px 1px;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-}
-
 page-login .login-btn {
   margin-top: 20px;
   margin-bottom: 5px;
@@ -25518,6 +25508,7 @@ page-map .scrollable {
 }
 
 page-map #windowHead {
+  margin-top: 3%;
   color: black;
   font-weight: bold;
   font-size: 130%;
@@ -25525,6 +25516,7 @@ page-map #windowHead {
 
 page-map #addressTitle {
   font-weight: bold;
+  margin-top: 3%;
 }
 
 page-map #phoneTitle {
@@ -25555,6 +25547,19 @@ page-map ion-select .select-icon, page-map ion-select .select-text {
 page-map .scroll-content {
   background-color: white;
   overflow-y: hidden;
+}
+
+page-map .street-tag {
+  font-weight: bold;
+}
+
+.gm-style-iw .ui.grid {
+  width: fluid;
+}
+
+.gm-style-iw .ui.grid #infoIcon {
+  font-style: normal;
+  margin-top: 3%;
 }
 
 .pointImage {
