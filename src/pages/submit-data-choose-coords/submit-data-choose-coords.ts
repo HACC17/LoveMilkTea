@@ -1,16 +1,13 @@
-import {Component, ViewChild, ElementRef, Injectable} from '@angular/core';
-import {IonicPage, NavController, NavParams, LoadingController} from 'ionic-angular';
-import {Http} from '@angular/http';
+import { Component, ViewChild, ElementRef, Injectable } from '@angular/core';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-import {FIREBASE_CONFIG} from "./../../app.firebase.config";
+import { FIREBASE_CONFIG } from "./../../app.firebase.config";
 import * as firebase from 'firebase';
-import {SubmitDataPage} from "../submit-data/submit-data";
-
-
+import { SubmitDataPage } from "../submit-data/submit-data";
 import { AlertController } from 'ionic-angular';
 
 declare var google;
-
 
 @Component({
     selector: 'submit-data-coords-page',
@@ -85,7 +82,6 @@ export class SubmitDataChooseCoordsPage {
             this.http.request(this.url)
                 .map(res => res.json()).subscribe(data => {
                 this.address = data.results[0].formatted_address;
-                console.log(this.address);
             });
         return this.address;
     }
@@ -96,7 +92,6 @@ export class SubmitDataChooseCoordsPage {
 
             zoom: 18,
             center: {lat: 21.2969, lng: -157.8171},
-            //streetControlView: false;
             mapTypeControlOptions: {
                 mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain', 'styled_map']
             },
