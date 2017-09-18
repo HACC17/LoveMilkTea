@@ -1591,7 +1591,6 @@ let MapPage = class MapPage {
             };
         }
         else if (!this.latLng) {
-            let options = { maximumAge: 1000, enableHighAccuracy: false };
             this.loader = this.loading.create({
                 content: "Getting Coordinates..."
             });
@@ -1605,9 +1604,7 @@ let MapPage = class MapPage {
                             lng: position.coords.longitude
                         };
                         this.loader.dismiss();
-                    }, (onError) => {
-                        console.log("Error");
-                    }, (options));
+                    });
                 });
             }
         }

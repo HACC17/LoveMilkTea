@@ -569,14 +569,15 @@ export class MapPage {
 
 
     getLatLng() {
-        if(this.currentLat && this.currentLng && !this.latLng) {
+        
+       
+if(this.currentLat && this.currentLng && !this.latLng) {
             this.latLng = {
                 lat: this.currentLat,
                 lng: this.currentLng
             };
         }
         else if(!this.latLng) {
-            let options = {maximumAge: 1000, enableHighAccuracy: false};
             this.loader = this.loading.create({
                 content: "Getting Coordinates..."
             })
@@ -590,12 +591,10 @@ export class MapPage {
                             lng: position.coords.longitude
                         };
                         this.loader.dismiss();
-                    }, (onError) => {
-                        console.log("Error");
-                    }, (options))
+                    });
                 });
-       }
-    }
+            }
+        }
 }
 
 
