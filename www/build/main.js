@@ -1,6 +1,6 @@
-webpackJsonp([5],{
+webpackJsonp([6],{
 
-/***/ 115:
+/***/ 114:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10,12 +10,12 @@ webpackJsonp([5],{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_firebase__ = __webpack_require__(83);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_firebase__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_http__ = __webpack_require__(52);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_map__ = __webpack_require__(128);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_http__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_map__ = __webpack_require__(127);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_util__ = __webpack_require__(412);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_util__ = __webpack_require__(409);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_util___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_util__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_fuse_js__ = __webpack_require__(415);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_fuse_js__ = __webpack_require__(412);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_fuse_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_fuse_js__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -131,7 +131,7 @@ let MapPage = class MapPage {
             this.App = __WEBPACK_IMPORTED_MODULE_2_firebase__["initializeApp"](__WEBPACK_IMPORTED_MODULE_1__app_firebase_config__["a" /* FIREBASE_CONFIG */]);
         }
         else {
-            console.log(__WEBPACK_IMPORTED_MODULE_2_firebase__);
+            //console.log(firebase);
             this.App = __WEBPACK_IMPORTED_MODULE_2_firebase__["app"]();
         }
         this.db = this.App.database();
@@ -145,7 +145,6 @@ let MapPage = class MapPage {
     searchPoints(input) {
         this.isSearching = true;
         let fuse = new __WEBPACK_IMPORTED_MODULE_7_fuse_js__(this.searchList, this.fuseOptions);
-        console.log(input);
         if (input === '') {
             this.searchList = this.geoMarkers;
         }
@@ -183,7 +182,7 @@ let MapPage = class MapPage {
                     name: dataPoint.val().name,
                     number: dataPoint.val().number,
                     website: dataPoint.val().website,
-                    type: dataPoint.val().type
+                    type: dataPoint.val().type,
                 });
             });
         })
@@ -192,7 +191,7 @@ let MapPage = class MapPage {
                 this.createExpRoute();
             }
             else if (!this.exploreIndex && this.exploreIndex2) {
-                this.addMarker(this.exploreIndex2);
+                this.addExpMarker(this.exploreIndex2);
             }
             this.searchList = this.geoMarkers.slice();
             this.loadLocationsList();
@@ -226,6 +225,30 @@ let MapPage = class MapPage {
             this.clearStarterMarker();
         }));
     }
+    addExpMarker(index) {
+        if (this.marker) {
+            this.clearStarterMarker();
+        }
+        const geoData = this.geoMarkers.slice();
+        const location = geoData[index];
+        this.endValue = { lat: location.lat, lng: location.lng };
+        this.marker = new google.maps.Marker({
+            position: this.endValue,
+            title: 'University of Hawaii at Manoa',
+            map: this.map,
+            icon: this.icons[location.type],
+        });
+        let info = this.getInfoWindowData(location);
+        this.infoWindow = new google.maps.InfoWindow({
+            content: info,
+        });
+        this.infoWindow.open(this.map, this.marker);
+        this.isInfoWindowOpen = true;
+        google.maps.event.addListener(this.infoWindow, 'closeclick', (() => {
+            this.isInfoWindowOpen = false;
+            this.clearStarterMarker();
+        }));
+    }
     clearStarterMarker() {
         this.marker.setMap(null);
     }
@@ -237,6 +260,12 @@ let MapPage = class MapPage {
         this.endValue = locationIndex;
         this.createRoute();
     }
+    clearRoute() {
+        if (this.directionsDisplay != null) {
+            this.directionsDisplay.setMap(null);
+            this.directionsDisplay = null;
+        }
+    }
     createRoute() {
         this.clearRoute();
         this.directionsService = new google.maps.DirectionsService;
@@ -247,12 +276,6 @@ let MapPage = class MapPage {
             if (this.changeIcon === true) {
                 this.changeAllMarkers();
             }
-        }
-    }
-    clearRoute() {
-        if (this.directionsDisplay != null) {
-            this.directionsDisplay.setMap(null);
-            this.directionsDisplay = null;
         }
     }
     calculateAndDisplayRoute(directionsService, directionsDisplay, sValue, eValue) {
@@ -278,6 +301,8 @@ let MapPage = class MapPage {
             this.clearStarterMarker();
         }
         this.clearRoute();
+        this.inRoute = true;
+        this.isInfoWindowOpen = true;
         this.directionsService = new google.maps.DirectionsService;
         this.directionsDisplay = new google.maps.DirectionsRenderer;
         this.directionsDisplay.setMap(this.map);
@@ -306,6 +331,7 @@ let MapPage = class MapPage {
             if (this.marker) {
                 this.clearStarterMarker();
             }
+            this.clearAllMarkers();
             this.inRoute = true;
             this.searchingStart = true;
         }
@@ -344,7 +370,6 @@ let MapPage = class MapPage {
         });
     }
     directFromLocation(location) {
-        console.log(location);
         this.searchingStart = false;
         this.directionsService = new google.maps.DirectionsService;
         this.directionsDisplay = new google.maps.DirectionsRenderer;
@@ -396,11 +421,10 @@ let MapPage = class MapPage {
     }
     doFilter() {
         this.filterSelect.open();
-        console.log("test");
     }
     filterMarker(category) {
         let criteria = category.charAt(0).toLowerCase() + category.slice(1);
-        console.log(criteria);
+        //console.log(criteria);
         // For "dual-layered" filtering clean out the "changeAllMarkers call"
         this.clearAllMarkers();
         this.changeIcon = true;
@@ -409,17 +433,26 @@ let MapPage = class MapPage {
             let data = this.geoMarkers[i], latLng = new google.maps.LatLng(data.lat, data.lng);
             if (data.type === criteria) {
                 // Creating a marker and putting it on the map
-                let marker = new google.maps.Marker({
+                this.marker = new google.maps.Marker({
                     position: latLng,
                     map: this.map,
                     icon: this.icons[data.type],
                 });
                 // Push into a Markers array
-                stash.push(marker);
+                stash.push(this.marker);
                 let info = this.getInfoWindowData(data);
-                google.maps.event.addListener(marker, 'click', (() => {
+                google.maps.event.addListener(this.marker, 'click', (() => {
                     this.infoWindow.setContent(info);
-                    this.infoWindow.open(this.map, marker);
+                    this.endValue = latLng;
+                    this.marker.setPosition({ lat: data.lat, lng: data.lng });
+                    this.infoWindow.open(this.map, this.marker);
+                    document.getElementById("infoIcon").addEventListener("click", () => {
+                        this.navCtrl.push("PointsPage", data);
+                    });
+                    this.isInfoWindowOpen = true;
+                }));
+                google.maps.event.addListener(this.infoWindow, 'closeclick', (() => {
+                    this.isInfoWindowOpen = false;
                 }));
             }
             else {
@@ -439,8 +472,6 @@ let MapPage = class MapPage {
                 }
                 stash.length = 0;
                 this.changeIcon = false;
-                console.log('this is change all markers');
-                console.log(stash);
             }
             else {
                 console.log('Stash array does not exist!');
@@ -458,8 +489,6 @@ let MapPage = class MapPage {
             }
             stash.length = 0;
             this.changeIcon = false;
-            console.log('this is clear all markers');
-            console.log(stash);
         }
         else {
             console.log('Stash array does not exist!');
@@ -483,47 +512,66 @@ let MapPage = class MapPage {
         if (location.number) {
             infoContent += '<div id="phoneTitle">Phone: ' + location.number + '</div>';
         }
+        infoContent += '<i id="infoIcon">' + '&#9432;' + '</i>';
         infoContent += '</div>';
         return infoContent;
     }
     placeAllMarkers() {
-        if (this.exploreIndex && this.currentLat && this.currentLng) {
-            this.createExpRoute();
-        }
+        this.clearAllMarkers();
         this.infoWindow = new google.maps.InfoWindow();
         for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
             let data = this.geoMarkers[i], latLng = new google.maps.LatLng(data.lat, data.lng);
             // Creating a marker and putting it on the map
-            let marker = new google.maps.Marker({
+            this.marker = new google.maps.Marker({
                 position: latLng,
                 map: this.map,
                 icon: this.icons[data.type],
             });
-            stash.push(marker);
-            google.maps.event.addListener(marker, 'click', (() => {
-                let info = this.getInfoWindowData(data);
+            stash.push(this.marker);
+            let info = this.getInfoWindowData(data);
+            google.maps.event.addListener(this.marker, 'click', (() => {
                 this.infoWindow.setContent(info);
-                this.infoWindow.open(this.map, marker);
+                this.infoWindow.open(this.map, this.marker);
+                document.getElementById("infoIcon").addEventListener("click", () => {
+                    this.navCtrl.push("PointsPage", data);
+                });
+            }));
+            this.endValue = latLng;
+            this.marker.setPosition({ lat: data.lat, lng: data.lng });
+            this.infoWindow.open(this.map, this.marker);
+            this.isInfoWindowOpen = true;
+            google.maps.event.addListener(this.infoWindow, 'closeclick', (() => {
+                this.isInfoWindowOpen = false;
             }));
             this.changeIcon = true;
+            this.map.setCenter({ lat: 21.2969, lng: -157.8171 });
+            this.map.setZoom(15);
         }
     }
     getLatLng() {
-        this.loader = this.loading.create({
-            content: "Getting Coordinates..."
-        });
-        if (navigator.geolocation) {
-            this.loader.present().then(() => {
-                navigator.geolocation.getCurrentPosition((position) => {
-                    this.currentLat = position.coords.latitude;
-                    this.currentLng = position.coords.longitude;
-                    this.latLng = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    };
-                    this.loader.dismiss();
-                });
+        if (this.currentLat && this.currentLng && !this.latLng) {
+            this.latLng = {
+                lat: this.currentLat,
+                lng: this.currentLng
+            };
+        }
+        else if (!this.latLng) {
+            this.loader = this.loading.create({
+                content: "Getting Coordinates..."
             });
+            if (navigator.geolocation) {
+                this.loader.present().then(() => {
+                    navigator.geolocation.getCurrentPosition((position) => {
+                        this.currentLat = position.coords.latitude;
+                        this.currentLng = position.coords.longitude;
+                        this.latLng = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+                        this.loader.dismiss();
+                    });
+                });
+            }
         }
     }
     //Use HTML5 geolocation to get current lat/lng and place marker there
@@ -642,6 +690,52 @@ let MapPage = class MapPage {
                         },
                         {
                             "gamma": 1
+                        }
+                    ]
+                },
+                // remove next five if we want labels back
+                {
+                    "featureType": "poi",
+                    "elementType": "labels",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi",
+                    "elementType": "labels.text",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi",
+                    "elementType": "labels.text.fill",
+                    "stylers": [
+                        {
+                            "visibility": "simplified"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi",
+                    "elementType": "labels.text.stroke",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi",
+                    "elementType": "labels.icon",
+                    "stylers": [
+                        {
+                            "visibility": "off"
                         }
                     ]
                 },
@@ -800,12 +894,14 @@ let MapPage = class MapPage {
                 }
             ]
         });
-        this.panorama = this.map.getStreetView();
-        // this.panorama.setPosition({lat: 21.298393, lng: -157.818918});
-        this.panorama.enableCloseButton = false;
-        this.panorama.addressControl = false;
-        this.panorama.zoomControl = false;
-        this.panorama.panControl = false;
+        this.panorama = new google.maps.StreetViewPanorama(document.getElementById('map'), {
+            addressControl: false,
+            panControl: false,
+            enableCloseButton: false,
+            zoomControl: false
+        });
+        this.panorama.setVisible(false);
+        this.map.setStreetView(this.panorama);
         //set up a default marker.
         this.userMarker = new google.maps.Marker({
             position: { lat: 21.2969, lng: -157.8171 },
@@ -841,7 +937,7 @@ MapPage = __decorate([
 
 /***/ }),
 
-/***/ 151:
+/***/ 150:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -851,7 +947,7 @@ MapPage = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_firebase_config__ = __webpack_require__(62);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_firebase__ = __webpack_require__(83);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_firebase__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_http__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_http__ = __webpack_require__(51);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -944,14 +1040,14 @@ SubmitDataPage = __decorate([
 
 /***/ }),
 
-/***/ 152:
+/***/ 151:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__ = __webpack_require__(152);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1023,16 +1119,16 @@ LoginPage = __decorate([
 
 /***/ }),
 
-/***/ 154:
+/***/ 153:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ExplorePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__map_map__ = __webpack_require__(115);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(52);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__ = __webpack_require__(128);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__map_map__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__ = __webpack_require__(127);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1078,9 +1174,6 @@ let ExplorePage = class ExplorePage {
             console.log("Location blocked");
         }
     }
-    ionViewDidLoad() {
-        console.log('ionViewDidLoad ExplorePage');
-    }
     mapTo(value) {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__map_map__["a" /* MapPage */], {
             locationIndex: value.toString(),
@@ -1090,7 +1183,9 @@ let ExplorePage = class ExplorePage {
     }
     showLocation(value) {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__map_map__["a" /* MapPage */], {
-            locationIndex2: value.toString()
+            locationIndex2: value,
+            currentLat: this.currentLat,
+            currentLng: this.currentLng
         });
     }
     // will check if app has access to user current location to calculate distance from point of interest
@@ -1117,7 +1212,6 @@ let ExplorePage = class ExplorePage {
                     console.log('Error:', status);
                 }
                 else {
-                    console.log(response);
                     this.loadDistanceAndDuration(response);
                 }
             });
@@ -1145,7 +1239,7 @@ let ExplorePage = class ExplorePage {
 ExplorePage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPage */])(),
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-explore',template:/*ion-inline-start:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/explore/explore.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Explore</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(147)">\n      <div id="wrc">\n        <div class="card-title">Warrior Rec Center</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="basketball"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">The Warrior Rec Center is approximately 66,000 sq ft and is considered to be one of the\n        best recreational facilities in the state.</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[0]}}</span>\n        <span item-left>{{dist[0]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(147)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(2)">\n      <div id="cc">\n        <div class="card-title">Campus Center</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="pizza"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">The campus center offers the university community and the public a wide variety of meeting,\n        dining and entertainment options to enrich campus life and the educational experience.\n        It is the primary venue for programs and events to create an environment where individuals can come and relax,\n        study and be entertained or challenged.</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[1]}}</span>\n        <span item-left>{{dist[1]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(2)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(3)">\n      <div id="hamilton">\n        <div class="card-title">Hamilton Library</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="book"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">The Hamilton Library at the University of Hawaiʻi at Mānoa is the largest research library\n        in the state of Hawaii. The Library serves as a key resource for the flagship Manoa campus as well as the other\n        University of Hawaii system campuses.</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[2]}}</span>\n        <span item-left>{{dist[2]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(3)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(130)">\n      <div id="stan-sheriff">\n        <div class="card-title">Stan Sheriff</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="beer"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">The Stan Sheriff Center opened in 1994 and is the jewel of the Athletics Department. The\n        center has served as the home of the University of Hawai‘i men’s and women’s basketball and volleyball teams and\n        has played host to a number of memorable events.</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[3]}}</span>\n        <span item-left>{{dist[3]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(130)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(15)">\n      <div id="kennedy-theatre">\n        <div class="card-title">Kennedy Theatre</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="people"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">The Kennedy Theatre at the University of Hawai‘i at Manoa is the home base for the\n        productions of the Department of Theatre + Dance.</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[4]}}</span>\n        <span item-left>{{dist[4]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(15)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(20)">\n      <div id="paradise-palms">\n        <div class="card-title">Paradise Palms Café</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="pizza"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">The Paradise Palms Café features six food vendors, an air-conditioned dining room, and an\n        outdoor eating area.</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[5]}}</span>\n        <span item-left>{{dist[5]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(20)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(151)">\n      <div id="qlc">\n        <div class="card-title-2">Queen Lili\'uokalani Center</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="person"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">The Queen Lili\'uokalani Center, often called QLC, is a center for various student services, including the Office of Admissions, Office of the Registrar, Commuter Services, Financial Aid Services, Mānoa Advising Center, and much more.</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[6]}}</span>\n        <span item-left>{{dist[6]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(151)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(4)">\n      <div id="sinclair">\n        <div class="card-title">Sinclair Library</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="book"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">Sinclair Library, a popular place for late-night studying, is the only library open 24 hours on weekdays.</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[7]}}</span>\n        <span item-left>{{dist[7]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(4)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(7)">\n      <div id="uhs">\n        <div class="card-title-2">University Health Services</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="medkit"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">The University Health Services Mānoa offers a wide range of medical services and programs. These include general medical care by appointment or on a walk-in basis; women\'s health, sports medicine, psychiatry, dermatology, and nutrition clinics by appointment</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[8]}}</span>\n        <span item-left>{{dist[8]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(7)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n</ion-content>'/*ion-inline-end:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/explore/explore.html"*/,
+        selector: 'page-explore',template:/*ion-inline-start:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/explore/explore.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Explore</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(147)">\n      <div id="wrc">\n        <div class="card-title">Warrior Rec Center</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="basketball"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">The Warrior Rec Center is approximately 66,000 sq ft and is considered to be one of the\n        best recreational facilities in the state.</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div class="dd" *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[0]}}</span>\n        <span item-left>{{dist[0]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(147)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(2)">\n      <div id="cc">\n        <div class="card-title">Campus Center</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="pizza"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">The campus center offers the university community and the public a wide variety of meeting,\n        dining and entertainment options to enrich campus life and the educational experience.\n        It is the primary venue for programs and events to create an environment where individuals can come and relax,\n        study and be entertained or challenged.</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div class="dd" *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[1]}}</span>\n        <span item-left>{{dist[1]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(2)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(3)">\n      <div id="hamilton">\n        <div class="card-title">Hamilton Library</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="book"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">The Hamilton Library at the University of Hawaiʻi at Mānoa is the largest research library\n        in the state of Hawaii. The Library serves as a key resource for the flagship Manoa campus as well as the other\n        University of Hawaii system campuses.</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div class="dd" *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[2]}}</span>\n        <span item-left>{{dist[2]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(3)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(130)">\n      <div id="stan-sheriff">\n        <div class="card-title">Stan Sheriff</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="beer"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">The Stan Sheriff Center opened in 1994 and is the jewel of the Athletics Department. The\n        center has served as the home of the University of Hawai‘i men’s and women’s basketball and volleyball teams and\n        has played host to a number of memorable events.</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div class="dd" *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[3]}}</span>\n        <span item-left>{{dist[3]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(130)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(15)">\n      <div id="kennedy-theatre">\n        <div class="card-title">Kennedy Theatre</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="people"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">The Kennedy Theatre at the University of Hawai‘i at Manoa is the home base for the\n        productions of the Department of Theatre + Dance.</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div class="dd" *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[4]}}</span>\n        <span item-left>{{dist[4]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(15)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(20)">\n      <div id="paradise-palms">\n        <div class="card-title">Paradise Palms Café</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="pizza"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">The Paradise Palms Café features six food vendors, an air-conditioned dining room, and an\n        outdoor eating area.</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div class="dd" *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[5]}}</span>\n        <span item-left>{{dist[5]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(20)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(151)">\n      <div id="qlc">\n        <div class="card-title-2">Queen Lili\'uokalani Center</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="person"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">The Queen Lili\'uokalani Center, often called QLC, is a center for various student services, including the Office of Admissions, Office of the Registrar, Commuter Services, Financial Aid Services, Mānoa Advising Center, and much more.</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div class="dd" *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[6]}}</span>\n        <span item-left>{{dist[6]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(151)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(4)">\n      <div id="sinclair">\n        <div class="card-title">Sinclair Library</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="book"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">Sinclair Library, a popular place for late-night studying, is the only library open 24 hours on weekdays.</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div class="dd" *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[7]}}</span>\n        <span item-left>{{dist[7]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(4)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n  <ion-card>\n    <div class="imgContainer" (click)="showLocation(7)">\n      <div id="uhs">\n        <div class="card-title-2">University Health Services</div>\n      </div>\n\n      <ion-fab right top>\n        <button ion-fab>\n          <ion-icon name="medkit"></ion-icon>\n        </button>\n      </ion-fab>\n    </div>\n\n    <ion-card-content>\n      <p class="description">The University Health Services Mānoa offers a wide range of medical services and programs. These include general medical care by appointment or on a walk-in basis; women\'s health, sports medicine, psychiatry, dermatology, and nutrition clinics by appointment</p>\n    </ion-card-content>\n\n    <ion-item>\n      <div class="dd" *ngIf="hasCurrLocation()">\n        <span item-left>{{dur[8]}}</span>\n        <span item-left>{{dist[8]}}</span>\n      </div>\n      <button ion-button icon-left clear item-end (click)="mapTo(7)" *ngIf="hasCurrLocation()">\n        <ion-icon name="navigate"></ion-icon>\n        Start\n      </button>\n    </ion-item>\n  </ion-card>\n\n</ion-content>'/*ion-inline-end:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/explore/explore.html"*/,
     }),
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* Http */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* LoadingController */]])
@@ -1155,7 +1249,7 @@ ExplorePage = __decorate([
 
 /***/ }),
 
-/***/ 162:
+/***/ 161:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -1168,33 +1262,37 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 162;
+webpackEmptyAsyncContext.id = 161;
 
 /***/ }),
 
-/***/ 204:
+/***/ 203:
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
 	"../pages/admin/admin.module": [
-		445,
-		2
+		442,
+		3
 	],
 	"../pages/edit-submit-data/edit-submit-data.module": [
-		446,
-		1
+		443,
+		2
 	],
 	"../pages/explore/explore.module": [
-		444,
-		4
+		441,
+		5
 	],
 	"../pages/home/home.module": [
-		442,
-		0
+		439,
+		1
 	],
 	"../pages/login/login.module": [
-		443,
-		3
+		440,
+		4
+	],
+	"../pages/points/points.module": [
+		444,
+		0
 	]
 };
 function webpackAsyncContext(req) {
@@ -1208,7 +1306,7 @@ function webpackAsyncContext(req) {
 webpackAsyncContext.keys = function webpackAsyncContextKeys() {
 	return Object.keys(map);
 };
-webpackAsyncContext.id = 204;
+webpackAsyncContext.id = 203;
 module.exports = webpackAsyncContext;
 
 /***/ }),
@@ -1220,8 +1318,8 @@ module.exports = webpackAsyncContext;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SubmitDataLandingPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(52);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__submit_data_submit_data__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__submit_data_submit_data__ = __webpack_require__(150);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__submit_data_choose_coords_submit_data_choose_coords__ = __webpack_require__(289);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1273,13 +1371,13 @@ SubmitDataLandingPage = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SubmitDataChooseCoordsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(52);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__(128);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__(127);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_firebase_config__ = __webpack_require__(62);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_firebase__ = __webpack_require__(83);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_firebase__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__submit_data_submit_data__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__submit_data_submit_data__ = __webpack_require__(150);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1650,17 +1748,17 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(52);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__(433);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_map_map__ = __webpack_require__(115);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_login_login__ = __webpack_require__(152);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_submit_data_submit_data__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__(430);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_map_map__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_login_login__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_submit_data_submit_data__ = __webpack_require__(150);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_submit_data_choose_coords_submit_data_choose_coords__ = __webpack_require__(289);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_explore_explore__ = __webpack_require__(154);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_explore_explore__ = __webpack_require__(153);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ionic_native_status_bar__ = __webpack_require__(284);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ionic_native_splash_screen__ = __webpack_require__(287);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_angularfire2__ = __webpack_require__(114);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_angularfire2_auth__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_angularfire2__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_angularfire2_auth__ = __webpack_require__(152);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__app_firebase_config__ = __webpack_require__(62);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__angular_forms__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_submit_data_landing_submit_data_landing__ = __webpack_require__(288);
@@ -1708,7 +1806,8 @@ AppModule = __decorate([
                     { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/explore/explore.module#ExplorePageModule', name: 'ExplorePage', segment: 'explore', priority: 'low', defaultHistory: [] },
                     { loadChildren: '../pages/admin/admin.module#AdminPageModule', name: 'AdminPage', segment: 'admin', priority: 'low', defaultHistory: [] },
-                    { loadChildren: '../pages/edit-submit-data/edit-submit-data.module#AdminPageModule', name: 'EditSubmitDataPage', segment: 'edit-submit-data', priority: 'low', defaultHistory: [] }
+                    { loadChildren: '../pages/edit-submit-data/edit-submit-data.module#AdminPageModule', name: 'EditSubmitDataPage', segment: 'edit-submit-data', priority: 'low', defaultHistory: [] },
+                    { loadChildren: '../pages/points/points.module#PointsPageModule', name: 'PointsPage', segment: 'points', priority: 'low', defaultHistory: [] }
                 ]
             }),
             __WEBPACK_IMPORTED_MODULE_12_angularfire2__["a" /* AngularFireModule */].initializeApp(__WEBPACK_IMPORTED_MODULE_14__app_firebase_config__["a" /* FIREBASE_CONFIG */]),
@@ -1739,7 +1838,7 @@ AppModule = __decorate([
 
 /***/ }),
 
-/***/ 433:
+/***/ 430:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1748,9 +1847,9 @@ AppModule = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(284);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(287);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_map_map__ = __webpack_require__(115);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_login_login__ = __webpack_require__(152);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_explore_explore__ = __webpack_require__(154);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_map_map__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_login_login__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_explore_explore__ = __webpack_require__(153);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_submit_data_landing_submit_data_landing__ = __webpack_require__(288);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
