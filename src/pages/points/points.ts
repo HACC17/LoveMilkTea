@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
-import {LoadingController} from 'ionic-angular';
-import {NgForm} from '@angular/forms';
-import {FIREBASE_CONFIG} from "./../../app.firebase.config";
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { LoadingController } from 'ionic-angular';
+import { NgForm } from '@angular/forms';
+import { FIREBASE_CONFIG } from "./../../app.firebase.config";
 import * as firebase from 'firebase';
 import * as _ from 'underscore/underscore'
 

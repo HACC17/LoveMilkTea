@@ -5,9 +5,7 @@
     </button>
     <ion-title>Submit Data</ion-title>
   </ion-navbar>
-
 </ion-header>
-
 
 <ion-content padding>
 <ion-list inset>
@@ -42,10 +40,7 @@
         <ion-label color="primary">Location Type</ion-label>
         <ion-item>
           <ion-select placeholder="Choose One"[(ngModel)]="type" name="type" cancelText="Nah" okText="Okay!">
-            <!-- <ion-option value="unknown" selected="true">Unknown</ion-option> -->
-            <ion-option value="classroom">
-              Classroom
-            </ion-option>
+            <ion-option value="classroom">Classroom</ion-option>
             <ion-option value="service">Service</ion-option>
             <ion-option value="restaurant">Restaurant</ion-option>
             <ion-option value="bathroom">Bathroom</ion-option>
