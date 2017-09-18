@@ -1,8 +1,8 @@
 {
-  "name": "hookele",
+  "name": "LoveMilkTea",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
+  "author": "Team LoveMilkTea",
+  "homepage": "http://lovemilktea.herokuapp.com/",
   "private": true,
   "scripts": {
     "clean": "ionic-app-scripts clean",
