@@ -347,6 +347,7 @@ let MapPage = class MapPage {
             this.isInfoWindowOpen = false;
             this.inRoute = false;
             this.searchingStart = false;
+            this.stopTrack();
             this.showCurrLocation();
         }
     }
@@ -538,6 +539,8 @@ let MapPage = class MapPage {
             let info = this.getInfoWindowData(data);
             google.maps.event.addListener(this.marker, 'click', (() => {
                 this.infoWindow.setContent(info);
+                this.marker.setPosition({ lat: data.lat, lng: data.lng });
+                this.marker.setIcon(this.icons[data.type]);
                 this.infoWindow.open(this.map, this.marker);
                 document.getElementById("infoIcon").addEventListener("click", () => {
                     this.navCtrl.push("PointsPage", data);
@@ -596,30 +599,26 @@ let MapPage = class MapPage {
     }
     //Use HTML5 Geolocation to track lat/lng
     trackLocation() {
-        var id = navigator.geolocation.watchPosition((position) => {
-            if (this.inRoute) {
-                var newPoint = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                if (this.userMarker) {
-                    this.userMarker.setPosition(newPoint);
-                    this.userMarker.setMap(this.map);
-                    this.map.setZoom(17);
-                }
-                else {
-                }
+        this.navId = navigator.geolocation.watchPosition((position) => {
+            var newPoint = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            if (this.userMarker) {
+                this.userMarker.setPosition(newPoint);
+                this.userMarker.setMap(this.map);
                 this.map.setZoom(17);
-                this.map.setCenter(newPoint);
             }
-            else {
-                navigator.geolocation.clearWatch(id);
-                this.userMarker.setMap(null);
-                console.log('no more tracking');
-            }
+            this.map.setZoom(17);
+            this.map.setCenter(newPoint);
         }, (error) => {
             console.log(error);
         }, {
             timeout: 5000
         });
         //setTimeout(this.trackLocation(), 10000);
+    }
+    stopTrack() {
+        navigator.geolocation.clearWatch(this.navId);
+        this.userMarker.setMap(null);
+        console.log('no more tracking');
     }
     loadMap() {
         this.map = new google.maps.Map(this.mapElement.nativeElement, {
