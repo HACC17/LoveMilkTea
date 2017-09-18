@@ -577,7 +577,7 @@ export class MapPage {
             };
         }
         else if(!this.latLng) {
-            let options = {enableHighAccuracy: false};
+            let options = {maximumAge: 1000, timeout: 5000, enableHighAccuracy: false};
             this.loader = this.loading.create({
                 content: "Getting Coordinates..."
             })
