@@ -185,7 +185,7 @@ export class MapPage {
         this.isInfoWindowOpen = true;
 
         this.streetTag = new google.maps.InfoWindow({
-            content: location.name,
+            content: '<div class="street-tag">' + location.name + '</div>',
         });
 
         google.maps.event.addListener(this.infoWindow, 'closeclick', (() => {
@@ -219,7 +219,7 @@ export class MapPage {
         this.isInfoWindowOpen = true;
 
         this.streetTag = new google.maps.InfoWindow({
-            content: location.name,
+            content: '<div class="street-tag">' + location.name + '</div>',
         });
 
         google.maps.event.addListener(this.infoWindow, 'closeclick', (() => {
@@ -478,7 +478,7 @@ export class MapPage {
                     });
                     this.endValue = latLng;
                     this.streetTag = new google.maps.InfoWindow({
-                        content: data.name,
+                        content: '<div class="street-tag">' + data.name + '</div>',
                     });
                 }));
 
@@ -579,7 +579,7 @@ export class MapPage {
                 });
                 this.endValue = latLng;
                 this.streetTag = new google.maps.InfoWindow({
-                    content: data.name,
+                    content: '<div class="street-tag">' + data.name + '</div>',
                 });
             }))
 
