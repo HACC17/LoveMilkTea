@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 447:
+/***/ 448:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -87,6 +87,7 @@ let PointsPage = class PointsPage {
         this.showAdd = false;
     }
     ionViewDidLoad() {
+        this.showComments();
     }
     showComments() {
         if (this.showing) {
@@ -98,7 +99,6 @@ let PointsPage = class PointsPage {
             this.ref.child(this.key).child("comments").once("value")
                 .then((dataPoints) => {
                 item = dataPoints.val();
-                console.log(item);
                 this.comments = __WEBPACK_IMPORTED_MODULE_4_underscore_underscore__["toArray"](item);
             });
         }
@@ -110,18 +110,13 @@ let PointsPage = class PointsPage {
         comments.child('/comments').push(formData.value);
     }
     showAddButton() {
-        if (this.showAdd) {
-            this.showAdd = false;
-        }
-        else {
-            this.showAdd = true;
-        }
+        this.showAdd = !this.showAdd;
     }
 };
 PointsPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPage */])(),
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'points-page',template:/*ion-inline-start:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/points/points.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>{{name}}</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <ion-img class="pointImage" src={{image}}></ion-img>\n  <div>\n    <br>\n    <h2 *ngIf="name != \'n/a\'">{{name}}</h2>\n    <div *ngIf="address != \'n/a\'">{{address}}</div>\n    <div *ngIf="number != \'n/a\'"> {{number}}</div>\n    <hr>\n    <div *ngIf="description != \'n/a\'"> {{description}}\n    <hr></div>\n    <br>\n\n  </div>\n  <button ion-button (click)="showComments()">Comments</button>\n  <button ion-button (click)="showAddButton()">Add a Comment</button>\n  <div *ngIf="showAdd">\n    <form #formData=\'ngForm\' (ngSubmit)="addComments(formData)">\n      <br><br>\n      <ion-label color="primary">Add a new comment</ion-label>\n      <ion-item>\n        <ion-input type="text" placeholder="Enter a comment" [(ngModel)]="messages" name="messages"></ion-input>\n      </ion-item>\n      <button ion-button type="submit" block>Submit</button>\n    </form>\n  </div>\n  <div *ngIf="showing">\n    <div *ngIf="comments">\n      <ion-card *ngFor="let comment of comments">\n        <ion-item>\n          <ion-icon name="person">UserName</ion-icon>\n        </ion-item>\n        <div class="font">{{comment.dateTime}}</div>\n        <ion-card-content> {{ comment.messages }}</ion-card-content>\n      </ion-card>\n    </div>\n    <div *ngIf="!comments">\n      <h3>Currently no comments...</h3>\n    </div>\n  </div>\n</ion-content>'/*ion-inline-end:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/points/points.html"*/
+        selector: 'points-page',template:/*ion-inline-start:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/points/points.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>{{name}}</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <ion-img style="background: none;" *ngIf="image" class="pointImage" src={{image}}></ion-img>\n  <div>\n    <br>\n    <h2 *ngIf="name && name.toLowerCase() != \'n/a\'">\n      {{name}}\n    </h2>\n    <div *ngIf="addess && address.toLowerCase() != \'n/a\'">\n      {{address}}\n    </div>\n    <div *ngIf="number && number.toLowerCase() != \'n/a\'">\n      {{number}}\n    </div>\n    <hr *ngIf="description && description.toLowerCase() != \'n/a\'">\n    <div *ngIf="description && description.toLowerCase() != \'n/a\'">\n      {{description}}\n      <hr>\n    </div>\n    <br>\n  </div>\n\n  <div *ngIf="showing">\n    <div *ngIf="comments">\n      <ion-card *ngFor="let comment of comments">\n        <ion-card-header>\n          <ion-item>\n            <ion-icon name="person"> Anonymous</ion-icon>\n          </ion-item>\n        </ion-card-header>\n        <ion-card-content>\n          {{ comment.messages }}\n        </ion-card-content>\n      </ion-card>\n    </div>\n  </div>\n\n  <div *ngIf="showAdd">\n    <form #formData=\'ngForm\' (ngSubmit)="addComments(formData)">\n      <ion-label color="primary">Add a new comment</ion-label>\n      <ion-item>\n        <ion-input type="text" placeholder="Enter a comment" [(ngModel)]="messages" name="messages"></ion-input>\n      </ion-item>\n      <button ion-button type="submit" block>Submit</button>\n    </form>\n  </div>\n  <div *ngIf="showing">\n    <div *ngIf="comments">\n      <ion-card *ngFor="let comment of comments">\n        <ion-item>\n          <ion-icon name="person"></ion-icon>\n        </ion-item>\n        <div class="font">{{comment.dateTime}}</div>\n        <ion-card-content> {{ comment.messages }}</ion-card-content>\n      </ion-card>\n    </div>\n    <div *ngIf="!comments">\n      <h3>Currently no comments...</h3>\n    </div>\n  <br>\n  <div style="display: flex;">\n    <button style="margin: auto;" ion-button (click)="showAddButton()">\n      Comment\n    </button>\n  </div>\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/points/points.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* ToastController */]])
 ], PointsPage);
