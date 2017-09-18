@@ -591,14 +591,13 @@ export class MapPage {
                             lng: position.coords.longitude
                         };
                         this.loader.dismiss();
-                    }, (err) => {
-                        throw err;
-                    }, (options));
+                    }, (onError) => {
+                        console.log("Error");
+                    }, (options))
                 });
-            }
-        }
+       }
     }
-
+}
 
 
 
