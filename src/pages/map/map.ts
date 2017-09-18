@@ -231,16 +231,6 @@ export class MapPage {
         this.marker.setMap(null);
     }
 
-    setStartValue(locationIndex) {
-        this.startValue = locationIndex;
-        this.createRoute();
-    }
-
-    setDestValue(locationIndex) {
-        this.endValue = locationIndex;
-        this.createRoute();
-    }
-
     clearRoute() {
         if (this.directionsDisplay != null) {
             this.directionsDisplay.setMap(null);
