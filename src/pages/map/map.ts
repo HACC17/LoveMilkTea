@@ -27,6 +27,8 @@ export class MapPage {
     db: any;
     ref: any;
     marker: any;
+    startMarker: any;
+    endMarker: any;
     public geoMarkers: any[]; // Holds all the marker data
     loader: any; // Holds the module for loading
     infoWindow: any;
@@ -44,7 +46,7 @@ export class MapPage {
     location: any;
     startValue: any; // Values for destination and location
     endValue: any;
-    typeList = ["Classroom", "Drink", "Food", "Entertainment", "Housing", "Library", "Parking", "Recreational", "Service"];
+    typeList = ["Classroom", "Drink", "Food", "Entertainment", "Housing", "Library", "Parking", "Recreational", "Service", "Bathroom"];
     userMarker: any;
     changeIcon: boolean = false;
     isSearching: boolean = false;
@@ -52,6 +54,7 @@ export class MapPage {
     searchingStart: boolean = false;
     inRoute: boolean = false;
     navId: any;
+    endValueIndex;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public loading: LoadingController, public http: Http, private geolocation: Geolocation) {
         this.exploreIndex = navParams.get('locationIndex');
@@ -183,6 +186,7 @@ export class MapPage {
         this.endValue = {
             lat: location.lat, lng: location.lng
         };
+        this.endValueIndex = location.key;
 
         this.marker = new google.maps.Marker({
             position: this.endValue,
@@ -222,6 +226,7 @@ export class MapPage {
         const location = geoData[index];
 
         this.endValue = {lat: location.lat, lng: location.lng};
+        this.endValueIndex = location.key;
 
         this.marker = new google.maps.Marker({
             position: this.endValue,
@@ -250,39 +255,14 @@ export class MapPage {
     clearStarterMarker() {
         this.marker.setMap(null);
     }
-
-    setStartValue(locationIndex) {
-        this.startValue = locationIndex;
-        this.createRoute();
-    }
-
-    setDestValue(locationIndex) {
-        this.endValue = locationIndex;
-        this.createRoute();
-    }
-
+    
     clearRoute() {
         if (this.directionsDisplay != null) {
             this.directionsDisplay.setMap(null);
             this.directionsDisplay = null;
         }
     }
-
-    createRoute() {
-        this.clearRoute();
-
-        this.directionsService = new google.maps.DirectionsService;
-        this.directionsDisplay = new google.maps.DirectionsRenderer;
-
-        if ((!isNullOrUndefined(this.startValue)) && (!isNullOrUndefined(this.endValue))) {
-            this.directionsDisplay.setMap(this.map);
-            this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay, this.startValue, this.endValue);
-            if (this.changeIcon === true) {
-                this.changeAllMarkers();
-            }
-        }
-    }
-
+  
     calculateAndDisplayRoute(directionsService, directionsDisplay, sValue, eValue) {
         const geoData = this.geoMarkers.slice();
         let origin = {lat: geoData[sValue].lat, lng: geoData[sValue].lng};
@@ -370,8 +350,13 @@ export class MapPage {
     directFromCurrentLocation() {
         this.searchingStart = false;
 
+        let renderOptions = {
+            map: this.map,
+            suppressMarkers: true
+        }
+      
         this.directionsService = new google.maps.DirectionsService;
-        this.directionsDisplay = new google.maps.DirectionsRenderer;
+        this.directionsDisplay = new google.maps.DirectionsRenderer(renderOptions);
         this.directionsDisplay.setMap(this.map);
 
         let origin = this.latLng;
@@ -383,22 +368,28 @@ export class MapPage {
         }, (response, status) => {
             if (status === 'OK') {
                 this.directionsDisplay.setDirections(response);
+                this.placeDirectionsIcons(response, -1, this.endValueIndex);
             } else {
                 window.alert('Directions request failed due to ' + status);
             }
         });
-        this.trackLocation();
+
 
     }
 
     directFromLocation(location) {
         this.searchingStart = false;
 
+        let renderOptions = {
+            map: this.map,
+            suppressMarkers: true
+        }
+
         this.directionsService = new google.maps.DirectionsService;
-        this.directionsDisplay = new google.maps.DirectionsRenderer;
+        this.directionsDisplay = new google.maps.DirectionsRenderer(renderOptions);
         this.directionsDisplay.setMap(this.map);
 
-        let origin = this.latLng;
+        let origin = {lat: location.lat, lng: location.lng};
         let destination = this.endValue;
         this.directionsService.route({
             origin: origin,
@@ -407,10 +398,30 @@ export class MapPage {
         }, (response, status) => {
             if (status === 'OK') {
                 this.directionsDisplay.setDirections(response);
+                this.placeDirectionsIcons(response, location.key, this.endValueIndex);
             } else {
                 window.alert('Directions request failed due to ' + status);
             }
         });
+    }
+
+    placeDirectionsIcons(directionResult, startIndex, endIndex) {
+        let directRoute = directionResult.routes[0].legs[0];
+        
+        if (startIndex != -1) {
+            this.startMarker = new google.maps.Marker({
+                position: directRoute.steps[0].start_point,
+                map: this.map,
+                icon: this.icons[this.geoMarkers[startIndex - 1].type]
+            });
+        }
+
+        this.endMarker = new google.maps.Marker({
+            position: directRoute.steps[directRoute.steps.length - 1].end_point,
+            map: this.map,
+            icon: this.icons[this.geoMarkers[endIndex - 1].type]
+        })
+        //this.trackLocation();
     }
 
     // Could be useful if needed.
@@ -543,10 +554,14 @@ export class MapPage {
     }
 
     getInfoWindowData(location) {
-
+        let imgSrc;
         let infoContent = '<div class="ui grid">';
         if (location.key) {
-            let imgSrc = "http://manoanow.org/app/map/images/" + location.key + ".png";
+            if(location.key > 163){
+                 imgSrc = "../../assets/images/uhLogo.jpg";
+            } else{
+                 imgSrc = "http://manoanow.org/app/map/images/" + location.key + ".png";
+            }
             infoContent += '<img class="ui fluid image info" src="' + imgSrc + '">'
         }
         if (location.name) {
@@ -626,14 +641,20 @@ export class MapPage {
             if (navigator.geolocation) {
                 this.loader.present().then(() => {
                     navigator.geolocation.getCurrentPosition((position) => {
-                        this.currentLat = position.coords.latitude;
-                        this.currentLng = position.coords.longitude;
-                        this.latLng = {
-                            lat: position.coords.latitude,
-                            lng: position.coords.longitude
-                        };
-                        this.loader.dismiss();
-                    });
+                            this.currentLat = position.coords.latitude;
+                            this.currentLng = position.coords.longitude;
+                            this.latLng = {
+                                lat: position.coords.latitude,
+                                lng: position.coords.longitude
+                            };
+                            this.loader.dismiss();
+                        },
+                        (err) => {
+                            console.log("Print something");
+                            console.log(err);
+                        },
+                        {enableHighAccuracy: true, timeout: 6 * 1000, maximumAge: 0});
+
                 });
             }
         }
@@ -676,12 +697,15 @@ export class MapPage {
                 timeout: 5000
             });
 
-        //setTimeout(this.trackLocation(), 10000);
     }
 
     stopTrack() {
         navigator.geolocation.clearWatch(this.navId);
         this.userMarker.setMap(null);
+        if (!isNullOrUndefined(this.startMarker)) {
+            this.startMarker.setMap(null);
+        }
+        this.endMarker.setMap(null);
     }
 
     loadMap() {
@@ -1097,6 +1121,13 @@ export class MapPage {
             path: 'M10 16v-1H3.01L3 19c0 1.11.89 2 2 2h14c1.11 0 2-.89 2-2v-4h-7v1h-4zm10-9h-4.01V5l-2-2h-4l-2 2v2H4c-1.1 0-2 .9-2 2v3c0 1.11.89 2 2 2h6v-2h4v2h6c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm-6 0h-4V5h4v2z',
             fillColor: '#FF6600',
             strokeColor: '#CA4729',
+            fillOpacity: 0.8,
+        },
+        bathroom: {
+            // wc icon
+            path: 'M5.5 22v-7.5H4V9c0-1.1.9-2 2-2h3c1.1 0 2 .9 2 2v5.5H9.5V22h-4zM18 22v-6h3l-2.54-7.63C18.18 7.55 17.42 7 16.56 7h-.12c-.86 0-1.63.55-1.9 1.37L12 16h3v6h3zM7.5 6c1.11 0 2-.89 2-2s-.89-2-2-2-2 .89-2 2 .89 2 2 2zm9 0c1.11 0 2-.89 2-2s-.89-2-2-2-2 .89-2 2 .89 2 2 2z',
+            fillColor: '#131c16',
+            strokeColor: '#131c16',
             fillOpacity: 0.8,
         },
     };

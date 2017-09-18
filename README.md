@@ -50,10 +50,22 @@ Or run as a Mobile Application in Ionic Labs
 ionic serve --lab
 ```
 
-## Downloads
+## Installation
 
-[![Get it on Google Play](https://developer.android.com/images/brand/en_generic_rgb_wo_45.png)](https://play.google.com/store/apps/details)
+### Android
 
-[![Download on the App Store](https://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg)](https://itunes.apple.com/app/apple-store/id933117605?pt=107449857&ct=github&mt=8)
+From your smartphone or tablet, go to Settings, scroll down to Security, and toggle Unknown sources. This option will allow you to install applications outside of the Google Play store.
+
+Next, [download](https://github.com/HACC17/LoveMilkTea/raw/master/LoveMilkTea.apk) our .apk file
+
+Open the .apk file and install the application, from here you should be able to run it with no problems.
+
+### IOS
+
+Download [Ionic View](https://itunes.apple.com/us/app/ionic-view/id849930087?mt=8) from the app store
+
+Next, run it, select view app, and enter the code `f2910581`.
+
+From here, select and run the 'LoveMilkTea' app
 
 © Made with :heart: & Milk Tea ☕
