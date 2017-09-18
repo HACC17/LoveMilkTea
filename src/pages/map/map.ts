@@ -255,14 +255,14 @@ export class MapPage {
     clearStarterMarker() {
         this.marker.setMap(null);
     }
-    
+
     clearRoute() {
         if (this.directionsDisplay != null) {
             this.directionsDisplay.setMap(null);
             this.directionsDisplay = null;
         }
     }
-  
+
     calculateAndDisplayRoute(directionsService, directionsDisplay, sValue, eValue) {
         const geoData = this.geoMarkers.slice();
         let origin = {lat: geoData[sValue].lat, lng: geoData[sValue].lng};
@@ -354,7 +354,7 @@ export class MapPage {
             map: this.map,
             suppressMarkers: true
         }
-      
+
         this.directionsService = new google.maps.DirectionsService;
         this.directionsDisplay = new google.maps.DirectionsRenderer(renderOptions);
         this.directionsDisplay.setMap(this.map);
@@ -407,7 +407,7 @@ export class MapPage {
 
     placeDirectionsIcons(directionResult, startIndex, endIndex) {
         let directRoute = directionResult.routes[0].legs[0];
-        
+
         if (startIndex != -1) {
             this.startMarker = new google.maps.Marker({
                 position: directRoute.steps[0].start_point,
@@ -576,7 +576,7 @@ export class MapPage {
         if (location.number) {
             infoContent += '<div id="phoneTitle">Phone: ' + location.number + '</div>';
         }
-        infoContent += '<a id="infoIcon" href="#"><i>' + '&#9432;' + '</i>';
+        infoContent += '<i id="infoIcon">' + '&#9432;' + '</i>';
         infoContent += '</div>';
 
         return infoContent;
