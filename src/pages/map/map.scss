@@ -121,6 +121,7 @@ page-map {
   }
 
   #windowHead {
+    margin-top: 3%;
     color: black;
     font-weight: bold;
     font-size: 130%;
@@ -128,6 +129,7 @@ page-map {
 
   #addressTitle {
     font-weight: bold;
+    margin-top: 3%;
   }
 
   #phoneTitle {
@@ -158,4 +160,14 @@ page-map {
     overflow-y: hidden;
   }
 
+}
+
+.gm-style-iw {
+  .ui.grid {
+    #infoIcon {
+      font-style: normal;
+      margin-top: 3%;
+    }
+    width: fluid;
+  }
 }
