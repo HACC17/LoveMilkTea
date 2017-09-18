@@ -63,7 +63,7 @@ export class AdminPage {
     }
 
     editData(value) {
-        console.log(value);
+        this.userInputRef.child(value.key).update({'status': 'pending'});
         this.navCtrl.push('EditSubmitDataPage', value);
     }
 
