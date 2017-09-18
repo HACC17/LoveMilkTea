@@ -405,14 +405,14 @@ export class MapPage {
             this.startMarker = new google.maps.Marker({
                 position: directRoute.steps[0].start_point,
                 map: this.map,
-                icon: this.icons[this.geoMarkers[startIndex].type]
+                icon: this.icons[this.geoMarkers[startIndex - 1].type]
             });
         }
 
         this.endMarker = new google.maps.Marker({
             position: directRoute.steps[directRoute.steps.length - 1].end_point,
             map: this.map,
-            icon: this.icons[this.geoMarkers[endIndex].type]
+            icon: this.icons[this.geoMarkers[endIndex - 1].type]
         })
     }
 
