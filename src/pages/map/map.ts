@@ -650,10 +650,9 @@ export class MapPage {
                             this.loader.dismiss();
                         },
                         (err) => {
-                            console.log("Print something");
                             console.log(err);
                         },
-                        {enableHighAccuracy: true, timeout: 6 * 1000, maximumAge: 0});
+                        {enableHighAccuracy: true, timeout: 12 * 1000, maximumAge: 0});
 
                 });
             }
