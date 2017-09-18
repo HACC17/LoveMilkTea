@@ -25470,6 +25470,18 @@ page-map .search-item .item-inner {
   margin-left: 5px;
 }
 
+page-map .current-location {
+  border-bottom: 1px solid #f2f2f2;
+  font-size: 15px;
+  color: blue;
+  height: 20px;
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
+page-map .current-location .item-inner {
+  margin-left: 5px;
+}
+
 page-map .searchbar-ios-cancel {
   color: black;
 }
@@ -25478,13 +25490,6 @@ page-map .searchbar-ios-cancel {
   page-map #search {
     width: 80%;
   }
-}
-
-page-map .current-location {
-  font-size: 13.5px;
-  color: blue;
-  height: 20px;
-  background-color: rgba(255, 255, 255, 0.85);
 }
 
 page-map #float-button-location {

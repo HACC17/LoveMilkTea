@@ -536,19 +536,16 @@ export class MapPage {
 
             google.maps.event.addListener(this.marker, 'click', (() => {
                 this.infoWindow.setContent(info);
+                this.isInfoWindowOpen = true;
                 this.marker.setPosition({lat: data.lat, lng: data.lng});
                 this.marker.setIcon(this.icons[data.type]);
                 this.infoWindow.open(this.map, this.marker);
                 document.getElementById("infoIcon").addEventListener("click", ()=>{
                     this.navCtrl.push("PointsPage", data);
                 });
+                this.endValue = latLng;
             }))
-            this.endValue = latLng;
-            this.marker.setPosition({lat: data.lat, lng: data.lng});
-            this.infoWindow.open(this.map, this.marker);
-            this.isInfoWindowOpen = true;
-
-
+            
             google.maps.event.addListener(this.infoWindow, 'closeclick', (() => {
                 this.isInfoWindowOpen = false;
             }));
@@ -568,7 +565,7 @@ export class MapPage {
             };
         }
         else if(!this.latLng) {
-            let options = {enableHighAccuracy: false};
+            let options = {maximumAge: 1000, timeout: 5000, enableHighAccuracy: false};
             this.loader = this.loading.create({
                 content: "Getting Coordinates..."
             })
