@@ -387,7 +387,7 @@ export class MapPage {
                 window.alert('Directions request failed due to ' + status);
             }
         });
-        this.trackLocation();
+
 
     }
 
@@ -630,14 +630,20 @@ export class MapPage {
             if (navigator.geolocation) {
                 this.loader.present().then(() => {
                     navigator.geolocation.getCurrentPosition((position) => {
-                        this.currentLat = position.coords.latitude;
-                        this.currentLng = position.coords.longitude;
-                        this.latLng = {
-                            lat: position.coords.latitude,
-                            lng: position.coords.longitude
-                        };
-                        this.loader.dismiss();
-                    });
+                            this.currentLat = position.coords.latitude;
+                            this.currentLng = position.coords.longitude;
+                            this.latLng = {
+                                lat: position.coords.latitude,
+                                lng: position.coords.longitude
+                            };
+                            this.loader.dismiss();
+                        },
+                        (err) => {
+                            console.log("Print something");
+                            console.log(err);
+                        },
+                        {enableHighAccuracy: true, timeout: 6 * 1000, maximumAge: 0});
+
                 });
             }
         }
@@ -680,7 +686,6 @@ export class MapPage {
                 timeout: 5000
             });
 
-        //setTimeout(this.trackLocation(), 10000);
     }
 
     stopTrack() {
