@@ -68,11 +68,6 @@ Download [Ionic View](https://itunes.apple.com/us/app/ionic-view/id849930087?mt=
 
 Next, run it, select view app, and enter the code `f2910581`.
 
-<img style="float: left;" src="img/ionic-log.jpg">
-![alt tag](https://github.com/HACC17/LoveMilkTea/blob/master/img/ionic-log.jpg)
-
-![alt tag](https://github.com/HACC17/LoveMilkTea/blob/master/img/ionic-map.jpg)
-
 From here, select and run the 'LoveMilkTea' app
 
 ### Contributors
