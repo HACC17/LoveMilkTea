@@ -71,12 +71,12 @@ From here, select and run the 'LoveMilkTea' app
 ### Contributors
 
 * [Tyler Chong](https://github.com/Viltaria)
-* [Brendt McFeeley]()
-* [Shaziney Natividad]()
-* [Christopher Nguyen]()
-* [Russell Omo]()
-* [Chaselyn Pugh]()
-* [Danny Tan]()
+* [Brendt McFeeley](https://github.com/brendtmcfeeley)
+* [Shaziney Natividad](https://github.com/shaziney)
+* [Christopher Nguyen](https://github.com/chrisnguyenhi)
+* [Russell Omo](https://github.com/russellomo)
+* [Chaselyn Pugh](https://github.com/cepugh)
+* [Danny Tan](https://github.com/dannytan)
 
 
 © Made with :heart: & Milk Tea ☕
