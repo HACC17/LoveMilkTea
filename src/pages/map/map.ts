@@ -350,13 +350,13 @@ export class MapPage {
     directFromCurrentLocation() {
         this.searchingStart = false;
 
-        let renderOptions = {
+        /*let renderOptions = {
             map: this.map,
             suppressMarkers: true
-        }
+        }*/
 
         this.directionsService = new google.maps.DirectionsService;
-        this.directionsDisplay = new google.maps.DirectionsRenderer(renderOptions);
+        this.directionsDisplay = new google.maps.DirectionsRenderer;
         this.directionsDisplay.setMap(this.map);
 
         let origin = this.latLng;
@@ -368,7 +368,7 @@ export class MapPage {
         }, (response, status) => {
             if (status === 'OK') {
                 this.directionsDisplay.setDirections(response);
-                this.placeDirectionsIcons(response, -1, this.endValueIndex);
+                //this.placeDirectionsIcons(response, -1, this.endValueIndex);
             } else {
                 window.alert('Directions request failed due to ' + status);
             }
@@ -380,13 +380,13 @@ export class MapPage {
     directFromLocation(location) {
         this.searchingStart = false;
 
-        let renderOptions = {
+        /*let renderOptions = {
             map: this.map,
             suppressMarkers: true
-        }
+        }*/
 
         this.directionsService = new google.maps.DirectionsService;
-        this.directionsDisplay = new google.maps.DirectionsRenderer(renderOptions);
+        this.directionsDisplay = new google.maps.DirectionsRenderer;
         this.directionsDisplay.setMap(this.map);
 
         let origin = {lat: location.lat, lng: location.lng};
@@ -398,7 +398,7 @@ export class MapPage {
         }, (response, status) => {
             if (status === 'OK') {
                 this.directionsDisplay.setDirections(response);
-                this.placeDirectionsIcons(response, location.key, this.endValueIndex);
+                //this.placeDirectionsIcons(response, location.key, this.endValueIndex);
             } else {
                 window.alert('Directions request failed due to ' + status);
             }
@@ -701,10 +701,6 @@ export class MapPage {
     stopTrack() {
         navigator.geolocation.clearWatch(this.navId);
         this.userMarker.setMap(null);
-        if (!isNullOrUndefined(this.startMarker)) {
-            this.startMarker.setMap(null);
-        }
-        this.endMarker.setMap(null);
     }
 
     loadMap() {

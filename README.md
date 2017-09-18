@@ -68,4 +68,15 @@ Next, run it, select view app, and enter the code `f2910581`.
 
 From here, select and run the 'LoveMilkTea' app
 
+### Contributors
+
+* [Tyler Chong](https://github.com/Viltaria)
+* [Brendt McFeeley]()
+* [Shaziney Natividad]()
+* [Christopher Nguyen]()
+* [Russell Omo]()
+* [Chaselyn Pugh]()
+* [Danny Tan]()
+
+
 © Made with :heart: & Milk Tea ☕
