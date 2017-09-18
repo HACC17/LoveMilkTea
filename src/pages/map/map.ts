@@ -54,6 +54,7 @@ export class MapPage {
     searchingStart: boolean = false;
     inRoute: boolean = false;
     navId: any;
+    endValueIndex;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public loading: LoadingController, public http: Http, private geolocation: Geolocation) {
         this.exploreIndex = navParams.get('locationIndex');
@@ -254,17 +255,7 @@ export class MapPage {
     clearStarterMarker() {
         this.marker.setMap(null);
     }
-
-    setStartValue(locationIndex) {
-        this.startValue = locationIndex;
-        this.createRoute();
-    }
-
-    setDestValue(locationIndex) {
-        this.endValue = locationIndex;
-        this.createRoute();
-    }
-
+    
     clearRoute() {
         if (this.directionsDisplay != null) {
             this.directionsDisplay.setMap(null);
