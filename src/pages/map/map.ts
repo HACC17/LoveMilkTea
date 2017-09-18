@@ -561,7 +561,7 @@ export class MapPage {
         if (location.number) {
             infoContent += '<div id="phoneTitle">Phone: ' + location.number + '</div>';
         }
-        infoContent += '<i id="infoIcon">' + '&#9432;' + '</i>';
+        infoContent += '<a id="infoIcon" href="#"><i>' + '&#9432;' + '</i>';
         infoContent += '</div>';
 
         return infoContent;

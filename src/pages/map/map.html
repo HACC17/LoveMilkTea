@@ -7,14 +7,13 @@
     <button ion-button clear menuToggle>
       <ion-icon id="menu-icon" large name="menu"></ion-icon>
     </button>
-    <div id="searchButton" *ngIf="!isSearching && !inStreetView()">
-      <button ion-button clear id="search-button" (click)="showSearch()">
-        <ion-icon name="search"></ion-icon>
-      </button>
-    </div>
-
   </div>
 
+  <div id="float-button-right-top" *ngIf="!isSearching && !inStreetView()">
+    <button ion-button clear id="search-button" (click)="showSearch()">
+      <ion-icon name="search"></ion-icon>
+    </button>
+  </div>
 
 
   <div *ngIf="isSearching" class="search">
