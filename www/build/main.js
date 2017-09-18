@@ -556,6 +556,7 @@ let MapPage = class MapPage {
             };
         }
         else if (!this.latLng) {
+            let options = { timeout: 3000, enableHighAccuracy: false };
             this.loader = this.loading.create({
                 content: "Getting Coordinates..."
             });
@@ -569,6 +570,10 @@ let MapPage = class MapPage {
                             lng: position.coords.longitude
                         };
                         this.loader.dismiss();
+                    }, (err) => {
+                        throw err;
+                    }, (options) => {
+                        console.log(options);
                     });
                 });
             }

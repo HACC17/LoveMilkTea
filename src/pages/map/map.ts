@@ -110,38 +110,38 @@ export class MapPage {
         //load the tag data into the geoMarkers variable
         this.geoMarkers = [];
         this.ref.once("value")
-            .then((dataPoints) => { //ARROW NOTATION IMPORTANT
+        .then((dataPoints) => { //ARROW NOTATION IMPORTANT
 
-                dataPoints.forEach((dataPoint) => {
-                    this.geoMarkers.push({
-                        key: dataPoint.key,
-                        address: dataPoint.val().address,
-                        description: dataPoint.val().description,
-                        lat: dataPoint.val().lat,
-                        lng: dataPoint.val().lng,
-                        name: dataPoint.val().name,
-                        number: dataPoint.val().number,
-                        website: dataPoint.val().website,
-                        type: dataPoint.val().type,
-                    });
+            dataPoints.forEach((dataPoint) => {
+                this.geoMarkers.push({
+                    key: dataPoint.key,
+                    address: dataPoint.val().address,
+                    description: dataPoint.val().description,
+                    lat: dataPoint.val().lat,
+                    lng: dataPoint.val().lng,
+                    name: dataPoint.val().name,
+                    number: dataPoint.val().number,
+                    website: dataPoint.val().website,
+                    type: dataPoint.val().type,
                 });
-            })
-            .then(() => {
+            });
+        })
+        .then(() => {
 
-                if (this.exploreIndex && this.currentLat && this.currentLng) {
-                    this.createExpRoute();
-                }
-                else if (!this.exploreIndex && this.exploreIndex2) {
-                    this.addExpMarker(this.exploreIndex2);
-                }
+            if (this.exploreIndex && this.currentLat && this.currentLng) {
+                this.createExpRoute();
+            }
+            else if (!this.exploreIndex && this.exploreIndex2) {
+                this.addExpMarker(this.exploreIndex2);
+            }
 
-                this.searchList = this.geoMarkers.slice();
+            this.searchList = this.geoMarkers.slice();
 
-                this.loadLocationsList();
+            this.loadLocationsList();
 
-                //console.log(this.locationsList);
+            //console.log(this.locationsList);
 
-            })
+        })
     }
 
 
@@ -394,12 +394,12 @@ export class MapPage {
     //Gets data from locations.json file if needed
     getGeoData() {
         this.http.get('assets/data/locations.json')
-            .map((res) => res.json())
-            .subscribe(data => {
-                this.jsonData = data;
-            }, (rej) => {
-                console.error("Could not load local data", rej)
-            });
+        .map((res) => res.json())
+        .subscribe(data => {
+            this.jsonData = data;
+        }, (rej) => {
+            console.error("Could not load local data", rej)
+        });
     }
 
     doFilter() {
@@ -417,7 +417,7 @@ export class MapPage {
 
         for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
             let data = this.geoMarkers[i],
-                latLng = new google.maps.LatLng(data.lat, data.lng);
+            latLng = new google.maps.LatLng(data.lat, data.lng);
 
             if (data.type === criteria) {
 
@@ -521,7 +521,7 @@ export class MapPage {
 
         for (let i = 0, length = this.geoMarkers.length; i < length; i++) {
             let data = this.geoMarkers[i],
-                latLng = new google.maps.LatLng(data.lat, data.lng);
+            latLng = new google.maps.LatLng(data.lat, data.lng);
 
             // Creating a marker and putting it on the map
             this.marker = new google.maps.Marker({
@@ -540,10 +540,10 @@ export class MapPage {
                     this.navCtrl.push("PointsPage", data);
                 });
             }))
-                this.endValue = latLng;
-                this.marker.setPosition({lat: data.lat, lng: data.lng});
-                this.infoWindow.open(this.map, this.marker);
-                this.isInfoWindowOpen = true;
+            this.endValue = latLng;
+            this.marker.setPosition({lat: data.lat, lng: data.lng});
+            this.infoWindow.open(this.map, this.marker);
+            this.isInfoWindowOpen = true;
 
             google.maps.event.addListener(this.infoWindow, 'closeclick', (() => {
                 this.isInfoWindowOpen = false;
@@ -564,6 +564,7 @@ export class MapPage {
             };
         }
         else if(!this.latLng) {
+            let options = {timeout:3000, enableHighAccuracy: false};
             this.loader = this.loading.create({
                 content: "Getting Coordinates..."
             })
@@ -577,11 +578,18 @@ export class MapPage {
                             lng: position.coords.longitude
                         };
                         this.loader.dismiss();
+                    }, (err) => {
+                        throw err;
+                    }, (options) => {
+                        console.log(options);
                     });
                 });
             }
         }
     }
+
+
+
 
     //Use HTML5 geolocation to get current lat/lng and place marker there
     showCurrLocation() {
@@ -605,408 +613,408 @@ export class MapPage {
                 mapTypeIds: ['styled_map']
             },
             styles: [
+            {
+                "featureType": "administrative.country",
+                "elementType": "geometry.stroke",
+                "stylers": [
                 {
-                    "featureType": "administrative.country",
-                    "elementType": "geometry.stroke",
-                    "stylers": [
-                        {
-                            "visibility": "on"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "administrative.country",
-                    "elementType": "labels",
-                    "stylers": [
-                        {
-                            "visibility": "simplified"
-                        },
-                        {
-                            "lightness": "20"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "administrative.province",
-                    "elementType": "geometry.stroke",
-                    "stylers": [
-                        {
-                            "visibility": "off"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "administrative.province",
-                    "elementType": "labels",
-                    "stylers": [
-                        {
-                            "visibility": "simplified"
-                        },
-                        {
-                            "lightness": "10"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "administrative.locality",
-                    "elementType": "geometry.stroke",
-                    "stylers": [
-                        {
-                            "visibility": "on"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "administrative.locality",
-                    "elementType": "labels",
-                    "stylers": [
-                        {
-                            "visibility": "simplified"
-                        },
-                        {
-                            "lightness": "25"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "landscape",
-                    "elementType": "all",
-                    "stylers": [
-                        {
-                            "hue": "#ffbb00"
-                        },
-                        {
-                            "saturation": 43.400000000000006
-                        },
-                        {
-                            "lightness": 37.599999999999994
-                        },
-                        {
-                            "gamma": 1
-                        }
-                    ]
-                },
-                {
-                    "featureType": "poi",
-                    "elementType": "all",
-                    "stylers": [
-                        {
-                            "hue": "#00FF6A"
-                        },
-                        {
-                            "saturation": -1.0989010989011234
-                        },
-                        {
-                            "lightness": 11.200000000000017
-                        },
-                        {
-                            "gamma": 1
-                        }
-                    ]
-                },
-                // remove next five if we want labels back
-                {
-                    "featureType": "poi",
-                    "elementType": "labels",
-                    "stylers": [
-                        {
-                            "visibility": "off"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "poi",
-                    "elementType": "labels.text",
-                    "stylers": [
-                        {
-                            "visibility": "off"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "poi",
-                    "elementType": "labels.text.fill",
-                    "stylers": [
-                        {
-                            "visibility": "simplified"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "poi",
-                    "elementType": "labels.text.stroke",
-                    "stylers": [
-                        {
-                            "visibility": "off"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "poi",
-                    "elementType": "labels.icon",
-                    "stylers": [
-                        {
-                            "visibility": "off"
-                        }
-                    ]
-                },
-
-                {
-                    "featureType": "road",
-                    "elementType": "geometry",
-                    "stylers": [
-                        {
-                            "visibility": "on"
-                        },
-                        {
-                            "lightness": "30"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "road.highway",
-                    "elementType": "all",
-                    "stylers": [
-                        {
-                            "hue": "#FFC200"
-                        },
-                        {
-                            "saturation": -61.8
-                        },
-                        {
-                            "lightness": 45.599999999999994
-                        },
-                        {
-                            "gamma": 1
-                        }
-                    ]
-                },
-                {
-                    "featureType": "road.highway.controlled_access",
-                    "elementType": "geometry.fill",
-                    "stylers": [
-                        {
-                            "visibility": "on"
-                        },
-                        {
-                            "color": "#24a95a"
-                        },
-                        {
-                            "lightness": "29"
-                        },
-                        {
-                            "saturation": "-58"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "road.arterial",
-                    "elementType": "all",
-                    "stylers": [
-                        {
-                            "hue": "#FF0300"
-                        },
-                        {
-                            "saturation": -100
-                        },
-                        {
-                            "lightness": 51.19999999999999
-                        },
-                        {
-                            "gamma": 1
-                        }
-                    ]
-                },
-                {
-                    "featureType": "road.arterial",
-                    "elementType": "geometry.fill",
-                    "stylers": [
-                        {
-                            "visibility": "on"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "road.local",
-                    "elementType": "all",
-                    "stylers": [
-                        {
-                            "hue": "#FF0300"
-                        },
-                        {
-                            "saturation": -100
-                        },
-                        {
-                            "lightness": 52
-                        },
-                        {
-                            "gamma": 1
-                        }
-                    ]
-                },
-                {
-                    "featureType": "transit.station",
-                    "elementType": "geometry.fill",
-                    "stylers": [
-                        {
-                            "visibility": "on"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "transit.station.bus",
-                    "elementType": "geometry.fill",
-                    "stylers": [
-                        {
-                            "visibility": "on"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "transit.station.bus",
-                    "elementType": "labels.icon",
-                    "stylers": [
-                        {
-                            "visibility": "on"
-                        },
-                        {
-                            "hue": "#00b1ff"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "water",
-                    "elementType": "all",
-                    "stylers": [
-                        {
-                            "hue": "#00ffda"
-                        },
-                        {
-                            "saturation": "-50"
-                        },
-                        {
-                            "lightness": "25"
-                        },
-                        {
-                            "gamma": 1
-                        }
-                    ]
-                },
-                {
-                    "featureType": "water",
-                    "elementType": "labels",
-                    "stylers": [
-                        {
-                            "visibility": "off"
-                        },
-                        {
-                            "lightness": "30"
-                        }
-                    ]
+                    "visibility": "on"
                 }
+                ]
+            },
+            {
+                "featureType": "administrative.country",
+                "elementType": "labels",
+                "stylers": [
+                {
+                    "visibility": "simplified"
+                },
+                {
+                    "lightness": "20"
+                }
+                ]
+            },
+            {
+                "featureType": "administrative.province",
+                "elementType": "geometry.stroke",
+                "stylers": [
+                {
+                    "visibility": "off"
+                }
+                ]
+            },
+            {
+                "featureType": "administrative.province",
+                "elementType": "labels",
+                "stylers": [
+                {
+                    "visibility": "simplified"
+                },
+                {
+                    "lightness": "10"
+                }
+                ]
+            },
+            {
+                "featureType": "administrative.locality",
+                "elementType": "geometry.stroke",
+                "stylers": [
+                {
+                    "visibility": "on"
+                }
+                ]
+            },
+            {
+                "featureType": "administrative.locality",
+                "elementType": "labels",
+                "stylers": [
+                {
+                    "visibility": "simplified"
+                },
+                {
+                    "lightness": "25"
+                }
+                ]
+            },
+            {
+                "featureType": "landscape",
+                "elementType": "all",
+                "stylers": [
+                {
+                    "hue": "#ffbb00"
+                },
+                {
+                    "saturation": 43.400000000000006
+                },
+                {
+                    "lightness": 37.599999999999994
+                },
+                {
+                    "gamma": 1
+                }
+                ]
+            },
+            {
+                "featureType": "poi",
+                "elementType": "all",
+                "stylers": [
+                {
+                    "hue": "#00FF6A"
+                },
+                {
+                    "saturation": -1.0989010989011234
+                },
+                {
+                    "lightness": 11.200000000000017
+                },
+                {
+                    "gamma": 1
+                }
+                ]
+            },
+            // remove next five if we want labels back
+            {
+                "featureType": "poi",
+                "elementType": "labels",
+                "stylers": [
+                {
+                    "visibility": "off"
+                }
+                ]
+            },
+            {
+                "featureType": "poi",
+                "elementType": "labels.text",
+                "stylers": [
+                {
+                    "visibility": "off"
+                }
+                ]
+            },
+            {
+                "featureType": "poi",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                {
+                    "visibility": "simplified"
+                }
+                ]
+            },
+            {
+                "featureType": "poi",
+                "elementType": "labels.text.stroke",
+                "stylers": [
+                {
+                    "visibility": "off"
+                }
+                ]
+            },
+            {
+                "featureType": "poi",
+                "elementType": "labels.icon",
+                "stylers": [
+                {
+                    "visibility": "off"
+                }
+                ]
+            },
+
+            {
+                "featureType": "road",
+                "elementType": "geometry",
+                "stylers": [
+                {
+                    "visibility": "on"
+                },
+                {
+                    "lightness": "30"
+                }
+                ]
+            },
+            {
+                "featureType": "road.highway",
+                "elementType": "all",
+                "stylers": [
+                {
+                    "hue": "#FFC200"
+                },
+                {
+                    "saturation": -61.8
+                },
+                {
+                    "lightness": 45.599999999999994
+                },
+                {
+                    "gamma": 1
+                }
+                ]
+            },
+            {
+                "featureType": "road.highway.controlled_access",
+                "elementType": "geometry.fill",
+                "stylers": [
+                {
+                    "visibility": "on"
+                },
+                {
+                    "color": "#24a95a"
+                },
+                {
+                    "lightness": "29"
+                },
+                {
+                    "saturation": "-58"
+                }
+                ]
+            },
+            {
+                "featureType": "road.arterial",
+                "elementType": "all",
+                "stylers": [
+                {
+                    "hue": "#FF0300"
+                },
+                {
+                    "saturation": -100
+                },
+                {
+                    "lightness": 51.19999999999999
+                },
+                {
+                    "gamma": 1
+                }
+                ]
+            },
+            {
+                "featureType": "road.arterial",
+                "elementType": "geometry.fill",
+                "stylers": [
+                {
+                    "visibility": "on"
+                }
+                ]
+            },
+            {
+                "featureType": "road.local",
+                "elementType": "all",
+                "stylers": [
+                {
+                    "hue": "#FF0300"
+                },
+                {
+                    "saturation": -100
+                },
+                {
+                    "lightness": 52
+                },
+                {
+                    "gamma": 1
+                }
+                ]
+            },
+            {
+                "featureType": "transit.station",
+                "elementType": "geometry.fill",
+                "stylers": [
+                {
+                    "visibility": "on"
+                }
+                ]
+            },
+            {
+                "featureType": "transit.station.bus",
+                "elementType": "geometry.fill",
+                "stylers": [
+                {
+                    "visibility": "on"
+                }
+                ]
+            },
+            {
+                "featureType": "transit.station.bus",
+                "elementType": "labels.icon",
+                "stylers": [
+                {
+                    "visibility": "on"
+                },
+                {
+                    "hue": "#00b1ff"
+                }
+                ]
+            },
+            {
+                "featureType": "water",
+                "elementType": "all",
+                "stylers": [
+                {
+                    "hue": "#00ffda"
+                },
+                {
+                    "saturation": "-50"
+                },
+                {
+                    "lightness": "25"
+                },
+                {
+                    "gamma": 1
+                }
+                ]
+            },
+            {
+                "featureType": "water",
+                "elementType": "labels",
+                "stylers": [
+                {
+                    "visibility": "off"
+                },
+                {
+                    "lightness": "30"
+                }
+                ]
+            }
             ]
         });
 
-        this.panorama = new google.maps.StreetViewPanorama(
-            document.getElementById('map'), {
-                addressControl: false,
-                panControl: false,
-                enableCloseButton: false,
-                zoomControl: false
-            });
-        this.panorama.setVisible(false);
-        this.map.setStreetView(this.panorama);
+this.panorama = new google.maps.StreetViewPanorama(
+    document.getElementById('map'), {
+        addressControl: false,
+        panControl: false,
+        enableCloseButton: false,
+        zoomControl: false
+    });
+this.panorama.setVisible(false);
+this.map.setStreetView(this.panorama);
 
-        //set up a default marker.
-        this.userMarker = new google.maps.Marker({
-            position: {lat: 21.2969, lng: -157.8171},
-            title: 'University of Hawaii at Manoa',
-            icon: {
-                //directions walk
-                path: 'M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7',
-                fillColor: '#1B9A74',
-                strokeColor: 'darkgreen',
-                fillOpacity: 0.8, // you need this defined, there are no defaults.
-                scale: 1.75
-            }
-
-        });
-        this.userMarker.setAnimation(google.maps.Animation.BOUNCE);
+//set up a default marker.
+this.userMarker = new google.maps.Marker({
+    position: {lat: 21.2969, lng: -157.8171},
+    title: 'University of Hawaii at Manoa',
+    icon: {
+        //directions walk
+        path: 'M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7',
+        fillColor: '#1B9A74',
+        strokeColor: 'darkgreen',
+        fillOpacity: 0.8, // you need this defined, there are no defaults.
+        scale: 1.75
     }
 
-    // set up search params for the fuzzy search
-    fuseOptions: Fuse.FuseOptions = {
-        caseSensitive: false,
-        keys: ['address', 'description', 'name', 'type'],
-        threshold: 0.5,
-        shouldSort: true,
-    };
+});
+this.userMarker.setAnimation(google.maps.Animation.BOUNCE);
+}
 
-    // holds icon SVG data and styling.
-    icons = {
-        food: {
-            //spoon and fork
-            path: 'M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z',
-            fillColor: '#FF6699',
-            strokeColor: '#CA3157',
-            fillOpacity: 0.8, // you need this defined, there are no defaults.
-        },
-        drink: {
-            //drink glass
-            path: 'M6 4l4.03 36.47C10.26 42.46 11.95 44 14 44h20c2.05 0 3.74-1.54 3.97-3.53L42 4H6zm18 34c-3.31 0-6-2.69-6-6 0-4 6-10.8 6-10.8S30 28 30 32c0 3.31-2.69 6-6 6zm12.65-22h-25.3l-.88-8h27.07l-.89 8z',
-            fillColor: '#FF6699',
-            strokeColor: '#CA3157',
-            fillOpacity: 0.8,
-        },
-        classroom: {
-            //school
-            path: 'M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z',
-            fillColor: '#007c34',
-            strokeColor: 'darkgreen',
-            fillOpacity: 0.8,
-        },
-        entertainment: {
-            //mood
-            path: 'M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z',
-            fillColor: '#4E2683',
-            strokeColor: '#4E2683',
-            fillOpacity: 0.8,
-        },
-        housing: {
-            //home
-            path: 'M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z',
-            fillColor: '#FFD403',
-            strokeColor: '#FFB804',
-            fillOpacity: 0.8,
-        },
-        library: {
-            //book
-            path: 'M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z',
-            fillColor: '#D20104',
-            strokeColor: '#8B0000',
-            fillOpacity: 0.8,
-        },
-        parking: {
-            //local parking
-            path: 'M13 3H6v18h4v-6h3c3.31 0 6-2.69 6-6s-2.69-6-6-6zm.2 8H10V7h3.2c1.1 0 2 .9 2 2s-.9 2-2 2z',
-            fillColor: '#D20104',
-            strokeColor: '#8B0000',
-            fillOpacity: 0.8,
-        },
-        recreational: {
-            //local event
-            path: 'M20 12c0-1.1.9-2 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-1.99.9-1.99 2v4c1.1 0 1.99.9 1.99 2s-.89 2-2 2v4c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-4c-1.1 0-2-.9-2-2zm-4.42 4.8L12 14.5l-3.58 2.3 1.08-4.12-3.29-2.69 4.24-.25L12 5.8l1.54 3.95 4.24.25-3.29 2.69 1.09 4.11z',
-            fillColor: '#006ECE',
-            strokeColor: '#01008A',
-            fillOpacity: 0.8,
-        },
-        service: {
-            //business center
-            path: 'M10 16v-1H3.01L3 19c0 1.11.89 2 2 2h14c1.11 0 2-.89 2-2v-4h-7v1h-4zm10-9h-4.01V5l-2-2h-4l-2 2v2H4c-1.1 0-2 .9-2 2v3c0 1.11.89 2 2 2h6v-2h4v2h6c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm-6 0h-4V5h4v2z',
-            fillColor: '#FF6600',
-            strokeColor: '#CA4729',
-            fillOpacity: 0.8,
-        },
+// set up search params for the fuzzy search
+fuseOptions: Fuse.FuseOptions = {
+    caseSensitive: false,
+    keys: ['address', 'description', 'name', 'type'],
+    threshold: 0.5,
+    shouldSort: true,
+};
 
-    };
+// holds icon SVG data and styling.
+icons = {
+    food: {
+        //spoon and fork
+        path: 'M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z',
+        fillColor: '#FF6699',
+        strokeColor: '#CA3157',
+        fillOpacity: 0.8, // you need this defined, there are no defaults.
+    },
+    drink: {
+        //drink glass
+        path: 'M6 4l4.03 36.47C10.26 42.46 11.95 44 14 44h20c2.05 0 3.74-1.54 3.97-3.53L42 4H6zm18 34c-3.31 0-6-2.69-6-6 0-4 6-10.8 6-10.8S30 28 30 32c0 3.31-2.69 6-6 6zm12.65-22h-25.3l-.88-8h27.07l-.89 8z',
+        fillColor: '#FF6699',
+        strokeColor: '#CA3157',
+        fillOpacity: 0.8,
+    },
+    classroom: {
+        //school
+        path: 'M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z',
+        fillColor: '#007c34',
+        strokeColor: 'darkgreen',
+        fillOpacity: 0.8,
+    },
+    entertainment: {
+        //mood
+        path: 'M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z',
+        fillColor: '#4E2683',
+        strokeColor: '#4E2683',
+        fillOpacity: 0.8,
+    },
+    housing: {
+        //home
+        path: 'M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z',
+        fillColor: '#FFD403',
+        strokeColor: '#FFB804',
+        fillOpacity: 0.8,
+    },
+    library: {
+        //book
+        path: 'M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z',
+        fillColor: '#D20104',
+        strokeColor: '#8B0000',
+        fillOpacity: 0.8,
+    },
+    parking: {
+        //local parking
+        path: 'M13 3H6v18h4v-6h3c3.31 0 6-2.69 6-6s-2.69-6-6-6zm.2 8H10V7h3.2c1.1 0 2 .9 2 2s-.9 2-2 2z',
+        fillColor: '#D20104',
+        strokeColor: '#8B0000',
+        fillOpacity: 0.8,
+    },
+    recreational: {
+        //local event
+        path: 'M20 12c0-1.1.9-2 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-1.99.9-1.99 2v4c1.1 0 1.99.9 1.99 2s-.89 2-2 2v4c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-4c-1.1 0-2-.9-2-2zm-4.42 4.8L12 14.5l-3.58 2.3 1.08-4.12-3.29-2.69 4.24-.25L12 5.8l1.54 3.95 4.24.25-3.29 2.69 1.09 4.11z',
+        fillColor: '#006ECE',
+        strokeColor: '#01008A',
+        fillOpacity: 0.8,
+    },
+    service: {
+        //business center
+        path: 'M10 16v-1H3.01L3 19c0 1.11.89 2 2 2h14c1.11 0 2-.89 2-2v-4h-7v1h-4zm10-9h-4.01V5l-2-2h-4l-2 2v2H4c-1.1 0-2 .9-2 2v3c0 1.11.89 2 2 2h6v-2h4v2h6c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm-6 0h-4V5h4v2z',
+        fillColor: '#FF6600',
+        strokeColor: '#CA4729',
+        fillOpacity: 0.8,
+    },
+
+};
 }
