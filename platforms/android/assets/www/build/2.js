@@ -7,7 +7,7 @@ webpackJsonp([2],{
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminPageModule", function() { return AdminPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__admin__ = __webpack_require__(448);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -41,10 +41,10 @@ AdminPageModule = __decorate([
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdminPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__ = __webpack_require__(154);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_firebase_config__ = __webpack_require__(62);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_firebase__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_firebase__ = __webpack_require__(84);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_firebase__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -85,18 +85,18 @@ let AdminPage = class AdminPage {
         this.masterDataRef = this.db.ref('/testPoints');
     }
     ionViewDidLoad() {
-        //added this here instead of constructor, better coding practice to put here?
-        var item = [];
+        const item = [];
         this.userInputRef.once('value').then(function (datakey) {
             datakey.forEach(function (data) {
-                var temp = data.val();
-                Object.assign(temp, { 'key': data.key });
+                const temp = data.val();
+                Object.assign(temp, {
+                    'key': data.key
+                });
                 item.push(temp);
             });
         });
         this.items = item;
     }
-    //value is the key for the entry
     approve(value) {
         this.userInputRef.child(value.key).update({ 'status': 'approved' });
         this.masterDataRef = this.masterDataRef.push();
@@ -117,20 +117,17 @@ let AdminPage = class AdminPage {
         this.navCtrl.setRoot(this.navCtrl.getActive().component);
     }
     editData(value) {
-        console.log(value);
         this.navCtrl.push('EditSubmitDataPage', value);
     }
-    //value is the key for the entry
     deleteItem(value) {
         this.userInputRef.child(value.key).remove();
-        //refresh page
-        this.navCtrl.setRoot(this.navCtrl.getActive().component);
+        this.navCtrl.setRoot(this.navCtrl.getActive().component); // refresh the page
     }
     filterItems(value) {
-        var item = [];
+        const item = [];
         this.userInputRef.once('value').then(function (datakey) {
             datakey.forEach(function (data) {
-                var temp = data.val();
+                const temp = data.val();
                 if (value === 'showAll') {
                     item.push(temp);
                 }
@@ -151,7 +148,7 @@ let AdminPage = class AdminPage {
 AdminPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPage */])(),
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-admin',template:/*ion-inline-start:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/admin/admin.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Admin Approval Page</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content padding>\n\n  <ion-item>\n    <ion-label>Filter Items</ion-label>\n    <ion-select [(ngModel)]="filter" multiple="false" #item (ionChange)="filterItems(item.value)" cancelText="Cancel" okText="Filter!">\n      <ion-option value="approved">Approved</ion-option>\n      <ion-option value="pending">Pending</ion-option>\n      <ion-option value="denied">Denied</ion-option>\n      <ion-option value="showAll">Show All</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <ion-card *ngFor="let item of items">\n    <ion-item item-right>\n      <ion-icon name="aperture"></ion-icon>\n      {{item.status}}\n    </ion-item>\n    <ion-card-header>\n      {{item.pointName}}\n    </ion-card-header>\n    <ion-card-content>\n      <ion-item>\n        <h2>Submitter Information</h2>\n        <p>Name: {{item.firstName}} {{item.lastName}}</p>\n        <p>Email: {{item.email}}</p>\n        <br/>\n        <h2>Point of Interest Information</h2>\n        <p>Point Name: {{item.pointName}}</p>\n        <p>Latitude: {{item.latitude}}</p>\n        <p>Longitude: {{item.longitude}}</p>\n        <p>Type: {{item.type}}</p>\n        <p>Point Website: {{item.website}}</p>\n        <p>Point Phone: {{item.phone}}</p>\n        <p>Point Address: {{item.address}}</p>\n        <p>Description: {{item.description}}</p>\n        <br/>\n        <h2>Note to Admin</h2>\n        <p>{{item.note}}</p>\n      </ion-item>\n    </ion-card-content>\n    <button ion-button small (click)="approve(item)">Approve</button>\n    <button ion-button small color="blue"(click)="editData(item)">Edit</button>\n    <button ion-button small color="danger"(click)="deny(item)">Deny</button>\n    <button ion-button small color="danger" icon-start (click)="deleteItem(item)">\n      <ion-icon name=\'close\'></ion-icon>\n      Remove\n    </button>\n  </ion-card>\n\n</ion-content>\n'/*ion-inline-end:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/admin/admin.html"*/,
+        selector: 'page-admin',template:/*ion-inline-start:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/admin/admin.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Admin Approval Page</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  <ion-item>\n    <ion-label>Filter Items</ion-label>\n    <ion-select [(ngModel)]="filter" multiple="false" #item (ionChange)="filterItems(item.value)" cancelText="Cancel" okText="Filter!">\n      <ion-option value="approved">Approved</ion-option>\n      <ion-option value="pending">Pending</ion-option>\n      <ion-option value="denied">Denied</ion-option>\n      <ion-option value="showAll">Show All</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <ion-card *ngFor="let item of items">\n    <ion-item item-right>\n      <ion-icon name="aperture"></ion-icon>\n      {{item.status}}\n    </ion-item>\n    <ion-card-header>\n      {{item.pointName}}\n    </ion-card-header>\n    <ion-card-content>\n      <ion-item>\n        <h2>Submitter Information</h2>\n        <p>Name: {{item.firstName}} {{item.lastName}}</p>\n        <p>Email: {{item.email}}</p>\n        <br/>\n        <h2>Point of Interest Information</h2>\n        <p>Point Name: {{item.pointName}}</p>\n        <p>Latitude: {{item.latitude}}</p>\n        <p>Longitude: {{item.longitude}}</p>\n        <p>Type: {{item.type}}</p>\n        <p>Point Website: {{item.website}}</p>\n        <p>Point Phone: {{item.phone}}</p>\n        <p>Point Address: {{item.address}}</p>\n        <p>Description: {{item.description}}</p>\n        <br/>\n        <h2>Note to Admin</h2>\n        <p>{{item.note}}</p>\n      </ion-item>\n    </ion-card-content>\n    <button ion-button small (click)="approve(item)">Approve</button>\n    <button ion-button small color="blue"(click)="editData(item)">Edit</button>\n    <button ion-button small color="danger"(click)="deny(item)">Deny</button>\n    <button ion-button small color="danger" icon-start (click)="deleteItem(item)">\n      <ion-icon name=\'close\'></ion-icon>\n      Remove\n    </button>\n  </ion-card>\n\n</ion-content>\n'/*ion-inline-end:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/admin/admin.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* ToastController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]])
 ], AdminPage);

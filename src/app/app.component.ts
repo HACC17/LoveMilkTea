@@ -1,19 +1,17 @@
-import {Component, ViewChild} from '@angular/core';
-import {Nav, Platform} from 'ionic-angular';
-import {StatusBar} from '@ionic-native/status-bar';
-import {SplashScreen} from '@ionic-native/splash-screen';
+import { Component, ViewChild } from '@angular/core';
+import { Nav, Platform } from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
 
-
-import { HomePage } from '../pages/home/home';
 import { MapPage }  from '../pages/map/map';
-import {LoginPage} from '../pages/login/login';
-import {ExplorePage} from "../pages/explore/explore";
+import { LoginPage } from '../pages/login/login';
+import { ExplorePage } from "../pages/explore/explore";
 import { SubmitDataLandingPage } from '../pages/submit-data-landing/submit-data-landing';
 
 @Component({
     templateUrl: 'app.html'
 })
-export class MyApp {
+export class App {
 
     @ViewChild(Nav) nav: Nav;
 
@@ -24,7 +22,6 @@ export class MyApp {
     constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
         this.initializeApp();
 
-        // used for an example of ngFor and navigation
         this.pages = [
             {
                 title: 'Map',
@@ -42,10 +39,10 @@ export class MyApp {
                 component: SubmitDataLandingPage
             },
             {
-                title: 'Admin',
+                title: 'User',
                 icon: 'person',
                 component: LoginPage
-            }
+            },
         ];
 
     }
@@ -53,15 +50,13 @@ export class MyApp {
     initializeApp() {
         this.platform.ready().then(() => {
             this.rootPage = MapPage;
-
             this.statusBar.styleDefault();
             this.splashScreen.hide();
         });
     }
 
     openPage(page) {
-        // Reset the content nav to have just this page
-        // we wouldn't want the back button to show in this scenario
+        // Reset the content nav to have just this page, we wouldn't want the back button to show up in this scenario
         this.nav.setRoot(page.component);
     }
 

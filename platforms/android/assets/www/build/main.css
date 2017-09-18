@@ -25263,6 +25263,11 @@ page-explore .imgContainer {
   color: white;
 }
 
+page-explore .dd {
+  margin-left: 20px;
+  font-weight: bold;
+}
+
 page-explore #wrc {
   height: 100%;
   position: relative;
@@ -25344,16 +25349,6 @@ page-explore #uhs {
   background-position: center;
 }
 
-page-home ion-title {
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 0 90px 1px;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-}
-
 page-login .login-btn {
   margin-top: 20px;
   margin-bottom: 5px;
@@ -25362,6 +25357,28 @@ page-login .login-btn {
 
 page-login .register-btn {
   font-size: 0.8em;
+}
+
+page-login .login-container {
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  height: 100%;
+  background: -webkit-linear-gradient(top, #efad62 0%, #f7d47c 100%);
+}
+
+page-login .login-container > .button-row img {
+  max-width: 80%;
+}
+
+page-login .login-container > .header {
+  -webkit-flex: 4;
+  padding-top: 20px;
+}
+
+page-login .logo {
+  max-height: 80%;
+  max-width: 80%;
+  width: auto;
 }
 
 page-map #float-button-left-bottom {
@@ -25382,8 +25399,8 @@ page-map #float-button-right-bottom {
 }
 
 page-map #float-button-left-top {
-  margin-top: 16px;
-  margin-left: 7px;
+  margin-top: 15px;
+  margin-left: 5px;
   position: absolute;
   z-index: 5;
 }
@@ -25432,20 +25449,37 @@ page-map .search {
 }
 
 page-map .search-item {
-  font-size: 13.5px;
+  font-size: 15px;
   height: 20px;
   background-color: rgba(255, 255, 255, 0.85);
+  border-bottom: 1px solid #f2f2f2;
+  color: #333;
+}
+
+page-map .search-item .item-inner {
+  margin-left: 5px;
+}
+
+page-map .current-location {
+  border-bottom: 1px solid #f2f2f2;
+  font-size: 15px;
+  color: blue;
+  height: 20px;
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
+page-map .current-location .item-inner {
+  margin-left: 5px;
 }
 
 page-map .searchbar-ios-cancel {
   color: black;
 }
 
-page-map .current-location {
-  font-size: 13.5px;
-  color: blue;
-  height: 20px;
-  background-color: rgba(255, 255, 255, 0.85);
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  page-map #search {
+    width: 80%;
+  }
 }
 
 page-map #float-button-location {
@@ -25509,7 +25543,21 @@ page-map ion-select .select-icon, page-map ion-select .select-text {
 }
 
 page-map .scroll-content {
+  background-color: white;
   overflow-y: hidden;
+}
+
+.pointImage {
+  height: 50%;
+  width: 100%;
+}
+
+.font {
+  font-size: smaller;
+}
+
+.card-header {
+  padding: 0px 16px;
 }
 
 submit-data-coords-page #float-button {
@@ -25531,7 +25579,7 @@ submit-data-coords-page #float-button-location {
 }
 
 submit-data-coords-page #map {
-  height: 50%;
+  height: 100%;
 }
 
 submit-data-coords-page #geoLoc {

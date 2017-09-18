@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{name}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-img center style="background: none;" *ngIf="image" class="pointImage" src={{image}}></ion-img>
+  <div>
+    <br>
+    <h2 *ngIf="name && name.toLowerCase() != 'n/a'">
+      {{name}}
+    </h2>
+    <div *ngIf="addess && address.toLowerCase() != 'n/a'">
+      {{address}}
+    </div>
+    <div *ngIf="number && number.toLowerCase() != 'n/a'">
+      {{number}}
+    </div>
+    <hr *ngIf="description && description.toLowerCase() != 'n/a'">
+    <div *ngIf="description && description.toLowerCase() != 'n/a'">
+      {{description}}
+      <hr>
+    </div>
+    <br>
+  </div>
+
+  <div *ngIf="showing">
+    <div *ngIf="comments">
+      <ion-card *ngFor="let comment of comments">
+        <ion-card-header>
+          <ion-item>
+            <ion-icon name="person"> Anonymous</ion-icon>
+          </ion-item>
+        </ion-card-header>
+
+        <ion-card-content>
+          <div class="font">
+            {{ this.getDate(comment) }}
+          </div>
+          {{ comment.messages }}
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+
+  <div *ngIf="showAdd">
+    <form #formData='ngForm' (ngSubmit)="addComments(formData)">
+      <ion-label color="primary">Add a new comment</ion-label>
+      <ion-item>
+        <ion-input type="text" placeholder="Enter a comment" [(ngModel)]="messages" name="messages"></ion-input>
+      </ion-item>
+      <button ion-button type="submit" block>Submit</button>
+    </form>
+  </div>
+
+  <div style="display: flex;">
+    <button style="margin: auto;" ion-button (click)="showAddButton()">
+      Comment
+    </button>
+  </div>
+</ion-content>
