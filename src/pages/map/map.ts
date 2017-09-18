@@ -69,6 +69,14 @@ export class MapPage {
         });
 
 
+        this.geolocation.getCurrentPosition().then((resp) => {
+            this.currentLat = resp.coords.latitude;
+            this.currentLng = resp.coords.longitude;
+        }).catch((error) => {
+            console.log('Error getting location', error);
+        });
+
+
         if (!firebase.apps.length) {
             this.App = firebase.initializeApp(FIREBASE_CONFIG);
         } else {
@@ -595,8 +603,6 @@ export class MapPage {
 
 
     getLatLng() {
-
-
         if (this.currentLat && this.currentLng && !this.latLng) {
             this.latLng = {
                 lat: this.currentLat,
@@ -622,7 +628,6 @@ export class MapPage {
             }
         }
     }
-
 
     // Use HTML5 geolocation to get current lat/lng and place marker there
     showCurrLocation() {
