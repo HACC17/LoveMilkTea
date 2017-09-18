@@ -174,6 +174,11 @@ export class MapPage {
         this.infoWindow = new google.maps.InfoWindow({
             content: info,
         });
+        google.maps.event.addListener(this.infoWindow, 'domready', (() => {
+            document.getElementById("infoIcon").addEventListener("click", ()=>{
+                this.navCtrl.push("PointsPage", location);
+            });
+        }));
 
         this.infoWindow.open(this.map, this.marker);
         this.isInfoWindowOpen = true;
