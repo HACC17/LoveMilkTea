@@ -18,24 +18,11 @@ page-map {
   }
 
   #float-button-left-top {
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-    margin-top: 7px;
-    margin-left: 5px;
-=======
-    margin-top: 16px;
-    margin-left: 7px;
->>>>>>> master
-    position: absolute;
-    // left: 0;
-    z-index :5;
-=======
     margin-top: 15px;
     margin-left: 5px;
     position: absolute;
     // left: 0;
     z-index: 5;
->>>>>>> Stashed changes
   }
 
   #float-button-right-top {
@@ -51,9 +38,9 @@ page-map {
   }
 
   #search-button {
-      height: 1.2em;
-      font-size: 24px;
-    }
+    height: 1.2em;
+    font-size: 24px;
+  }
 
   .searchbar-ios {
     background: none;
@@ -75,26 +62,21 @@ page-map {
 
   .search {
     position: absolute;
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-    top: 50px;
-    z-index :5;
-=======
-    // top: 50px;
-    z-index: 5;
->>>>>>> Stashed changes
-=======
     top: 20px;
     z-index :5;
     width: 100%;
   }
 
   .search-item {
-    font-size: 13.5px;
+    .item-inner {
+      margin-left: 5px;
+    }
+    font-size: 15px;
     height: 20px;
     background-color: rgba(255,255,255,0.85);
+    border-bottom: 1px solid #f2f2f2;
+    color: #333;
   }
->>>>>>> master
 
   .searchbar-ios-cancel {
     color: black;
@@ -172,6 +154,7 @@ page-map {
   }
 
   .scroll-content {
+    background-color: white;
     overflow-y: hidden;
   }
 

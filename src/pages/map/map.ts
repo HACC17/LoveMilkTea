@@ -83,7 +83,6 @@ export class MapPage {
         if (input === '') {
             this.searchList = this.geoMarkers;
         } else {
-            //console.log(fuse.search(input));
             this.searchList = fuse.search(input);
         }
     }
@@ -100,17 +99,20 @@ export class MapPage {
     //Load up locationsList for populating selector menus. Called in loadTags();
     loadLocationsList() {
         for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
-            this.locationsList.push({value: i, text: this.geoMarkers[i].name});
+            this.locationsList.push({
+                value: i,
+                text: this.geoMarkers[i].name
+            });
         }
     }
 
-    //retrieves the tags from our firebase, populates them on map.
+    //Retrieves the tags from Firebase and populates them on map.
     loadTagData() {
         // this.clearAllMarkers();
-        //load the tag data into the geoMarkers variable
+        // Load the tag data into the geoMarkers variable
         this.geoMarkers = [];
         this.ref.once("value")
-            .then((dataPoints) => { //ARROW NOTATION IMPORTANT
+            .then((dataPoints) => { 
 
                 dataPoints.forEach((dataPoint) => {
                     this.geoMarkers.push({

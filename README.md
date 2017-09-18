@@ -38,11 +38,14 @@ Install Packages
 ```
 npm install
 ```
-Run as a Web Application
+
+From here, you can either
+
+Run it as a Web Application
 ```
 ionic serve
 ```
-Run as a Mobile Application in Ionic Labs
+Or run as a Mobile Application in Ionic Labs
 ```
 ionic serve --lab
 ```

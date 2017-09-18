@@ -73,7 +73,7 @@
 
 
   <ion-select #filterSelect [(ngModel)]="filter" multiple="false" #C (ionChange)="filterMarker(C.value)" cancelText="Cancel"
-              okText="Filter!">
+              okText="Filter">
     <ion-option *ngFor="let item of typeList" value="{{item}}">{{item}}</ion-option>
   </ion-select>
 
