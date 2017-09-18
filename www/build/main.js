@@ -13,9 +13,9 @@ webpackJsonp([6],{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_http__ = __webpack_require__(52);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_map__ = __webpack_require__(128);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_util__ = __webpack_require__(412);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_util__ = __webpack_require__(413);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_util___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_util__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_fuse_js__ = __webpack_require__(415);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_fuse_js__ = __webpack_require__(416);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_fuse_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_fuse_js__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -149,7 +149,6 @@ let MapPage = class MapPage {
             this.searchList = this.geoMarkers;
         }
         else {
-            //console.log(fuse.search(input));
             this.searchList = fuse.search(input);
         }
     }
@@ -162,13 +161,16 @@ let MapPage = class MapPage {
     //Load up locationsList for populating selector menus. Called in loadTags();
     loadLocationsList() {
         for (let i = 0; i <= this.geoMarkers.length - 1; i++) {
-            this.locationsList.push({ value: i, text: this.geoMarkers[i].name });
+            this.locationsList.push({
+                value: i,
+                text: this.geoMarkers[i].name
+            });
         }
     }
-    //retrieves the tags from our firebase, populates them on map.
+    //Retrieves the tags from Firebase and populates them on map.
     loadTagData() {
         // this.clearAllMarkers();
-        //load the tag data into the geoMarkers variable
+        // Load the tag data into the geoMarkers variable
         this.geoMarkers = [];
         this.ref.once("value")
             .then((dataPoints) => {
@@ -218,6 +220,11 @@ let MapPage = class MapPage {
         this.infoWindow = new google.maps.InfoWindow({
             content: info,
         });
+        google.maps.event.addListener(this.infoWindow, 'domready', (() => {
+            document.getElementById("infoIcon").addEventListener("click", () => {
+                this.navCtrl.push("PointsPage", location);
+            });
+        }));
         this.infoWindow.open(this.map, this.marker);
         this.isInfoWindowOpen = true;
         google.maps.event.addListener(this.infoWindow, 'closeclick', (() => {
@@ -368,6 +375,7 @@ let MapPage = class MapPage {
                 window.alert('Directions request failed due to ' + status);
             }
         });
+        this.trackLocation();
     }
     directFromLocation(location) {
         this.searchingStart = false;
@@ -388,6 +396,7 @@ let MapPage = class MapPage {
                 window.alert('Directions request failed due to ' + status);
             }
         });
+        this.trackLocation();
     }
     //Could be useful if needed.
     toggleStreetView() {
@@ -461,8 +470,6 @@ let MapPage = class MapPage {
         }
         this.map.setCenter({ lat: 21.2969, lng: -157.8171 });
         this.map.setZoom(15);
-        // console.log('this is the stash')
-        // console.log(stash);
     }
     changeAllMarkers() {
         if (this.changeIcon === true) {
@@ -572,9 +579,7 @@ let MapPage = class MapPage {
                         this.loader.dismiss();
                     }, (err) => {
                         throw err;
-                    }, (options) => {
-                        console.log(options);
-                    });
+                    }, (options));
                 });
             }
         }
@@ -588,6 +593,33 @@ let MapPage = class MapPage {
             this.userMarker.setAnimation(google.maps.Animation.BOUNCE);
             this.map.setZoom(17);
         }
+    }
+    //Use HTML5 Geolocation to track lat/lng
+    trackLocation() {
+        var id = navigator.geolocation.watchPosition((position) => {
+            if (this.inRoute) {
+                var newPoint = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                if (this.userMarker) {
+                    this.userMarker.setPosition(newPoint);
+                    this.userMarker.setMap(this.map);
+                    this.map.setZoom(17);
+                }
+                else {
+                }
+                this.map.setZoom(17);
+                this.map.setCenter(newPoint);
+            }
+            else {
+                navigator.geolocation.clearWatch(id);
+                this.userMarker.setMap(null);
+                console.log('no more tracking');
+            }
+        }, (error) => {
+            console.log(error);
+        }, {
+            timeout: 5000
+        });
+        //setTimeout(this.trackLocation(), 10000);
     }
     loadMap() {
         this.map = new google.maps.Map(this.mapElement.nativeElement, {
@@ -925,19 +957,20 @@ let MapPage = class MapPage {
 };
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_13" /* ViewChild */])('map'),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* ElementRef */])
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* ElementRef */]) === "function" && _a || Object)
 ], MapPage.prototype, "mapElement", void 0);
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_13" /* ViewChild */])('filterSelect'),
-    __metadata("design:type", __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["l" /* Select */])
+    __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["l" /* Select */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["l" /* Select */]) === "function" && _b || Object)
 ], MapPage.prototype, "filterSelect", void 0);
 MapPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-map',template:/*ion-inline-start:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/map/map.html"*/'<ion-header>\n</ion-header>\n\n<ion-content>\n\n  <div *ngIf="!isSearching && !inStreetView()" id="float-button-left-top">\n    <button ion-button clear menuToggle>\n      <ion-icon id="menu-icon" large name="menu"></ion-icon>\n    </button>\n  </div>\n\n  <div id="float-button-right-top" *ngIf="!isSearching && !inStreetView()">\n    <button ion-button clear id="search-button" (click)="showSearch()">\n      <ion-icon name="search"></ion-icon>\n    </button>\n  </div>\n\n  <div *ngIf="isSearching" class="search">\n    <ion-searchbar showCancelButton\n                   [(ngModel)]="input"\n                   (ionInput)="searchPoints(input)"\n                   (ionCancel)="stopSearch($event)"\n                   placeholder="Search for a location"></ion-searchbar>\n\n    <ion-scroll class="scrollable" scrollY="true">\n      <ion-list>\n        <ion-item class="search-item" *ngFor="let location of searchList" (click)="addMarker(location)">\n          {{location.name}}\n        </ion-item>\n      </ion-list>\n    </ion-scroll>\n  </div>\n\n  <div *ngIf="searchingStart" class="search">\n    <ion-searchbar showCancelButton\n                   [(ngModel)]="input"\n                   (ionInput)="searchPoints(input)"\n                   (ionCancel)="searchStop($event)"\n                   placeholder="Select starting location"></ion-searchbar>\n\n    <ion-scroll class="scrollable" scrollY="true">\n      <ion-list>\n        <ion-item class="current-location" *ngIf="latLng" (click)="directFromCurrentLocation()">\n          <ion-icon name="locate"></ion-icon>\n          Current Location\n        </ion-item>\n        <ion-item class="search-item" *ngFor="let location of searchList" (click)="directFromLocation(location)">\n          {{location.name}}\n        </ion-item>\n      </ion-list>\n    </ion-scroll>\n  </div>\n\n  <div id="float-button-left-bottom">\n    <button *ngIf="isInfoWindowOpen && !inStreetView()" ion-fab mini (click)="searchStart()">\n      <ion-icon [name]="inRoute ? \'hand\' :\'navigate\'"></ion-icon>\n    </button>\n    <button *ngIf="!isSearching && !isInfoWindowOpen && !inStreetView()" ion-fab mini (click)="changeAllMarkers()">\n      <ion-icon [name]="changeIcon ? \'remove\' :\'add\'"></ion-icon>\n    </button>\n    <button *ngIf="!isSearching && !isInfoWindowOpen && !inStreetView()" ion-fab mini (click)="showCurrLocation()">\n      <ion-icon name="locate"></ion-icon>\n    </button>\n    <button *ngIf="(!isSearching && isInfoWindowOpen) || inStreetView()" ion-fab mini (click)="toggleStreetView()">\n      <ion-icon name="eye"></ion-icon>\n    </button>\n    <button *ngIf="!isSearching && !isInfoWindowOpen && !inStreetView()" ion-fab mini (click)="doFilter()">\n      <ion-icon name="funnel"></ion-icon>\n    </button>\n  </div>\n\n  <div #map id="map"></div>\n\n\n  <ion-select #filterSelect [(ngModel)]="filter" multiple="false" #C (ionChange)="filterMarker(C.value)" cancelText="Cancel"\n              okText="Filter!">\n    <ion-option *ngFor="let item of typeList" value="{{item}}">{{item}}</ion-option>\n  </ion-select>\n\n\n  <!--<ion-item>\n    <ion-label>Select A Location</ion-label>\n    <ion-select #newSelect [(ngModel)]="location" (ionChange)="addMarker(location)">\n      <ion-option *ngFor="let item of locationsList" value="{{item.value}}">{{item.text}}</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <ion-item>\n    <ion-label>Select A Starting Location</ion-label>\n    <ion-select #newSelect [(ngModel)]="startLoc" (ionChange)="setStartValue(startLoc)">\n      <ion-option *ngFor="let item of locationsList" value="{{item.value}}">{{item.text}}</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <ion-item>\n    <ion-label>Select A Destination</ion-label>\n    <ion-select #newSelect [(ngModel)]="endLoc" (ionChange)="setDestValue(endLoc)">\n      <ion-option *ngFor="let item of locationsList" value="{{item.value}}">{{item.text}}</ion-option>\n    </ion-select>\n  </ion-item>-->\n\n</ion-content>\n'/*ion-inline-end:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/map/map.html"*/,
+        selector: 'page-map',template:/*ion-inline-start:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/map/map.html"*/'<ion-header>\n</ion-header>\n\n<ion-content>\n\n  <div *ngIf="!isSearching && !inStreetView()" id="float-button-left-top">\n    <button ion-button clear menuToggle>\n      <ion-icon id="menu-icon" large name="menu"></ion-icon>\n    </button>\n  </div>\n\n  <div id="float-button-right-top" *ngIf="!isSearching && !inStreetView()">\n    <button ion-button clear id="search-button" (click)="showSearch()">\n      <ion-icon name="search"></ion-icon>\n    </button>\n  </div>\n\n  <div *ngIf="isSearching" class="search">\n    <ion-searchbar showCancelButton\n                   [(ngModel)]="input"\n                   (ionInput)="searchPoints(input)"\n                   (ionCancel)="stopSearch($event)"\n                   placeholder="Search for a location"></ion-searchbar>\n\n    <ion-scroll class="scrollable" scrollY="true">\n      <ion-list>\n        <ion-item class="search-item" *ngFor="let location of searchList" (click)="addMarker(location)">\n          {{location.name}}\n        </ion-item>\n      </ion-list>\n    </ion-scroll>\n  </div>\n\n  <div *ngIf="searchingStart" class="search">\n    <ion-searchbar showCancelButton\n                   [(ngModel)]="input"\n                   (ionInput)="searchPoints(input)"\n                   (ionCancel)="searchStop($event)"\n                   placeholder="Select starting location"></ion-searchbar>\n\n    <ion-scroll class="scrollable" scrollY="true">\n      <ion-list>\n        <ion-item class="current-location" *ngIf="latLng" (click)="directFromCurrentLocation()">\n          <ion-icon name="locate"></ion-icon>\n          Current Location\n        </ion-item>\n        <ion-item class="search-item" *ngFor="let location of searchList" (click)="directFromLocation(location)">\n          {{location.name}}\n        </ion-item>\n      </ion-list>\n    </ion-scroll>\n  </div>\n\n  <div id="float-button-left-bottom">\n    <button *ngIf="isInfoWindowOpen && !inStreetView()" ion-fab mini (click)="searchStart()">\n      <ion-icon [name]="inRoute ? \'hand\' :\'navigate\'"></ion-icon>\n    </button>\n    <button *ngIf="!isSearching && !isInfoWindowOpen && !inStreetView()" ion-fab mini (click)="changeAllMarkers()">\n      <ion-icon [name]="changeIcon ? \'remove\' :\'add\'"></ion-icon>\n    </button>\n    <button *ngIf="!isSearching && !isInfoWindowOpen && !inStreetView()" ion-fab mini (click)="showCurrLocation()">\n      <ion-icon name="locate"></ion-icon>\n    </button>\n    <button *ngIf="(!isSearching && isInfoWindowOpen) || inStreetView()" ion-fab mini (click)="toggleStreetView()">\n      <ion-icon name="eye"></ion-icon>\n    </button>\n    <button *ngIf="!isSearching && !isInfoWindowOpen && !inStreetView()" ion-fab mini (click)="doFilter()">\n      <ion-icon name="funnel"></ion-icon>\n    </button>\n  </div>\n\n  <div #map id="map"></div>\n\n\n  <ion-select #filterSelect [(ngModel)]="filter" multiple="false" #C (ionChange)="filterMarker(C.value)" cancelText="Cancel"\n              okText="Filter">\n    <ion-option *ngFor="let item of typeList" value="{{item}}">{{item}}</ion-option>\n  </ion-select>\n\n\n  <!--<ion-item>\n    <ion-label>Select A Location</ion-label>\n    <ion-select #newSelect [(ngModel)]="location" (ionChange)="addMarker(location)">\n      <ion-option *ngFor="let item of locationsList" value="{{item.value}}">{{item.text}}</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <ion-item>\n    <ion-label>Select A Starting Location</ion-label>\n    <ion-select #newSelect [(ngModel)]="startLoc" (ionChange)="setStartValue(startLoc)">\n      <ion-option *ngFor="let item of locationsList" value="{{item.value}}">{{item.text}}</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <ion-item>\n    <ion-label>Select A Destination</ion-label>\n    <ion-select #newSelect [(ngModel)]="endLoc" (ionChange)="setDestValue(endLoc)">\n      <ion-option *ngFor="let item of locationsList" value="{{item.value}}">{{item.text}}</ion-option>\n    </ion-select>\n  </ion-item>-->\n\n</ion-content>\n'/*ion-inline-end:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/map/map.html"*/,
     }),
-    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["g" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Http */]])
+    __metadata("design:paramtypes", [typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* NavController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["j" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["j" /* NavParams */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["g" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["g" /* LoadingController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_http__["a" /* Http */]) === "function" && _f || Object])
 ], MapPage);
 
+var _a, _b, _c, _d, _e, _f;
 //# sourceMappingURL=map.js.map
 
 /***/ }),
@@ -1115,7 +1148,7 @@ let LoginPage = class LoginPage {
 LoginPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPage */])(),
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'page-login',template:/*ion-inline-start:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/login/login.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Admin</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n\n  <ion-item>\n    <ion-label floating>Email Address</ion-label>\n    <ion-input type="text" [(ngModel)]="user.email"></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label floating>Password</ion-label>\n    <ion-input type="password" [(ngModel)]="user.password"></ion-input>\n  </ion-item>\n\n  <button ion-button class="login-btn" full color="primary" (click)="login(user)">Login</button>\n\n</ion-content>\n'/*ion-inline-end:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/login/login.html"*/,
+        selector: 'page-login',template:/*ion-inline-start:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/login/login.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Login</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n\n  <ion-item>\n    <ion-label floating>Email Address</ion-label>\n    <ion-input type="text" [(ngModel)]="user.email"></ion-input>\n  </ion-item>\n\n  <ion-item>\n    <ion-label floating>Password</ion-label>\n    <ion-input type="password" [(ngModel)]="user.password"></ion-input>\n  </ion-item>\n\n\n  <button ion-button class="login-btn" full color="primary" (click)="login(user)">Login</button>\n\n</ion-content>\n'/*ion-inline-end:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/login/login.html"*/,
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__["a" /* AngularFireAuth */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* ToastController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]])
 ], LoginPage);
@@ -1276,27 +1309,27 @@ webpackEmptyAsyncContext.id = 162;
 
 var map = {
 	"../pages/admin/admin.module": [
-		445,
-		3
-	],
-	"../pages/edit-submit-data/edit-submit-data.module": [
 		446,
 		2
 	],
+	"../pages/edit-submit-data/edit-submit-data.module": [
+		447,
+		1
+	],
 	"../pages/explore/explore.module": [
-		444,
+		445,
 		5
 	],
 	"../pages/home/home.module": [
-		442,
-		1
-	],
-	"../pages/login/login.module": [
 		443,
 		4
 	],
+	"../pages/login/login.module": [
+		444,
+		3
+	],
 	"../pages/points/points.module": [
-		447,
+		448,
 		0
 	]
 };
@@ -1400,7 +1433,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
 let SubmitDataChooseCoordsPage = class SubmitDataChooseCoordsPage {
     constructor(navCtrl, alertCtrl, loading, http) {
         this.navCtrl = navCtrl;
@@ -1421,29 +1453,43 @@ let SubmitDataChooseCoordsPage = class SubmitDataChooseCoordsPage {
         this.loadMap();
     }
     getCoords() {
-        let alert = this.alertCtrl.create({
-            title: 'Subitt This Point',
-            subTitle: 'Would you to use the following information to submit your point?',
-            message: `Latitude: ${this.lat}  \n Longitude: ${this.long} \n\n Address: ${this.address}`,
-            buttons: [
-                {
-                    text: 'ok',
-                    role: 'approve',
-                    handler: () => {
-                        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_6__submit_data_submit_data__["a" /* SubmitDataPage */], { 'token': false, 'lat': this.lat, 'long': this.long, 'address': this.address });
-                    }
-                }
-            ],
+        this.url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.lat},${this.long}&key=AIzaSyCeP_xxvneWjyU_0EIg5slVUl3I6TtH4oA`;
+        this.http.request(this.url)
+            .map(res => res.json()).subscribe(data => {
+            this.address = data.results[0].formatted_address;
         });
-        alert.present();
-        console.log(this.lat);
+        setTimeout(() => {
+            let alert = this.alertCtrl.create({
+                title: 'Submit This Point',
+                subTitle: 'Would you to use the following information to submit your point?',
+                message: `Latitude: ${this.lat}  \n Longitude: ${this.long} \n\n Address: ${this.address}`,
+                buttons: [
+                    {
+                        text: 'ok',
+                        role: 'approve',
+                        handler: () => {
+                            this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_6__submit_data_submit_data__["a" /* SubmitDataPage */], { 'token': false, 'lat': this.lat, 'long': this.long, 'address': this.address });
+                        }
+                    },
+                    {
+                        text: 'cancel',
+                        role: 'cancel',
+                        handler: () => {
+                        }
+                    }
+                ],
+            });
+            alert.present();
+        }, 3000);
     }
     getAddress() {
         this.url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.lat},${this.long}&key=AIzaSyCeP_xxvneWjyU_0EIg5slVUl3I6TtH4oA`;
         this.http.request(this.url)
             .map(res => res.json()).subscribe(data => {
             this.address = data.results[0].formatted_address;
+            console.log(this.address);
         });
+        return this.address;
     }
     loadMap() {
         this.map = new google.maps.Map(this.mapElement.nativeElement, {
@@ -1711,7 +1757,6 @@ let SubmitDataChooseCoordsPage = class SubmitDataChooseCoordsPage {
         google.maps.event.addListener(this.map, 'click', (event) => {
             this.lat = event.latLng.lat();
             this.long = event.latLng.lng();
-            this.getAddress();
             this.getCoords();
         });
     }
@@ -1735,9 +1780,51 @@ SubmitDataChooseCoordsPage = __decorate([
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(18);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+/**
+ * Generated class for the HomePage page.
+ *
+ * See http://ionicframework.com/docs/components/#navigation for more info
+ * on Ionic pages and navigation.
+ */
+let HomePage = class HomePage {
+    constructor(navCtrl, navParams) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+    }
+};
+HomePage = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* IonicPage */])(),
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+        selector: 'page-home',template:/*ion-inline-start:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Home</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <h3>Ionic Menu Starter</h3>\n\n  <p>\n    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.\n  </p>\n\n  <button ion-button secondary menuToggle>Toggle Menu</button>\n</ion-content>\n'/*ion-inline-end:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/home/home.html"*/,
+    }),
+    __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]])
+], HomePage);
+
+//# sourceMappingURL=home.js.map
+
+/***/ }),
+
+/***/ 291:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(291);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(309);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(292);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(310);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -1745,7 +1832,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 309:
+/***/ 310:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1754,7 +1841,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(52);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__(433);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__(434);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_map_map__ = __webpack_require__(115);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_login_login__ = __webpack_require__(152);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_submit_data_submit_data__ = __webpack_require__(151);
@@ -1829,7 +1916,7 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_9__pages_explore_explore__["a" /* ExplorePage */],
             __WEBPACK_IMPORTED_MODULE_16__pages_submit_data_landing_submit_data_landing__["a" /* SubmitDataLandingPage */],
             __WEBPACK_IMPORTED_MODULE_7__pages_submit_data_submit_data__["a" /* SubmitDataPage */],
-            __WEBPACK_IMPORTED_MODULE_8__pages_submit_data_choose_coords_submit_data_choose_coords__["a" /* SubmitDataChooseCoordsPage */],
+            __WEBPACK_IMPORTED_MODULE_8__pages_submit_data_choose_coords_submit_data_choose_coords__["a" /* SubmitDataChooseCoordsPage */]
         ],
         providers: [
             __WEBPACK_IMPORTED_MODULE_10__ionic_native_status_bar__["a" /* StatusBar */],
@@ -1843,7 +1930,7 @@ AppModule = __decorate([
 
 /***/ }),
 
-/***/ 433:
+/***/ 434:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1852,10 +1939,11 @@ AppModule = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(284);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(287);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_map_map__ = __webpack_require__(115);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_login_login__ = __webpack_require__(152);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_explore_explore__ = __webpack_require__(154);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_submit_data_landing_submit_data_landing__ = __webpack_require__(288);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(290);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_map_map__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_login_login__ = __webpack_require__(152);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_explore_explore__ = __webpack_require__(154);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_submit_data_landing_submit_data_landing__ = __webpack_require__(288);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1873,6 +1961,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 let MyApp = class MyApp {
     constructor(platform, statusBar, splashScreen) {
         this.platform = platform;
@@ -1882,30 +1971,35 @@ let MyApp = class MyApp {
         // used for an example of ngFor and navigation
         this.pages = [
             {
+                title: 'Home',
+                icon: 'home',
+                component: __WEBPACK_IMPORTED_MODULE_4__pages_home_home__["a" /* HomePage */]
+            },
+            {
+                title: 'User',
+                icon: 'person',
+                component: __WEBPACK_IMPORTED_MODULE_6__pages_login_login__["a" /* LoginPage */]
+            },
+            {
                 title: 'Map',
                 icon: 'map',
-                component: __WEBPACK_IMPORTED_MODULE_4__pages_map_map__["a" /* MapPage */]
+                component: __WEBPACK_IMPORTED_MODULE_5__pages_map_map__["a" /* MapPage */]
             },
             {
                 title: 'Explore',
                 icon: 'search',
-                component: __WEBPACK_IMPORTED_MODULE_6__pages_explore_explore__["a" /* ExplorePage */]
+                component: __WEBPACK_IMPORTED_MODULE_7__pages_explore_explore__["a" /* ExplorePage */]
             },
             {
                 title: 'Submit',
                 icon: 'send',
-                component: __WEBPACK_IMPORTED_MODULE_7__pages_submit_data_landing_submit_data_landing__["a" /* SubmitDataLandingPage */]
-            },
-            {
-                title: 'Admin',
-                icon: 'person',
-                component: __WEBPACK_IMPORTED_MODULE_5__pages_login_login__["a" /* LoginPage */]
+                component: __WEBPACK_IMPORTED_MODULE_8__pages_submit_data_landing_submit_data_landing__["a" /* SubmitDataLandingPage */]
             }
         ];
     }
     initializeApp() {
         this.platform.ready().then(() => {
-            this.rootPage = __WEBPACK_IMPORTED_MODULE_4__pages_map_map__["a" /* MapPage */];
+            this.rootPage = __WEBPACK_IMPORTED_MODULE_5__pages_map_map__["a" /* MapPage */];
             this.statusBar.styleDefault();
             this.splashScreen.hide();
         });
@@ -1948,5 +2042,5 @@ const FIREBASE_CONFIG = {
 
 /***/ })
 
-},[290]);
+},[291]);
 //# sourceMappingURL=main.js.map
