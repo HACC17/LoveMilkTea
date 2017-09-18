@@ -1604,7 +1604,9 @@ let MapPage = class MapPage {
                             lng: position.coords.longitude
                         };
                         this.loader.dismiss();
-                    });
+                    }, (err) => {
+                        console.log("Print something");
+                    }, { enableHighAccuracy: true, timeout: 2 * 1000, maximumAge: 0 });
                 });
             }
         }
