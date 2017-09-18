@@ -74,5 +74,8 @@ export class PointsPage {
     showAddButton() {
         this.showAdd = !this.showAdd;
     }
+    getDate(comment: any) {
+        return new Date(comment.dateTime).getMonth() + 1 + '/' + new Date(comment.dateTime).getDate() + '/' + new Date(comment.dateTime).getFullYear()
+    }
 
 }
