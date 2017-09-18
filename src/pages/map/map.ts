@@ -27,6 +27,8 @@ export class MapPage {
     db: any;
     ref: any;
     marker: any;
+    startMarker: any;
+    endMarker: any;
     public geoMarkers: any[]; // Holds all the marker data
     loader: any; // Holds the module for loading
     infoWindow: any;
@@ -52,6 +54,7 @@ export class MapPage {
     searchingStart: boolean = false;
     inRoute: boolean = false;
     navId: any;
+    endValueIndex;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public loading: LoadingController, public http: Http, private geolocation: Geolocation) {
         this.exploreIndex = navParams.get('locationIndex');
@@ -183,6 +186,7 @@ export class MapPage {
         this.endValue = {
             lat: location.lat, lng: location.lng
         };
+        this.endValueIndex = location.key;
 
         this.marker = new google.maps.Marker({
             position: this.endValue,
@@ -222,6 +226,7 @@ export class MapPage {
         const location = geoData[index];
 
         this.endValue = {lat: location.lat, lng: location.lng};
+        this.endValueIndex = location.key;
 
         this.marker = new google.maps.Marker({
             position: this.endValue,
@@ -250,39 +255,14 @@ export class MapPage {
     clearStarterMarker() {
         this.marker.setMap(null);
     }
-
-    setStartValue(locationIndex) {
-        this.startValue = locationIndex;
-        this.createRoute();
-    }
-
-    setDestValue(locationIndex) {
-        this.endValue = locationIndex;
-        this.createRoute();
-    }
-
+    
     clearRoute() {
         if (this.directionsDisplay != null) {
             this.directionsDisplay.setMap(null);
             this.directionsDisplay = null;
         }
     }
-
-    createRoute() {
-        this.clearRoute();
-
-        this.directionsService = new google.maps.DirectionsService;
-        this.directionsDisplay = new google.maps.DirectionsRenderer;
-
-        if ((!isNullOrUndefined(this.startValue)) && (!isNullOrUndefined(this.endValue))) {
-            this.directionsDisplay.setMap(this.map);
-            this.calculateAndDisplayRoute(this.directionsService, this.directionsDisplay, this.startValue, this.endValue);
-            if (this.changeIcon === true) {
-                this.changeAllMarkers();
-            }
-        }
-    }
-
+  
     calculateAndDisplayRoute(directionsService, directionsDisplay, sValue, eValue) {
         const geoData = this.geoMarkers.slice();
         let origin = {lat: geoData[sValue].lat, lng: geoData[sValue].lng};
@@ -370,8 +350,13 @@ export class MapPage {
     directFromCurrentLocation() {
         this.searchingStart = false;
 
+        let renderOptions = {
+            map: this.map,
+            suppressMarkers: true
+        }
+      
         this.directionsService = new google.maps.DirectionsService;
-        this.directionsDisplay = new google.maps.DirectionsRenderer;
+        this.directionsDisplay = new google.maps.DirectionsRenderer(renderOptions);
         this.directionsDisplay.setMap(this.map);
 
         let origin = this.latLng;
@@ -383,6 +368,7 @@ export class MapPage {
         }, (response, status) => {
             if (status === 'OK') {
                 this.directionsDisplay.setDirections(response);
+                this.placeDirectionsIcons(response, -1, this.endValueIndex);
             } else {
                 window.alert('Directions request failed due to ' + status);
             }
@@ -394,11 +380,16 @@ export class MapPage {
     directFromLocation(location) {
         this.searchingStart = false;
 
+        let renderOptions = {
+            map: this.map,
+            suppressMarkers: true
+        }
+
         this.directionsService = new google.maps.DirectionsService;
-        this.directionsDisplay = new google.maps.DirectionsRenderer;
+        this.directionsDisplay = new google.maps.DirectionsRenderer(renderOptions);
         this.directionsDisplay.setMap(this.map);
 
-        let origin = this.latLng;
+        let origin = {lat: location.lat, lng: location.lng};
         let destination = this.endValue;
         this.directionsService.route({
             origin: origin,
@@ -407,10 +398,30 @@ export class MapPage {
         }, (response, status) => {
             if (status === 'OK') {
                 this.directionsDisplay.setDirections(response);
+                this.placeDirectionsIcons(response, location.key, this.endValueIndex);
             } else {
                 window.alert('Directions request failed due to ' + status);
             }
         });
+    }
+
+    placeDirectionsIcons(directionResult, startIndex, endIndex) {
+        let directRoute = directionResult.routes[0].legs[0];
+        
+        if (startIndex != -1) {
+            this.startMarker = new google.maps.Marker({
+                position: directRoute.steps[0].start_point,
+                map: this.map,
+                icon: this.icons[this.geoMarkers[startIndex - 1].type]
+            });
+        }
+
+        this.endMarker = new google.maps.Marker({
+            position: directRoute.steps[directRoute.steps.length - 1].end_point,
+            map: this.map,
+            icon: this.icons[this.geoMarkers[endIndex - 1].type]
+        })
+        //this.trackLocation();
     }
 
     // Could be useful if needed.
@@ -691,6 +702,10 @@ export class MapPage {
     stopTrack() {
         navigator.geolocation.clearWatch(this.navId);
         this.userMarker.setMap(null);
+        if (!isNullOrUndefined(this.startMarker)) {
+            this.startMarker.setMap(null);
+        }
+        this.endMarker.setMap(null);
     }
 
     loadMap() {
