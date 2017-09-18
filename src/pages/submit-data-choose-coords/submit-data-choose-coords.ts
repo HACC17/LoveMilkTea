@@ -50,6 +50,10 @@ export class SubmitDataChooseCoordsPage {
             .map(res => res.json()).subscribe(data => {
             this.address = data.results[0].formatted_address;
         });
+        this.loader = this.loading.create({
+            content: "Getting Coordinates..."
+        });
+            this.loader.present().then(() => {
                 setTimeout(()=>{
                     let alert = this.alertCtrl.create({
                         title: 'Submit This Point',
@@ -67,14 +71,14 @@ export class SubmitDataChooseCoordsPage {
                                 text: 'cancel',
                                 role:'cancel',
                                 handler: () => {
-                    }
+                                }
                             }],
                     });
-
                     alert.present();
+                    this.loader.dismiss();
+                }, 3000);})
+            }
 
-                }, 3000);
-    }
 
     getAddress() {
             this.url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.lat},${this.long}&key=AIzaSyCeP_xxvneWjyU_0EIg5slVUl3I6TtH4oA`;
