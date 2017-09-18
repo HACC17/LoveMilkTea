@@ -56,17 +56,17 @@ export class MapPage {
     constructor(public navCtrl: NavController, public navParams: NavParams, public loading: LoadingController, public http: Http, private geolocation: Geolocation) {
         this.exploreIndex = navParams.get('locationIndex');
         this.exploreIndex2 = navParams.get('locationIndex2');
-      // this.currentLat = navParams.get('currentLat');
-      //  this.currentLng = navParams.get('currentLng');
+        // this.currentLat = navParams.get('currentLat');
+        //  this.currentLng = navParams.get('currentLng');
 
-      
+
         
         this.geolocation.getCurrentPosition().then((resp) => {
-         this.currentLat = resp.coords.latitude;
-         this.currentLng = resp.coords.longitude;
+            this.currentLat = resp.coords.latitude;
+            this.currentLng = resp.coords.longitude;
         }).catch((error) => {
-          console.log('Error getting location', error);
-         });
+            console.log('Error getting location', error);
+        });
 
 
         if (!firebase.apps.length) {
@@ -119,20 +119,20 @@ export class MapPage {
         this.geoMarkers = [];
         this.ref.once("value")
 
-            .then((dataPoints) => {
+        .then((dataPoints) => {
 
-                dataPoints.forEach((dataPoint) => {
-                    this.geoMarkers.push({
-                        key: dataPoint.key,
-                        address: dataPoint.val().address,
-                        description: dataPoint.val().description,
-                        lat: dataPoint.val().lat,
-                        lng: dataPoint.val().lng,
-                        name: dataPoint.val().name,
-                        number: dataPoint.val().number,
-                        website: dataPoint.val().website,
-                        type: dataPoint.val().type,
-                    });
+            dataPoints.forEach((dataPoint) => {
+                this.geoMarkers.push({
+                    key: dataPoint.key,
+                    address: dataPoint.val().address,
+                    description: dataPoint.val().description,
+                    lat: dataPoint.val().lat,
+                    lng: dataPoint.val().lng,
+                    name: dataPoint.val().name,
+                    number: dataPoint.val().number,
+                    website: dataPoint.val().website,
+                    type: dataPoint.val().type,
+                });
             });
         })
         .then(() => {
@@ -381,7 +381,7 @@ export class MapPage {
                 window.alert('Directions request failed due to ' + status);
             }
         });
-            this.trackLocation();
+        this.trackLocation();
     }
 
     // Could be useful if needed.
@@ -569,9 +569,7 @@ export class MapPage {
 
 
     getLatLng() {
-        
-       
-if(this.currentLat && this.currentLng && !this.latLng) {
+        if(this.currentLat && this.currentLng && !this.latLng) {
             this.latLng = {
                 lat: this.currentLat,
                 lng: this.currentLng
@@ -591,11 +589,15 @@ if(this.currentLat && this.currentLng && !this.latLng) {
                             lng: position.coords.longitude
                         };
                         this.loader.dismiss();
-                    });
+                    },
+                    (err) => {
+                        console.log("Print something");
+                    },
+                    {enableHighAccuracy: true, timeout: 2*1000, maximumAge: 0});
                 });
             }
         }
-}
+    }
 
 
 
@@ -614,26 +616,26 @@ if(this.currentLat && this.currentLng && !this.latLng) {
     trackLocation() {
         this.navId = navigator.geolocation.watchPosition((position) => {
 
-                var newPoint = new google.maps.LatLng(position.coords.latitude,
-                    position.coords.longitude);
+            var newPoint = new google.maps.LatLng(position.coords.latitude,
+                position.coords.longitude);
 
 
-                if (this.userMarker) {
+            if (this.userMarker) {
 
-                    this.userMarker.setPosition(newPoint);
-                    this.userMarker.setMap(this.map);
-                    this.map.setZoom(17);
-                }
-
+                this.userMarker.setPosition(newPoint);
+                this.userMarker.setMap(this.map);
                 this.map.setZoom(17);
-                this.map.setCenter(newPoint);
+            }
 
-            },
-            (error) => {
-                console.log(error);
-            }, {
-                timeout: 5000
-            });
+            this.map.setZoom(17);
+            this.map.setCenter(newPoint);
+
+        },
+        (error) => {
+            console.log(error);
+        }, {
+            timeout: 5000
+        });
 
         //setTimeout(this.trackLocation(), 10000);
     }
