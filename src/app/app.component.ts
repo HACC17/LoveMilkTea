@@ -7,6 +7,8 @@ import { MapPage }  from '../pages/map/map';
 import { LoginPage } from '../pages/login/login';
 import { ExplorePage } from "../pages/explore/explore";
 import { SubmitDataLandingPage } from '../pages/submit-data-landing/submit-data-landing';
+declare function require(name:string);
+const ua = require('universal-analytics');
 
 @Component({
     templateUrl: 'app.html'
@@ -44,10 +46,10 @@ export class App {
                 component: LoginPage
             },
         ];
-
     }
 
     initializeApp() {
+        const visitor = ua('UA-106620204-1');
         this.platform.ready().then(() => {
             this.rootPage = MapPage;
             this.statusBar.styleDefault();
