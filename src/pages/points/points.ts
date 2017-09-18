@@ -47,10 +47,11 @@ export class PointsPage {
     }
 
     ionViewDidLoad() {
+      this.showComments();
     }
 
-    showComments(){
-        if(this.showing){
+    showComments() {
+        if(this.showing) {
             this.showing = false;
         } else {
             this.showing = true;
@@ -58,7 +59,6 @@ export class PointsPage {
             this.ref.child(this.key).child("comments").once("value")
                 .then((dataPoints) => {
                     item = dataPoints.val();
-                    console.log(item);
                     this.comments = _.toArray(item);
                 });
         }
@@ -68,16 +68,11 @@ export class PointsPage {
         this.date = new Date().toString();
         Object.assign(formData.value, {'dateTime': this.date});
 
-        let comments =  this.ref.child(this.key);
+        let comments = this.ref.child(this.key);
         comments.child('/comments').push(formData.value);
-
     }
-    showAddButton(){
-        if(this.showAdd) {
-            this.showAdd = false;
-        }else{
-            this.showAdd = true;
-        }
+    showAddButton() {
+        this.showAdd = !this.showAdd;
     }
 
 }

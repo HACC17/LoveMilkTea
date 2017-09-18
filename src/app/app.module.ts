@@ -47,7 +47,7 @@ import {SubmitDataLandingPage} from "../pages/submit-data-landing/submit-data-la
         ExplorePage,
         SubmitDataLandingPage,
         SubmitDataPage,
-        SubmitDataChooseCoordsPage,
+        SubmitDataChooseCoordsPage
     ],
     providers: [
         StatusBar,

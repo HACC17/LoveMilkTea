@@ -10,23 +10,43 @@
 
 
 <ion-content padding>
-  <ion-img class="pointImage" src={{image}}></ion-img>
+  <ion-img style="background: none;" *ngIf="image" class="pointImage" src={{image}}></ion-img>
   <div>
     <br>
-    <h2 *ngIf="name != 'n/a'">{{name}}</h2>
-    <div *ngIf="address != 'n/a'">{{address}}</div>
-    <div *ngIf="number != 'n/a'"> {{number}}</div>
-    <hr>
-    <div *ngIf="description != 'n/a'"> {{description}}
-    <hr></div>
+    <h2 *ngIf="name && name.toLowerCase() != 'n/a'">
+      {{name}}
+    </h2>
+    <div *ngIf="addess && address.toLowerCase() != 'n/a'">
+      {{address}}
+    </div>
+    <div *ngIf="number && number.toLowerCase() != 'n/a'">
+      {{number}}
+    </div>
+    <hr *ngIf="description && description.toLowerCase() != 'n/a'">
+    <div *ngIf="description && description.toLowerCase() != 'n/a'">
+      {{description}}
+      <hr>
+    </div>
     <br>
-
   </div>
-  <button ion-button (click)="showComments()">Comments</button>
-  <button ion-button (click)="showAddButton()">Add a Comment</button>
+
+  <div *ngIf="showing">
+    <div *ngIf="comments">
+      <ion-card *ngFor="let comment of comments">
+        <ion-card-header>
+          <ion-item>
+            <ion-icon name="person"> Anonymous</ion-icon>
+          </ion-item>
+        </ion-card-header>
+        <ion-card-content>
+          {{ comment.messages }}
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+
   <div *ngIf="showAdd">
     <form #formData='ngForm' (ngSubmit)="addComments(formData)">
-      <br><br>
       <ion-label color="primary">Add a new comment</ion-label>
       <ion-item>
         <ion-input type="text" placeholder="Enter a comment" [(ngModel)]="messages" name="messages"></ion-input>
@@ -34,18 +54,10 @@
       <button ion-button type="submit" block>Submit</button>
     </form>
   </div>
-  <div *ngIf="showing">
-    <div *ngIf="comments">
-      <ion-card *ngFor="let comment of comments">
-        <ion-item>
-          <ion-icon name="person">UserName</ion-icon>
-        </ion-item>
-        <div class="font">{{comment.dateTime}}</div>
-        <ion-card-content> {{ comment.messages }}</ion-card-content>
-      </ion-card>
-    </div>
-    <div *ngIf="!comments">
-      <h3>Currently no comments...</h3>
-    </div>
+  <br>
+  <div style="display: flex;">
+    <button style="margin: auto;" ion-button (click)="showAddButton()">
+      Comment
+    </button>
   </div>
 </ion-content>
