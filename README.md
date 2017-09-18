@@ -52,6 +52,8 @@ ionic serve --lab
 
 ## Mobile Installation
 
+If your phone supports neither of these versions, please visit our mobile-friendly deployment on [Heroku](https://lovemilktea.herokuapp.com)
+
 ### Android
 
 From your smartphone or tablet, go to Settings, scroll down to Security, and toggle Unknown sources. This option will allow you to install applications outside of the Google Play store.
@@ -65,6 +67,11 @@ Open the .apk file and install the application, from here you should be able to 
 Download [Ionic View](https://itunes.apple.com/us/app/ionic-view/id849930087?mt=8) from the app store
 
 Next, run it, select view app, and enter the code `f2910581`.
+
+<img style="float: left;" src="img/ionic-log.jpg">
+![alt tag](https://github.com/HACC17/LoveMilkTea/blob/master/img/ionic-log.jpg)
+
+![alt tag](https://github.com/HACC17/LoveMilkTea/blob/master/img/ionic-map.jpg)
 
 From here, select and run the 'LoveMilkTea' app
 
