@@ -345,6 +345,7 @@ export class MapPage {
                 window.alert('Directions request failed due to ' + status);
             }
         });
+        this.trackLocation();
 
     }
 
@@ -598,26 +599,35 @@ export class MapPage {
 
     //Use HTML5 Geolocation to track lat/lng
     trackLocation() {
-        navigator.geolocation.watchPosition((position) => {
-            var newPoint = new google.maps.LatLng(position.coords.latitude,
-                position.coords.longitude);
-
-            if (this.userMarker) {
-
-                this.userMarker.setPosition(newPoint);
-                this.userMarker.setMap(this.map);
-                this.map.setZoom(17);
-            }
-            else {
+        var id = navigator.geolocation.watchPosition((position) => {
+                if (this.inRoute) {
+                    var newPoint = new google.maps.LatLng(position.coords.latitude,
+                        position.coords.longitude);
 
 
-            }
-            this.map.setZoom(17);
-            this.map.setCenter(newPoint);
-        },
-            () =>{
-                console.log('error');
-            },{timeout: 5000});
+                    if (this.userMarker) {
+
+                        this.userMarker.setPosition(newPoint);
+                        this.userMarker.setMap(this.map);
+                        this.map.setZoom(17);
+                    }
+                    else {
+
+
+                    }
+                    this.map.setZoom(17);
+                    this.map.setCenter(newPoint);
+                } else {
+                    navigator.geolocation.clearWatch(id);
+                    this.userMarker.setMap(null);
+                    console.log('no more tracking');
+                }
+            },
+            (error) => {
+                console.log(error);
+            }, {
+                timeout: 5000
+        });
 
         //setTimeout(this.trackLocation(), 10000);
     }
