@@ -49,9 +49,9 @@ export class App {
 
     initializeApp() {
         this.platform.ready().then(() => {
+            this.splashScreen.show();
             this.rootPage = MapPage;
             this.statusBar.styleDefault();
-            this.splashScreen.hide();
         });
     }
 
