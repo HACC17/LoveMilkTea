@@ -1,12 +1,12 @@
-import {Component, ViewChild, ElementRef, Injectable} from '@angular/core';
-import {FIREBASE_CONFIG} from "./../../app.firebase.config";
+import { Component, ViewChild, ElementRef, Injectable } from '@angular/core';
+import { FIREBASE_CONFIG } from "./../../app.firebase.config";
 import * as firebase from 'firebase';
-import {IonicPage, NavController, NavParams, LoadingController, Select} from 'ionic-angular';
-import {Http} from '@angular/http';
+import { IonicPage, NavController, NavParams, LoadingController, Select } from 'ionic-angular';
+import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-import {isNullOrUndefined} from "util";
+import { isNullOrUndefined } from "util";
 import * as Fuse from 'fuse.js';
-import {Geolocation} from '@ionic-native/geolocation';
+import { Geolocation } from '@ionic-native/geolocation';
 
 declare var google;
 // Array to contain Markers on the map
@@ -59,6 +59,16 @@ export class MapPage {
         this.exploreIndex2 = navParams.get('locationIndex2');
         this.currentLat = navParams.get('currentLat');
         this.currentLng = navParams.get('currentLng');
+
+      
+        
+        this.geolocation.getCurrentPosition().then((resp) => {
+         this.currentLat = resp.coords.latitude;
+         this.currentLng = resp.coords.longitude;
+        }).catch((error) => {
+          console.log('Error getting location', error);
+         });
+
 
 
         this.geolocation.getCurrentPosition().then((resp) => {
@@ -156,6 +166,7 @@ export class MapPage {
 
                 this.loadLocationsList();
             })
+
     }
 
 
@@ -782,7 +793,7 @@ export class MapPage {
                         {
                             "gamma": 1
                         }
-                    ]
+                        ]
                 },
                 // Remove the next five if we want labels back
                 {
