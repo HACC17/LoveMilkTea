@@ -165,10 +165,12 @@ page-map {
 .gm-style-iw {
   .ui.grid {
     #infoIcon {
-      cursor: pointer;
-      font-style: normal;
+      i {
+        font-style: normal;
+      }
       margin-top: 3%;
     }
+
     width: fluid;
   }
 }

@@ -60,7 +60,7 @@ export class MapPage {
         this.currentLng = navParams.get('currentLng');
 
 
-       /* 
+       /*
         this.geolocation.getCurrentPosition().then((resp) => {
             this.currentLat = resp.coords.latitude;
             this.currentLng = resp.coords.longitude;
@@ -177,6 +177,7 @@ export class MapPage {
         let info = this.getInfoWindowData(location);
         this.infoWindow = new google.maps.InfoWindow({
             content: info,
+            closeBoxMargin: "10px 20px 2px 2px"
         });
         google.maps.event.addListener(this.infoWindow, 'domready', (() => {
             document.getElementById("infoIcon").addEventListener("click", ()=>{
@@ -520,7 +521,7 @@ export class MapPage {
         if (location.number) {
             infoContent += '<div id="phoneTitle">Phone: ' + location.number + '</div>';
         }
-        infoContent += '<i id="infoIcon">' + '&#9432;' + '</i>';
+        infoContent += '<a id="infoIcon" style="text-decoration: none;" href="#"><i>' + '&#9432;' + '</i></a>';
         infoContent += '</div>';
 
         return infoContent;
@@ -556,7 +557,7 @@ export class MapPage {
                 });
                 this.endValue = latLng;
             }))
-            
+
             google.maps.event.addListener(this.infoWindow, 'closeclick', (() => {
                 this.isInfoWindowOpen = false;
             }));
