@@ -537,20 +537,20 @@ export class MapPage {
     getInfoWindowData(location) {
 
         let infoContent = '<div class="ui grid">';
-        if (location.key) {
+        if (location.key ) {
             let imgSrc = "http://manoanow.org/app/map/images/" + location.key + ".png";
             infoContent += '<img class="ui fluid image info" src="' + imgSrc + '">'
         }
-        if (location.name) {
+        if (location.name && location.name !=='n/a') {
             infoContent += '<div id="windowHead">' + location.name + '</div>'
         }
-        if (location.description) {
+        if (location.description && location.description !=='n/a') {
             infoContent += '<div id="description">' + location.description + '</div>'
         }
-        if (location.address) {
+        if (location.address && location.address !=='n/a') {
             infoContent += '<div id="addressTitle">Address: ' + location.address + '</div>'
         }
-        if (location.number) {
+        if (location.number && location.number !=='n/a') {
             infoContent += '<div id="phoneTitle">Phone: ' + location.number + '</div>';
         }
         infoContent += '<a id="infoIcon" style="text-decoration: none;" href="#"><i>' + '&#9432;' + '</i></a>';
