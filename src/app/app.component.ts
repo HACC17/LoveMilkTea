@@ -1,19 +1,19 @@
-import {Component, ViewChild} from '@angular/core';
-import {Nav, Platform} from 'ionic-angular';
-import {StatusBar} from '@ionic-native/status-bar';
-import {SplashScreen} from '@ionic-native/splash-screen';
+import { Component, ViewChild } from '@angular/core';
+import { Nav, Platform } from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
 
-
-import { HomePage } from '../pages/home/home';
 import { MapPage }  from '../pages/map/map';
-import {LoginPage} from '../pages/login/login';
-import {ExplorePage} from "../pages/explore/explore";
+import { LoginPage } from '../pages/login/login';
+import { ExplorePage } from "../pages/explore/explore";
 import { SubmitDataLandingPage } from '../pages/submit-data-landing/submit-data-landing';
+declare function require(name:string);
+const ua = require('universal-analytics');
 
 @Component({
     templateUrl: 'app.html'
 })
-export class MyApp {
+export class App {
 
     @ViewChild(Nav) nav: Nav;
 
@@ -24,13 +24,7 @@ export class MyApp {
     constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
         this.initializeApp();
 
-        // used for an example of ngFor and navigation
         this.pages = [
-            {
-                title: 'User',
-                icon: 'person',
-                component: LoginPage
-            },
             {
                 title: 'Map',
                 icon: 'map',
@@ -45,12 +39,17 @@ export class MyApp {
                 title: 'Submit',
                 icon: 'send',
                 component: SubmitDataLandingPage
-            }
+            },
+            {
+                title: 'User',
+                icon: 'person',
+                component: LoginPage
+            },
         ];
-
     }
 
     initializeApp() {
+        const visitor = ua('UA-106620204-1');
         this.platform.ready().then(() => {
             this.rootPage = MapPage;
             this.statusBar.styleDefault();
@@ -59,8 +58,7 @@ export class MyApp {
     }
 
     openPage(page) {
-        // Reset the content nav to have just this page
-        // we wouldn't want the back button to show in this scenario
+        // Reset the content nav to have just this page, we wouldn't want the back button to show up in this scenario
         this.nav.setRoot(page.component);
     }
 

@@ -5,12 +5,10 @@
     </button>
     <ion-title>{{name}}</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content padding>
-  <ion-img style="background: none;" *ngIf="image" class="pointImage" src={{image}}></ion-img>
+  <ion-img center style="background: none;" *ngIf="image" class="pointImage" src={{image}}></ion-img>
   <div>
     <br>
     <h2 *ngIf="name && name.toLowerCase() != 'n/a'">

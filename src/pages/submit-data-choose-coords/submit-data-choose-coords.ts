@@ -1,16 +1,13 @@
-import {Component, ViewChild, ElementRef, Injectable} from '@angular/core';
-import {IonicPage, NavController, NavParams, LoadingController} from 'ionic-angular';
-import {Http} from '@angular/http';
+import { Component, ViewChild, ElementRef, Injectable } from '@angular/core';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-import {FIREBASE_CONFIG} from "./../../app.firebase.config";
+import { FIREBASE_CONFIG } from "./../../app.firebase.config";
 import * as firebase from 'firebase';
-import {SubmitDataPage} from "../submit-data/submit-data";
-
-
+import { SubmitDataPage } from "../submit-data/submit-data";
 import { AlertController } from 'ionic-angular';
 
 declare var google;
-
 
 @Component({
     selector: 'submit-data-coords-page',
@@ -53,6 +50,10 @@ export class SubmitDataChooseCoordsPage {
             .map(res => res.json()).subscribe(data => {
             this.address = data.results[0].formatted_address;
         });
+        this.loader = this.loading.create({
+            content: "Getting Coordinates..."
+        });
+            this.loader.present().then(() => {
                 setTimeout(()=>{
                     let alert = this.alertCtrl.create({
                         title: 'Submit This Point',
@@ -70,14 +71,14 @@ export class SubmitDataChooseCoordsPage {
                                 text: 'cancel',
                                 role:'cancel',
                                 handler: () => {
-                    }
+                                }
                             }],
                     });
-
                     alert.present();
+                    this.loader.dismiss();
+                }, 3000);})
+            }
 
-                }, 3000);
-    }
 
     getAddress() {
             this.url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.lat},${this.long}&key=AIzaSyCeP_xxvneWjyU_0EIg5slVUl3I6TtH4oA`;
@@ -85,7 +86,6 @@ export class SubmitDataChooseCoordsPage {
             this.http.request(this.url)
                 .map(res => res.json()).subscribe(data => {
                 this.address = data.results[0].formatted_address;
-                console.log(this.address);
             });
         return this.address;
     }
@@ -96,7 +96,6 @@ export class SubmitDataChooseCoordsPage {
 
             zoom: 18,
             center: {lat: 21.2969, lng: -157.8171},
-            //streetControlView: false;
             mapTypeControlOptions: {
                 mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain', 'styled_map']
             },

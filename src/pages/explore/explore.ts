@@ -1,7 +1,7 @@
-import {Component, Injectable} from '@angular/core';
-import {IonicPage, NavController, NavParams, LoadingController} from 'ionic-angular';
-import {MapPage} from "../map/map";
-import {Http} from '@angular/http';
+import { Component, Injectable } from '@angular/core';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { MapPage } from "../map/map";
+import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 declare var google;
@@ -43,7 +43,7 @@ export class ExplorePage {
             this.showLoading();
         }
         else {
-            console.log("Location blocked");
+            alert('Location blocked, please try again.')
         }
     }
 
@@ -63,8 +63,7 @@ export class ExplorePage {
         });
     }
 
-    // will check if app has access to user current location to calculate distance from point of interest
-    hasCurrLocation() {
+    hasCurrLocation() { // This will check if the app has access to user current location to calculate distance from point of interest
         if (this.current) {
             return true;
         }
