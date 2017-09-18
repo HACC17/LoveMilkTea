@@ -18,6 +18,7 @@ import { FIREBASE_CONFIG } from "../app.firebase.config";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { SubmitDataLandingPage } from "../pages/submit-data-landing/submit-data-landing";
 
+import {Geolocation} from '@ionic-native/geolocation';
 
 @NgModule({
     declarations: [
@@ -49,6 +50,7 @@ import { SubmitDataLandingPage } from "../pages/submit-data-landing/submit-data-
         SubmitDataChooseCoordsPage
     ],
     providers: [
+        Geolocation,
         StatusBar,
         SplashScreen,
         {

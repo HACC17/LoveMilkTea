@@ -6,6 +6,7 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { isNullOrUndefined } from "util";
 import * as Fuse from 'fuse.js';
+import { Geolocation } from '@ionic-native/geolocation';
 
 declare var google;
 // Array to contain Markers on the map
@@ -52,11 +53,21 @@ export class MapPage {
     inRoute: boolean = false;
     navId: any;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, public loading: LoadingController, public http: Http) {
+    constructor(public navCtrl: NavController, public navParams: NavParams, public loading: LoadingController, public http: Http, private geolocation: Geolocation) {
         this.exploreIndex = navParams.get('locationIndex');
         this.exploreIndex2 = navParams.get('locationIndex2');
-        this.currentLat = navParams.get('currentLat');
-        this.currentLng = navParams.get('currentLng');
+      // this.currentLat = navParams.get('currentLat');
+      //  this.currentLng = navParams.get('currentLng');
+
+      
+        
+        this.geolocation.getCurrentPosition().then((resp) => {
+         this.currentLat = resp.coords.latitude;
+         this.currentLng = resp.coords.longitude;
+        }).catch((error) => {
+          console.log('Error getting location', error);
+         });
+
 
         if (!firebase.apps.length) {
             this.App = firebase.initializeApp(FIREBASE_CONFIG);
@@ -565,7 +576,7 @@ export class MapPage {
             };
         }
         else if(!this.latLng) {
-            let options = {maximumAge: 1000, timeout: 5000, enableHighAccuracy: false};
+            let options = {maximumAge: 1000, enableHighAccuracy: false};
             this.loader = this.loading.create({
                 content: "Getting Coordinates..."
             })

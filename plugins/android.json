@@ -24,7 +24,14 @@
         },
         "cordova-plugin-console": {
             "PACKAGE_NAME": "io.ionic.starter"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "io.ionic.starter"
         }
     },
-    "dependent_plugins": {}
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "io.ionic.starter"
+        }
+    }
 }
