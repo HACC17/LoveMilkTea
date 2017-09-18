@@ -591,9 +591,9 @@ export class MapPage {
                         this.loader.dismiss();
                     },
                     (err) => {
-                        console.log("Print something");
+                        console.log(err);
                     },
-                    {enableHighAccuracy: true, timeout: 2*1000, maximumAge: 0});
+                    {enableHighAccuracy: true, timeout: 5*1000, maximumAge: 0});
                 });
             }
         }
