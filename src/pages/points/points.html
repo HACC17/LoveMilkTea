@@ -5,12 +5,10 @@
     </button>
     <ion-title>{{name}}</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content padding>
-  <ion-img style="background: none;" *ngIf="image" class="pointImage" src={{image}}></ion-img>
+  <ion-img center style="background: none;" *ngIf="image" class="pointImage" src={{image}}></ion-img>
   <div>
     <br>
     <h2 *ngIf="name && name.toLowerCase() != 'n/a'">
@@ -38,7 +36,11 @@
             <ion-icon name="person"> Anonymous</ion-icon>
           </ion-item>
         </ion-card-header>
+
         <ion-card-content>
+          <div class="font">
+            {{ this.getDate(comment) }}
+          </div>
           {{ comment.messages }}
         </ion-card-content>
       </ion-card>
@@ -54,7 +56,7 @@
       <button ion-button type="submit" block>Submit</button>
     </form>
   </div>
-  <br>
+
   <div style="display: flex;">
     <button style="margin: auto;" ion-button (click)="showAddButton()">
       Comment

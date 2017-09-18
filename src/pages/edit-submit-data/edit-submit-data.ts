@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
-import {LoadingController} from 'ionic-angular';
-import {NgForm} from '@angular/forms';
-import {FIREBASE_CONFIG} from "./../../app.firebase.config";
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { LoadingController } from 'ionic-angular';
+import { NgForm } from '@angular/forms';
+import { FIREBASE_CONFIG } from "./../../app.firebase.config";
 import * as firebase from 'firebase';
 
 @IonicPage()
@@ -35,7 +35,7 @@ export class EditSubmitDataPage {
         this.db = this.App.database();
         this.ref = this.db.ref("dataPoints");
 
-        //set values to repopulate form
+        // Set the values to repopulate the form
         this.pointName = this.navParams.get('pointName');
         this.latitude = this.navParams.get('latitude');
         this.longitude = this.navParams.get('longitude');
@@ -46,16 +46,14 @@ export class EditSubmitDataPage {
         this.email = this.navParams.get('email');
         this.website = this.navParams.get('website');
         this.dataKey = this.navParams.get('key');
-
     }
 
-    ionViewDidLoad() {
-    }
+    ionViewDidLoad() {}
 
     onSubmit(formData: NgForm) {
-         for (var element in formData.value) {
-             this.ref.child(this.dataKey).update({ [element] : formData.value[element]});
-             }
+        for (var element in formData.value) {
+            this.ref.child(this.dataKey).update({ [element] : formData.value[element]});
+        }
         this.toast.create({
             message: `Edit Complete`,
             duration: 3000

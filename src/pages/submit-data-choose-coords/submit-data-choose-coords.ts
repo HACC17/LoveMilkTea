@@ -1,16 +1,13 @@
-import {Component, ViewChild, ElementRef, Injectable} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
-import {Http} from '@angular/http';
+import { Component, ViewChild, ElementRef, Injectable } from '@angular/core';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-import {FIREBASE_CONFIG} from "./../../app.firebase.config";
+import { FIREBASE_CONFIG } from "./../../app.firebase.config";
 import * as firebase from 'firebase';
-import {LoadingController} from 'ionic-angular';
-import {SubmitDataPage} from "../submit-data/submit-data";
-
+import { SubmitDataPage } from "../submit-data/submit-data";
 import { AlertController } from 'ionic-angular';
 
 declare var google;
-
 
 @Component({
     selector: 'submit-data-coords-page',
@@ -27,6 +24,7 @@ export class SubmitDataChooseCoordsPage {
     long: any;
     url: any;
     address: any;
+    loader: any;
 
 
     constructor(public navCtrl: NavController, private alertCtrl: AlertController, public loading: LoadingController,  public http: Http) {
@@ -47,30 +45,45 @@ export class SubmitDataChooseCoordsPage {
 
 
     getCoords(){
-        let alert = this.alertCtrl.create({
-            title: 'Subitt This Point',
-            subTitle: 'Would you to use the following information to submit your point?',
-            message: `Latitude: ${this.lat}  \n Longitude: ${this.long} \n\n Address: ${this.address}`,
-            buttons: [
-                {
-                    text: 'ok',
-                    role: 'approve',
-                    handler: () => {
-                        this.navCtrl.push(SubmitDataPage, {'token': false, 'lat' : this.lat, 'long': this.long, 'address': this.address});
-                    }
-                }],
-
-        });
-        alert.present();
-        console.log(this.lat);
-    }
-    getAddress() {
         this.url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.lat},${this.long}&key=AIzaSyCeP_xxvneWjyU_0EIg5slVUl3I6TtH4oA`;
-
         this.http.request(this.url)
             .map(res => res.json()).subscribe(data => {
             this.address = data.results[0].formatted_address;
         });
+                setTimeout(()=>{
+                    let alert = this.alertCtrl.create({
+                        title: 'Submit This Point',
+                        subTitle: 'Would you to use the following information to submit your point?',
+                        message: `Latitude: ${this.lat}  \n Longitude: ${this.long} \n\n Address: ${this.address}`,
+                        buttons: [
+                            {
+                                text: 'ok',
+                                role: 'approve',
+                                handler: () => {
+                                    this.navCtrl.push(SubmitDataPage, {'token': false, 'lat' : this.lat, 'long': this.long, 'address': this.address});
+                                }
+                            },
+                            {
+                                text: 'cancel',
+                                role:'cancel',
+                                handler: () => {
+                    }
+                            }],
+                    });
+
+                    alert.present();
+
+                }, 3000);
+    }
+
+    getAddress() {
+            this.url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.lat},${this.long}&key=AIzaSyCeP_xxvneWjyU_0EIg5slVUl3I6TtH4oA`;
+
+            this.http.request(this.url)
+                .map(res => res.json()).subscribe(data => {
+                this.address = data.results[0].formatted_address;
+            });
+        return this.address;
     }
 
     loadMap() {
@@ -79,7 +92,6 @@ export class SubmitDataChooseCoordsPage {
 
             zoom: 18,
             center: {lat: 21.2969, lng: -157.8171},
-            //streetControlView: false;
             mapTypeControlOptions: {
                 mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain', 'styled_map']
             },
@@ -342,7 +354,6 @@ export class SubmitDataChooseCoordsPage {
         google.maps.event.addListener(this.map, 'click', (event) => {
             this.lat = event.latLng.lat();
             this.long = event.latLng.lng();
-            this.getAddress();
             this.getCoords();
         });
 
