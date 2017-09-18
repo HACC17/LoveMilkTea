@@ -53,6 +53,7 @@ export class MapPage {
     isInfoWindowOpen: boolean = false;
     searchingStart: boolean = false;
     inRoute: boolean = false;
+    navId: any;
 
     constructor(public navCtrl: NavController, public navParams: NavParams, public loading: LoadingController, public http: Http) {
         this.exploreIndex = navParams.get('locationIndex');
@@ -322,6 +323,7 @@ export class MapPage {
             this.isInfoWindowOpen = false;
             this.inRoute = false;
             this.searchingStart = false;
+            this.stopTrack();
             this.showCurrLocation();
         }
     }
@@ -613,37 +615,36 @@ export class MapPage {
 
     //Use HTML5 Geolocation to track lat/lng
     trackLocation() {
-        var id = navigator.geolocation.watchPosition((position) => {
-                if (this.inRoute) {
-                    var newPoint = new google.maps.LatLng(position.coords.latitude,
-                        position.coords.longitude);
+        this.navId = navigator.geolocation.watchPosition((position) => {
+
+                var newPoint = new google.maps.LatLng(position.coords.latitude,
+                    position.coords.longitude);
 
 
-                    if (this.userMarker) {
+                if (this.userMarker) {
 
-                        this.userMarker.setPosition(newPoint);
-                        this.userMarker.setMap(this.map);
-                        this.map.setZoom(17);
-                    }
-                    else {
-
-
-                    }
+                    this.userMarker.setPosition(newPoint);
+                    this.userMarker.setMap(this.map);
                     this.map.setZoom(17);
-                    this.map.setCenter(newPoint);
-                } else {
-                    navigator.geolocation.clearWatch(id);
-                    this.userMarker.setMap(null);
-                    console.log('no more tracking');
                 }
+
+                this.map.setZoom(17);
+                this.map.setCenter(newPoint);
+
             },
             (error) => {
                 console.log(error);
             }, {
                 timeout: 5000
-        });
+            });
 
         //setTimeout(this.trackLocation(), 10000);
+    }
+
+    stopTrack() {
+        navigator.geolocation.clearWatch(this.navId);
+        this.userMarker.setMap(null);
+        console.log('no more tracking');
     }
 
     loadMap() {
