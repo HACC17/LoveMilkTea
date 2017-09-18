@@ -543,10 +543,14 @@ export class MapPage {
     }
 
     getInfoWindowData(location) {
-
+        let imgSrc;
         let infoContent = '<div class="ui grid">';
         if (location.key) {
-            let imgSrc = "http://manoanow.org/app/map/images/" + location.key + ".png";
+            if(location.key > 163){
+                 imgSrc = "../../assets/images/uhLogo.jpg";
+            } else{
+                 imgSrc = "http://manoanow.org/app/map/images/" + location.key + ".png";
+            }
             infoContent += '<img class="ui fluid image info" src="' + imgSrc + '">'
         }
         if (location.name) {
