@@ -357,7 +357,7 @@ export class MapPage {
                 window.alert('Directions request failed due to ' + status);
             }
         });
-        this.trackLocation();
+        //this.trackLocation();
 
     }
 
@@ -381,7 +381,7 @@ export class MapPage {
                 window.alert('Directions request failed due to ' + status);
             }
         });
-        this.trackLocation();
+        //this.trackLocation();
     }
 
     // Could be useful if needed.
