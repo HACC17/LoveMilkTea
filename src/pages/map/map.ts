@@ -279,8 +279,13 @@ export class MapPage {
         this.inRoute = true;
         this.isInfoWindowOpen = true;
 
+        let renderOptions = {
+            map: this.map,
+            suppressMarkers: true
+        }
+
         this.directionsService = new google.maps.DirectionsService;
-        this.directionsDisplay = new google.maps.DirectionsRenderer;
+        this.directionsDisplay = new google.maps.DirectionsRenderer(renderOptions);
 
         this.directionsDisplay.setMap(this.map);
         this.calculateAndDisplayExpRoute(this.directionsService, this.directionsDisplay);
@@ -298,6 +303,7 @@ export class MapPage {
         }, function (response, status) {
             if (status === 'OK') {
                 directionsDisplay.setDirections(response);
+                this.placeDirectionsIcons(response, -1, this.endValueIndex);
             } else {
                 window.alert('Directions request failed due to ' + status);
             }
@@ -410,7 +416,6 @@ export class MapPage {
         })
     }
 
-
     //Could be useful if needed.
     toggleStreetView() {
         this.panorama.setPosition(this.endValue);
@@ -431,7 +436,6 @@ export class MapPage {
             }
         }
     }
-
 
     //Gets data from locations.json file if needed
     getGeoData() {
@@ -669,7 +673,9 @@ export class MapPage {
     stopTrack() {
         navigator.geolocation.clearWatch(this.navId);
         this.userMarker.setMap(null);
-        this.startMarker.setMap(null);
+        if (!isNullOrUndefined(this.startMarker)) {
+            this.startMarker.setMap(null);
+        }
         this.endMarker.setMap(null);
         console.log('no more tracking');
     }
