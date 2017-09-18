@@ -54,7 +54,7 @@ ionic serve --lab
 
 If your phone supports neither of these versions, please visit our mobile-friendly deployment on [Heroku](https://lovemilktea.herokuapp.com)
 
-## Android and iOS
+### Android and iOS
 
 Download [Ionic View](https://itunes.apple.com/us/app/ionic-view/id849930087?mt=8) from the app store.
 Ionic View is also available on Google Play as well!
