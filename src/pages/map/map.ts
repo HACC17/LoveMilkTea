@@ -56,18 +56,18 @@ export class MapPage {
     constructor(public navCtrl: NavController, public navParams: NavParams, public loading: LoadingController, public http: Http, private geolocation: Geolocation) {
         this.exploreIndex = navParams.get('locationIndex');
         this.exploreIndex2 = navParams.get('locationIndex2');
-        // this.currentLat = navParams.get('currentLat');
-        //  this.currentLng = navParams.get('currentLng');
+        this.currentLat = navParams.get('currentLat');
+        this.currentLng = navParams.get('currentLng');
 
 
-        
+       /* 
         this.geolocation.getCurrentPosition().then((resp) => {
             this.currentLat = resp.coords.latitude;
             this.currentLng = resp.coords.longitude;
         }).catch((error) => {
             console.log('Error getting location', error);
         });
-
+        */
 
         if (!firebase.apps.length) {
             this.App = firebase.initializeApp(FIREBASE_CONFIG);
