@@ -50,7 +50,7 @@ Or run as a Mobile Application in Ionic Labs
 ionic serve --lab
 ```
 
-## Installation
+## Mobile Installation
 
 ### Android
 
