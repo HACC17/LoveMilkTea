@@ -142,6 +142,8 @@ export class MapPage {
             .then((dataPoints) => {
 
                 dataPoints.forEach((dataPoint) => {
+                    console.log(dataPoint.val().name)
+                    console.log(dataPoint.val().type)
                     this.geoMarkers.push({
                         key: dataPoint.key,
                         address: dataPoint.val().address,
@@ -151,7 +153,7 @@ export class MapPage {
                         name: dataPoint.val().name,
                         number: dataPoint.val().number,
                         website: dataPoint.val().website,
-                        type: dataPoint.val().type,
+                        type: dataPoint.val().type.toLowerCase(),
                     });
                 });
             })
@@ -684,7 +686,6 @@ export class MapPage {
 
 
                 if (this.userMarker) {
-
                     this.userMarker.setPosition(newPoint);
                     this.userMarker.setMap(this.map);
                     this.map.setZoom(17);
