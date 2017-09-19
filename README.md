@@ -58,13 +58,25 @@ If your phone supports neither of these versions, please visit our mobile-friend
 
 # User Guide
 
-<img src="/img/paradise-palms-info_iphone7plussilver_portrait.png">
+### Browse points of interest
+
 <img src="/img/paradise-palms-marker_iphone7plussilver_portrait.png">
+
+### Get directions
+
 <img src="/img/paradise-palms-route_iphone7plussilver_portrait.png">
+
+### Find locations with Street View
+
 <img src="/img/paradise-palms-street-view_iphone7plussilver_portrait.png">
+
 <img src="/img/qlc-street-view_iphone7plussilver_portrait.png">
 
-### Android and iOS
+### Give feedback on points of interest
+
+<img src="/img/paradise-palms-info_iphone7plussilver_portrait.png">
+
+### Download Now
 
 Download [Ionic View](https://itunes.apple.com/us/app/ionic-view/id849930087?mt=8) from the app store.
 Ionic View is also available on Google Play as well!
