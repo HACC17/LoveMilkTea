@@ -65,6 +65,8 @@ From here, select and run the 'LoveMilkTea' app.
 
 ### Contributors
 
+<img src="../img/team01.png">
+
 * [Tyler Chong](https://github.com/Viltaria)
 * [Brendt McFeeley](https://github.com/brendtmcfeeley)
 * [Shaziney Natividad](https://github.com/shaziney)
@@ -75,3 +77,11 @@ From here, select and run the 'LoveMilkTea' app.
 
 
 © Made with :heart: & Milk Tea ☕
+
+<img src="../img/paradise-palms-info_iphone7plussilver_portrait.png">
+<img src="../img/paradise-palms-marker_iphone7plussilver_portrait.png">
+<img src="../img/paradise-palms-route_iphone7plussilver_portrait.png">
+<img src="../img/paradise-palms-street-view_iphone7plussilver_portrait.png">
+<img src="../img/qlc-street-view_iphone7plussilver_portrait.png">
+
+
