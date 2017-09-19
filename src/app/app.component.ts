@@ -36,7 +36,7 @@ export class App {
             },
             {
                 title: 'Explore',
-                icon: 'search',
+                icon: 'glasses',
                 component: ExplorePage
             },
             {

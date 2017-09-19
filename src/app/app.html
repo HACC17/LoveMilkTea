@@ -3,8 +3,8 @@
   <ion-content>
     <img src="../assets/images/logo.jpg">
     <ion-list class="item">
-      <button text-center menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        <ion-icon name="{{ p.icon }}"></ion-icon>
+      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+        <ion-icon class="menu-icon" name="{{ p.icon }}"></ion-icon>
         {{p.title}}
       </button>
     </ion-list>
