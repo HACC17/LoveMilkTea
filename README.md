@@ -98,6 +98,9 @@ Add and browse reviews of any point of interest.
 
 <img src="/img/paradise-palms-info_iphone7plussilver_portrait.png">
 
+## Give & View Feedback
+Administrative credentials are necessary to utilize functions that allow an administrator to approve, modify or reject user-submitted data.  For the purposes of the HACC of 2017, please contact danny_tan on the Slack to obtain said credentials.
+
 
 # Contributors
 
