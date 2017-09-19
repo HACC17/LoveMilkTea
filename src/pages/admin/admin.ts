@@ -41,6 +41,10 @@ export class AdminPage {
         this.items = item;
     }
 
+    capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
     approve(value) { // 'value' is the key for the entry
         this.userInputRef.child(value.key).update({'status': 'approved'});
         this.masterDataRef = this.masterDataRef.push();
