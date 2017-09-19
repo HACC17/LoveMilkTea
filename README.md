@@ -58,11 +58,11 @@ If your phone supports neither of these versions, please visit our mobile-friend
 
 # User Guide
 
-<img src="../img/paradise-palms-info_iphone7plussilver_portrait.png">
-<img src="../img/paradise-palms-marker_iphone7plussilver_portrait.png">
-<img src="../img/paradise-palms-route_iphone7plussilver_portrait.png">
-<img src="../img/paradise-palms-street-view_iphone7plussilver_portrait.png">
-<img src="../img/qlc-street-view_iphone7plussilver_portrait.png">
+<img src="../LoveMilkTea/img/paradise-palms-info_iphone7plussilver_portrait.png">
+<img src="../LoveMilkTea/img/paradise-palms-marker_iphone7plussilver_portrait.png">
+<img src="../LoveMilkTea/img/paradise-palms-route_iphone7plussilver_portrait.png">
+<img src="../LoveMilkTea/img/paradise-palms-street-view_iphone7plussilver_portrait.png">
+<img src="../LoveMilkTea/img/qlc-street-view_iphone7plussilver_portrait.png">
 
 ### Android and iOS
 
