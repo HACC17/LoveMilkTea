@@ -177,6 +177,7 @@ export class MapPage {
         if (this.marker) {
             this.clearStarterMarker();
         }
+        this.clearRoute();
 
         this.stopSearch();
 
@@ -429,16 +430,16 @@ export class MapPage {
         this.panorama.setPosition(this.endValue);
         if (!this.inStreetView()) {
             if (this.infoWindow && this.marker && this.streetTag) {
-                this.marker.setMap(this.panorama);
                 this.infoWindow.close();
+                this.marker.setMap(this.panorama);
                 this.streetTag.open(this.panorama, this.marker);
             }
             this.panorama.setVisible(true);
         } else {
             if (this.infoWindow && this.marker && this.streetTag) {
                 this.streetTag.close();
-                this.infoWindow.open(this.map, this.marker);
                 this.marker.setMap(this.map);
+                this.infoWindow.open(this.map, this.marker);
             }
             this.panorama.setVisible(false);
         }
