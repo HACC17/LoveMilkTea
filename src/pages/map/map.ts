@@ -661,6 +661,7 @@ export class MapPage {
                         },
                         (err) => {
                             console.log(err);
+                            this.getLatLng();
                         },
                         {enableHighAccuracy: true, timeout: 12 * 1000, maximumAge: 0});
 

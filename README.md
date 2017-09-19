@@ -58,13 +58,7 @@ If your phone supports neither of these versions, please visit our mobile-friend
 
 # User Guide
 
-<img src="/img/paradise-palms-info_iphone7plussilver_portrait.png">
-<img src="/img/paradise-palms-marker_iphone7plussilver_portrait.png">
-<img src="/img/paradise-palms-route_iphone7plussilver_portrait.png">
-<img src="/img/paradise-palms-street-view_iphone7plussilver_portrait.png">
-<img src="/img/qlc-street-view_iphone7plussilver_portrait.png">
-
-### Android and iOS
+## Download 
 
 Download [Ionic View](https://itunes.apple.com/us/app/ionic-view/id849930087?mt=8) from the app store.
 Ionic View is also available on Google Play as well!
@@ -73,9 +67,28 @@ Next, run it, select view app, and enter the code `f2910581`.
 
 From here, select and run the 'LoveMilkTea' app.
 
+## Browse Points of Interest
+
+<img src="/img/paradise-palms-marker_iphone7plussilver_portrait.png">
+
+## Get Directions
+
+<img src="/img/paradise-palms-route_iphone7plussilver_portrait.png">
+
+## Find Locations with Street View
+
+<img src="/img/paradise-palms-street-view_iphone7plussilver_portrait.png">
+
+<img src="/img/qlc-street-view_iphone7plussilver_portrait.png">
+
+## Give & View Feedback
+
+<img src="/img/paradise-palms-info_iphone7plussilver_portrait.png">
+
+
 # Contributors
 
-<img src="../img/team01.png">
+<img src="/img/team02.jpg">
 
 * [Tyler Chong](https://github.com/Viltaria)
 * [Brendt McFeeley](https://github.com/brendtmcfeeley)
