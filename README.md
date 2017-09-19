@@ -1,19 +1,20 @@
 # LoveMilkTea
-_I got lost in thoughts. It was unfamiliar territory_
+
+## Developer Guide
 
 [![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## Description
+### Description
 This project gives a better and enchanced view to your navigation experience. With dazzling waypoints and overlaying pathways, it brings your map to life.
 
-## Overview
+### Overview
 We used [Ionic](https://ionicframework.com/), [Cordova](https://cordova.apache.org/), and [Firebase](https://firebase.google.com/) to create the app.
 
-## Live Deployment
+### Live Deployment
 Check out the live version of our app on your phone or computer at [Heroku!](https://lovemilktea.herokuapp.com). Our app was built for mobile first, so please check it our using your phone (Try out the Streetview).
 
-## Getting Started
+### Getting Started
 
 ### Prerequisites
 - [Node.js](https://nodejs.org/en/download/)
@@ -50,9 +51,9 @@ Or run as a Mobile Application in Ionic Labs
 ionic serve --lab
 ```
 
-## Mobile Installation
+### Mobile Installation
 
-If your phone supports neither of these versions, please visit our mobile-friendly deployment on [Heroku](https://lovemilktea.herokuapp.com)
+Please visit our mobile-friendly deployment on [Heroku](https://lovemilktea.herokuapp.com)
 
 
 
@@ -70,10 +71,6 @@ From here, select and run the 'LoveMilkTea' app.
 ## Browse Points of Interest
 
 <img src="/img/paradise-palms-marker_iphone7plussilver_portrait.png">
-
-## Get Directions
-
-<img src="/img/paradise-palms-route_iphone7plussilver_portrait.png">
 
 ## Find Locations with Street View
 
