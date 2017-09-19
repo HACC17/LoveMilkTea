@@ -1,5 +1,6 @@
 # LoveMilkTea
-This app allows users to navigate and find their way around the University of Hawai'i at Mānoa.
+This app allows users to navigate and find their way around the University of Hawai'i at Mānoa.  This project gives a better and enchanced view to your navigation experience. With dazzling waypoints and overlaying pathways, it brings your map to life.
+
 
 <img src="/img/splash.png" max-width=1000px>
 
@@ -7,9 +8,6 @@ This app allows users to navigate and find their way around the University of Ha
 
 [![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-### Description
-This project gives a better and enchanced view to your navigation experience. With dazzling waypoints and overlaying pathways, it brings your map to life.
 
 ### Overview
 We used [Ionic](https://ionicframework.com/), [Cordova](https://cordova.apache.org/), and [Firebase](https://firebase.google.com/) to create the app.
