@@ -74,7 +74,11 @@ From here, select and run the 'LoveMilkTea' app.
 
 <img src="/img/code.jpg" width=500px>
 
-## Browse Points of Interest
+## Explore
+
+<img src="/img/06.png">
+
+## Browse Points of Interest on the Map
 
 Find various points of interest, including, but not limited to restaurants, restrooms, entertainment venues, and more.  Further details such as descriptions, hours and the specific address are provided.
 
@@ -83,6 +87,7 @@ Find various points of interest, including, but not limited to restaurants, rest
 
 ## Filter Points of Interest
 
+<img src="/img/07.png">
 <img src="/img/08.png">
 
 ## Toggle Your Location
@@ -109,6 +114,7 @@ Add and browse reviews of any point of interest.
 
 We believe in crowd-sourcing. If you notice something missing on the map, add or remove it!
 
+<img src="/img/04.png">
 <img src="/img/09.png">
 <img src="/img/03.png">
 
