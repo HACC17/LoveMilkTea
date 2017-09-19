@@ -78,8 +78,16 @@ From here, select and run the 'LoveMilkTea' app.
 
 Find various points of interest, including, but not limited to restaurants, restrooms, entertainment venues, and more.  Further details such as descriptions, hours and the specific address are provided.
 
-<img src="/img/ionic-map.jpg" width=500px>
+<img src="/img/01.png">
 <img src="/img/paradise-palms-marker_iphone7plussilver_portrait.png">
+
+## Filter Points of Interest
+
+<img src="/img/08.png">
+
+## Toggle Your Location
+
+<img src="/img/02.png">
 
 ## Get Directions 
 Find and map a route to your desired location.
@@ -97,7 +105,20 @@ Add and browse reviews of any point of interest.
 
 <img src="/img/paradise-palms-info_iphone7plussilver_portrait.png">
 
-## Give & View Feedback
+## Submit New Points of Interest
+
+We believe in crowd-sourcing. If you notice something missing on the map, add or remove it!
+
+<img src="/img/09.png">
+<img src="/img/03.png">
+
+
+## Administration
+
+Administrators can review, accept or reject data submissions.
+
+<img src="/img/05.png">
+
 Administrative credentials are necessary to utilize functions that allow an administrator to approve, modify or reject user-submitted data.  For the purposes of the HACC of 2017, please contact danny_tan on the Slack to obtain said credentials.
 
 
@@ -117,7 +138,7 @@ Administrative credentials are necessary to utilize functions that allow an admi
 © Made with :heart: & Milk Tea ☕
 
 
-<img src="/img/01.png">
+
 <img src="/img/02.png">
 <img src="/img/03.png">
 <img src="/img/04.png">
