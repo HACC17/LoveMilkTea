@@ -41,7 +41,15 @@ export class PointsPage {
         this.number = this.navParams.get('number');
         this.description = this.navParams.get('description');
         this.key = String(this.navParams.get('key'));
-        this.image = "http://manoanow.org/app/map/images/" + this.key + ".png";
+        if (this.navParams.get('key') > 163) {
+            this.image =  "../../assets/images/uhLogo.jpg";
+        } else {
+            if (!isNaN(this.navParams.get('key'))) {
+                this.image = "http://manoanow.org/app/map/images/" + this.key + ".png";
+            } else {
+                this.image = "../../assets/images/uhLogo.jpg";
+            }
+        }
         this.date = new Date();
         this.showAdd = false;
     }
