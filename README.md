@@ -54,6 +54,16 @@ ionic serve --lab
 
 If your phone supports neither of these versions, please visit our mobile-friendly deployment on [Heroku](https://lovemilktea.herokuapp.com)
 
+
+
+# User Guide
+
+<img src="../img/paradise-palms-info_iphone7plussilver_portrait.png">
+<img src="../img/paradise-palms-marker_iphone7plussilver_portrait.png">
+<img src="../img/paradise-palms-route_iphone7plussilver_portrait.png">
+<img src="../img/paradise-palms-street-view_iphone7plussilver_portrait.png">
+<img src="../img/qlc-street-view_iphone7plussilver_portrait.png">
+
 ### Android and iOS
 
 Download [Ionic View](https://itunes.apple.com/us/app/ionic-view/id849930087?mt=8) from the app store.
@@ -63,7 +73,7 @@ Next, run it, select view app, and enter the code `f2910581`.
 
 From here, select and run the 'LoveMilkTea' app.
 
-### Contributors
+# Contributors
 
 <img src="../img/team01.png">
 
@@ -78,10 +88,5 @@ From here, select and run the 'LoveMilkTea' app.
 
 © Made with :heart: & Milk Tea ☕
 
-<img src="../img/paradise-palms-info_iphone7plussilver_portrait.png">
-<img src="../img/paradise-palms-marker_iphone7plussilver_portrait.png">
-<img src="../img/paradise-palms-route_iphone7plussilver_portrait.png">
-<img src="../img/paradise-palms-street-view_iphone7plussilver_portrait.png">
-<img src="../img/qlc-street-view_iphone7plussilver_portrait.png">
 
 
