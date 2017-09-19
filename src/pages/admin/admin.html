@@ -54,15 +54,24 @@
     <ion-grid>
       <ion-row>
         <ion-col class="column" col-6>
-          <button ion-button small (click)="approve(item)">Approve</button>
+          <button ion-button small (click)="approve(item)">
+            <ion-icon name='checkmark'></ion-icon>
+             Approve
+          </button>
         </ion-col>
         <ion-col class="column" col-6>
-          <button ion-button small color="danger"(click)="deny(item)">Deny</button>
+          <button ion-button small color="danger"(click)="deny(item)">
+            <ion-icon name='backspace'></ion-icon>
+             Deny
+          </button>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col class="column" col-6>
-          <button ion-button small color="blue"(click)="editData(item)">Edit</button>
+          <button ion-button small color="blue"(click)="editData(item)">
+            <ion-icon name='cut'></ion-icon>
+             Edit
+          </button>
         </ion-col>
         <ion-col class="column" col-6>
           <button ion-button small color="danger" icon-start (click)="deleteItem(item)">
