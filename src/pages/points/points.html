@@ -54,7 +54,7 @@
     <form #formData='ngForm' (ngSubmit)="addComments(formData)">
       <ion-label color="primary">Add a new comment</ion-label>
       <ion-item>
-        <ion-input type="text" placeholder="Enter a comment" [(ngModel)]="messages" name="messages"></ion-input>
+        <ion-input #commentText type="text" placeholder="Enter a comment" [(ngModel)]="messages" name="messages"></ion-input>
       </ion-item>
       <button ion-button type="submit" block>Submit</button>
     </form>

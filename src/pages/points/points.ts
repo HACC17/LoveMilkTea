@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import { NgForm } from '@angular/forms';
 import { FIREBASE_CONFIG } from "./../../app.firebase.config";
 import * as firebase from 'firebase';
 import * as _ from 'underscore/underscore';
+
 
 @IonicPage()
 @Component({
@@ -13,6 +14,7 @@ import * as _ from 'underscore/underscore';
 })
 
 export class PointsPage {
+    @ViewChild('commentText') commentText;
     ref: any;
     App: any;
     db: any;
@@ -66,6 +68,7 @@ export class PointsPage {
         comments.child('/comments').push(formData.value);
         this.showComments();
         this.toggleAddButton();
+        this.commentText.value = "";
     }
     toggleAddButton() {
         this.showAdd = !this.showAdd;

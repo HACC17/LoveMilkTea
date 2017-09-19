@@ -56,7 +56,7 @@ export class SubmitDataPage {
         this.childRef = this.ref.push();
         this.childRef.set(formData.value);
         this.toast.create({
-            message: `Data submitted!`,
+            message: `Your point has been submitted! Wait for admin approval.`,
             duration: 3000
         }).present();
         this.navCtrl.setRoot(MapPage);

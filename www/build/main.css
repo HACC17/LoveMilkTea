@@ -25224,6 +25224,10 @@ page-admin .logout-btn {
   height: 25px;
 }
 
+page-admin .column {
+  text-align: center;
+}
+
 page-explore ion-card {
   position: relative;
   text-align: center;
