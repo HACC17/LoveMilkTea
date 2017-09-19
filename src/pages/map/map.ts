@@ -62,7 +62,12 @@ export class MapPage {
         this.currentLat = navParams.get('currentLat');
         this.currentLng = navParams.get('currentLng');
 
-
+        this.geolocation.getCurrentPosition().then((resp) => {
+            this.currentLat = resp.coords.latitude;
+            this.currentLng = resp.coords.longitude;
+        }).catch((error) => {
+            console.log('Error getting location', error);
+        });
 
         this.geolocation.getCurrentPosition().then((resp) => {
             this.currentLat = resp.coords.latitude;
@@ -71,23 +76,12 @@ export class MapPage {
             console.log('Error getting location', error);
         });
 
-
-
         this.geolocation.getCurrentPosition().then((resp) => {
             this.currentLat = resp.coords.latitude;
             this.currentLng = resp.coords.longitude;
         }).catch((error) => {
             console.log('Error getting location', error);
         });
-
-
-        this.geolocation.getCurrentPosition().then((resp) => {
-            this.currentLat = resp.coords.latitude;
-            this.currentLng = resp.coords.longitude;
-        }).catch((error) => {
-            console.log('Error getting location', error);
-        });
-
 
         if (!firebase.apps.length) {
             this.App = firebase.initializeApp(FIREBASE_CONFIG);
@@ -99,7 +93,7 @@ export class MapPage {
     }
 
     ionViewDidLoad() {
-        this.loadTagData(); //we'll just load all data from firebase once
+        this.loadTagData(); // Load all the data from firebase once
         this.loadMap();
         this.getLatLng();
     }
@@ -570,15 +564,27 @@ export class MapPage {
             infoContent += '<img class="ui fluid image info" src="' + imgSrc + '">'
         }
         if (location.name) {
+            if (location.name.toLowerCase() == 'n/a') {
+                location.name = '';
+            }
             infoContent += '<div id="windowHead">' + location.name + '</div>'
         }
         if (location.description) {
+            if (location.description.toLowerCase() == 'n/a') {
+                location.description = '';
+            }
             infoContent += '<div id="description">' + location.description + '</div>'
         }
         if (location.address) {
+            if (location.address.toLowerCase() == 'n/a') {
+                location.address = '';
+            }
             infoContent += '<div id="addressTitle">Address: ' + location.address + '</div>'
         }
         if (location.number) {
+            if (location.number.toString().toLowerCase() == 'n/a') {
+                location.number = '';
+            }
             infoContent += '<div id="phoneTitle">Phone: ' + location.number + '</div>';
         }
         infoContent += '<i id="infoIcon">' + '&#9432;' + '</i>';
