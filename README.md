@@ -1,6 +1,6 @@
 # LoveMilkTea
-
-<img src="/img/splash.png" width=700px>
+This app allows users to navigate and find their way around the University of Hawai'i at Mānoa.
+<img src="/img/splash.png" max-width=1000px>
 
 ## Developer Guide
 
