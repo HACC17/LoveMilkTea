@@ -75,7 +75,7 @@ From here, select and run the 'LoveMilkTea' app.
 
 # Contributors
 
-<img src="../img/team01.png">
+<img src="/img/team01.png">
 
 * [Tyler Chong](https://github.com/Viltaria)
 * [Brendt McFeeley](https://github.com/brendtmcfeeley)
