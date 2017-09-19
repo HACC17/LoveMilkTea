@@ -60,7 +60,7 @@ let MapPage = class MapPage {
         this.http = http;
         this.geolocation = geolocation;
         this.locationsList = []; //array to populate menu with\
-        this.typeList = ["Classroom", "Drink", "Food", "Entertainment", "Housing", "Library", "Parking", "Recreational", "Service", "Bathroom"];
+        this.typeList = ["Classroom", "Food", "Entertainment", "Housing", "Library", "Parking", "Recreational", "Service", "Bathroom"];
         this.changeIcon = false;
         this.isSearching = false;
         this.isInfoWindowOpen = false;
@@ -673,6 +673,7 @@ let MapPage = class MapPage {
                         this.loader.dismiss();
                     }, (err) => {
                         console.log(err);
+                        this.getLatLng();
                     }, { enableHighAccuracy: true, timeout: 12 * 1000, maximumAge: 0 });
                 });
             }
@@ -1482,7 +1483,7 @@ let SubmitDataLandingPage = class SubmitDataLandingPage {
 };
 SubmitDataLandingPage = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-        selector: 'submit-data-landing-page',template:/*ion-inline-start:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/submit-data-landing/submit-data-landing.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Submit Data</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <ion-list>\n    <button (click)="goMainPage()" ion-item>\n      <ion-icon name="locate" item-start></ion-icon>\n      Current Location\n    </button>\n    <button (click)="goMap()" ion-item>\n      <ion-icon name="navigate" item-start></ion-icon>\n      Browse\n    </button>\n  </ion-list>\n\n</ion-content>\n'/*ion-inline-end:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/submit-data-landing/submit-data-landing.html"*/
+        selector: 'submit-data-landing-page',template:/*ion-inline-start:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/submit-data-landing/submit-data-landing.html"*/'<ion-header>\n  <ion-navbar color="primary">\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Submit Data</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n\n  <img src="../assets/images/icon.png">\n    <button class="btn" ion-button full (click)="goMainPage()">\n      Use Current Location\n    </button>\n    <button class="btn" ion-button full (click)="goMap()">\n      Browse Map\n    </button>\n</ion-content>\n'/*ion-inline-end:"/Users/chrisnguyenhi/Documents/git/LoveMilkTea/src/pages/submit-data-landing/submit-data-landing.html"*/
     }),
     __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* ToastController */], __WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Http */]])
 ], SubmitDataLandingPage);
