@@ -47,7 +47,7 @@ export class PointsPage {
     }
 
     ionViewDidLoad() {
-    //   this.showComments();
+      this.showComments();
     }
 
     showComments() {
