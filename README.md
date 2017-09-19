@@ -66,19 +66,17 @@ Please visit our mobile-friendly deployment on [Heroku](https://lovemilktea.hero
 
 ## Download 
 
-Download [Ionic View](https://itunes.apple.com/us/app/ionic-view/id849930087?mt=8) from the app store.
-
-<img src="/img/ionic-login.jpg" width=500px>
-
-Ionic View is also available on Google Play as well!
+Download Ionic View from the [App Store](https://itunes.apple.com/us/app/ionic-view-test-share-ionic-apps/id1271789931) or on [Google Play](https://play.google.com/store/apps/details?id=com.ionicframework.view).
 
 Next, run it, select view app, and enter the code `f2910581`.
 
 From here, select and run the 'LoveMilkTea' app.
 
-## Browse Points of Interest
-Find various points of interest, including, but not limited to restaurants, restrooms, entertainment venues, and more.  Further details such as descriptions, hours and the specific address are provided.
+<img src="/img/ionic-login.jpg" width=500px>
 
+## Browse Points of Interest
+
+Find various points of interest, including, but not limited to restaurants, restrooms, entertainment venues, and more.  Further details such as descriptions, hours and the specific address are provided.
 <img src="/img/ionic-map.jpg" width=500px>
 <img src="/img/paradise-palms-marker_iphone7plussilver_portrait.png">
 
