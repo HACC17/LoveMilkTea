@@ -557,10 +557,14 @@ export class MapPage {
         let imgSrc;
         let infoContent = '<div class="ui grid">';
         if (location.key) {
-            if(location.key > 163){
-                 imgSrc = "../../assets/images/uhLogo.jpg";
-            } else{
-                 imgSrc = "http://manoanow.org/app/map/images/" + location.key + ".png";
+            if (location.key > 163) {
+                imgSrc = "../../assets/images/uhLogo.jpg";
+            } else {
+                if (!isNaN(location.key)) {
+                    imgSrc = "http://manoanow.org/app/map/images/" + location.key + ".png";
+                } else {
+                    imgSrc = "../../assets/images/uhLogo.jpg";
+                }
             }
             infoContent += '<img class="ui fluid image info" src="' + imgSrc + '">'
         }
