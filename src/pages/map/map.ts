@@ -46,7 +46,7 @@ export class MapPage {
     location: any;
     startValue: any; // Values for destination and location
     endValue: any;
-    typeList = ["Classroom", "Drink", "Food", "Entertainment", "Housing", "Library", "Parking", "Recreational", "Service", "Bathroom"];
+    typeList = ["Classroom", "Food", "Entertainment", "Housing", "Library", "Parking", "Recreational", "Service", "Bathroom"];
     userMarker: any;
     changeIcon: boolean = false;
     isSearching: boolean = false;
