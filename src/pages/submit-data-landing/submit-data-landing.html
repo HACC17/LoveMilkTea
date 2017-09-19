@@ -10,6 +10,15 @@
 
 
 <ion-content padding>
-  <button ion-button large (click)="goMainPage()">Submit your current location</button>
-  <button ion-button large (click)="goMap()">Browse a map to find a location</button>
+  <ion-list>
+    <button (click)="goMainPage()" ion-item>
+      <ion-icon name="locate" item-start></ion-icon>
+      Current Location
+    </button>
+    <button (click)="goMap()" ion-item>
+      <ion-icon name="navigate" item-start></ion-icon>
+      Browse
+    </button>
+  </ion-list>
+
 </ion-content>
