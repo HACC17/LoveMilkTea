@@ -114,9 +114,10 @@ Add and browse reviews of any point of interest.
 
 We believe in crowd-sourcing. If you notice something missing on the map, add or remove it!
 
-<img src="/img/04.png">
+<img src="/img/10.png">
 <img src="/img/09.png">
 <img src="/img/03.png">
+<img src="/img/04.png">
 
 
 ## Administration
