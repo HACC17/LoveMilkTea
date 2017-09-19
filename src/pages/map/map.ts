@@ -711,6 +711,7 @@ export class MapPage {
         this.map = new google.maps.Map(this.mapElement.nativeElement, {
             zoom: 15,
             zoomControl: false,
+            fullscreenControl: false,
             center: {
                 lat: 21.2969, lng: -157.8171
             },
