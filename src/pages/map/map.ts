@@ -151,7 +151,7 @@ export class MapPage {
                         name: dataPoint.val().name,
                         number: dataPoint.val().number,
                         website: dataPoint.val().website,
-                        type: dataPoint.val().type,
+                        type: dataPoint.val().type.toLowerCase(),
                     });
                 });
             })
@@ -558,10 +558,14 @@ export class MapPage {
         let imgSrc;
         let infoContent = '<div class="ui grid">';
         if (location.key) {
-            if(location.key > 163){
-                 imgSrc = "../../assets/images/uhLogo.jpg";
-            } else{
-                 imgSrc = "http://manoanow.org/app/map/images/" + location.key + ".png";
+            if (location.key > 163) {
+                imgSrc = "../../assets/images/uhLogo.jpg";
+            } else {
+                if (!isNaN(location.key)) {
+                    imgSrc = "http://manoanow.org/app/map/images/" + location.key + ".png";
+                } else {
+                    imgSrc = "../../assets/images/uhLogo.jpg";
+                }
             }
             infoContent += '<img class="ui fluid image info" src="' + imgSrc + '">'
         }
@@ -680,7 +684,6 @@ export class MapPage {
 
 
                 if (this.userMarker) {
-
                     this.userMarker.setPosition(newPoint);
                     this.userMarker.setMap(this.map);
                     this.map.setZoom(17);
