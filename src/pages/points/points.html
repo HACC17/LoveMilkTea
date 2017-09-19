@@ -28,7 +28,7 @@
     <br>
   </div>
 
-  <div *ngIf="showing">
+  <div>
     <div *ngIf="comments">
       <ion-card *ngFor="let comment of comments">
         <ion-card-header>
@@ -47,6 +47,9 @@
     </div>
   </div>
 
+  <br>
+  <br>
+  <br>
   <div *ngIf="showAdd">
     <form #formData='ngForm' (ngSubmit)="addComments(formData)">
       <ion-label color="primary">Add a new comment</ion-label>

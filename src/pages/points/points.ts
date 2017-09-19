@@ -4,7 +4,7 @@ import { LoadingController } from 'ionic-angular';
 import { NgForm } from '@angular/forms';
 import { FIREBASE_CONFIG } from "./../../app.firebase.config";
 import * as firebase from 'firebase';
-import * as _ from 'underscore/underscore'
+import * as _ from 'underscore/underscore';
 
 @IonicPage()
 @Component({
@@ -20,7 +20,6 @@ export class PointsPage {
     address: any;
     number: any;
     description: any;
-    showing: any;
     key: any;
     public comments: any[];
     image: any;
@@ -39,7 +38,6 @@ export class PointsPage {
         this.address = this.navParams.get('address');
         this.number = this.navParams.get('number');
         this.description = this.navParams.get('description');
-        this.showing = false;
         this.key = String(this.navParams.get('key'));
         this.image = "http://manoanow.org/app/map/images/" + this.key + ".png";
         this.date = new Date();
@@ -51,17 +49,14 @@ export class PointsPage {
     }
 
     showComments() {
-        if(this.showing) {
-            this.showing = false;
-        } else {
-            this.showing = true;
-            var item = [];
-            this.ref.child(this.key).child("comments").once("value")
-                .then((dataPoints) => {
-                    item = dataPoints.val();
-                    this.comments = _.toArray(item);
-                });
-        }
+
+        var item = [];
+        this.ref.child(this.key).child("comments").once("value")
+            .then((dataPoints) => {
+                item = dataPoints.val();
+                this.comments = _.toArray(item);
+        });
+
     }
 
     addComments(formData: NgForm){
@@ -70,6 +65,7 @@ export class PointsPage {
 
         let comments = this.ref.child(this.key);
         comments.child('/comments').push(formData.value);
+        this.showComments();
     }
     showAddButton() {
         this.showAdd = !this.showAdd;
