@@ -10,15 +10,12 @@
 
 
 <ion-content padding>
-  <ion-list>
-    <button (click)="goMainPage()" ion-item>
-      <ion-icon name="locate" item-start></ion-icon>
-      Current Location
-    </button>
-    <button (click)="goMap()" ion-item>
-      <ion-icon name="navigate" item-start></ion-icon>
-      Browse
-    </button>
-  </ion-list>
 
+  <img src="../assets/images/icon.png">
+    <button class="btn" ion-button full (click)="goMainPage()">
+      Use Current Location
+    </button>
+    <button class="btn" ion-button full (click)="goMap()">
+      Browse Map
+    </button>
 </ion-content>
