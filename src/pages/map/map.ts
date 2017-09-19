@@ -171,8 +171,7 @@ export class MapPage {
         if (this.marker) {
             this.clearStarterMarker();
         }
-        this.clearRoute();
-
+        
         this.stopSearch();
 
         const geoData = this.geoMarkers.slice();
