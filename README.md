@@ -68,11 +68,11 @@ Please visit our mobile-friendly deployment on [Heroku](https://lovemilktea.hero
 
 Download Ionic View from the [App Store](https://itunes.apple.com/us/app/ionic-view-test-share-ionic-apps/id1271789931) or on [Google Play](https://play.google.com/store/apps/details?id=com.ionicframework.view).
 
-Next, run it, select view app, and enter the code `f2910581`.
+Next, run it, select view app, and enter the code `93627f19`.
 
 From here, select and run the 'LoveMilkTea' app.
 
-<img src="/img/ionic-login.jpg" width=500px>
+<img src="/img/code.jpg" width=500px>
 
 ## Browse Points of Interest
 
@@ -117,4 +117,13 @@ Administrative credentials are necessary to utilize functions that allow an admi
 © Made with :heart: & Milk Tea ☕
 
 
-
+<img src="/img/01.png">
+<img src="/img/02.png">
+<img src="/img/03.png">
+<img src="/img/04.png">
+<img src="/img/05.png">
+<img src="/img/06.png">
+<img src="/img/07.png">
+<img src="/img/08.png">
+<img src="/img/09.png">
+<img src="/img/10.png">
