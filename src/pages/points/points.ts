@@ -45,7 +45,7 @@ export class PointsPage {
             this.image =  "../../assets/images/uhLogo.jpg";
         } else {
             if (!isNaN(this.navParams.get('key'))) {
-                this.image = "http://manoanow.org/app/map/images/" + this.key + ".png";
+                this.image = "https://manoanow.org/app/map/images/" + this.key + ".png";
             } else {
                 this.image = "../../assets/images/uhLogo.jpg";
             }

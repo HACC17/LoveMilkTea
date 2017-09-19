@@ -178,7 +178,7 @@ let MapPage = class MapPage {
         this.ref = this.db.ref("testPoints");
     }
     ionViewDidLoad() {
-        this.loadTagData(); //we'll just load all data from firebase once
+        this.loadTagData(); // Load all the data from firebase once
         this.loadMap();
         this.getLatLng();
     }
@@ -243,7 +243,6 @@ let MapPage = class MapPage {
         if (this.marker) {
             this.clearStarterMarker();
         }
-        this.clearRoute();
         this.stopSearch();
         const geoData = this.geoMarkers.slice();
         const imgIndex = location.key;
@@ -580,7 +579,7 @@ let MapPage = class MapPage {
             }
             else {
                 if (!isNaN(location.key)) {
-                    imgSrc = "http://manoanow.org/app/map/images/" + location.key + ".png";
+                    imgSrc = "https://manoanow.org/app/map/images/" + location.key + ".png";
                 }
                 else {
                     imgSrc = "../../assets/images/uhLogo.jpg";

@@ -171,7 +171,7 @@ export class MapPage {
         if (this.marker) {
             this.clearStarterMarker();
         }
-        
+
         this.stopSearch();
 
         const geoData = this.geoMarkers.slice();
@@ -555,7 +555,7 @@ export class MapPage {
                 imgSrc = "../../assets/images/uhLogo.jpg";
             } else {
                 if (!isNaN(location.key)) {
-                    imgSrc = "http://manoanow.org/app/map/images/" + location.key + ".png";
+                    imgSrc = "https://manoanow.org/app/map/images/" + location.key + ".png";
                 } else {
                     imgSrc = "../../assets/images/uhLogo.jpg";
                 }
