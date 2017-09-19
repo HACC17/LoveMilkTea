@@ -142,8 +142,6 @@ export class MapPage {
             .then((dataPoints) => {
 
                 dataPoints.forEach((dataPoint) => {
-                    console.log(dataPoint.val().name)
-                    console.log(dataPoint.val().type)
                     this.geoMarkers.push({
                         key: dataPoint.key,
                         address: dataPoint.val().address,

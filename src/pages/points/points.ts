@@ -49,7 +49,6 @@ export class PointsPage {
     }
 
     showComments() {
-
         var item = [];
         this.ref.child(this.key).child("comments").once("value")
             .then((dataPoints) => {
@@ -66,8 +65,9 @@ export class PointsPage {
         let comments = this.ref.child(this.key);
         comments.child('/comments').push(formData.value);
         this.showComments();
+        this.toggleAddButton();
     }
-    showAddButton() {
+    toggleAddButton() {
         this.showAdd = !this.showAdd;
     }
     getDate(comment: any) {
