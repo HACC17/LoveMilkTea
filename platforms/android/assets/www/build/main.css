@@ -25200,8 +25200,13 @@ ion-navbar.toolbar {
 }
 
 .item {
-  padding: 7.5px 5px;
+  padding: 7.5px 7.5px;
   border-color: #F4F4F4;
+}
+
+.menu-icon {
+  margin-left: 40px;
+  margin-right: 15px;
 }
 
 page-admin ion-title {
@@ -25222,6 +25227,10 @@ page-admin .logout-icon {
 
 page-admin .logout-btn {
   height: 25px;
+}
+
+page-admin .column {
+  text-align: center;
 }
 
 page-explore ion-card {
@@ -25405,6 +25414,10 @@ page-map #float-button-left-top {
   z-index: 5;
 }
 
+page-map #searchButton {
+  margin-left: -10px;
+}
+
 page-map #float-button-right-top {
   margin-top: 20px;
   margin-right: 1px;
@@ -25508,6 +25521,7 @@ page-map .scrollable {
 }
 
 page-map #windowHead {
+  margin-top: 3%;
   color: black;
   font-weight: bold;
   font-size: 130%;
@@ -25515,6 +25529,7 @@ page-map #windowHead {
 
 page-map #addressTitle {
   font-weight: bold;
+  margin-top: 3%;
 }
 
 page-map #phoneTitle {
@@ -25545,6 +25560,22 @@ page-map ion-select .select-icon, page-map ion-select .select-text {
 page-map .scroll-content {
   background-color: white;
   overflow-y: hidden;
+}
+
+page-map .street-tag {
+  font-weight: bold;
+}
+
+.gm-style-iw .ui.grid {
+  width: fluid;
+}
+
+.gm-style-iw .ui.grid #infoIcon {
+  cursor: pointer;
+  color: #18A885;
+  font-style: normal;
+  text-decoration: none;
+  margin-top: 3%;
 }
 
 .pointImage {
@@ -25603,4 +25634,12 @@ submit-data-coords-page #phoneTitle {
 submit-data-coords-page .ui.fluid.image.info {
   width: 100%;
   height: 50%;
+}
+
+.btn {
+  position: relative;
+  height: 50px;
+  font-size: 15px;
+  font-weight: bold;
+  margin-top: 10px;
 }
